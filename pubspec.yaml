@@ -14,11 +14,16 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.3
+  hive_flutter: ^1.1.0
+
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^2.1.5
 
   flutter_lints: ^1.0.0
 
@@ -40,3 +45,14 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
+flutter_native_splash:
+  color: "#42a5f5"
+  color_dark: "#000000"
+  image: asset/splash.png
+  image_dark: asset/splash.png
+
+  android: true
+  ios: true
+  web: true
+  web_image_mode: center
