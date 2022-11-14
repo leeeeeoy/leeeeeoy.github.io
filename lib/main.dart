@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:leeeeeoy_portfolio/app.dart';
-import 'package:leeeeeoy_portfolio/app_config.dart';
-import 'package:leeeeeoy_portfolio/bloc/theme_bloc.dart';
-import 'package:leeeeeoy_portfolio/data/local/app_database.dart';
-import 'package:leeeeeoy_portfolio/data/repository/app_repository.dart';
-import 'package:leeeeeoy_portfolio/util/logger/app_bloc_observer.dart';
+import 'package:leeeeeoy_portfolio/config/app_config.dart';
+import 'package:leeeeeoy_portfolio/util/logger/provider_logger.dart';
 
 void main() async {
   await AppConfig.initConfig();
   WidgetsFlutterBinding.ensureInitialized();
-  BlocOverrides.runZoned(
-    () => runApp(
-      BlocProvider(
-        create: (context) => ThemeBloc(
-          appRepository: AppRepository(),
-          isDark: AppDatabase().isDarkMode(),
-        ),
-        child: const App(),
-      ),
+
+  runApp(
+    ProviderScope(
+      observers: [
+        ProviderLogger(),
+      ],
+      child: const App(),
     ),
-    blocObserver: CustomBlocObserver(),
   );
 }
