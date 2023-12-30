@@ -6,10 +6,7 @@ class Debouncer {
   final int milliseconds;
   Timer? timer;
 
-  Debouncer({
-    required this.milliseconds,
-    this.timer,
-  });
+  Debouncer({required this.milliseconds, this.timer});
 
   run(VoidCallback action) {
     timer?.cancel();

@@ -6,33 +6,37 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.18.2 <3.0.0"
+  sdk: ">=3.2.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-
-  hive_flutter: ^1.1.0
-  google_fonts: ^2.3.1
-  flex_color_scheme: ^5.0.1
-  flutter_neumorphic: ^3.0.3
+  flutter_web_plugins:
+    sdk: flutter
 
   cupertino_icons: ^1.0.2
-  freezed_annotation: ^2.2.0
-  flutter_riverpod: ^2.1.1
-  go_router: ^5.1.5
-  logger: ^1.1.0
+
+  hive_flutter: ^1.1.0
+  google_fonts: ^6.1.0
+
+  go_router: ^13.0.0
+
+  freezed_annotation: ^2.4.1
+  flutter_riverpod: ^2.4.9
+
+  logger: ^2.0.2+1
 
 dev_dependencies: 
   flutter_test:
     sdk: flutter
+
+  flutter_lints: ^3.0.1
+  freezed:
+  build_runner:
   flutter_native_splash: ^2.1.5
 
-  flutter_lints: ^1.0.0
-  freezed: ^2.2.1
-  build_runner: ^2.3.2
 
 flutter:
   uses-material-design: true

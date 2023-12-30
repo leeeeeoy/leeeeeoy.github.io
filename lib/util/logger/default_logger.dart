@@ -38,10 +38,10 @@ class Log {
   static void i(dynamic message) => loggerNoStack.i(message);
 
   static void w(dynamic message, [dynamic error, StackTrace? stackTrace]) =>
-      logger.w(message, error, stackTrace);
+      logger.w(message, error: error, stackTrace: stackTrace);
 
   static void e(dynamic message, [dynamic error, StackTrace? stackTrace]) =>
-      logger.e(message, error, stackTrace);
+      logger.e(message, error: error, stackTrace: stackTrace);
 
   static String toPrettyJson(Map jsonMap) {
     JsonEncoder encoder = const JsonEncoder.withIndent('   ');

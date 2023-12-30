@@ -1,16 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:leeeeeoy_portfolio/data/repository/repository_provider.dart';
 import 'package:leeeeeoy_portfolio/feature/common/provider/theme_provider.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  static const routeName = 'HomePage';
-
-  static const routePath = 'home';
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,17 +60,13 @@ class HomePage extends StatelessWidget {
                       snap: true,
                       title: const Text('Leeeeeoy'),
                       actions: [
-                        isDark
-                            ? const Icon(CupertinoIcons.moon)
-                            : const Icon(CupertinoIcons.sun_max),
+                        isDark ? const Icon(CupertinoIcons.moon) : const Icon(CupertinoIcons.sun_max),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: CupertinoSwitch(
                             value: isDark,
                             onChanged: (value) {
-                              ref
-                                  .read(appRepositoryProvider)
-                                  .setThmeMode(!isDark);
+                              ref.read(appRepositoryProvider).setThmeMode(!isDark);
                               ref.read(themeProvider.notifier).state = !isDark;
                             },
                             trackColor: Colors.black54,
@@ -114,18 +105,15 @@ class HomePage extends StatelessWidget {
                         ),
                         const Text(
                           '텍스트 테스트 입니다.',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                         const Text(
                           '텍스트 테스트 입니다.',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w600),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                         ),
                         const Text(
                           '텍스트 테스트 입니다.',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w700),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
                         ),
                       ],
                     ),

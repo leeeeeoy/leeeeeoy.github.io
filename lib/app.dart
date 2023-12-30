@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:leeeeeoy_portfolio/router/app_router.dart';
 
 class App extends ConsumerWidget {
-  const App({
-    Key? key,
-  }) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,14 +16,6 @@ class App extends ConsumerWidget {
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
       routeInformationProvider: router.routeInformationProvider,
-      builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            textScaleFactor: 1.0,
-          ),
-          child: child!,
-        );
-      },
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
