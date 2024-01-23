@@ -11,20 +11,18 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MainScreen AppBar'),
+        title: const Text('MainScreen AppBar'),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
-              CupertinoIcons.moon,
-            ),
+            icon: const Icon(CupertinoIcons.moon),
           ),
         ],
       ),
       body: navigationShell,
       floatingActionButton: FloatingActionButton(
         onPressed: () => navigationShell.goBranch(1),
-        child: Icon(Icons.ad_units),
+        child: const Icon(Icons.ad_units),
       ),
     );
   }

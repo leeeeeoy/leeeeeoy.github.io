@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,16 +8,21 @@ import 'package:leeeeeoy_portfolio/config/app_config.dart';
 import 'package:leeeeeoy_portfolio/util/logger/provider_logger.dart';
 
 void main() async {
-  usePathUrlStrategy();
-  await AppConfig.initConfig();
-  WidgetsFlutterBinding.ensureInitialized();
+  runZonedGuarded(
+    () async {
+      usePathUrlStrategy();
 
-  runApp(
-    ProviderScope(
-      observers: [
-        ProviderLogger(),
-      ],
-      child: const App(),
-    ),
+      await AppConfig.initConfig();
+
+      WidgetsFlutterBinding.ensureInitialized();
+
+      runApp(
+        ProviderScope(
+          observers: [ProviderLogger()],
+          child: const App(),
+        ),
+      );
+    },
+    catchError,
   );
 }

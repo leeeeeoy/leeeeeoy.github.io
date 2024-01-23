@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leeeeeoy_portfolio/feature/home/home_screen.dart';
@@ -12,6 +13,9 @@ final router = GoRouter(
   initialLocation: '/',
   navigatorKey: rootNavigatorKey,
   debugLogDiagnostics: true,
+  observers: [
+    FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance, nameExtractor: (rs) => rs.name),
+  ],
   routes: [
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: rootNavigatorKey,
@@ -25,6 +29,9 @@ final router = GoRouter(
               builder: (context, state) => const HomeScreen(),
             ),
           ],
+          observers: [
+            FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance, nameExtractor: (rs) => rs.name),
+          ],
         ),
         StatefulShellBranch(
           routes: [
@@ -33,6 +40,9 @@ final router = GoRouter(
               name: AppRouteState.profile.name,
               builder: (context, state) => const ProfileScreen(),
             ),
+          ],
+          observers: [
+            FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance, nameExtractor: (rs) => rs.name),
           ],
         ),
       ],
