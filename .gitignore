@@ -46,7 +46,7 @@ app.*.map.json
 
 # Firebase
 /web/firebase.js
-/firebase.json
+# /firebase.json
 /.firebaserc
 /lib/firebase_options.dart
 /ios/firebase_app_id_file.json

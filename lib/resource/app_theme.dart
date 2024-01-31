@@ -5,6 +5,8 @@ abstract class AppTheme {
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
         ),
+      ).copyWith(
+        appBarTheme: const AppBarTheme(centerTitle: true),
       );
 
   static ThemeData dark() => ThemeData.from(
@@ -12,5 +14,7 @@ abstract class AppTheme {
           seedColor: Colors.blue,
           brightness: Brightness.dark,
         ),
+      ).copyWith(
+        appBarTheme: const AppBarTheme(centerTitle: true),
       );
 }

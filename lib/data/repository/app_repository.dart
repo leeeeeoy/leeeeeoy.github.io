@@ -1,7 +1,13 @@
+import 'package:injectable/injectable.dart';
 import 'package:leeeeeoy_portfolio/data/local/app_database.dart';
 
-class AppRepository {
-  bool getThemeMode() => AppDatabase().isDarkMode();
+@LazySingleton()
+final class AppRepository {
+  const AppRepository({required this.appDatabase});
 
-  Future<void> setThemeMode(bool isDark) => AppDatabase().setThemeMode(isDark);
+  final AppDatabase appDatabase;
+
+  bool getThemeMode() => appDatabase.isDarkMode();
+
+  Future<void> setThemeMode(bool isDark) => appDatabase.setThemeMode(isDark);
 }

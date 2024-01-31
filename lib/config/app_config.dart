@@ -1,13 +1,15 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leeeeeoy_portfolio/config/firebase_config.dart';
 import 'package:leeeeeoy_portfolio/data/local/app_database.dart';
+import 'package:leeeeeoy_portfolio/di/di.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class AppConfig {
   static Future<void> initConfig() async {
+    configureDependencies();
+
     await initializeFirebase();
     await dotenv.load(fileName: '.env');
 
@@ -17,8 +19,7 @@ abstract class AppConfig {
       debug: false,
     );
 
-    await Hive.initFlutter();
-    await Hive.openBox<bool>(AppDatabase.themeBoxKey);
+    await getIt<AppDatabase>().initDatabase();
   }
 }
 

@@ -1,16 +1,19 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:injectable/injectable.dart';
 
-class AppDatabase {
-  AppDatabase._internal();
+@LazySingleton()
+final class AppDatabase {
+  const AppDatabase();
 
-  static final AppDatabase _instance = AppDatabase._internal();
+  Future<void> initDatabase() async {
+    await Hive.initFlutter();
+    await Hive.openBox<bool>(_themeBoxKey);
+  }
 
-  factory AppDatabase() => _instance;
+  static const _themeBoxKey = 'theme';
+  static const _themeModeKey = 'themeMode';
 
-  static const themeBoxKey = 'theme';
-  static const themeModeKey = 'themeMode';
+  bool isDarkMode() => Hive.box<bool>(_themeBoxKey).get(_themeModeKey) ?? true;
 
-  bool isDarkMode() => Hive.box<bool>(themeBoxKey).get(themeModeKey) ?? true;
-
-  Future<void> setThemeMode(bool isDark) => Hive.box<bool>(themeBoxKey).put(themeModeKey, isDark);
+  Future<void> setThemeMode(bool isDark) => Hive.box<bool>(_themeBoxKey).put(_themeModeKey, isDark);
 }
