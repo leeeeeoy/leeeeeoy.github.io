@@ -54,3 +54,6 @@ app.*.map.json
 /ios/Runner/GoogleService-Info.plist
 /.firebase/
 /web/firebase-messaging-sw.js
+
+# env
+.env
