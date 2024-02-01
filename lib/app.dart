@@ -19,12 +19,12 @@ class App extends StatelessWidget {
         }
 
         return MaterialApp.router(
-          title: 'Leeeeeoy-portfolio-page',
+          title: "L's Portfolio",
           routerConfig: router,
           debugShowCheckedModeBanner: false,
           themeMode: themeMode,
-          theme: AppTheme.light(),
-          darkTheme: AppTheme.dark(),
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
