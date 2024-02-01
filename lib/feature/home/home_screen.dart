@@ -30,6 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
+          pinned: false,
+          floating: true,
+          snap: true,
           title: Text(
             'Leeeeeoy',
             style: GoogleFonts.pacifico().copyWith(fontWeight: FontWeight.bold),
@@ -93,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const IconRow(icon: CupertinoIcons.person, body: '장요엘'),
+                        const IconRow(icon: CupertinoIcons.person, body: '장요엘 (Yoel)'),
                         const SizedBox(height: 16),
                         const IconRow(icon: Icons.cake, body: '1996.06.27'),
                         const SizedBox(height: 16),
@@ -120,7 +123,62 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-        )
+        ),
+        SliverList.separated(
+          itemCount: 1,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: width * 0.2),
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                borderRadius: const BorderRadius.all(Radius.circular(24)),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        child: Image.network(
+                          Supabase.instance.client.storage.from('app-metadata').getPublicUrl('bpp/icon.png'),
+                          width: 48,
+                          height: 48,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Text(
+                        'BPP',
+                        style: GoogleFonts.dancingScript().copyWith(fontSize: 32),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    height: 400,
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(16)),
+                          child: Image.network(
+                            Supabase.instance.client.storage.from('app-metadata').getPublicUrl('bpp/screenshot4.png'),
+                          ),
+                        ),
+                        const Spacer(),
+                        const Text(
+                          '바디프로필 올인원 서비스, 바프플래너\n\n정보를 일일히 찾아보기 힘들었던 소비자들에게\n본인이 원하는 취향을 반영하여\n스튜디오에서부터 메이크업, 왁싱, 태닝까지 한 번에 찾아보고 예약할 수 있는 서비스 제공',
+                          textAlign: TextAlign.end,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+          separatorBuilder: (_, __) => const SizedBox(height: 24),
+        ),
       ],
     );
   }
