@@ -59,17 +59,9 @@ class AboutMeCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Text(
-                  'About Me',
-                  style: GoogleFonts.dancingScript().copyWith(fontSize: 32),
-                ),
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(120)),
-                  child: Assets.profile.main.image(
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.cover,
-                  ),
+                  child: Assets.profile.main.image(width: 300, height: 300, fit: BoxFit.cover),
                 ),
                 const SizedBox(height: 24),
                 ...infoIcons,
@@ -91,27 +83,19 @@ class AboutMeCard extends StatelessWidget {
                   animatedTexts: [
                     TyperAnimatedText(
                       "안녕하세요, 3년차 크로스 플랫폼(Flutter) 개발자 장요엘입니다.\n\n동료들과 협업하며 혼자서는 해낼 수 없는 가치 있는 일들에 관심이 많은 개발자입니다. 읽기 쉬운 코드와 올바른 커뮤니케이션 방법에 대해 고민하며, 협업과 존중에 진심인 개발자입니다.",
-                      textStyle: GoogleFonts.nanumPenScript().copyWith(fontSize: 24),
+                      textStyle: AppStlye.krBodyM,
                       textAlign: TextAlign.center,
                     ),
                   ],
                 ),
               ),
-              Text(
-                'About Me',
-                style: GoogleFonts.dancingScript().copyWith(fontSize: 32),
-              ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(120)),
-                    child: Assets.profile.main.image(
-                      width: 300,
-                      height: 300,
-                      fit: BoxFit.cover,
-                    ),
+                    child: Assets.profile.main.image(width: 300, height: 300, fit: BoxFit.cover),
                   ),
                   const SizedBox(width: 20),
                   Column(
@@ -143,10 +127,7 @@ class IconRow extends StatelessWidget {
         children: [
           Icon(icon, size: 28),
           const SizedBox(width: 16),
-          Text(
-            body,
-            style: const TextStyle(fontSize: 20),
-          ),
+          Text(body, style: AppStlye.krBodyM),
         ],
       ),
     );
