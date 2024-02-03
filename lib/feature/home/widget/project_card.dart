@@ -24,7 +24,7 @@ class ProjectCard extends StatelessWidget {
     final infoData = [
       Row(
         children: [
-          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primaryContainer),
+          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 16),
           Text(projectInfoData.subTitle, style: AppStlye.krBodyM),
         ],
@@ -37,7 +37,7 @@ class ProjectCard extends StatelessWidget {
       const SizedBox(height: 24),
       Row(
         children: [
-          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primaryContainer),
+          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 16),
           Text('주요 기능', style: AppStlye.krBodyM),
         ],
@@ -51,7 +51,7 @@ class ProjectCard extends StatelessWidget {
       const SizedBox(height: 16),
       Row(
         children: [
-          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primaryContainer),
+          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 16),
           Text('Skill', style: AppStlye.krBodyM),
         ],
@@ -73,7 +73,7 @@ class ProjectCard extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             margin: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: const BorderRadius.all(Radius.circular(24)),
             ),
             child: Column(
@@ -91,7 +91,7 @@ class ProjectCard extends StatelessWidget {
           padding: const EdgeInsets.all(24),
           margin: EdgeInsets.symmetric(horizontal: width * 0.1),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: const BorderRadius.all(Radius.circular(24)),
           ),
           child: Column(

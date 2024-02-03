@@ -2,7 +2,9 @@ part of 'resource.dart';
 
 abstract class AppTheme {
   static ThemeData light = ThemeData.from(
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: const Color(0xff0064FF),
+    ),
   ).copyWith(
     appBarTheme: const AppBarTheme(centerTitle: true),
     textButtonTheme: TextButtonThemeData(
@@ -13,7 +15,10 @@ abstract class AppTheme {
   );
 
   static ThemeData dark = ThemeData.from(
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.dark),
+    colorScheme: ColorScheme.fromSeed(
+      brightness: Brightness.dark,
+      seedColor: const Color(0xff0064FF),
+    ),
   ).copyWith(
     appBarTheme: const AppBarTheme(centerTitle: true),
     textButtonTheme: TextButtonThemeData(

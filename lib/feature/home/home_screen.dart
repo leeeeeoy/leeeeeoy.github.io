@@ -5,6 +5,7 @@ import 'package:leeeeeoy_portfolio/data/model/project_info_data.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/about_me_card.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/project_card.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
+import 'package:leeeeeoy_portfolio/util/key/get_widget_offset.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final scrollController = ScrollController();
+  final aboutMeKey = GlobalKey();
+  final projectKey = GlobalKey();
 
   final projectDataList = [
     ProjectInfoData(
@@ -70,11 +73,13 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text("Leeeeeoy's Portfolio", style: GoogleFonts.pacifico().copyWith()),
           actions: [
             TextButton(
-              onPressed: () {},
+              onPressed: () => scrollController.animateTo(getWidgetOffset(aboutMeKey),
+                  duration: const Duration(milliseconds: 500), curve: Curves.linear),
               child: const Text('About Me'),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () => scrollController.animateTo(getWidgetOffset(projectKey),
+                  duration: const Duration(milliseconds: 500), curve: Curves.linear),
               child: const Text('Project'),
             ),
             const SizedBox(width: 16),
@@ -83,14 +88,14 @@ class _HomeScreenState extends State<HomeScreen> {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 32),
-            child: Text('About Me', style: AppStlye.egTitleL, textAlign: TextAlign.center),
+            child: Text(key: aboutMeKey, 'About Me', style: AppStlye.egTitleL, textAlign: TextAlign.center),
           ),
         ),
         const SliverToBoxAdapter(child: AboutMeCard()),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 32),
-            child: Text('Project', style: AppStlye.egTitleL, textAlign: TextAlign.center),
+            child: Text(key: projectKey, 'Project', style: AppStlye.egTitleL, textAlign: TextAlign.center),
           ),
         ),
         SliverList.separated(
