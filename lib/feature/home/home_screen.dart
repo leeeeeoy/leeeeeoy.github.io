@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
 import 'package:leeeeeoy_portfolio/data/model/project_info_data.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/about_me_card.dart';
+import 'package:leeeeeoy_portfolio/feature/home/widget/career_card.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/project_card.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 import 'package:leeeeeoy_portfolio/util/key/get_widget_offset.dart';
@@ -18,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final scrollController = ScrollController();
   final aboutMeKey = GlobalKey();
   final projectKey = GlobalKey();
+  final careerKey = GlobalKey();
 
   final projectDataList = [
     ProjectInfoData(
@@ -85,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
           pinned: false,
           floating: true,
           snap: true,
+          centerTitle: false,
           title: Text("Leeeeeoy's Portfolio", style: GoogleFonts.pacifico().copyWith()),
           actions: [
             TextButton(
@@ -96,6 +99,11 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () => scrollController.animateTo(getWidgetOffset(projectKey),
                   duration: const Duration(milliseconds: 500), curve: Curves.linear),
               child: const Text('Project'),
+            ),
+            TextButton(
+              onPressed: () => scrollController.animateTo(getWidgetOffset(careerKey),
+                  duration: const Duration(milliseconds: 500), curve: Curves.linear),
+              child: const Text('Career'),
             ),
             const SizedBox(width: 16),
           ],
@@ -118,6 +126,14 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (context, index) => ProjectCard(projectInfoData: projectDataList[index]),
           separatorBuilder: (_, __) => const SizedBox(height: 24),
         ),
+        const SliverToBoxAdapter(child: SizedBox(height: 24)),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 32),
+            child: Text(key: careerKey, 'Career', style: AppStlye.egTitleL, textAlign: TextAlign.center),
+          ),
+        ),
+        const SliverToBoxAdapter(child: CareerCard()),
         const SliverToBoxAdapter(child: SizedBox(height: 24)),
       ],
     );

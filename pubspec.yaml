@@ -65,6 +65,7 @@ flutter:
     - asset/celdog/
     - asset/bpp/
     - asset/profile/
+    - asset/career/
 
 flutter_gen:
   output: lib/asset/
