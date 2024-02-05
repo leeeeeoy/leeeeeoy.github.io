@@ -41,6 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
       features: ['카페 찾기', '지도 탐색', '사진업로드', '찜하기/짐목록', '검색필터', '리뷰달기', '신고하기'],
       githubLink: 'https://github.com/dalbong-cafein/cafein_flutter',
       downloadCount: 2500,
+      screenshots: [
+        Assets.cafein.screenshot1.path,
+        Assets.cafein.screenshot2.path,
+        Assets.cafein.screenshot3.path,
+        Assets.cafein.screenshot4.path,
+        Assets.cafein.screenshot5.path,
+      ],
     ),
     ProjectInfoData(
       title: 'BPP',
@@ -52,6 +59,14 @@ class _HomeScreenState extends State<HomeScreen> {
       features: ['스튜디오 조회', '찜하기/짐목록', '검색필터', '리뷰달기', '신고하기'],
       githubLink: 'https://github.com/BPPlannerplus/bpp_plus_flutter',
       downloadCount: 100,
+      screenshots: [
+        Assets.bpp.screenshot1.path,
+        Assets.bpp.screenshot2.path,
+        Assets.bpp.screenshot3.path,
+        Assets.bpp.screenshot4.path,
+        Assets.bpp.screenshot5.path,
+        Assets.bpp.screenshot6.path,
+      ],
     ),
   ];
 
