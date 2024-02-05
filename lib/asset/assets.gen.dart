@@ -63,6 +63,16 @@ class $AssetCafeinGen {
   List<AssetGenImage> get values => [icon, screenshot1, screenshot2, screenshot3, screenshot4, screenshot5];
 }
 
+class $AssetCareerGen {
+  const $AssetCareerGen();
+
+  /// File path: asset/career/dozn.png
+  AssetGenImage get dozn => const AssetGenImage('asset/career/dozn.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [dozn];
+}
+
 class $AssetProfileGen {
   const $AssetProfileGen();
 
@@ -78,6 +88,7 @@ class Assets {
 
   static const $AssetBppGen bpp = $AssetBppGen();
   static const $AssetCafeinGen cafein = $AssetCafeinGen();
+  static const $AssetCareerGen career = $AssetCareerGen();
   static const $AssetProfileGen profile = $AssetProfileGen();
   static const AssetGenImage splash = AssetGenImage('asset/splash.png');
 

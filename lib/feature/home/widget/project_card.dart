@@ -165,59 +165,72 @@ class _ProjectCardState extends State<ProjectCard> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 720,
-                        width: 360,
-                        child: PageView.builder(
-                          controller: pageController,
-                          itemCount: widget.projectInfoData.screenshots.length,
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 4),
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(16)),
-                              child: Image.asset(
-                                widget.projectInfoData.screenshots[index],
-                                fit: BoxFit.cover,
+                  SizedBox(
+                    width: 360,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 720,
+                          width: 360,
+                          child: PageView.builder(
+                            controller: pageController,
+                            itemCount: widget.projectInfoData.screenshots.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                child: Image.asset(
+                                  widget.projectInfoData.screenshots[index],
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 16),
-                      SmoothPageIndicator(
-                        controller: pageController,
-                        count: widget.projectInfoData.screenshots.length,
-                        textDirection: TextDirection.ltr,
-                        onDotClicked: (index) => pageController.animateToPage(index,
-                            duration: const Duration(milliseconds: 500), curve: Curves.linear),
-                        effect: WormEffect(
-                          dotHeight: 8,
-                          spacing: 8,
-                          radius: 8,
-                          dotWidth: 8,
-                          dotColor: Theme.of(context).colorScheme.primary,
-                          activeDotColor: Theme.of(context).colorScheme.onPrimary,
+                        const SizedBox(height: 16),
+                        SmoothPageIndicator(
+                          controller: pageController,
+                          count: widget.projectInfoData.screenshots.length,
+                          textDirection: TextDirection.ltr,
+                          onDotClicked: (index) => pageController.animateToPage(index,
+                              duration: const Duration(milliseconds: 500), curve: Curves.linear),
+                          effect: WormEffect(
+                            dotHeight: 8,
+                            spacing: 8,
+                            radius: 8,
+                            dotWidth: 8,
+                            dotColor: Theme.of(context).colorScheme.primary,
+                            activeDotColor: Theme.of(context).colorScheme.onPrimary,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 24),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ...infoData,
-                      const SizedBox(height: 24),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...featureData]),
-                          const SizedBox(width: 32),
-                          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...skilData]),
-                        ],
-                      )
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
+                            const SizedBox(width: 16),
+                            Text(widget.projectInfoData.subTitle, style: AppStlye.krBodyM),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        Text(widget.projectInfoData.description, style: AppStlye.krBodyM),
+                        const SizedBox(height: 24),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...featureData]),
+                            const SizedBox(width: 32),
+                            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...skilData]),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ],
               )
