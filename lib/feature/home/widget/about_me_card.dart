@@ -49,7 +49,7 @@ class AboutMeCard extends StatelessWidget {
                   height: 240,
                   child: AnimatedTextKit(
                     displayFullTextOnTap: true,
-                    totalRepeatCount: 5,
+                    totalRepeatCount: 3,
                     animatedTexts: [
                       TyperAnimatedText(
                         "안녕하세요, 3년차 크로스 플랫폼(Flutter) 개발자 장요엘입니다.\n\n동료들과 협업하며 혼자서는 해낼 수 없는 가치 있는 일들에 관심이 많은 개발자입니다. 읽기 쉬운 코드와 올바른 커뮤니케이션 방법에 대해 고민하며, 협업과 존중에 진심인 개발자입니다.",
@@ -124,6 +124,7 @@ class IconRow extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, size: 28),
           const SizedBox(width: 16),

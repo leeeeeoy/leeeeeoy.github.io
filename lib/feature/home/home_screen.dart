@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
           floating: true,
           snap: true,
           centerTitle: false,
-          title: Text("Leeeeeoy's Portfolio", style: GoogleFonts.pacifico().copyWith()),
+          title: Text("Leeeeeoy's Portfolio", style: GoogleFonts.pacifico().copyWith(fontSize: 16)),
           actions: [
             TextButton(
               onPressed: () => scrollController.animateTo(getWidgetOffset(aboutMeKey),
@@ -118,6 +118,13 @@ class _HomeScreenState extends State<HomeScreen> {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 32),
+            child: Text(key: careerKey, 'Career', style: AppStlye.egTitleL, textAlign: TextAlign.center),
+          ),
+        ),
+        const SliverToBoxAdapter(child: CareerCard()),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 32),
             child: Text(key: projectKey, 'Project', style: AppStlye.egTitleL, textAlign: TextAlign.center),
           ),
         ),
@@ -126,14 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (context, index) => ProjectCard(projectInfoData: projectDataList[index]),
           separatorBuilder: (_, __) => const SizedBox(height: 24),
         ),
-        const SliverToBoxAdapter(child: SizedBox(height: 24)),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32),
-            child: Text(key: careerKey, 'Career', style: AppStlye.egTitleL, textAlign: TextAlign.center),
-          ),
-        ),
-        const SliverToBoxAdapter(child: CareerCard()),
         const SliverToBoxAdapter(child: SizedBox(height: 24)),
       ],
     );
