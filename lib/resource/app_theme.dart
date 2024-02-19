@@ -1,9 +1,5 @@
 part of 'resource.dart';
 
-///
-/// const Color(0xff0064FF): 토스 컬러
-///
-///
 abstract class AppTheme {
   static ThemeData light = ThemeData.from(
     colorScheme: ColorScheme.fromSeed(
