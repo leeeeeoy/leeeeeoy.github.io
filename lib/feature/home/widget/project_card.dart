@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
 import 'package:leeeeeoy_portfolio/data/model/project_info_data.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/app_image.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/background_container.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProjectCard extends StatefulWidget {
   const ProjectCard({super.key, required this.projectInfoData});
@@ -66,7 +71,7 @@ class _ProjectCardState extends State<ProjectCard> {
         ),
     ];
 
-    final skilData = [
+    final skillData = [
       Row(
         children: [
           Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
@@ -82,18 +87,28 @@ class _ProjectCardState extends State<ProjectCard> {
         ),
     ];
 
+    final taskData = [
+      Row(
+        children: [
+          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
+          const SizedBox(width: 16),
+          Text('Task', style: AppStlye.krBodyM),
+        ],
+      ),
+      const SizedBox(height: 8),
+      for (final data in widget.projectInfoData.tasks)
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Text(data, style: AppStlye.krBodyS),
+        ),
+    ];
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = MediaQueryData.fromView(View.of(context)).size.width;
 
         if (width <= AppConst.point1080) {
-          return Container(
-            padding: const EdgeInsets.all(16),
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: const BorderRadius.all(Radius.circular(24)),
-            ),
+          return BackGroundContainer(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -107,15 +122,9 @@ class _ProjectCardState extends State<ProjectCard> {
                     child: PageView.builder(
                       controller: pageController,
                       itemCount: widget.projectInfoData.screenshots.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(16)),
-                          child: Image.asset(
-                            widget.projectInfoData.screenshots[index],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                      itemBuilder: (context, index) => AppImage(
+                        image: AssetImage(widget.projectInfoData.screenshots[index]),
+                        placeholder: const CircularProgressIndicator.adaptive(),
                       ),
                     ),
                   ),
@@ -142,21 +151,26 @@ class _ProjectCardState extends State<ProjectCard> {
                 const SizedBox(height: 16),
                 ...infoData,
                 const SizedBox(height: 16),
-                ...featureData,
+                ...taskData,
                 const SizedBox(height: 16),
-                ...skilData,
+                ...skillData,
+                const SizedBox(height: 16),
+                ...featureData,
+                if (widget.projectInfoData.githubLink != null) ...[
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: IconButton(
+                      onPressed: () => launchUrl(Uri.parse(widget.projectInfoData.githubLink!)),
+                      icon: Assets.social.githubWhite.image(width: 32, height: 32),
+                    ),
+                  ),
+                ],
               ],
             ),
           );
         }
 
-        return Container(
-          padding: const EdgeInsets.all(24),
-          margin: EdgeInsets.symmetric(horizontal: width * 0.1),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: const BorderRadius.all(Radius.circular(24)),
-          ),
+        return BackGroundContainer(
           child: Column(
             children: [
               nameRow,
@@ -181,7 +195,7 @@ class _ProjectCardState extends State<ProjectCard> {
                                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                                 child: Image.asset(
                                   widget.projectInfoData.screenshots[index],
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ),
@@ -221,14 +235,23 @@ class _ProjectCardState extends State<ProjectCard> {
                         const SizedBox(height: 16),
                         Text(widget.projectInfoData.description, style: AppStlye.krBodyM),
                         const SizedBox(height: 24),
+                        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...taskData]),
+                        const SizedBox(height: 24),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...featureData]),
                             const SizedBox(width: 32),
-                            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...skilData]),
+                            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...skillData]),
                           ],
-                        )
+                        ),
+                        if (widget.projectInfoData.githubLink != null) ...[
+                          const SizedBox(height: 24),
+                          IconButton(
+                            onPressed: () => launchUrl(Uri.parse(widget.projectInfoData.githubLink!)),
+                            icon: Assets.social.githubWhite.image(width: 32, height: 32),
+                          )
+                        ],
                       ],
                     ),
                   ),
