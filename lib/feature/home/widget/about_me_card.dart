@@ -30,8 +30,6 @@ class AboutMeCard extends StatelessWidget {
         onTap: () => launchUrl(Uri.parse('mailto:hoheho18@gmail.com')),
       ),
       const SizedBox(height: 16),
-      const IconRow(icon: Icons.school, body: '한국항공대학교 (전자 및 항공전자공학 전공)'),
-      const SizedBox(height: 16),
     ];
 
     return LayoutBuilder(
@@ -46,7 +44,7 @@ class AboutMeCard extends StatelessWidget {
               children: [
                 SizedBox(
                   width: width,
-                  height: 240,
+                  height: 260,
                   child: AnimatedTextKit(
                     displayFullTextOnTap: true,
                     totalRepeatCount: 3,
@@ -65,6 +63,8 @@ class AboutMeCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 ...infoIcons,
+                const IconRow(icon: Icons.school, body: '한국항공대학교 (전자 및 항공전자공학 전공)', isExpanded: true),
+                const SizedBox(height: 16),
               ],
             ),
           );
@@ -100,7 +100,11 @@ class AboutMeCard extends StatelessWidget {
                   const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [...infoIcons],
+                    children: [
+                      ...infoIcons,
+                      const IconRow(icon: Icons.school, body: '한국항공대학교 (전자 및 항공전자공학 전공)'),
+                      const SizedBox(height: 16),
+                    ],
                   ),
                 ],
               ),
@@ -113,11 +117,18 @@ class AboutMeCard extends StatelessWidget {
 }
 
 class IconRow extends StatelessWidget {
-  const IconRow({super.key, required this.icon, required this.body, this.onTap});
+  const IconRow({
+    super.key,
+    required this.icon,
+    required this.body,
+    this.onTap,
+    this.isExpanded = false,
+  });
 
   final IconData icon;
   final String body;
   final void Function()? onTap;
+  final bool isExpanded;
 
   @override
   Widget build(BuildContext context) {
@@ -126,9 +137,12 @@ class IconRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 28),
+          Icon(icon, size: 24),
           const SizedBox(width: 16),
-          Text(body, style: AppStlye.krBodyM),
+          if (isExpanded)
+            Expanded(child: Text(body, style: AppStlye.krBodyM, maxLines: 2))
+          else
+            Text(body, style: AppStlye.krBodyM, maxLines: 2),
         ],
       ),
     );
