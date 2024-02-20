@@ -83,7 +83,7 @@ flutter_native_splash:
   image: asset/splash.png
   image_dark: asset/splash.png
 
-  android: true
-  ios: true
+  android: false
+  ios: false
   web: true
   web_image_mode: center
