@@ -172,6 +172,19 @@ class $AssetProfileGen {
   List<AssetGenImage> get values => [main];
 }
 
+class $AssetSocialGen {
+  const $AssetSocialGen();
+
+  /// File path: asset/social/github.png
+  AssetGenImage get github => const AssetGenImage('asset/social/github.png');
+
+  /// File path: asset/social/github_white.png
+  AssetGenImage get githubWhite => const AssetGenImage('asset/social/github_white.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [github, githubWhite];
+}
+
 class Assets {
   Assets._();
 
@@ -182,6 +195,7 @@ class Assets {
   static const $AssetCareerGen career = $AssetCareerGen();
   static const $AssetCeldogGen celdog = $AssetCeldogGen();
   static const $AssetProfileGen profile = $AssetProfileGen();
+  static const $AssetSocialGen social = $AssetSocialGen();
 }
 
 class AssetGenImage {

@@ -66,6 +66,7 @@ flutter:
     - asset/bpp/
     - asset/profile/
     - asset/career/
+    - asset/social/
 
 flutter_gen:
   output: lib/asset/

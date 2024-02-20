@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/background_container.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 
 class CareerCard extends StatelessWidget {
@@ -21,54 +22,42 @@ class CareerCard extends StatelessWidget {
       '기존 모바일 컴포넌트를 재사용하여 Flutter로 개발',
     ];
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final width = MediaQueryData.fromView(View.of(context)).size.width;
-        double margin = width * 0.1;
-
-        if (width <= AppConst.point800) {
-          margin = 24.0;
-        }
-        return Container(
-          padding: const EdgeInsets.all(16),
-          margin: EdgeInsets.symmetric(horizontal: margin),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  width: 240,
-                  height: 240,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(120)),
-                    border: Border.fromBorderSide(BorderSide(color: Theme.of(context).colorScheme.primary)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(120)),
-                    child: Assets.career.dozn.image(),
-                  ),
-                ),
+    return BackGroundContainer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: 240,
+              height: 240,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(120)),
+                border: Border.fromBorderSide(BorderSide(color: Theme.of(context).colorScheme.primary)),
               ),
-              const SizedBox(height: 24),
-              Text('더즌(Dozn)', style: AppStlye.egTitleM),
-              const DateTimeText(date: '2022.01'),
-              const SizedBox(height: 32),
-              const ProjectTitleRow(title: '아보카도 모바일 앱 개발 및 유지 보수'),
-              const DateTimeText(date: '2022.01'),
-              ...mobileTask.map((e) => TaskRow(task: e)),
-              const SizedBox(height: 24),
-              const ProjectTitleRow(title: '아보카도 관리사무소 백오피스 웹 개발 및 유지 보수'),
-              const DateTimeText(date: '2022.11'),
-              ...officeTask.map((e) => TaskRow(task: e)),
-              const SizedBox(height: 24),
-              const ProjectTitleRow(title: '아보카도 전자투표 모바일 웹 개발 및 유지 보수'),
-              const DateTimeText(date: '2023.03'),
-              ...mobileWebTask.map((e) => TaskRow(task: e)),
-            ],
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(120)),
+                child: Assets.career.dozn.image(),
+              ),
+            ),
           ),
-        );
-      },
+          const SizedBox(height: 24),
+          Text('더즌(Dozn)', style: AppStlye.egTitleM),
+          const DateTimeText(date: '2022.01'),
+          const SizedBox(height: 32),
+          const ProjectTitleRow(title: '아보카도 모바일 앱 개발 및 유지 보수'),
+          const DateTimeText(date: '2022.01'),
+          ...mobileTask.map((e) => TaskRow(task: e)),
+          const SizedBox(height: 24),
+          const ProjectTitleRow(title: '아보카도 관리사무소 백오피스 웹 개발 및 유지 보수'),
+          const DateTimeText(date: '2022.11'),
+          ...officeTask.map((e) => TaskRow(task: e)),
+          const SizedBox(height: 24),
+          const ProjectTitleRow(title: '아보카도 전자투표 모바일 웹 개발 및 유지 보수'),
+          const DateTimeText(date: '2023.03'),
+          ...mobileWebTask.map((e) => TaskRow(task: e)),
+        ],
+      ),
     );
   }
 }
