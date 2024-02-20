@@ -23,6 +23,36 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final projectDataList = [
     ProjectInfoData(
+      title: 'Celebridog',
+      iconPath: Assets.celdog.icon.path,
+      mainScreenshotPath: Assets.celdog.screenshot1.path,
+      subTitle: '반려견을 위한 숏폼 SNS',
+      description: '''
+카페인은 약 2500개 카페들의 카공 정보와 혼잡도를 모아
+나에게 맞는 카페를 추천해 주는 지도 서비스에요.
+- 등록된 카페 4500곳
+- 리뷰 약 2500개
+지금 내 위치를 기준으로 근처의 카공 만족도가 높은 카페를 쉽게 확인할 수 있어요.
+콘센트, 와이파이, 테이블 높이와 넓이, 화장실, 그리고 혼잡도까지!
+카공에 필요한 모든 정보를 만나보세요.
+카페 이름, 지하철역, 지역 등으로 카페를 쉽게 찾을 수 있어요.
+헷갈리기 쉬운 영업시간과 매번 달라지는 혼잡도 정보는 ‘나의 카페’에서 빠르게 확인할 수 있어요.
+자주 가는 카페나 나중에 가고 싶은 카페는 ‘나의 카페’에 저장해 보세요!
+''',
+      skills: ['Flutter', 'Bloc', 'Supabase', 'GoRouter', 'Freezed'],
+      features: ['영상업로드'],
+      downloadCount: 10000,
+      screenshots: [
+        Assets.celdog.screenshot1.path,
+        Assets.celdog.screenshot2.path,
+        Assets.celdog.screenshot3.path,
+        Assets.celdog.screenshot4.path,
+        Assets.celdog.screenshot5.path,
+        Assets.celdog.screenshot6.path,
+        Assets.celdog.screenshot7.path,
+      ],
+    ),
+    ProjectInfoData(
       title: 'Cafein',
       iconPath: Assets.cafein.icon.path,
       mainScreenshotPath: Assets.cafein.screenshot1.path,

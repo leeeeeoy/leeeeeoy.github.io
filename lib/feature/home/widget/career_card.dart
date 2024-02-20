@@ -23,9 +23,15 @@ class CareerCard extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
+        final width = MediaQueryData.fromView(View.of(context)).size.width;
+        double margin = width * 0.1;
+
+        if (width <= AppConst.point800) {
+          margin = 24.0;
+        }
         return Container(
-          padding: const EdgeInsets.all(24),
-          margin: EdgeInsets.symmetric(horizontal: MediaQueryData.fromView(View.of(context)).size.width * 0.1),
+          padding: const EdgeInsets.all(16),
+          margin: EdgeInsets.symmetric(horizontal: margin),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -78,7 +84,11 @@ class ProjectTitleRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-            width: 8, height: 20, color: Theme.of(context).colorScheme.primary, margin: const EdgeInsets.only(top: 4)),
+          width: 8,
+          height: 20,
+          color: Theme.of(context).colorScheme.primary,
+          margin: const EdgeInsets.only(top: 4),
+        ),
         const SizedBox(width: 16),
         Expanded(child: Text(title, style: AppStlye.egTitleS)),
       ],
