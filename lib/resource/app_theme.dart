@@ -7,10 +7,8 @@ abstract class AppTheme {
     ),
   ).copyWith(
     appBarTheme: const AppBarTheme(centerTitle: true),
-    textButtonTheme: TextButtonThemeData(
-      style: ButtonStyle(
-        textStyle: MaterialStatePropertyAll(GoogleFonts.dancingScript()),
-      ),
+    textButtonTheme: const TextButtonThemeData(
+      style: ButtonStyle(textStyle: MaterialStatePropertyAll(AppStlye.egBodyM)),
     ),
   );
 
@@ -21,10 +19,8 @@ abstract class AppTheme {
     ),
   ).copyWith(
     appBarTheme: const AppBarTheme(centerTitle: true),
-    textButtonTheme: TextButtonThemeData(
-      style: ButtonStyle(
-        textStyle: MaterialStatePropertyAll(GoogleFonts.dancingScript()),
-      ),
+    textButtonTheme: const TextButtonThemeData(
+      style: ButtonStyle(textStyle: MaterialStatePropertyAll(AppStlye.egBodyM)),
     ),
   );
 }

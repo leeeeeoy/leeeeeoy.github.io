@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/background_container.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/title_mark.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 
 class CareerCard extends StatelessWidget {
@@ -44,6 +47,14 @@ class CareerCard extends StatelessWidget {
           const SizedBox(height: 24),
           Text('더즌(Dozn)', style: AppStlye.egTitleM),
           const DateTimeText(date: '2022.01'),
+          const SizedBox(height: 24),
+          Text(
+            '''
+금융기술팀/사원
+
+입주민들을 위한 서비스인 아보카도 앱과, 관리사무소 직원들을 위한 백오피스 웹페이지를 개발했습니다. 전반적인 애플리케이션 초기 개발부터 유지 보수를 담당하고 있습니다.
+''',
+          ),
           const SizedBox(height: 32),
           const ProjectTitleRow(title: '아보카도 모바일 앱 개발 및 유지 보수'),
           const DateTimeText(date: '2022.01'),
@@ -72,12 +83,7 @@ class ProjectTitleRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          width: 8,
-          height: 20,
-          color: Theme.of(context).colorScheme.primary,
-          margin: const EdgeInsets.only(top: 4),
-        ),
+        Padding(padding: EdgeInsets.only(top: 8), child: TitleMark()),
         const SizedBox(width: 16),
         Expanded(child: Text(title, style: AppStlye.egTitleS)),
       ],
@@ -112,5 +118,5 @@ class DateTimeText extends StatelessWidget {
   final String date;
 
   @override
-  Widget build(BuildContext context) => Text('$date ~ ', style: AppStlye.krBodyM);
+  Widget build(BuildContext context) => Text('$date ~ ', style: AppStlye.krBodyS);
 }

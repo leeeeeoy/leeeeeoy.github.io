@@ -41,6 +41,7 @@ dependencies:
   url_launcher: ^6.2.4
   animated_text_kit: ^4.2.2
   smooth_page_indicator: ^1.1.0
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies: 
   flutter_test:
@@ -67,6 +68,30 @@ flutter:
     - asset/profile/
     - asset/career/
     - asset/social/
+
+  fonts:
+    - family: NotoSansKR
+      fonts:
+        - asset: font/noto_sans_kr/NotoSansKR-Regular.ttf
+          weight: 400
+        - asset: font/noto_sans_kr/NotoSansKR-Medium.ttf
+          weight: 500
+        - asset: font/noto_sans_kr/NotoSansKR-Bold.ttf
+          weight: 700
+
+    - family: Pacifico
+      fonts:
+        - asset: font/pacifico/Pacifico-Regular.ttf
+          weight: 400
+
+    - family: ShantellSans
+      fonts:
+        - asset: font/shantell_sans/ShantellSans-Regular.ttf
+          weight: 400
+        - asset: font/shantell_sans/ShantellSans-Medium.ttf
+          weight: 500
+        - asset: font/shantell_sans/ShantellSans-Bold.ttf
+          weight: 700
 
 flutter_gen:
   output: lib/asset/
