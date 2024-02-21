@@ -15,7 +15,7 @@ abstract class AppTheme {
   static ThemeData dark = ThemeData.from(
     colorScheme: ColorScheme.fromSeed(
       brightness: Brightness.dark,
-      seedColor: const Color(0xff7BF787),
+      seedColor: const Color(0xff202632),
     ),
   ).copyWith(
     appBarTheme: const AppBarTheme(centerTitle: true),

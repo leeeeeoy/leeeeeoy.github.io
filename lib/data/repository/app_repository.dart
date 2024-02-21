@@ -14,15 +14,14 @@ final class AppRepository {
 
   Future<void> setThemeMode(bool isDark) => appDatabase.setThemeMode(isDark);
 
-  List<CarrerData> getCarrerData() => [
-        CarrerData(
+  List<CareerData> getCarrerData() => [
+        CareerData(
           company: '더즌(Dozn)',
           joinDateTime: DateTime(2022, 01, 10),
           description: '''
 금융기술팀/사원
 
 입주민들을 위한 서비스인 아보카도 앱과, 관리사무소 직원들을 위한 백오피스 웹페이지를 개발했습니다. 전반적인 애플리케이션 초기 개발부터 유지 보수를 담당하고 있습니다.
-아보카도는 입주민들을 위한 통합 관리서비스 앱입니다. 앱을 통해 관리비를 조회 및 자동이체 신청, 아파트 공지사항 확인, 전자투표 등의 기능을 제공하고 있으며, 아보카도와 더불어 관리사무소 직원들을 위한 백오피스에서는 해당 단지의 입주민 관리, 전자투표 관리, 아파트 공지사항 관리 등의 기능을 제공하고 있습니다.
 ''',
           detailDataList: [
             CarrerDetailData(
@@ -31,24 +30,45 @@ final class AppRepository {
               appDescription: '',
               downloadCount: 6000,
               userCount: 3500,
+              playStoreLink: 'https://play.google.com/store/apps/details?id=kr.co.dozn.avokado',
+              appStoreLink:
+                  'https://apps.apple.com/kr/app/%EC%95%84%EB%B3%B4%EC%B9%B4%EB%8F%84-%EB%82%B4%EC%86%90%EC%95%88%EC%9D%98-%EB%8D%94%EC%95%84%ED%8C%8C%ED%8A%B8/id1630699896',
               tasks: [
                 'Bloc을 이용한 상태관리 적용',
                 'Graphql을 이용한 API 통신',
-                'Dynamic Link를 이용한 앱 딥링킹',
+                'Dynamic Link를 이용한 앱 딥링킹 구현',
                 'FCM을 이용한 Push Notification',
+                'Fastlane을 이용한 빌드/배포 라인 구축',
+              ],
+              screenshots: [
+                Assets.avokadoApp.screenshot1.path,
+                Assets.avokadoApp.screenshot2.path,
+                Assets.avokadoApp.screenshot3.path,
+                Assets.avokadoApp.screenshot4.path,
+                Assets.avokadoApp.screenshot5.path,
+                Assets.avokadoApp.screenshot6.path,
               ],
             ),
             CarrerDetailData(
               title: '아보카도 관리사무소 백오피스 웹 개발 및 유지 보수',
               startDateTime: DateTime(2022, 11),
               appDescription: '',
-              tasks: [],
+              tasks: [
+                'Riverpod을 이용한 상태관리 적용',
+                'Graphql을 이용한 API 통신',
+                'Domain Layer를 가진 3-Layer 구조 적용',
+                'GoRouter를 이용한 Navigator 2.0 적용',
+              ],
             ),
             CarrerDetailData(
               title: '아보카도 전자투표 모바일 웹 개발 및 유지 보수',
               startDateTime: DateTime(2023, 05),
               appDescription: '',
-              tasks: [],
+              tasks: [
+                'Bloc을 이용한 상태관리 적용',
+                'GoRouter를 이용한 Navigator 2.0 적용',
+                '기존 앱 컴포넌트를 재사용하여 모바일 웹으로 적용',
+              ],
             ),
           ],
         ),

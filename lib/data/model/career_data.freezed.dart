@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$CarrerData {
+mixin _$CareerData {
   String get company => throw _privateConstructorUsedError;
   DateTime get joinDateTime => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -23,15 +23,15 @@ mixin _$CarrerData {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CarrerDataCopyWith<CarrerData> get copyWith =>
+  $CareerDataCopyWith<CareerData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CarrerDataCopyWith<$Res> {
-  factory $CarrerDataCopyWith(
-          CarrerData value, $Res Function(CarrerData) then) =
-      _$CarrerDataCopyWithImpl<$Res, CarrerData>;
+abstract class $CareerDataCopyWith<$Res> {
+  factory $CareerDataCopyWith(
+          CareerData value, $Res Function(CareerData) then) =
+      _$CareerDataCopyWithImpl<$Res, CareerData>;
   @useResult
   $Res call(
       {String company,
@@ -41,9 +41,9 @@ abstract class $CarrerDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CarrerDataCopyWithImpl<$Res, $Val extends CarrerData>
-    implements $CarrerDataCopyWith<$Res> {
-  _$CarrerDataCopyWithImpl(this._value, this._then);
+class _$CareerDataCopyWithImpl<$Res, $Val extends CareerData>
+    implements $CareerDataCopyWith<$Res> {
+  _$CareerDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -80,11 +80,11 @@ class _$CarrerDataCopyWithImpl<$Res, $Val extends CarrerData>
 }
 
 /// @nodoc
-abstract class _$$CarrerDataImplCopyWith<$Res>
-    implements $CarrerDataCopyWith<$Res> {
-  factory _$$CarrerDataImplCopyWith(
-          _$CarrerDataImpl value, $Res Function(_$CarrerDataImpl) then) =
-      __$$CarrerDataImplCopyWithImpl<$Res>;
+abstract class _$$CareerDataImplCopyWith<$Res>
+    implements $CareerDataCopyWith<$Res> {
+  factory _$$CareerDataImplCopyWith(
+          _$CareerDataImpl value, $Res Function(_$CareerDataImpl) then) =
+      __$$CareerDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -95,11 +95,11 @@ abstract class _$$CarrerDataImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$CarrerDataImplCopyWithImpl<$Res>
-    extends _$CarrerDataCopyWithImpl<$Res, _$CarrerDataImpl>
-    implements _$$CarrerDataImplCopyWith<$Res> {
-  __$$CarrerDataImplCopyWithImpl(
-      _$CarrerDataImpl _value, $Res Function(_$CarrerDataImpl) _then)
+class __$$CareerDataImplCopyWithImpl<$Res>
+    extends _$CareerDataCopyWithImpl<$Res, _$CareerDataImpl>
+    implements _$$CareerDataImplCopyWith<$Res> {
+  __$$CareerDataImplCopyWithImpl(
+      _$CareerDataImpl _value, $Res Function(_$CareerDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -110,7 +110,7 @@ class __$$CarrerDataImplCopyWithImpl<$Res>
     Object? description = null,
     Object? detailDataList = null,
   }) {
-    return _then(_$CarrerDataImpl(
+    return _then(_$CareerDataImpl(
       company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
@@ -133,8 +133,8 @@ class __$$CarrerDataImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CarrerDataImpl implements _CarrerData {
-  const _$CarrerDataImpl(
+class _$CareerDataImpl implements _CareerData {
+  const _$CareerDataImpl(
       {required this.company,
       required this.joinDateTime,
       required this.description,
@@ -157,14 +157,14 @@ class _$CarrerDataImpl implements _CarrerData {
 
   @override
   String toString() {
-    return 'CarrerData(company: $company, joinDateTime: $joinDateTime, description: $description, detailDataList: $detailDataList)';
+    return 'CareerData(company: $company, joinDateTime: $joinDateTime, description: $description, detailDataList: $detailDataList)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CarrerDataImpl &&
+            other is _$CareerDataImpl &&
             (identical(other.company, company) || other.company == company) &&
             (identical(other.joinDateTime, joinDateTime) ||
                 other.joinDateTime == joinDateTime) &&
@@ -181,16 +181,16 @@ class _$CarrerDataImpl implements _CarrerData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CarrerDataImplCopyWith<_$CarrerDataImpl> get copyWith =>
-      __$$CarrerDataImplCopyWithImpl<_$CarrerDataImpl>(this, _$identity);
+  _$$CareerDataImplCopyWith<_$CareerDataImpl> get copyWith =>
+      __$$CareerDataImplCopyWithImpl<_$CareerDataImpl>(this, _$identity);
 }
 
-abstract class _CarrerData implements CarrerData {
-  const factory _CarrerData(
+abstract class _CareerData implements CareerData {
+  const factory _CareerData(
       {required final String company,
       required final DateTime joinDateTime,
       required final String description,
-      required final List<CarrerDetailData> detailDataList}) = _$CarrerDataImpl;
+      required final List<CarrerDetailData> detailDataList}) = _$CareerDataImpl;
 
   @override
   String get company;
@@ -202,7 +202,7 @@ abstract class _CarrerData implements CarrerData {
   List<CarrerDetailData> get detailDataList;
   @override
   @JsonKey(ignore: true)
-  _$$CarrerDataImplCopyWith<_$CarrerDataImpl> get copyWith =>
+  _$$CareerDataImplCopyWith<_$CareerDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
