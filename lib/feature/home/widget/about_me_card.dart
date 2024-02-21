@@ -1,8 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/app_image.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -51,7 +51,7 @@ class AboutMeCard extends StatelessWidget {
                     animatedTexts: [
                       TyperAnimatedText(
                         "안녕하세요, 3년차 크로스 플랫폼(Flutter) 개발자 장요엘입니다.\n\n동료들과 협업하며 혼자서는 해낼 수 없는 가치 있는 일들에 관심이 많은 개발자입니다. 읽기 쉬운 코드와 올바른 커뮤니케이션 방법에 대해 고민하며, 협업과 존중에 진심인 개발자입니다.",
-                        textStyle: GoogleFonts.nanumPenScript().copyWith(fontSize: 24),
+                        textStyle: AppStlye.egTitleS,
                       ),
                     ],
                   ),
@@ -59,7 +59,12 @@ class AboutMeCard extends StatelessWidget {
                 const SizedBox(height: 24),
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(120)),
-                  child: Assets.profile.main.image(width: 300, height: 300, fit: BoxFit.cover),
+                  child: AppImage(
+                    image: AssetImage(Assets.profile.main.path),
+                    width: 300,
+                    height: 300,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 const SizedBox(height: 24),
                 ...infoIcons,
@@ -93,10 +98,10 @@ class AboutMeCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(120)),
-                    child: Assets.profile.main.image(width: 300, height: 300, fit: BoxFit.cover),
-                  ),
+                  // ClipRRect(
+                  //   borderRadius: const BorderRadius.all(Radius.circular(120)),
+                  //   child: Assets.profile.main.image(width: 300, height: 300, fit: BoxFit.cover),
+                  // ),
                   const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

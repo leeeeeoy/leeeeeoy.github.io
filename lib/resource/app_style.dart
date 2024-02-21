@@ -1,14 +1,41 @@
 part of 'resource.dart';
 
 abstract class AppStlye {
-  static final krBodyM = GoogleFonts.stylish().copyWith(fontSize: 20);
-  static final krBodyS = GoogleFonts.stylish().copyWith(fontSize: 16);
-  static final krBodyXS = GoogleFonts.stylish().copyWith(fontSize: 12);
-  // static final krBodyM = GoogleFonts.nanumPenScript().copyWith(fontSize: 24);
-  // static final krBodyS = GoogleFonts.nanumPenScript().copyWith(fontSize: 20);
-  // static final krBodyXS = GoogleFonts.nanumPenScript().copyWith(fontSize: 16);
+  static const krBodyM = TextStyle(
+    fontSize: 20,
+    fontFamily: FontFamily.notoSansKR,
+    fontWeight: FontWeight.w500,
+  );
+  static const krBodyS = TextStyle(
+    fontSize: 16,
+    fontFamily: FontFamily.notoSansKR,
+    fontWeight: FontWeight.w400,
+  );
+  static const krBodyXS = TextStyle(
+    fontSize: 12,
+    fontFamily: FontFamily.notoSansKR,
+    fontWeight: FontWeight.w400,
+  );
 
-  static final egTitleL = GoogleFonts.stylish().copyWith(fontSize: 28);
-  static final egTitleM = GoogleFonts.stylish().copyWith(fontSize: 24);
-  static final egTitleS = GoogleFonts.stylish().copyWith(fontSize: 20);
+  static const egTitleL = TextStyle(
+    fontSize: 28,
+    fontFamily: FontFamily.shantellSans,
+    fontWeight: FontWeight.w700,
+  );
+  static const egTitleM = TextStyle(
+    fontSize: 24,
+    fontFamily: FontFamily.shantellSans,
+    fontWeight: FontWeight.w500,
+  );
+  static const egTitleS = TextStyle(
+    fontSize: 20,
+    fontFamily: FontFamily.shantellSans,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const egBodyM = TextStyle(
+    fontSize: 16,
+    fontFamily: FontFamily.pacifico,
+    fontWeight: FontWeight.w400,
+  );
 }

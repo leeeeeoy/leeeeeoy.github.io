@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:leeeeeoy_portfolio/data/repository/app_repository.dart';
 import 'package:leeeeeoy_portfolio/di/di.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/about_me_card.dart';
@@ -39,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
           floating: true,
           snap: true,
           centerTitle: false,
-          title: Text("Leeeeeoy's Portfolio", style: GoogleFonts.pacifico().copyWith(fontSize: 16)),
+          title: const Text("Leeeeeoy's Portfolio", style: AppStlye.egBodyM),
           actions: [
             TextButton(
               onPressed: () => scrollController.animateTo(getWidgetOffset(aboutMeKey),
@@ -47,14 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Text('About Me'),
             ),
             TextButton(
-              onPressed: () => scrollController.animateTo(getWidgetOffset(projectKey),
-                  duration: const Duration(milliseconds: 500), curve: Curves.linear),
-              child: const Text('Project'),
-            ),
-            TextButton(
               onPressed: () => scrollController.animateTo(getWidgetOffset(careerKey),
                   duration: const Duration(milliseconds: 500), curve: Curves.linear),
               child: const Text('Career'),
+            ),
+            TextButton(
+              onPressed: () => scrollController.animateTo(getWidgetOffset(projectKey),
+                  duration: const Duration(milliseconds: 500), curve: Curves.linear),
+              child: const Text('Project'),
             ),
             const SizedBox(width: 16),
           ],
@@ -91,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 80,
             color: Colors.black,
             alignment: Alignment.center,
-            child: Text('© 2023. Yoel Jang. All rights reserved.', style: AppStlye.krBodyS),
+            child: const Text('© 2023. Yoel Jang. All rights reserved.', style: AppStlye.krBodyS),
           ),
         ),
       ],

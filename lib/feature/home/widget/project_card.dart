@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
 import 'package:leeeeeoy_portfolio/data/model/project_info_data.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/app_image.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/background_container.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/content_mark.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/title_mark.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+int _currentIndex = 0;
 
 class ProjectCard extends StatefulWidget {
   const ProjectCard({super.key, required this.projectInfoData});
@@ -26,6 +29,37 @@ class _ProjectCardState extends State<ProjectCard> {
     super.dispose();
   }
 
+  List<Widget> getContentWidgetList({
+    required String title,
+    required List<String> dataList,
+    bool isExpanded = false,
+  }) =>
+      [
+        Row(
+          children: [
+            const TitleMark(),
+            const SizedBox(width: 16),
+            Text(title, style: AppStlye.krBodyM),
+          ],
+        ),
+        const SizedBox(height: 8),
+        for (final data in dataList)
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const ContentMark(),
+                const SizedBox(width: 4),
+                if (isExpanded)
+                  Expanded(child: Text(data, style: AppStlye.krBodyS))
+                else
+                  Text(data, style: AppStlye.krBodyS),
+              ],
+            ),
+          ),
+      ];
+
   @override
   Widget build(BuildContext context) {
     final nameRow = Row(
@@ -43,7 +77,7 @@ class _ProjectCardState extends State<ProjectCard> {
     final infoData = [
       Row(
         children: [
-          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
+          const TitleMark(),
           const SizedBox(width: 16),
           Text(widget.projectInfoData.subTitle, style: AppStlye.krBodyM),
         ],
@@ -51,57 +85,33 @@ class _ProjectCardState extends State<ProjectCard> {
       const SizedBox(height: 16),
       Padding(
         padding: const EdgeInsets.only(left: 20),
-        child: Text(widget.projectInfoData.description, style: AppStlye.krBodyM),
+        child: Text(widget.projectInfoData.description, style: AppStlye.krBodyS),
       ),
     ];
 
-    final featureData = [
-      Row(
-        children: [
-          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
-          const SizedBox(width: 16),
-          Text('주요 기능', style: AppStlye.krBodyM),
-        ],
-      ),
-      const SizedBox(height: 8),
-      for (final data in widget.projectInfoData.features)
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Text(data, style: AppStlye.krBodyS),
-        ),
-    ];
+    final socialDataRow = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        if (widget.projectInfoData.githubLink != null)
+          IconButton(
+            onPressed: () => launchUrl(Uri.parse(widget.projectInfoData.githubLink!)),
+            icon: Assets.social.githubWhite.image(width: 28, height: 28),
+          ),
+        if (widget.projectInfoData.playStoreLink != null)
+          IconButton(
+            onPressed: () => launchUrl(Uri.parse(widget.projectInfoData.playStoreLink!)),
+            icon: Assets.social.playstore.image(width: 28, height: 28),
+          ),
+        if (widget.projectInfoData.appStoreLink != null)
+          IconButton(
+            onPressed: () => launchUrl(Uri.parse(widget.projectInfoData.appStoreLink!)),
+            icon: Assets.social.appstore.image(width: 28, height: 28),
+          )
+      ],
+    );
 
-    final skillData = [
-      Row(
-        children: [
-          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
-          const SizedBox(width: 16),
-          Text('Skill', style: AppStlye.krBodyM),
-        ],
-      ),
-      const SizedBox(height: 8),
-      for (final data in widget.projectInfoData.skills)
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Text(data, style: AppStlye.krBodyS),
-        ),
-    ];
-
-    final taskData = [
-      Row(
-        children: [
-          Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
-          const SizedBox(width: 16),
-          Text('Task', style: AppStlye.krBodyM),
-        ],
-      ),
-      const SizedBox(height: 8),
-      for (final data in widget.projectInfoData.tasks)
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Text(data, style: AppStlye.krBodyS),
-        ),
-    ];
+    final featureData = getContentWidgetList(title: 'Feature', dataList: widget.projectInfoData.features);
+    final skillData = getContentWidgetList(title: 'Skill', dataList: widget.projectInfoData.skills);
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -121,6 +131,7 @@ class _ProjectCardState extends State<ProjectCard> {
                     width: 270,
                     child: PageView.builder(
                       controller: pageController,
+                      onPageChanged: (value) => _currentIndex = value,
                       itemCount: widget.projectInfoData.screenshots.length,
                       itemBuilder: (context, index) => AppImage(
                         image: AssetImage(widget.projectInfoData.screenshots[index]),
@@ -130,41 +141,20 @@ class _ProjectCardState extends State<ProjectCard> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Align(
-                  alignment: Alignment.center,
-                  child: SmoothPageIndicator(
-                    controller: pageController,
-                    count: widget.projectInfoData.screenshots.length,
-                    textDirection: TextDirection.ltr,
-                    onDotClicked: (index) => pageController.animateToPage(index,
-                        duration: const Duration(milliseconds: 500), curve: Curves.linear),
-                    effect: WormEffect(
-                      dotHeight: 8,
-                      spacing: 8,
-                      radius: 8,
-                      dotWidth: 8,
-                      dotColor: Theme.of(context).colorScheme.primary,
-                      activeDotColor: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                  ),
+                DotedIndicator(
+                  pageController: pageController,
+                  length: widget.projectInfoData.screenshots.length,
                 ),
                 const SizedBox(height: 16),
                 ...infoData,
                 const SizedBox(height: 16),
-                ...taskData,
+                ...getContentWidgetList(title: 'Task', dataList: widget.projectInfoData.tasks, isExpanded: true),
                 const SizedBox(height: 16),
                 ...skillData,
                 const SizedBox(height: 16),
                 ...featureData,
-                if (widget.projectInfoData.githubLink != null) ...[
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: IconButton(
-                      onPressed: () => launchUrl(Uri.parse(widget.projectInfoData.githubLink!)),
-                      icon: Assets.social.githubWhite.image(width: 32, height: 32),
-                    ),
-                  ),
-                ],
+                const SizedBox(height: 16),
+                socialDataRow,
               ],
             ),
           );
@@ -188,34 +178,21 @@ class _ProjectCardState extends State<ProjectCard> {
                           width: 360,
                           child: PageView.builder(
                             controller: pageController,
+                            onPageChanged: (value) => _currentIndex = value,
                             itemCount: widget.projectInfoData.screenshots.length,
                             itemBuilder: (context, index) => Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 4),
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                                child: Image.asset(
-                                  widget.projectInfoData.screenshots[index],
-                                  fit: BoxFit.contain,
-                                ),
+                              child: AppImage(
+                                image: AssetImage(widget.projectInfoData.screenshots[index]),
+                                placeholder: const CircularProgressIndicator.adaptive(),
                               ),
                             ),
                           ),
                         ),
                         const SizedBox(height: 16),
-                        SmoothPageIndicator(
-                          controller: pageController,
-                          count: widget.projectInfoData.screenshots.length,
-                          textDirection: TextDirection.ltr,
-                          onDotClicked: (index) => pageController.animateToPage(index,
-                              duration: const Duration(milliseconds: 500), curve: Curves.linear),
-                          effect: WormEffect(
-                            dotHeight: 8,
-                            spacing: 8,
-                            radius: 8,
-                            dotWidth: 8,
-                            dotColor: Theme.of(context).colorScheme.primary,
-                            activeDotColor: Theme.of(context).colorScheme.onPrimary,
-                          ),
+                        DotedIndicator(
+                          pageController: pageController,
+                          length: widget.projectInfoData.screenshots.length,
                         ),
                       ],
                     ),
@@ -227,15 +204,28 @@ class _ProjectCardState extends State<ProjectCard> {
                       children: [
                         Row(
                           children: [
-                            Container(width: 8, height: 20, color: Theme.of(context).colorScheme.primary),
+                            const TitleMark(),
                             const SizedBox(width: 16),
                             Text(widget.projectInfoData.subTitle, style: AppStlye.krBodyM),
                           ],
                         ),
                         const SizedBox(height: 16),
-                        Text(widget.projectInfoData.description, style: AppStlye.krBodyM),
+                        Text(widget.projectInfoData.description, style: AppStlye.krBodyS),
                         const SizedBox(height: 24),
-                        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...taskData]),
+                        const Row(children: [TitleMark(), SizedBox(width: 16), Text('Task', style: AppStlye.krBodyM)]),
+                        const SizedBox(width: 16),
+                        for (final data in widget.projectInfoData.tasks)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const ContentMark(),
+                                const SizedBox(width: 4),
+                                Expanded(child: Text(data, style: AppStlye.krBodyS)),
+                              ],
+                            ),
+                          ),
                         const SizedBox(height: 24),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,13 +235,8 @@ class _ProjectCardState extends State<ProjectCard> {
                             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...skillData]),
                           ],
                         ),
-                        if (widget.projectInfoData.githubLink != null) ...[
-                          const SizedBox(height: 24),
-                          IconButton(
-                            onPressed: () => launchUrl(Uri.parse(widget.projectInfoData.githubLink!)),
-                            icon: Assets.social.githubWhite.image(width: 32, height: 32),
-                          )
-                        ],
+                        const SizedBox(height: 24),
+                        socialDataRow,
                       ],
                     ),
                   ),
@@ -261,6 +246,59 @@ class _ProjectCardState extends State<ProjectCard> {
           ),
         );
       },
+    );
+  }
+}
+
+class DotedIndicator extends StatelessWidget {
+  const DotedIndicator({super.key, required this.pageController, required this.length});
+
+  final PageController pageController;
+  final int length;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: () {
+            if (_currentIndex == 0) {
+              return;
+            }
+
+            pageController.animateToPage(_currentIndex - 1,
+                duration: const Duration(milliseconds: 500), curve: Curves.linear);
+          },
+          child: const Icon(Icons.arrow_left_rounded, size: 32),
+        ),
+        SmoothPageIndicator(
+          controller: pageController,
+          count: length,
+          textDirection: TextDirection.ltr,
+          onDotClicked: (index) =>
+              pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.linear),
+          effect: WormEffect(
+            dotHeight: 8,
+            spacing: 8,
+            radius: 8,
+            dotWidth: 8,
+            dotColor: Theme.of(context).colorScheme.primary,
+            activeDotColor: Theme.of(context).colorScheme.onPrimary,
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            if (_currentIndex == length - 1) {
+              return;
+            }
+
+            pageController.animateToPage(_currentIndex + 1,
+                duration: const Duration(milliseconds: 500), curve: Curves.linear);
+          },
+          child: const Icon(Icons.arrow_right_rounded, size: 32),
+        ),
+      ],
     );
   }
 }
