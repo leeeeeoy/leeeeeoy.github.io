@@ -1,30 +1,63 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
+import 'package:leeeeeoy_portfolio/data/model/career_data.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/app_image.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/background_container.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/title_mark.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
+import 'package:leeeeeoy_portfolio/util/extension/date_time_extension.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CareerCard extends StatelessWidget {
-  const CareerCard({super.key});
+  const CareerCard({super.key, required this.careerData});
+
+  final CareerData careerData;
+
+  List<Widget> getCareerDetailList(CarrerDetailData carrerDetailData) => [
+        ProjectTitleRow(title: carrerDetailData.title),
+        Padding(
+          padding: const EdgeInsets.only(left: 12),
+          child: DateTimeText(dateTime: carrerDetailData.startDateTime),
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            if (carrerDetailData.playStoreLink != null)
+              IconButton(
+                onPressed: () => launchUrl(Uri.parse(carrerDetailData.playStoreLink!)),
+                icon: Assets.social.playstore.image(width: 28, height: 28),
+              ),
+            if (carrerDetailData.appStoreLink != null)
+              IconButton(
+                onPressed: () => launchUrl(Uri.parse(carrerDetailData.appStoreLink!)),
+                icon: Assets.social.appstore.image(width: 28, height: 28),
+              ),
+            if (carrerDetailData.downloadCount != 0) ...[
+              const SizedBox(width: 16),
+              Text(
+                '다운로드 수: 약 ${NumberFormat.compact().format(carrerDetailData.downloadCount)}',
+                style: AppStlye.krBodyXS,
+              )
+            ],
+            if (carrerDetailData.userCount != 0) ...[
+              Text(
+                ', 회원 수: 약 ${NumberFormat.compact().format(carrerDetailData.userCount)}',
+                style: AppStlye.krBodyXS,
+              )
+            ],
+          ],
+        ),
+        const SizedBox(height: 24),
+        for (final data in carrerDetailData.tasks)
+          Padding(padding: EdgeInsets.only(left: 16), child: TaskRow(task: data)),
+        const SizedBox(height: 24),
+      ];
 
   @override
   Widget build(BuildContext context) {
-    final mobileTask = [
-      '아파트 입주민들을 위한 아보카도 모바일 앱 신규 개발 및 유지 보수',
-      '관리비 조회, 관리비 자동이체, 아파트 공지사항, 전자투표 기능 개발',
-    ];
-    final officeTask = [
-      '아파트 관리사무소 직원들을 위한 백오피스 웹페이지 신규 개발 및 유지 보수',
-      '전자투표 등록, 입주민 관리, 공지사항 관리 기능 개발',
-      '기존 모바일 컴포넌트를 재사용하여 Flutter로 개발',
-    ];
-    final mobileWebTask = [
-      '아보카도 모바일 전자투표를 위한 웹페이지 신규 개발 및 유지 보수',
-      '기존 모바일 컴포넌트를 재사용하여 Flutter로 개발',
-    ];
-
     return BackGroundContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,33 +73,17 @@ class CareerCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(120)),
-                child: Assets.career.dozn.image(),
+                child: AppImage(image: AssetImage(Assets.career.dozn.path)),
               ),
             ),
           ),
           const SizedBox(height: 24),
-          Text('더즌(Dozn)', style: AppStlye.egTitleM),
-          const DateTimeText(date: '2022.01'),
+          Text(careerData.company, style: AppStlye.egTitleM),
+          DateTimeText(dateTime: careerData.joinDateTime),
           const SizedBox(height: 24),
-          Text(
-            '''
-금융기술팀/사원
-
-입주민들을 위한 서비스인 아보카도 앱과, 관리사무소 직원들을 위한 백오피스 웹페이지를 개발했습니다. 전반적인 애플리케이션 초기 개발부터 유지 보수를 담당하고 있습니다.
-''',
-          ),
+          Text(careerData.description, style: AppStlye.krBodyS),
           const SizedBox(height: 32),
-          const ProjectTitleRow(title: '아보카도 모바일 앱 개발 및 유지 보수'),
-          const DateTimeText(date: '2022.01'),
-          ...mobileTask.map((e) => TaskRow(task: e)),
-          const SizedBox(height: 24),
-          const ProjectTitleRow(title: '아보카도 관리사무소 백오피스 웹 개발 및 유지 보수'),
-          const DateTimeText(date: '2022.11'),
-          ...officeTask.map((e) => TaskRow(task: e)),
-          const SizedBox(height: 24),
-          const ProjectTitleRow(title: '아보카도 전자투표 모바일 웹 개발 및 유지 보수'),
-          const DateTimeText(date: '2023.03'),
-          ...mobileWebTask.map((e) => TaskRow(task: e)),
+          for (final data in careerData.detailDataList) ...getCareerDetailList(data),
         ],
       ),
     );
@@ -84,7 +101,7 @@ class ProjectTitleRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(padding: EdgeInsets.only(top: 8), child: TitleMark()),
-        const SizedBox(width: 16),
+        const SizedBox(width: 8),
         Expanded(child: Text(title, style: AppStlye.egTitleS)),
       ],
     );
@@ -113,10 +130,10 @@ class TaskRow extends StatelessWidget {
 }
 
 class DateTimeText extends StatelessWidget {
-  const DateTimeText({super.key, required this.date});
+  const DateTimeText({super.key, required this.dateTime});
 
-  final String date;
+  final DateTime dateTime;
 
   @override
-  Widget build(BuildContext context) => Text('$date ~ ', style: AppStlye.krBodyS);
+  Widget build(BuildContext context) => Text(dateTime.getWaveFormat(), style: AppStlye.krBodyS);
 }

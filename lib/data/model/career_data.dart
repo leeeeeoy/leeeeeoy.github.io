@@ -3,13 +3,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'career_data.freezed.dart';
 
 @freezed
-class CarrerData with _$CarrerData {
-  const factory CarrerData({
+class CareerData with _$CareerData {
+  const factory CareerData({
     required String company,
     required DateTime joinDateTime,
     required String description,
     required List<CarrerDetailData> detailDataList,
-  }) = _CarrerData;
+  }) = _CareerData;
 }
 
 @freezed

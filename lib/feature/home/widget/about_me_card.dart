@@ -14,15 +14,7 @@ class AboutMeCard extends StatelessWidget {
     final infoIcons = [
       const IconRow(icon: CupertinoIcons.person, body: '장요엘 (Yoel)'),
       const SizedBox(height: 16),
-      const IconRow(icon: Icons.cake, body: '1996.06.27'),
-      const SizedBox(height: 16),
       const IconRow(icon: CupertinoIcons.home, body: '서울특별시 강서구'),
-      const SizedBox(height: 16),
-      IconRow(
-        icon: CupertinoIcons.phone,
-        body: '010-6760-6685',
-        onTap: () => launchUrl(Uri.parse('tel:01067606685')),
-      ),
       const SizedBox(height: 16),
       IconRow(
         icon: CupertinoIcons.mail,
@@ -31,6 +23,23 @@ class AboutMeCard extends StatelessWidget {
       ),
       const SizedBox(height: 16),
     ];
+
+    final socialRow = Row(
+      children: [
+        IconButton(
+          onPressed: () => launchUrl(Uri.parse('https://github.com/leeeeeoy')),
+          icon: Assets.social.github.image(color: Theme.of(context).colorScheme.primary, width: 32, height: 32),
+        ),
+        IconButton(
+          onPressed: () => launchUrl(Uri.parse('https://velog.io/@leeeeeoy/posts')),
+          icon: Assets.social.velog.svg(
+            width: 32,
+            height: 32,
+            colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+          ),
+        ),
+      ],
+    );
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -69,7 +78,8 @@ class AboutMeCard extends StatelessWidget {
                 const SizedBox(height: 24),
                 ...infoIcons,
                 const IconRow(icon: Icons.school, body: '한국항공대학교 (전자 및 항공전자공학 전공)', isExpanded: true),
-                const SizedBox(height: 16),
+                const SizedBox(height: 32),
+                socialRow,
               ],
             ),
           );
@@ -98,17 +108,23 @@ class AboutMeCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // ClipRRect(
-                  //   borderRadius: const BorderRadius.all(Radius.circular(120)),
-                  //   child: Assets.profile.main.image(width: 300, height: 300, fit: BoxFit.cover),
-                  // ),
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(120)),
+                    child: AppImage(
+                      image: AssetImage(Assets.profile.main.path),
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ...infoIcons,
                       const IconRow(icon: Icons.school, body: '한국항공대학교 (전자 및 항공전자공학 전공)'),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 32),
+                      socialRow,
                     ],
                   ),
                 ],
@@ -142,7 +158,7 @@ class IconRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 24),
+          Padding(padding: const EdgeInsets.only(top: 6), child: Icon(icon, size: 24)),
           const SizedBox(width: 16),
           if (isExpanded)
             Expanded(child: Text(body, style: AppStlye.krBodyM, maxLines: 2))

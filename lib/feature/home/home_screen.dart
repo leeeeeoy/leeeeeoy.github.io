@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final careerKey = GlobalKey();
 
   final projectDataList = getIt<AppRepository>().getProjectData();
+  final careerDataList = getIt<AppRepository>().getCarrerData();
 
   @override
   void dispose() {
@@ -71,7 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(key: careerKey, 'Career', style: AppStlye.egTitleL, textAlign: TextAlign.center),
           ),
         ),
-        const SliverToBoxAdapter(child: CareerCard()),
+        SliverList.separated(
+          itemCount: careerDataList.length,
+          itemBuilder: (context, index) => CareerCard(careerData: careerDataList[index]),
+          separatorBuilder: (_, __) => const SizedBox(height: 24),
+        ),
         const SliverToBoxAdapter(child: SizedBox(height: 24)),
         SliverToBoxAdapter(
           child: Padding(
