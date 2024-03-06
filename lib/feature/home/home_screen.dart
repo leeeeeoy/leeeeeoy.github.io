@@ -4,6 +4,7 @@ import 'package:leeeeeoy_portfolio/di/di.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/about_me_card.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/career_card.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/project_card.dart';
+import 'package:leeeeeoy_portfolio/feature/home/widget/skill_card.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 import 'package:leeeeeoy_portfolio/util/key/get_widget_offset.dart';
 
@@ -19,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final aboutMeKey = GlobalKey();
   final projectKey = GlobalKey();
   final careerKey = GlobalKey();
+  final skillKey = GlobalKey();
 
   final projectDataList = getIt<AppRepository>().getProjectData();
   final careerDataList = getIt<AppRepository>().getCarrerData();
@@ -47,6 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Text('About Me'),
             ),
             TextButton(
+              onPressed: () => scrollController.animateTo(getWidgetOffset(skillKey),
+                  duration: const Duration(milliseconds: 500), curve: Curves.linear),
+              child: const Text('Skill'),
+            ),
+            TextButton(
               onPressed: () => scrollController.animateTo(getWidgetOffset(careerKey),
                   duration: const Duration(milliseconds: 500), curve: Curves.linear),
               child: const Text('Career'),
@@ -66,6 +73,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         const SliverToBoxAdapter(child: AboutMeCard()),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 32),
+            child: Text(key: skillKey, 'Skill', style: AppStlye.egTitleL, textAlign: TextAlign.center),
+          ),
+        ),
+        const SliverToBoxAdapter(child: SkillCard()),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 32),
