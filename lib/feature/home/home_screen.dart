@@ -80,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         const SliverToBoxAdapter(child: SkillCard()),
+        const SliverToBoxAdapter(child: SizedBox(height: 48)),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 32),
