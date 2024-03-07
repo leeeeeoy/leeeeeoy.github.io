@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/background_container.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 
@@ -9,41 +11,74 @@ class SkillCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const dataIconSize = 48.0;
+
     final dataList = [
-      (skill: 'Flutter', rate: 90.0),
-      (skill: 'Dart', rate: 90.0),
-      (skill: 'Go', rate: 50.0),
-      (skill: 'Kotlin', rate: 30.0),
-      (skill: 'Swift', rate: 30.0),
+      (asset: Assets.skill.flutterOriginal.path, skill: 'Flutter', rate: 90.0),
+      (asset: Assets.skill.dartOriginalWordmark.path, skill: 'Dart', rate: 90.0),
+      (asset: Assets.skill.goOriginalWordmark.path, skill: 'Go', rate: 50.0),
+      (asset: Assets.skill.kotlinOriginalWordmark.path, skill: 'Kotlin', rate: 30.0),
+      (asset: Assets.skill.swiftOriginalWordmark.path, skill: 'Swift', rate: 30.0),
+    ];
+
+    final etcList = [
+      Assets.skill.gitOriginalWordmark.svg(height: 48),
+      Assets.skill.githubOriginalWordmark.svg(height: 48),
+      Assets.skill.firebaseLineWordmark.svg(height: 72),
+      Assets.skill.supabaseOriginalWordmark.svg(),
+      Assets.skill.ddIconRgb.svg(height: 48),
+      Assets.skill.sentryOriginalWordmark.svg(),
     ];
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = MediaQueryData.fromView(View.of(context)).size.width;
-        double graphMaxWidth;
+        double graphMaxWidth = 0.8 * width;
 
         if (width >= AppConst.point1920) {
-          graphMaxWidth = 1200;
-        } else if (width >= AppConst.point440) {
-          graphMaxWidth = width - 200;
-        } else {
-          graphMaxWidth = 200;
+          graphMaxWidth = 0.7 * width;
         }
+
+        if (width <= AppConst.point800) {
+          graphMaxWidth = width - 48;
+        }
+
+        graphMaxWidth -= (32 + dataIconSize + 24);
+
         return BackGroundContainer(
           child: Column(
-            children: List.generate(
-              dataList.length,
-              (index) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...List.generate(
+                dataList.length,
+                (index) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(dataList[index].asset, width: dataIconSize, height: dataIconSize),
+                      const SizedBox(width: 24),
+                      AnimatedGraph(maxWidth: graphMaxWidth, rate: dataList[index].rate),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Wrap(
+                  runAlignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 16,
+                  runSpacing: 16,
                   children: [
-                    Text(dataList[index].skill, style: AppStlye.krBodyM),
-                    const SizedBox(width: 12),
-                    AnimatedGraph(maxWidth: graphMaxWidth, rate: dataList[index].rate),
+                    ...List.generate(
+                      etcList.length,
+                      (index) => etcList[index],
+                    )
                   ],
                 ),
               ),
-            ),
+            ],
           ),
         );
       },
@@ -88,7 +123,7 @@ class _AnimatedGraphState extends State<AnimatedGraph> {
     }
 
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 500) * 5,
+      duration: const Duration(milliseconds: 200) * 5,
       height: 32,
       width: widget.maxWidth,
       decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),

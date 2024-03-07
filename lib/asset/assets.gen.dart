@@ -174,6 +174,62 @@ class $AssetProfileGen {
   List<AssetGenImage> get values => [main];
 }
 
+class $AssetSkillGen {
+  const $AssetSkillGen();
+
+  /// File path: asset/skill/android-original-wordmark.svg
+  SvgGenImage get androidOriginalWordmark => const SvgGenImage('asset/skill/android-original-wordmark.svg');
+
+  /// File path: asset/skill/dart-original-wordmark.svg
+  SvgGenImage get dartOriginalWordmark => const SvgGenImage('asset/skill/dart-original-wordmark.svg');
+
+  /// File path: asset/skill/dd_icon_rgb.svg
+  SvgGenImage get ddIconRgb => const SvgGenImage('asset/skill/dd_icon_rgb.svg');
+
+  /// File path: asset/skill/firebase-line-wordmark.svg
+  SvgGenImage get firebaseLineWordmark => const SvgGenImage('asset/skill/firebase-line-wordmark.svg');
+
+  /// File path: asset/skill/flutter-original.svg
+  SvgGenImage get flutterOriginal => const SvgGenImage('asset/skill/flutter-original.svg');
+
+  /// File path: asset/skill/git-original-wordmark.svg
+  SvgGenImage get gitOriginalWordmark => const SvgGenImage('asset/skill/git-original-wordmark.svg');
+
+  /// File path: asset/skill/github-original-wordmark.svg
+  SvgGenImage get githubOriginalWordmark => const SvgGenImage('asset/skill/github-original-wordmark.svg');
+
+  /// File path: asset/skill/go-original-wordmark.svg
+  SvgGenImage get goOriginalWordmark => const SvgGenImage('asset/skill/go-original-wordmark.svg');
+
+  /// File path: asset/skill/kotlin-original-wordmark.svg
+  SvgGenImage get kotlinOriginalWordmark => const SvgGenImage('asset/skill/kotlin-original-wordmark.svg');
+
+  /// File path: asset/skill/sentry-original-wordmark.svg
+  SvgGenImage get sentryOriginalWordmark => const SvgGenImage('asset/skill/sentry-original-wordmark.svg');
+
+  /// File path: asset/skill/supabase-original-wordmark.svg
+  SvgGenImage get supabaseOriginalWordmark => const SvgGenImage('asset/skill/supabase-original-wordmark.svg');
+
+  /// File path: asset/skill/swift-original-wordmark.svg
+  SvgGenImage get swiftOriginalWordmark => const SvgGenImage('asset/skill/swift-original-wordmark.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [
+        androidOriginalWordmark,
+        dartOriginalWordmark,
+        ddIconRgb,
+        firebaseLineWordmark,
+        flutterOriginal,
+        gitOriginalWordmark,
+        githubOriginalWordmark,
+        goOriginalWordmark,
+        kotlinOriginalWordmark,
+        sentryOriginalWordmark,
+        supabaseOriginalWordmark,
+        swiftOriginalWordmark
+      ];
+}
+
 class $AssetSocialGen {
   const $AssetSocialGen();
 
@@ -206,6 +262,7 @@ class Assets {
   static const $AssetCareerGen career = $AssetCareerGen();
   static const $AssetCeldogGen celdog = $AssetCeldogGen();
   static const $AssetProfileGen profile = $AssetProfileGen();
+  static const $AssetSkillGen skill = $AssetSkillGen();
   static const $AssetSocialGen social = $AssetSocialGen();
   static const AssetGenImage splash = AssetGenImage('asset/splash.png');
 
