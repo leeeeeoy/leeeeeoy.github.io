@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CareerData {
   String get company => throw _privateConstructorUsedError;
+  String get imagePath => throw _privateConstructorUsedError;
   DateTime get joinDateTime => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   List<CarrerDetailData> get detailDataList =>
@@ -35,6 +36,7 @@ abstract class $CareerDataCopyWith<$Res> {
   @useResult
   $Res call(
       {String company,
+      String imagePath,
       DateTime joinDateTime,
       String description,
       List<CarrerDetailData> detailDataList});
@@ -54,6 +56,7 @@ class _$CareerDataCopyWithImpl<$Res, $Val extends CareerData>
   @override
   $Res call({
     Object? company = null,
+    Object? imagePath = null,
     Object? joinDateTime = null,
     Object? description = null,
     Object? detailDataList = null,
@@ -62,6 +65,10 @@ class _$CareerDataCopyWithImpl<$Res, $Val extends CareerData>
       company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
+              as String,
+      imagePath: null == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
       joinDateTime: null == joinDateTime
           ? _value.joinDateTime
@@ -89,6 +96,7 @@ abstract class _$$CareerDataImplCopyWith<$Res>
   @useResult
   $Res call(
       {String company,
+      String imagePath,
       DateTime joinDateTime,
       String description,
       List<CarrerDetailData> detailDataList});
@@ -106,6 +114,7 @@ class __$$CareerDataImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? company = null,
+    Object? imagePath = null,
     Object? joinDateTime = null,
     Object? description = null,
     Object? detailDataList = null,
@@ -114,6 +123,10 @@ class __$$CareerDataImplCopyWithImpl<$Res>
       company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
+              as String,
+      imagePath: null == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
       joinDateTime: null == joinDateTime
           ? _value.joinDateTime
@@ -136,6 +149,7 @@ class __$$CareerDataImplCopyWithImpl<$Res>
 class _$CareerDataImpl implements _CareerData {
   const _$CareerDataImpl(
       {required this.company,
+      required this.imagePath,
       required this.joinDateTime,
       required this.description,
       required final List<CarrerDetailData> detailDataList})
@@ -143,6 +157,8 @@ class _$CareerDataImpl implements _CareerData {
 
   @override
   final String company;
+  @override
+  final String imagePath;
   @override
   final DateTime joinDateTime;
   @override
@@ -157,7 +173,7 @@ class _$CareerDataImpl implements _CareerData {
 
   @override
   String toString() {
-    return 'CareerData(company: $company, joinDateTime: $joinDateTime, description: $description, detailDataList: $detailDataList)';
+    return 'CareerData(company: $company, imagePath: $imagePath, joinDateTime: $joinDateTime, description: $description, detailDataList: $detailDataList)';
   }
 
   @override
@@ -166,6 +182,8 @@ class _$CareerDataImpl implements _CareerData {
         (other.runtimeType == runtimeType &&
             other is _$CareerDataImpl &&
             (identical(other.company, company) || other.company == company) &&
+            (identical(other.imagePath, imagePath) ||
+                other.imagePath == imagePath) &&
             (identical(other.joinDateTime, joinDateTime) ||
                 other.joinDateTime == joinDateTime) &&
             (identical(other.description, description) ||
@@ -175,7 +193,7 @@ class _$CareerDataImpl implements _CareerData {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, company, joinDateTime,
+  int get hashCode => Object.hash(runtimeType, company, imagePath, joinDateTime,
       description, const DeepCollectionEquality().hash(_detailDataList));
 
   @JsonKey(ignore: true)
@@ -188,12 +206,15 @@ class _$CareerDataImpl implements _CareerData {
 abstract class _CareerData implements CareerData {
   const factory _CareerData(
       {required final String company,
+      required final String imagePath,
       required final DateTime joinDateTime,
       required final String description,
       required final List<CarrerDetailData> detailDataList}) = _$CareerDataImpl;
 
   @override
   String get company;
+  @override
+  String get imagePath;
   @override
   DateTime get joinDateTime;
   @override

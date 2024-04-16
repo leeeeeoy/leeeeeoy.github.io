@@ -128,8 +128,11 @@ class $AssetCareerGen {
   /// File path: asset/career/dozn.png
   AssetGenImage get dozn => const AssetGenImage('asset/career/dozn.png');
 
+  /// File path: asset/career/seoulx.webp
+  AssetGenImage get seoulx => const AssetGenImage('asset/career/seoulx.webp');
+
   /// List of all assets
-  List<AssetGenImage> get values => [dozn];
+  List<AssetGenImage> get values => [dozn, seoulx];
 }
 
 class $AssetCeldogGen {
@@ -261,13 +264,14 @@ class Assets {
   static const $AssetCafeinGen cafein = $AssetCafeinGen();
   static const $AssetCareerGen career = $AssetCareerGen();
   static const $AssetCeldogGen celdog = $AssetCeldogGen();
+  static const AssetGenImage ogImage = AssetGenImage('asset/og_image.jpg');
   static const $AssetProfileGen profile = $AssetProfileGen();
   static const $AssetSkillGen skill = $AssetSkillGen();
   static const $AssetSocialGen social = $AssetSocialGen();
   static const AssetGenImage splash = AssetGenImage('asset/splash.png');
 
   /// List of all assets
-  static List<AssetGenImage> get values => [splash];
+  static List<AssetGenImage> get values => [ogImage, splash];
 }
 
 class AssetGenImage {
