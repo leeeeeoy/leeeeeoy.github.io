@@ -6,6 +6,7 @@ part 'career_data.freezed.dart';
 class CareerData with _$CareerData {
   const factory CareerData({
     required String company,
+    required String imagePath,
     required DateTime joinDateTime,
     required String description,
     required List<CarrerDetailData> detailDataList,

@@ -73,7 +73,7 @@ class CareerCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(120)),
-                child: AppImage(image: AssetImage(Assets.career.dozn.path)),
+                child: AppImage(image: AssetImage(careerData.imagePath)),
               ),
             ),
           ),

@@ -17,8 +17,8 @@ class SkillCard extends StatelessWidget {
       (asset: Assets.skill.flutterOriginal.path, skill: 'Flutter', rate: 90.0),
       (asset: Assets.skill.dartOriginalWordmark.path, skill: 'Dart', rate: 90.0),
       (asset: Assets.skill.goOriginalWordmark.path, skill: 'Go', rate: 50.0),
-      (asset: Assets.skill.kotlinOriginalWordmark.path, skill: 'Kotlin', rate: 30.0),
-      (asset: Assets.skill.swiftOriginalWordmark.path, skill: 'Swift', rate: 30.0),
+      (asset: Assets.skill.kotlinOriginalWordmark.path, skill: 'Kotlin', rate: 20.0),
+      (asset: Assets.skill.swiftOriginalWordmark.path, skill: 'Swift', rate: 20.0),
     ];
 
     final etcList = [

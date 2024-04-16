@@ -16,17 +16,30 @@ final class AppRepository {
 
   List<CareerData> getCarrerData() => [
         CareerData(
+          imagePath: Assets.career.seoulx.path,
+          company: '서울거래',
+          joinDateTime: DateTime(2024, 04),
+          description: '''
+개발팀
+
+비상장 주식 거래 플랫폼 신규 앱을 개발하고 있습니다.
+''',
+          detailDataList: [],
+        ),
+        CareerData(
+          imagePath: Assets.career.dozn.path,
           company: '더즌(Dozn)',
           joinDateTime: DateTime(2022, 01, 10),
           description: '''
 금융기술팀/사원
 
-입주민들을 위한 서비스인 아보카도 앱과, 관리사무소 직원들을 위한 백오피스 웹페이지를 개발했습니다. 전반적인 애플리케이션 초기 개발부터 유지 보수를 담당하고 있습니다.
+입주민들을 위한 서비스인 아보카도 앱과, 관리사무소 직원들을 위한 백오피스 웹페이지를 개발했습니다. 전반적인 애플리케이션 초기 개발부터 유지 보수를 담당했습니다.
 ''',
           detailDataList: [
             CarrerDetailData(
               title: '아보카도 모바일 앱 개발 및 유지 보수',
               startDateTime: DateTime(2022, 01),
+              endDateTime: DateTime(2024, 04),
               appDescription: '',
               downloadCount: 6000,
               userCount: 3500,
@@ -83,7 +96,7 @@ final class AppRepository {
           description: '''
 Celebridog은 숏폼을 컨텐츠로 한 반려견 중심의 SNS입니다.
 
-약 1년 정도 사이드 프로젝트로 시작해서 창업준비까지 했던 프로젝트입니다. 틱톡, 인스타그램, 유튜브와 같은 SNS를 만들어보고 싶었는데, 처음에는 기존 아이템들과 비슷하면서도 반려견 중심의 SNS를 만들기 시작했습니다.
+가장 최근에 진행한 사이드 프. 틱톡, 인스타그램, 유튜브와 같은 SNS를 만들어보고 싶었는데, 처음에는 기존 아이템들과 비슷하면서도 반려견 중심의 SNS를 만들기 시작했습니다.
 만들면서 생각보다 반려동물에 대한 수요와 시장이 굉장히 크다는 것을 느꼈고, 같이 진행했던 팀들과 함께 더 발전시키려고 준비했었습니다. 다만 여러가지 사정으로 인해 실제 창업까지 이어지진 못했습니다.
 저는 팀에 합류하여 Flutter로 앱 개발 및 일부 백엔드 개발을 서포트 했습니다. 백엔드의 경우 기존 Firebase 뿐만 아니라 PostgreSQL을 기반으로 RDBMS를 제공하는 Supabase를 사용해서 구축했는데, 기존 Firebase에서는 지원하지 않던 RDB를 클라우드 서비스로 간편하게 사용할 수 있다는 점이 상당히 매력적이었습니다. API서버가 아니라 Supabase Client를 이용해 직접 sql을 통해 데이터를 가져오는 방식이었으며, 일부 복잡한 데이터나 쿼리의 경우 rpc를 이용해서 통신했습니다.
 익숙하진 않았지만 기존 앱개발에 대한 경험 뿐만 아니라 일부 백엔드 개발 경험도 의미가 있었습니다. 실제 데이터 스키마를 작성하는 것부터, 간단한 쿼리를 비롯한 rpc 작성, 그리고 API 서버가 별도로 존재하지 않기 때문에 DB에 직접 접근할 때 유의해야 할 점 등 기존 개발경험 뿐만 아니라 시야를 넓힐 수 있는 좋은 경험이었습니다. 
