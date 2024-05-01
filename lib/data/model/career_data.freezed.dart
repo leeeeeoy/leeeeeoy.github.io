@@ -19,6 +19,7 @@ mixin _$CareerData {
   String get company => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
   DateTime get joinDateTime => throw _privateConstructorUsedError;
+  DateTime? get endDateTime => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   List<CarrerDetailData> get detailDataList =>
       throw _privateConstructorUsedError;
@@ -38,6 +39,7 @@ abstract class $CareerDataCopyWith<$Res> {
       {String company,
       String imagePath,
       DateTime joinDateTime,
+      DateTime? endDateTime,
       String description,
       List<CarrerDetailData> detailDataList});
 }
@@ -58,6 +60,7 @@ class _$CareerDataCopyWithImpl<$Res, $Val extends CareerData>
     Object? company = null,
     Object? imagePath = null,
     Object? joinDateTime = null,
+    Object? endDateTime = freezed,
     Object? description = null,
     Object? detailDataList = null,
   }) {
@@ -74,6 +77,10 @@ class _$CareerDataCopyWithImpl<$Res, $Val extends CareerData>
           ? _value.joinDateTime
           : joinDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      endDateTime: freezed == endDateTime
+          ? _value.endDateTime
+          : endDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -98,6 +105,7 @@ abstract class _$$CareerDataImplCopyWith<$Res>
       {String company,
       String imagePath,
       DateTime joinDateTime,
+      DateTime? endDateTime,
       String description,
       List<CarrerDetailData> detailDataList});
 }
@@ -116,6 +124,7 @@ class __$$CareerDataImplCopyWithImpl<$Res>
     Object? company = null,
     Object? imagePath = null,
     Object? joinDateTime = null,
+    Object? endDateTime = freezed,
     Object? description = null,
     Object? detailDataList = null,
   }) {
@@ -132,6 +141,10 @@ class __$$CareerDataImplCopyWithImpl<$Res>
           ? _value.joinDateTime
           : joinDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      endDateTime: freezed == endDateTime
+          ? _value.endDateTime
+          : endDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -151,6 +164,7 @@ class _$CareerDataImpl implements _CareerData {
       {required this.company,
       required this.imagePath,
       required this.joinDateTime,
+      this.endDateTime,
       required this.description,
       required final List<CarrerDetailData> detailDataList})
       : _detailDataList = detailDataList;
@@ -161,6 +175,8 @@ class _$CareerDataImpl implements _CareerData {
   final String imagePath;
   @override
   final DateTime joinDateTime;
+  @override
+  final DateTime? endDateTime;
   @override
   final String description;
   final List<CarrerDetailData> _detailDataList;
@@ -173,7 +189,7 @@ class _$CareerDataImpl implements _CareerData {
 
   @override
   String toString() {
-    return 'CareerData(company: $company, imagePath: $imagePath, joinDateTime: $joinDateTime, description: $description, detailDataList: $detailDataList)';
+    return 'CareerData(company: $company, imagePath: $imagePath, joinDateTime: $joinDateTime, endDateTime: $endDateTime, description: $description, detailDataList: $detailDataList)';
   }
 
   @override
@@ -186,6 +202,8 @@ class _$CareerDataImpl implements _CareerData {
                 other.imagePath == imagePath) &&
             (identical(other.joinDateTime, joinDateTime) ||
                 other.joinDateTime == joinDateTime) &&
+            (identical(other.endDateTime, endDateTime) ||
+                other.endDateTime == endDateTime) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality()
@@ -193,8 +211,14 @@ class _$CareerDataImpl implements _CareerData {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, company, imagePath, joinDateTime,
-      description, const DeepCollectionEquality().hash(_detailDataList));
+  int get hashCode => Object.hash(
+      runtimeType,
+      company,
+      imagePath,
+      joinDateTime,
+      endDateTime,
+      description,
+      const DeepCollectionEquality().hash(_detailDataList));
 
   @JsonKey(ignore: true)
   @override
@@ -208,6 +232,7 @@ abstract class _CareerData implements CareerData {
       {required final String company,
       required final String imagePath,
       required final DateTime joinDateTime,
+      final DateTime? endDateTime,
       required final String description,
       required final List<CarrerDetailData> detailDataList}) = _$CareerDataImpl;
 
@@ -217,6 +242,8 @@ abstract class _CareerData implements CareerData {
   String get imagePath;
   @override
   DateTime get joinDateTime;
+  @override
+  DateTime? get endDateTime;
   @override
   String get description;
   @override

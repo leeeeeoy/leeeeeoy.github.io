@@ -20,7 +20,10 @@ class CareerCard extends StatelessWidget {
         ProjectTitleRow(title: carrerDetailData.title),
         Padding(
           padding: const EdgeInsets.only(left: 12),
-          child: DateTimeText(dateTime: carrerDetailData.startDateTime),
+          child: DateTimeText(
+            dateTime: carrerDetailData.startDateTime,
+            endDateTime: carrerDetailData.endDateTime,
+          ),
         ),
         const SizedBox(height: 12),
         Row(
@@ -79,7 +82,10 @@ class CareerCard extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(careerData.company, style: AppStlye.egTitleM),
-          DateTimeText(dateTime: careerData.joinDateTime),
+          DateTimeText(
+            dateTime: careerData.joinDateTime,
+            endDateTime: careerData.endDateTime,
+          ),
           const SizedBox(height: 24),
           Text(careerData.description, style: AppStlye.krBodyS),
           const SizedBox(height: 32),
@@ -130,10 +136,15 @@ class TaskRow extends StatelessWidget {
 }
 
 class DateTimeText extends StatelessWidget {
-  const DateTimeText({super.key, required this.dateTime});
+  const DateTimeText({
+    super.key,
+    required this.dateTime,
+    this.endDateTime,
+  });
 
   final DateTime dateTime;
+  final DateTime? endDateTime;
 
   @override
-  Widget build(BuildContext context) => Text(dateTime.getWaveFormat(), style: AppStlye.krBodyS);
+  Widget build(BuildContext context) => Text(dateTime.getWaveFormat(endDateTime: endDateTime), style: AppStlye.krBodyS);
 }
