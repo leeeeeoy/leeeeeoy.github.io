@@ -30,8 +30,9 @@ final class AppRepository {
           imagePath: Assets.career.dozn.path,
           company: '더즌(Dozn)',
           joinDateTime: DateTime(2022, 01, 10),
+          endDateTime: DateTime(2022, 04),
           description: '''
-금융기술팀/사원
+아보카도팀/사원
 
 입주민들을 위한 서비스인 아보카도 앱과, 관리사무소 직원들을 위한 백오피스 웹페이지를 개발했습니다. 전반적인 애플리케이션 초기 개발부터 유지 보수를 담당했습니다.
 ''',
@@ -65,6 +66,7 @@ final class AppRepository {
             CarrerDetailData(
               title: '아보카도 관리사무소 백오피스 웹 개발 및 유지 보수',
               startDateTime: DateTime(2022, 11),
+              endDateTime: DateTime(2022, 04),
               appDescription: '',
               tasks: [
                 'Riverpod을 이용한 상태관리 적용',
@@ -76,6 +78,7 @@ final class AppRepository {
             CarrerDetailData(
               title: '아보카도 전자투표 모바일 웹 개발 및 유지 보수',
               startDateTime: DateTime(2023, 05),
+              endDateTime: DateTime(2022, 04),
               appDescription: '',
               tasks: [
                 'Bloc을 이용한 상태관리 적용',

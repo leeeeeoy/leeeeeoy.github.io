@@ -8,6 +8,7 @@ class CareerData with _$CareerData {
     required String company,
     required String imagePath,
     required DateTime joinDateTime,
+    DateTime? endDateTime,
     required String description,
     required List<CarrerDetailData> detailDataList,
   }) = _CareerData;
