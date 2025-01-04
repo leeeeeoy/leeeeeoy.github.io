@@ -32,7 +32,9 @@ mixin _$ProjectInfoData {
   int get downloadCount => throw _privateConstructorUsedError;
   int get userCount => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProjectInfoData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ProjectInfoDataCopyWith<ProjectInfoData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -71,6 +73,8 @@ class _$ProjectInfoDataCopyWithImpl<$Res, $Val extends ProjectInfoData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ProjectInfoData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -189,6 +193,8 @@ class __$$ProjectInfoDataImplCopyWithImpl<$Res>
       _$ProjectInfoDataImpl _value, $Res Function(_$ProjectInfoDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ProjectInfoData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -415,7 +421,9 @@ class _$ProjectInfoDataImpl implements _ProjectInfoData {
       downloadCount,
       userCount);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProjectInfoData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProjectInfoDataImplCopyWith<_$ProjectInfoDataImpl> get copyWith =>
@@ -471,8 +479,11 @@ abstract class _ProjectInfoData implements ProjectInfoData {
   int get downloadCount;
   @override
   int get userCount;
+
+  /// Create a copy of ProjectInfoData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProjectInfoDataImplCopyWith<_$ProjectInfoDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
