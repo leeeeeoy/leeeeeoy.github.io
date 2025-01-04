@@ -24,7 +24,9 @@ mixin _$CareerData {
   List<CarrerDetailData> get detailDataList =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CareerData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CareerDataCopyWith<CareerData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,6 +56,8 @@ class _$CareerDataCopyWithImpl<$Res, $Val extends CareerData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CareerData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,6 +122,8 @@ class __$$CareerDataImplCopyWithImpl<$Res>
       _$CareerDataImpl _value, $Res Function(_$CareerDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CareerData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -220,7 +226,9 @@ class _$CareerDataImpl implements _CareerData {
       description,
       const DeepCollectionEquality().hash(_detailDataList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CareerData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CareerDataImplCopyWith<_$CareerDataImpl> get copyWith =>
@@ -248,8 +256,11 @@ abstract class _CareerData implements CareerData {
   String get description;
   @override
   List<CarrerDetailData> get detailDataList;
+
+  /// Create a copy of CareerData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CareerDataImplCopyWith<_$CareerDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -270,7 +281,9 @@ mixin _$CarrerDetailData {
   int get downloadCount => throw _privateConstructorUsedError;
   int get userCount => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CarrerDetailData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CarrerDetailDataCopyWith<CarrerDetailData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -307,6 +320,8 @@ class _$CarrerDetailDataCopyWithImpl<$Res, $Val extends CarrerDetailData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CarrerDetailData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -413,6 +428,8 @@ class __$$CarrerDetailDataImplCopyWithImpl<$Res>
       $Res Function(_$CarrerDetailDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CarrerDetailData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -624,7 +641,9 @@ class _$CarrerDetailDataImpl implements _CarrerDetailData {
       downloadCount,
       userCount);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CarrerDetailData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CarrerDetailDataImplCopyWith<_$CarrerDetailDataImpl> get copyWith =>
@@ -674,8 +693,11 @@ abstract class _CarrerDetailData implements CarrerDetailData {
   int get downloadCount;
   @override
   int get userCount;
+
+  /// Create a copy of CarrerDetailData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CarrerDetailDataImplCopyWith<_$CarrerDetailDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

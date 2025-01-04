@@ -26,7 +26,7 @@ class SkillCard extends StatelessWidget {
       Assets.skill.githubOriginalWordmark.svg(height: 48),
       Assets.skill.firebaseLineWordmark.svg(height: 72),
       Assets.skill.supabaseOriginalWordmark.svg(),
-      Assets.skill.ddIconRgb.svg(height: 48),
+      Assets.skill.ddIconRgb.image(height: 48, width: 48),
       Assets.skill.sentryOriginalWordmark.svg(),
     ];
 
