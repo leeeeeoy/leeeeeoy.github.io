@@ -22,9 +22,27 @@ final class AppRepository {
           description: '''
 개발팀
 
-비상장 주식 거래 플랫폼 신규 앱을 개발하고 있습니다.
+비상장 주식 거래 플랫폼 앱을 개발 및 유지 보수를 담당했습니다.
 ''',
-          detailDataList: [],
+          detailDataList: [
+            CarrerDetailData(
+              title: '서울거래 모바일 앱 개발 및 유지 보수',
+              startDateTime: DateTime(2024, 04),
+              endDateTime: null,
+              appDescription: '',
+              downloadCount: 100000,
+              userCount: 40000,
+              playStoreLink: 'https://play.google.com/store/apps/details?id=kr.seoulexchange.www',
+              appStoreLink:
+                  'https://apps.apple.com/kr/app/%EC%84%9C%EC%9A%B8%EA%B1%B0%EB%9E%98-%EB%B9%84%EC%83%81%EC%9E%A5/id1557801495',
+              tasks: [
+                '기존 GetX에서 Bloc으로의 상태관리 변경을 통한 아키텍쳐 개선',
+                'go_router를 이용한 Navigator 2.0 적용 및 딥링킹 아키텍쳐 개선',
+                'Fastlane을 이용한 빌드/배포 라인 구축',
+                'Fastlane을 이용한 iOS Code Signing 자동화',
+              ],
+            ),
+          ],
         ),
         CareerData(
           imagePath: Assets.career.dozn.path,
