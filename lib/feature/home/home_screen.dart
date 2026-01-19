@@ -44,23 +44,35 @@ class _HomeScreenState extends State<HomeScreen> {
           title: const Text("Leeeeeoy's Portfolio", style: AppStlye.egBodyM),
           actions: [
             TextButton(
-              onPressed: () => scrollController.animateTo(getWidgetOffset(aboutMeKey),
-                  duration: const Duration(milliseconds: 500), curve: Curves.linear),
+              onPressed: () => scrollController.animateTo(
+                getWidgetOffset(aboutMeKey),
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.linear,
+              ),
               child: const Text('About Me'),
             ),
             TextButton(
-              onPressed: () => scrollController.animateTo(getWidgetOffset(skillKey),
-                  duration: const Duration(milliseconds: 500), curve: Curves.linear),
+              onPressed: () => scrollController.animateTo(
+                getWidgetOffset(skillKey),
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.linear,
+              ),
               child: const Text('Skill'),
             ),
             TextButton(
-              onPressed: () => scrollController.animateTo(getWidgetOffset(careerKey),
-                  duration: const Duration(milliseconds: 500), curve: Curves.linear),
+              onPressed: () => scrollController.animateTo(
+                getWidgetOffset(careerKey),
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.linear,
+              ),
               child: const Text('Career'),
             ),
             TextButton(
-              onPressed: () => scrollController.animateTo(getWidgetOffset(projectKey),
-                  duration: const Duration(milliseconds: 500), curve: Curves.linear),
+              onPressed: () => scrollController.animateTo(
+                getWidgetOffset(projectKey),
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.linear,
+              ),
               child: const Text('Project'),
             ),
             const SizedBox(width: 16),
@@ -90,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SliverList.separated(
           itemCount: careerDataList.length,
           itemBuilder: (context, index) => CareerCard(careerData: careerDataList[index]),
-          separatorBuilder: (_, __) => const SizedBox(height: 24),
+          separatorBuilder: (_, _) => const SizedBox(height: 24),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 24)),
         SliverToBoxAdapter(
@@ -102,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SliverList.separated(
           itemCount: projectDataList.length,
           itemBuilder: (context, index) => ProjectCard(projectInfoData: projectDataList[index]),
-          separatorBuilder: (_, __) => const SizedBox(height: 24),
+          separatorBuilder: (_, _) => const SizedBox(height: 24),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 48)),
         SliverToBoxAdapter(

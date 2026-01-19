@@ -59,7 +59,7 @@ class AboutMeCard extends StatelessWidget {
                     totalRepeatCount: 1,
                     animatedTexts: [
                       TyperAnimatedText(
-                        "안녕하세요, 3년차 크로스 플랫폼(Flutter) 개발자입니다.\n\n동료들과 협업하며 혼자서는 해낼 수 없는 가치 있는 일들에 관심이 많은 개발자입니다. 읽기 쉬운 코드와 올바른 커뮤니케이션 방법에 대해 고민하며, 협업과 존중에 진심인 개발자입니다.",
+                        "안녕하세요, 5년차 크로스 플랫폼(Flutter) 개발자입니다.\n\n동료들과 협업하며 혼자서는 해낼 수 없는 가치 있는 일들에 관심이 많은 개발자입니다. 읽기 쉬운 코드와 올바른 커뮤니케이션 방법에 대해 고민하며, 협업과 존중에 진심인 개발자입니다.\nFlutter 기반 모바일 앱을 4년 이상 개발하며, 초기 서비스 환경에서 앱 아키텍처 설계부터 배포·운영까지 End-to-End로 책임진 경험이 있습니다.",
                         textStyle: AppStlye.egTitleS,
                       ),
                     ],
@@ -97,7 +97,7 @@ class AboutMeCard extends StatelessWidget {
                   totalRepeatCount: 5,
                   animatedTexts: [
                     TyperAnimatedText(
-                      "안녕하세요, 3년차 크로스 플랫폼(Flutter) 개발자 장요엘입니다.\n\n동료들과 협업하며 혼자서는 해낼 수 없는 가치 있는 일들에 관심이 많은 개발자입니다. 읽기 쉬운 코드와 올바른 커뮤니케이션 방법에 대해 고민하며, 협업과 존중에 진심인 개발자입니다.",
+                      "안녕하세요, 5년차 크로스 플랫폼(Flutter) 개발자입니다.\n\n동료들과 협업하며 혼자서는 해낼 수 없는 가치 있는 일들에 관심이 많은 개발자입니다. 읽기 쉬운 코드와 올바른 커뮤니케이션 방법에 대해 고민하며, 협업과 존중에 진심인 개발자입니다.\nFlutter 기반 모바일 앱을 4년 이상 개발하며, 초기 서비스 환경에서 앱 아키텍처 설계부터 배포·운영까지 End-to-End로 책임진 경험이 있습니다.",
                       textStyle: AppStlye.krBodyM,
                       textAlign: TextAlign.center,
                     ),
@@ -138,13 +138,7 @@ class AboutMeCard extends StatelessWidget {
 }
 
 class IconRow extends StatelessWidget {
-  const IconRow({
-    super.key,
-    required this.icon,
-    required this.body,
-    this.onTap,
-    this.isExpanded = false,
-  });
+  const IconRow({super.key, required this.icon, required this.body, this.onTap, this.isExpanded = false});
 
   final IconData icon;
   final String body;
