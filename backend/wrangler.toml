@@ -6,11 +6,12 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "leeeeeoy-portfolio"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "36b2bc88-3d60-438d-8f98-f5d48c5682aa"
 
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "leeeeeoy-portfolio-assets"
+# binding name in Worker code: BUCKET
 
 [vars]
 ENVIRONMENT = "production"
