@@ -1,0 +1,16 @@
+name = "leeeeeoy-portfolio-backend"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "leeeeeoy-portfolio"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "leeeeeoy-portfolio-assets"
+
+[vars]
+ENVIRONMENT = "production"
