@@ -15,3 +15,4 @@ bucket_name = "leeeeeoy-portfolio-assets"
 
 [vars]
 ENVIRONMENT = "production"
+ASSETS_BASE_URL = "https://assets.leeeeeoy.xyz"
