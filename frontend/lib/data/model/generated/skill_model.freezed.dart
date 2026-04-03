@@ -85,7 +85,7 @@ as int,
 @JsonSerializable()
 
 class _SkillModel implements SkillModel {
-  const _SkillModel({required this.id, required this.name, this.iconUrl, required this.category, this.proficiency, required this.sortOrder});
+  const _SkillModel({required this.id, required this.name, this.iconUrl, required this.category, this.proficiency, this.sortOrder = 0});
   factory _SkillModel.fromJson(Map<String, dynamic> json) => _$SkillModelFromJson(json);
 
 @override final  int id;
@@ -93,7 +93,7 @@ class _SkillModel implements SkillModel {
 @override final  String? iconUrl;
 @override final  String category;
 @override final  int? proficiency;
-@override final  int sortOrder;
+@override@JsonKey() final  int sortOrder;
 
 /// Create a copy of SkillModel
 /// with the given fields replaced by the non-null parameter values.

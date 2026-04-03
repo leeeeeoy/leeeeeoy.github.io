@@ -133,8 +133,8 @@ class _HomeScreenState extends State<HomeScreen> {
         const SliverToBoxAdapter(child: SizedBox(height: 48)),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32),
-            child: Text(key: careerKey, 'Career', style: AppStlye.egTitleL, textAlign: TextAlign.center),
+            padding: const .symmetric(vertical: 32),
+            child: Text(key: careerKey, 'Career', style: AppStlye.egTitleL, textAlign: .center),
           ),
         ),
         SliverToBoxAdapter(
@@ -143,6 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final careers = snapshot.data!;
+
                 return Column(
                   children: [
                     for (int i = 0; i < careers.length; i++) ...[
