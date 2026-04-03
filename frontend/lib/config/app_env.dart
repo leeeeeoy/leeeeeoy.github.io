@@ -1,8 +1,7 @@
 abstract class AppEnv {
   static const String apiBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue:
-        'https://leeeeeoy-portfolio-backend.leeeeeoy-cloudflare.workers.dev',
+    defaultValue: 'https://api.portfolio.leeeeeoy.xyz',
   );
 
   static const String assetsBaseUrl = String.fromEnvironment(
