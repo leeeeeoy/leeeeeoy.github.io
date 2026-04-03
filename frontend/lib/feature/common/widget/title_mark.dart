@@ -5,10 +5,6 @@ class TitleMark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 8,
-      height: 16,
-      color: Theme.of(context).colorScheme.primary,
-    );
+    return Container(width: 8, height: 16, color: Theme.of(context).colorScheme.primary);
   }
 }

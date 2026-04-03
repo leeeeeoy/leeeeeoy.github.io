@@ -29,41 +29,41 @@ class _ProjectCardState extends State<ProjectCard> {
   }
 
   List<Widget> _buildContentList({required String title, required List<String> dataList, bool isExpanded = false}) => [
-        Row(
+    Row(
+      children: [
+        const TitleMark(),
+        const SizedBox(width: 16),
+        Text(title, style: AppStlye.krBodyM),
+      ],
+    ),
+    const SizedBox(height: 8),
+    for (final data in dataList)
+      Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: Row(
+          crossAxisAlignment: .start,
           children: [
-            const TitleMark(),
-            const SizedBox(width: 16),
-            Text(title, style: AppStlye.krBodyM),
+            const ContentMark(),
+            const SizedBox(width: 4),
+            if (isExpanded)
+              Expanded(child: Text(data, style: AppStlye.krBodyS))
+            else
+              Text(data, style: AppStlye.krBodyS),
           ],
         ),
-        const SizedBox(height: 8),
-        for (final data in dataList)
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const ContentMark(),
-                const SizedBox(width: 4),
-                if (isExpanded)
-                  Expanded(child: Text(data, style: AppStlye.krBodyS))
-                else
-                  Text(data, style: AppStlye.krBodyS),
-              ],
-            ),
-          ),
-      ];
+      ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     final project = widget.project;
 
     final nameRow = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: .center,
       children: [
         if (project.iconUrl != null) ...[
           ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            borderRadius: const .all(.circular(12)),
             child: Image.network(AppEnv.assetUrl(project.iconUrl), width: 32, height: 32),
           ),
           const SizedBox(width: 12),
@@ -107,7 +107,7 @@ class _ProjectCardState extends State<ProjectCard> {
           onPageChanged: (value) => setState(() => _currentIndex = value),
           itemCount: screenshots.length,
           itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+            padding: const .symmetric(horizontal: 4),
             child: AppImage(
               image: NetworkImage(AppEnv.assetUrl(screenshots[index])),
               placeholder: const CircularProgressIndicator.adaptive(),
@@ -124,12 +124,12 @@ class _ProjectCardState extends State<ProjectCard> {
         if (width <= AppConst.point1080) {
           return BackGroundContainer(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 nameRow,
                 const SizedBox(height: 16),
                 Align(
-                  alignment: Alignment.center,
+                  alignment: .center,
                   child: SizedBox(height: 480, width: 270, child: pageView),
                 ),
                 const SizedBox(height: 16),
@@ -147,7 +147,7 @@ class _ProjectCardState extends State<ProjectCard> {
                 ],
                 if (project.description != null) ...[
                   Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: const .only(left: 20),
                     child: Text(project.description!, style: AppStlye.krBodyS),
                   ),
                   const SizedBox(height: 16),
@@ -170,8 +170,8 @@ class _ProjectCardState extends State<ProjectCard> {
               nameRow,
               const SizedBox(height: 24),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: .center,
+                crossAxisAlignment: .start,
                 children: [
                   SizedBox(
                     width: 360,
@@ -186,7 +186,7 @@ class _ProjectCardState extends State<ProjectCard> {
                   const SizedBox(width: 24),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: .start,
                       children: [
                         if (project.subtitle != null) ...[
                           Row(
@@ -203,14 +203,18 @@ class _ProjectCardState extends State<ProjectCard> {
                           const SizedBox(height: 24),
                         ],
                         const Row(
-                          children: [TitleMark(), SizedBox(width: 16), Text('Task', style: AppStlye.krBodyM)],
+                          children: [
+                            TitleMark(),
+                            SizedBox(width: 16),
+                            Text('Task', style: AppStlye.krBodyM),
+                          ],
                         ),
                         const SizedBox(height: 8),
                         for (final task in project.tasks)
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: .start,
                               children: [
                                 const ContentMark(),
                                 const SizedBox(width: 4),
@@ -220,11 +224,11 @@ class _ProjectCardState extends State<ProjectCard> {
                           ),
                         const SizedBox(height: 24),
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: .start,
                           children: [
-                            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...featureData]),
+                            Column(crossAxisAlignment: .start, children: [...featureData]),
                             const SizedBox(width: 32),
-                            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [...skillData]),
+                            Column(crossAxisAlignment: .start, children: [...skillData]),
                           ],
                         ),
                         const SizedBox(height: 24),
@@ -243,12 +247,7 @@ class _ProjectCardState extends State<ProjectCard> {
 }
 
 class DotedIndicator extends StatelessWidget {
-  const DotedIndicator({
-    super.key,
-    required this.pageController,
-    required this.length,
-    required this.currentIndex,
-  });
+  const DotedIndicator({super.key, required this.pageController, required this.length, required this.currentIndex});
 
   final PageController pageController;
   final int length;
@@ -257,7 +256,7 @@ class DotedIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: .center,
       children: [
         InkWell(
           onTap: () {
@@ -273,7 +272,7 @@ class DotedIndicator extends StatelessWidget {
         SmoothPageIndicator(
           controller: pageController,
           count: length,
-          textDirection: TextDirection.ltr,
+          textDirection: .ltr,
           onDotClicked: (index) =>
               pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.linear),
           effect: WormEffect(

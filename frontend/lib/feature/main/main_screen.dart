@@ -16,7 +16,7 @@ class MainScreen extends StatelessWidget {
       floatingActionButton: BlocBuilder<ThemeBloc, ThemeState>(
         buildWhen: (previous, current) => current is ThemeLoaded,
         builder: (context, state) {
-          ThemeMode themeMode = Theme.of(context).brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark;
+          ThemeMode themeMode = Theme.of(context).brightness == .light ? .light : .dark;
 
           if (state is ThemeLoaded) {
             themeMode = state.themeMode;
@@ -24,18 +24,18 @@ class MainScreen extends StatelessWidget {
 
           return FloatingActionButton(
             onPressed: () => context.read<ThemeBloc>().add(
-                  ThemeChanged(
-                    themeMode: switch (themeMode) {
-                      ThemeMode.system => ThemeMode.dark,
-                      ThemeMode.light => ThemeMode.dark,
-                      ThemeMode.dark => ThemeMode.light,
-                    },
-                  ),
-                ),
+              ThemeChanged(
+                themeMode: switch (themeMode) {
+                  .system => .dark,
+                  .light => .dark,
+                  .dark => .light,
+                },
+              ),
+            ),
             child: switch (themeMode) {
-              ThemeMode.system => const SizedBox.shrink(),
-              ThemeMode.light => const Icon(CupertinoIcons.sun_max),
-              ThemeMode.dark => const Icon(CupertinoIcons.moon),
+              .system => const SizedBox.shrink(),
+              .light => const Icon(CupertinoIcons.sun_max),
+              .dark => const Icon(CupertinoIcons.moon),
             },
           );
         },
