@@ -1,0 +1,17 @@
+targets:
+  $default:
+    builders:
+      source_gen:combining_builder:
+        options:
+          build_extensions:
+            '^lib/{{dir}}/{{file}}.dart': 'lib/{{dir}}/generated/{{file}}.g.dart'
+      freezed:
+        options:
+          build_extensions:
+            '^lib/{{dir}}/{{file}}.dart': 'lib/{{dir}}/generated/{{file}}.freezed.dart'
+          when: false
+          map: false
+      json_serializable:
+        options:
+          explicit_to_json: true
+          field_rename: snake_case
