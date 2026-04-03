@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 
 class BackGroundContainer extends StatelessWidget {
-  const BackGroundContainer({
-    super.key,
-    required this.child,
-  });
+  const BackGroundContainer({super.key, required this.child});
 
   final Widget child;
 
@@ -25,10 +22,10 @@ class BackGroundContainer extends StatelessWidget {
         }
 
         return Container(
-          padding: const EdgeInsets.all(16),
-          margin: EdgeInsets.symmetric(horizontal: margin),
+          padding: const .all(16),
+          margin: .symmetric(horizontal: margin),
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(16)),
+            borderRadius: const .all(.circular(16)),
             color: Theme.of(context).colorScheme.primaryContainer,
           ),
           child: child,

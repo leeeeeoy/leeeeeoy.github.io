@@ -96,8 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32),
-            child: Text(key: aboutMeKey, 'About Me', style: AppStlye.egTitleL, textAlign: TextAlign.center),
+            padding: const .symmetric(vertical: 32),
+            child: Text(key: aboutMeKey, 'About Me', style: AppStlye.egTitleL, textAlign: .center),
           ),
         ),
         SliverToBoxAdapter(
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 32),
-            child: Text(key: skillKey, 'Skill', style: AppStlye.egTitleL, textAlign: TextAlign.center),
+            child: Text(key: skillKey, 'Skill', style: AppStlye.egTitleL, textAlign: .center),
           ),
         ),
         SliverToBoxAdapter(
@@ -163,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const SliverToBoxAdapter(child: SizedBox(height: 24)),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32),
+            padding: const .symmetric(vertical: 32),
             child: Text(key: projectKey, 'Project', style: AppStlye.egTitleL, textAlign: TextAlign.center),
           ),
         ),
@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }
               if (snapshot.hasError) return Center(child: Text('${snapshot.error}'));
               return const Center(
-                child: Padding(padding: EdgeInsets.all(64), child: CircularProgressIndicator.adaptive()),
+                child: Padding(padding: .all(64), child: CircularProgressIndicator.adaptive()),
               );
             },
           ),
@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             height: 80,
             color: Colors.black,
-            alignment: Alignment.center,
+            alignment: .center,
             child: const Text('© 2023. Yoel Jang. All rights reserved.', style: AppStlye.krBodyS),
           ),
         ),

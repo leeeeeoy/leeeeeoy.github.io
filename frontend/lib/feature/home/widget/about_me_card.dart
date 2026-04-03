@@ -51,7 +51,7 @@ class AboutMeCard extends StatelessWidget {
               AppEnv.assetUrl('social/velog.svg'),
               width: 32,
               height: 32,
-              colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, .srcIn),
             ),
           ),
       ],
@@ -62,7 +62,7 @@ class AboutMeCard extends StatelessWidget {
       image: NetworkImage(AppEnv.assetUrl('profile/main.jpg')),
       width: 300,
       height: 300,
-      fit: BoxFit.cover,
+      fit: .cover,
     );
 
     return LayoutBuilder(
@@ -71,9 +71,9 @@ class AboutMeCard extends StatelessWidget {
 
         if (width <= AppConst.point800) {
           return Container(
-            padding: const EdgeInsets.all(32),
+            padding: const .all(32),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: .center,
               children: [
                 SizedBox(
                   width: width,
@@ -85,7 +85,7 @@ class AboutMeCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(120)), child: profileImage),
+                ClipRRect(borderRadius: const .all(.circular(120)), child: profileImage),
                 const SizedBox(height: 24),
                 ...infoIcons,
                 const IconRow(icon: Icons.school, body: '한국항공대학교 (전자 및 항공전자공학 전공)', isExpanded: true),
@@ -97,7 +97,7 @@ class AboutMeCard extends StatelessWidget {
         }
 
         return Container(
-          padding: const EdgeInsets.all(32),
+          padding: const .all(32),
           child: Column(
             children: [
               SizedBox(
@@ -106,17 +106,17 @@ class AboutMeCard extends StatelessWidget {
                 child: AnimatedTextKit(
                   displayFullTextOnTap: true,
                   totalRepeatCount: 5,
-                  animatedTexts: [TyperAnimatedText(bio, textStyle: AppStlye.krBodyM, textAlign: TextAlign.center)],
+                  animatedTexts: [TyperAnimatedText(bio, textStyle: AppStlye.krBodyM, textAlign: .center)],
                 ),
               ),
               const SizedBox(height: 24),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: .center,
                 children: [
-                  ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(120)), child: profileImage),
+                  ClipRRect(borderRadius: const .all(.circular(120)), child: profileImage),
                   const SizedBox(width: 20),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       ...infoIcons,
                       const IconRow(icon: Icons.school, body: '한국항공대학교 (전자 및 항공전자공학 전공)'),
@@ -147,9 +147,9 @@ class IconRow extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
-          Padding(padding: const EdgeInsets.only(top: 6), child: Icon(icon, size: 24)),
+          Padding(padding: const .only(top: 6), child: Icon(icon, size: 24)),
           const SizedBox(width: 16),
           if (isExpanded)
             Expanded(child: Text(body, style: AppStlye.krBodyM, maxLines: 2))

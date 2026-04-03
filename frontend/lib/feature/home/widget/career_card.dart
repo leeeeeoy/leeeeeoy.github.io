@@ -26,7 +26,7 @@ class CareerCard extends StatelessWidget {
               height: 240,
               decoration: BoxDecoration(
                 borderRadius: const .all(.circular(120)),
-                border: Border.fromBorderSide(BorderSide(color: Theme.of(context).colorScheme.primary)),
+                border: .fromBorderSide(BorderSide(color: Theme.of(context).colorScheme.primary)),
               ),
               child: ClipRRect(
                 borderRadius: const .all(.circular(120)),
@@ -76,7 +76,7 @@ class CareerCard extends StatelessWidget {
     const SizedBox(height: 24),
     for (final task in detail.tasks)
       Padding(
-        padding: const EdgeInsets.only(left: 16),
+        padding: const .only(left: 16),
         child: _TaskRow(task: task),
       ),
     const SizedBox(height: 24),
@@ -110,7 +110,7 @@ class _ProjectTitleRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         const Padding(padding: EdgeInsets.only(top: 8), child: TitleMark()),
         const SizedBox(width: 8),
@@ -128,10 +128,10 @@ class _TaskRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 8),
+          padding: const .only(top: 8),
           child: CircleAvatar(radius: 4, backgroundColor: Theme.of(context).colorScheme.primary),
         ),
         const SizedBox(width: 8),
