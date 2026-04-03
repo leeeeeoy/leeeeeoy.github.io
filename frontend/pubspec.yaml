@@ -24,6 +24,7 @@ dependencies:
   go_router: ^17.0.1
 
   freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
 
   logger: ^2.0.2+1
 
@@ -44,14 +45,19 @@ dependencies:
   smooth_page_indicator: ^2.0.1
   flutter_svg: ^2.0.10+1
   intl: ^0.20.2
+  dio: ^5.8.0
 
 dev_dependencies: 
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^6.0.0
-  freezed:
   build_runner:
+
+  flutter_lints: ^6.0.0
+  
+  freezed:
+  json_serializable: 
+
   flutter_gen_runner:
   injectable_generator:
   flutter_native_splash: ^2.4.4
@@ -60,17 +66,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  assets:
-    - asset/
-    - asset/avokado_app/
-    - asset/avokado_web/
-    - asset/cafein/
-    - asset/celdog/
-    - asset/bpp/
-    - asset/profile/
-    - asset/career/
-    - asset/social/
-    - asset/skill/
 
 
   fonts:
