@@ -1,44 +1,71 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:leeeeeoy_portfolio/config/app_env.dart';
+import 'package:leeeeeoy_portfolio/data/model/profile_model.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/app_image.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutMeCard extends StatelessWidget {
-  const AboutMeCard({super.key});
+  const AboutMeCard({super.key, required this.profile});
+
+  final ProfileModel profile;
 
   @override
   Widget build(BuildContext context) {
     final infoIcons = [
-      const IconRow(icon: CupertinoIcons.person, body: '장요엘 (Yoel)'),
+      IconRow(icon: CupertinoIcons.person, body: profile.name),
       const SizedBox(height: 16),
-      const IconRow(icon: CupertinoIcons.home, body: '서울특별시 강서구'),
-      const SizedBox(height: 16),
-      IconRow(
-        icon: CupertinoIcons.mail,
-        body: 'hoheho18@gmail.com',
-        onTap: () => launchUrl(Uri.parse('mailto:hoheho18@gmail.com')),
-      ),
-      const SizedBox(height: 16),
+      if (profile.region != null) ...[
+        IconRow(icon: CupertinoIcons.home, body: profile.region!),
+        const SizedBox(height: 16),
+      ],
+      if (profile.email != null) ...[
+        IconRow(
+          icon: CupertinoIcons.mail,
+          body: profile.email!,
+          onTap: () => launchUrl(Uri.parse('mailto:${profile.email}')),
+        ),
+        const SizedBox(height: 16),
+      ],
     ];
 
     final socialRow = Row(
       children: [
-        IconButton(
-          onPressed: () => launchUrl(Uri.parse('https://github.com/leeeeeoy')),
-          icon: Assets.social.github.image(color: Theme.of(context).colorScheme.primary, width: 32, height: 32),
-        ),
-        IconButton(
-          onPressed: () => launchUrl(Uri.parse('https://velog.io/@leeeeeoy/posts')),
-          icon: Assets.social.velog.svg(
-            width: 32,
-            height: 32,
-            colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+        if (profile.githubUrl != null)
+          IconButton(
+            onPressed: () => launchUrl(Uri.parse(profile.githubUrl!)),
+            icon: Image.network(
+              AppEnv.assetUrl('social/github.png'),
+              color: Theme.of(context).colorScheme.primary,
+              width: 32,
+              height: 32,
+            ),
           ),
-        ),
+        if (profile.blogUrl != null)
+          IconButton(
+            onPressed: () => launchUrl(Uri.parse(profile.blogUrl!)),
+            icon: SvgPicture.network(
+              AppEnv.assetUrl('social/velog.svg'),
+              width: 32,
+              height: 32,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.primary,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
       ],
+    );
+
+    final bio = profile.bio ?? '';
+    final profileImage = AppImage(
+      image: NetworkImage(AppEnv.assetUrl('profile/main.png')),
+      width: 300,
+      height: 300,
+      fit: BoxFit.cover,
     );
 
     return LayoutBuilder(
@@ -58,22 +85,14 @@ class AboutMeCard extends StatelessWidget {
                     displayFullTextOnTap: true,
                     totalRepeatCount: 1,
                     animatedTexts: [
-                      TyperAnimatedText(
-                        "안녕하세요, 5년차 크로스 플랫폼(Flutter) 개발자입니다.\n\n동료들과 협업하며 혼자서는 해낼 수 없는 가치 있는 일들에 관심이 많은 개발자입니다. 읽기 쉬운 코드와 올바른 커뮤니케이션 방법에 대해 고민하며, 협업과 존중에 진심인 개발자입니다.\nFlutter 기반 모바일 앱을 4년 이상 개발하며, 초기 서비스 환경에서 앱 아키텍처 설계부터 배포·운영까지 End-to-End로 책임진 경험이 있습니다.",
-                        textStyle: AppStlye.egTitleS,
-                      ),
+                      TyperAnimatedText(bio, textStyle: AppStlye.egTitleS),
                     ],
                   ),
                 ),
                 const SizedBox(height: 24),
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(120)),
-                  child: AppImage(
-                    image: AssetImage(Assets.profile.main.path),
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.cover,
-                  ),
+                  child: profileImage,
                 ),
                 const SizedBox(height: 24),
                 ...infoIcons,
@@ -97,7 +116,7 @@ class AboutMeCard extends StatelessWidget {
                   totalRepeatCount: 5,
                   animatedTexts: [
                     TyperAnimatedText(
-                      "안녕하세요, 5년차 크로스 플랫폼(Flutter) 개발자입니다.\n\n동료들과 협업하며 혼자서는 해낼 수 없는 가치 있는 일들에 관심이 많은 개발자입니다. 읽기 쉬운 코드와 올바른 커뮤니케이션 방법에 대해 고민하며, 협업과 존중에 진심인 개발자입니다.\nFlutter 기반 모바일 앱을 4년 이상 개발하며, 초기 서비스 환경에서 앱 아키텍처 설계부터 배포·운영까지 End-to-End로 책임진 경험이 있습니다.",
+                      bio,
                       textStyle: AppStlye.krBodyM,
                       textAlign: TextAlign.center,
                     ),
@@ -110,12 +129,7 @@ class AboutMeCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(120)),
-                    child: AppImage(
-                      image: AssetImage(Assets.profile.main.path),
-                      width: 300,
-                      height: 300,
-                      fit: BoxFit.cover,
-                    ),
+                    child: profileImage,
                   ),
                   const SizedBox(width: 20),
                   Column(

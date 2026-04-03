@@ -1,63 +1,17 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
-import 'package:leeeeeoy_portfolio/data/model/career_data.dart';
+import 'package:leeeeeoy_portfolio/config/app_env.dart';
+import 'package:leeeeeoy_portfolio/data/model/career_model.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/app_image.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/background_container.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/title_mark.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
-import 'package:leeeeeoy_portfolio/util/extension/date_time_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CareerCard extends StatelessWidget {
-  const CareerCard({super.key, required this.careerData});
+  const CareerCard({super.key, required this.career});
 
-  final CareerData careerData;
-
-  List<Widget> getCareerDetailList(CarrerDetailData carrerDetailData) => [
-        ProjectTitleRow(title: carrerDetailData.title),
-        Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: DateTimeText(
-            dateTime: carrerDetailData.startDateTime,
-            endDateTime: carrerDetailData.endDateTime,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            if (carrerDetailData.playStoreLink != null)
-              IconButton(
-                onPressed: () => launchUrl(Uri.parse(carrerDetailData.playStoreLink!)),
-                icon: Assets.social.playstore.image(width: 28, height: 28),
-              ),
-            if (carrerDetailData.appStoreLink != null)
-              IconButton(
-                onPressed: () => launchUrl(Uri.parse(carrerDetailData.appStoreLink!)),
-                icon: Assets.social.appstore.image(width: 28, height: 28),
-              ),
-            if (carrerDetailData.downloadCount != 0) ...[
-              const SizedBox(width: 16),
-              Text(
-                '다운로드 수: 약 ${NumberFormat.compact().format(carrerDetailData.downloadCount)}',
-                style: AppStlye.krBodyXS,
-              )
-            ],
-            if (carrerDetailData.userCount != 0) ...[
-              Text(
-                ', 회원 수: 약 ${NumberFormat.compact().format(carrerDetailData.userCount)}',
-                style: AppStlye.krBodyXS,
-              )
-            ],
-          ],
-        ),
-        const SizedBox(height: 24),
-        for (final data in carrerDetailData.tasks)
-          Padding(padding: EdgeInsets.only(left: 16), child: TaskRow(task: data)),
-        const SizedBox(height: 24),
-      ];
+  final CareerModel career;
 
   @override
   Widget build(BuildContext context) {
@@ -72,32 +26,105 @@ class CareerCard extends StatelessWidget {
               height: 240,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(120)),
-                border: Border.fromBorderSide(BorderSide(color: Theme.of(context).colorScheme.primary)),
+                border: Border.fromBorderSide(
+                  BorderSide(color: Theme.of(context).colorScheme.primary),
+                ),
               ),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(120)),
-                child: AppImage(image: AssetImage(careerData.imagePath)),
+                child: AppImage(
+                  image: NetworkImage(AppEnv.assetUrl(career.logoUrl)),
+                ),
               ),
             ),
           ),
           const SizedBox(height: 24),
-          Text(careerData.company, style: AppStlye.egTitleM),
-          DateTimeText(
-            dateTime: careerData.joinDateTime,
-            endDateTime: careerData.endDateTime,
-          ),
+          Text(career.company, style: AppStlye.egTitleM),
+          _DateRangeText(start: career.joinDate, end: career.endDate),
           const SizedBox(height: 24),
-          Text(careerData.description, style: AppStlye.krBodyS),
+          if (career.description != null)
+            Text(career.description!, style: AppStlye.krBodyS),
           const SizedBox(height: 32),
-          for (final data in careerData.detailDataList) ...getCareerDetailList(data),
+          for (final detail in career.details) ..._buildDetail(context, detail),
         ],
       ),
     );
   }
+
+  List<Widget> _buildDetail(BuildContext context, CareerDetailModel detail) => [
+        _ProjectTitleRow(title: detail.title),
+        Padding(
+          padding: const EdgeInsets.only(left: 12),
+          child: _DateRangeText(start: detail.startDate, end: detail.endDate),
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            if (detail.playstoreUrl != null)
+              IconButton(
+                onPressed: () => launchUrl(Uri.parse(detail.playstoreUrl!)),
+                icon: Image.network(
+                  AppEnv.assetUrl('social/playstore.png'),
+                  width: 28,
+                  height: 28,
+                ),
+              ),
+            if (detail.appstoreUrl != null)
+              IconButton(
+                onPressed: () => launchUrl(Uri.parse(detail.appstoreUrl!)),
+                icon: Image.network(
+                  AppEnv.assetUrl('social/appstore.png'),
+                  width: 28,
+                  height: 28,
+                ),
+              ),
+            if (detail.downloadCount != 0) ...[
+              const SizedBox(width: 16),
+              Text(
+                '다운로드 수: 약 ${NumberFormat.compact().format(detail.downloadCount)}',
+                style: AppStlye.krBodyXS,
+              ),
+            ],
+            if (detail.userCount != 0)
+              Text(
+                ', 회원 수: 약 ${NumberFormat.compact().format(detail.userCount)}',
+                style: AppStlye.krBodyXS,
+              ),
+          ],
+        ),
+        const SizedBox(height: 24),
+        for (final task in detail.tasks)
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: _TaskRow(task: task),
+          ),
+        const SizedBox(height: 24),
+      ];
 }
 
-class ProjectTitleRow extends StatelessWidget {
-  const ProjectTitleRow({super.key, required this.title});
+String _formatDate(String date) {
+  final parts = date.split('-');
+  if (parts.length < 2) return date;
+  return '${parts[0]}.${int.tryParse(parts[1]) ?? parts[1]}';
+}
+
+class _DateRangeText extends StatelessWidget {
+  const _DateRangeText({required this.start, this.end});
+
+  final String start;
+  final String? end;
+
+  @override
+  Widget build(BuildContext context) {
+    final text = end == null
+        ? '${_formatDate(start)} ~'
+        : '${_formatDate(start)} ~ ${_formatDate(end!)}';
+    return Text(text, style: AppStlye.krBodyS);
+  }
+}
+
+class _ProjectTitleRow extends StatelessWidget {
+  const _ProjectTitleRow({required this.title});
 
   final String title;
 
@@ -106,7 +133,7 @@ class ProjectTitleRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(padding: EdgeInsets.only(top: 8), child: TitleMark()),
+        const Padding(padding: EdgeInsets.only(top: 8), child: TitleMark()),
         const SizedBox(width: 8),
         Expanded(child: Text(title, style: AppStlye.egTitleS)),
       ],
@@ -114,8 +141,8 @@ class ProjectTitleRow extends StatelessWidget {
   }
 }
 
-class TaskRow extends StatelessWidget {
-  const TaskRow({super.key, required this.task});
+class _TaskRow extends StatelessWidget {
+  const _TaskRow({required this.task});
 
   final String task;
 
@@ -133,18 +160,4 @@ class TaskRow extends StatelessWidget {
       ],
     );
   }
-}
-
-class DateTimeText extends StatelessWidget {
-  const DateTimeText({
-    super.key,
-    required this.dateTime,
-    this.endDateTime,
-  });
-
-  final DateTime dateTime;
-  final DateTime? endDateTime;
-
-  @override
-  Widget build(BuildContext context) => Text(dateTime.getWaveFormat(endDateTime: endDateTime), style: AppStlye.krBodyS);
 }

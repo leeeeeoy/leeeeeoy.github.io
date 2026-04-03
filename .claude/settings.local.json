@@ -2,6 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(dart --version)"
+    ],
+    "additionalDirectories": [
+      "/Users/leeeeeoy/flutter_project/leeeeeoy_portfolio/frontend/lib/data/model"
     ]
   }
 }

@@ -2,67 +2,51 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:leeeeeoy_portfolio/asset/assets.gen.dart';
+import 'package:leeeeeoy_portfolio/config/app_env.dart';
+import 'package:leeeeeoy_portfolio/data/model/skill_model.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/background_container.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
 
 class SkillCard extends StatelessWidget {
-  const SkillCard({super.key});
+  const SkillCard({super.key, required this.skills});
+
+  final SkillsModel skills;
 
   @override
   Widget build(BuildContext context) {
-    const dataIconSize = 48.0;
-
-    final dataList = [
-      (asset: Assets.skill.flutterOriginal.path, skill: 'Flutter', rate: 90.0),
-      (asset: Assets.skill.dartOriginalWordmark.path, skill: 'Dart', rate: 90.0),
-      (asset: Assets.skill.goOriginalWordmark.path, skill: 'Go', rate: 50.0),
-      (asset: Assets.skill.kotlinOriginalWordmark.path, skill: 'Kotlin', rate: 20.0),
-      (asset: Assets.skill.swiftOriginalWordmark.path, skill: 'Swift', rate: 20.0),
-    ];
-
-    final etcList = [
-      Assets.skill.gitOriginalWordmark.svg(height: 48),
-      Assets.skill.githubOriginalWordmark.svg(height: 48),
-      Assets.skill.firebaseLineWordmark.svg(height: 72),
-      Assets.skill.supabaseOriginalWordmark.svg(),
-      Assets.skill.ddIconRgb.image(height: 48, width: 48),
-      Assets.skill.sentryOriginalWordmark.svg(),
-    ];
+    const iconSize = 48.0;
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = MediaQueryData.fromView(View.of(context)).size.width;
         double graphMaxWidth = 0.8 * width;
 
-        if (width >= AppConst.point1920) {
-          graphMaxWidth = 0.7 * width;
-        }
-
-        if (width <= AppConst.point800) {
-          graphMaxWidth = width - 48;
-        }
-
-        graphMaxWidth -= (32 + dataIconSize + 24);
+        if (width >= AppConst.point1920) graphMaxWidth = 0.7 * width;
+        if (width <= AppConst.point800) graphMaxWidth = width - 48;
+        graphMaxWidth -= (32 + iconSize + 24);
 
         return BackGroundContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ...List.generate(
-                dataList.length,
-                (index) => Padding(
+              // Language — proficiency graph
+              ...skills.language.map(
+                (skill) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Row(
                     children: [
-                      SvgPicture.asset(dataList[index].asset, width: dataIconSize, height: dataIconSize),
+                      _SkillIcon(iconUrl: skill.iconUrl, size: iconSize),
                       const SizedBox(width: 24),
-                      AnimatedGraph(maxWidth: graphMaxWidth, rate: dataList[index].rate),
+                      AnimatedGraph(
+                        maxWidth: graphMaxWidth,
+                        rate: (skill.proficiency ?? 0).toDouble(),
+                      ),
                     ],
                   ),
                 ),
               ),
               const SizedBox(height: 32),
+              // Tool + Platform — icon grid
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Wrap(
@@ -71,10 +55,8 @@ class SkillCard extends StatelessWidget {
                   spacing: 16,
                   runSpacing: 16,
                   children: [
-                    ...List.generate(
-                      etcList.length,
-                      (index) => etcList[index],
-                    )
+                    ...skills.tool.map((s) => _SkillIcon(iconUrl: s.iconUrl, size: iconSize)),
+                    ...skills.platform.map((s) => _SkillIcon(iconUrl: s.iconUrl, size: iconSize)),
                   ],
                 ),
               ),
@@ -83,6 +65,23 @@ class SkillCard extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class _SkillIcon extends StatelessWidget {
+  const _SkillIcon({required this.iconUrl, required this.size});
+
+  final String? iconUrl;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final url = AppEnv.assetUrl(iconUrl);
+    if (url.isEmpty) return SizedBox(width: size, height: size);
+    if (url.endsWith('.svg')) {
+      return SvgPicture.network(url, width: size, height: size);
+    }
+    return Image.network(url, width: size, height: size);
   }
 }
 
@@ -114,13 +113,9 @@ class _AnimatedGraphState extends State<AnimatedGraph> {
 
   @override
   Widget build(BuildContext context) {
-    double rightPadding = 0.0;
-
-    if (start) {
-      rightPadding = ((100 - widget.rate) / 100) * widget.maxWidth;
-    } else {
-      rightPadding = widget.maxWidth;
-    }
+    final rightPadding = start
+        ? ((100 - widget.rate) / 100) * widget.maxWidth
+        : widget.maxWidth;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200) * 5,
@@ -140,7 +135,7 @@ class _AnimatedGraphState extends State<AnimatedGraph> {
             Theme.of(context).colorScheme.onPrimary,
           ]),
         ),
-        child: Text('${widget.rate}%', style: AppStlye.krBodyS),
+        child: Text('${widget.rate.toInt()}%', style: AppStlye.krBodyS),
       ),
     );
   }
