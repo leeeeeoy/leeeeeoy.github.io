@@ -11,7 +11,7 @@ abstract class SkillModel with _$SkillModel {
     String? iconUrl,
     required String category,
     int? proficiency,
-    required int sortOrder,
+    @Default(0) int sortOrder,
   }) = _SkillModel;
 
   factory SkillModel.fromJson(Map<String, dynamic> json) => _$SkillModelFromJson(json);

@@ -17,24 +17,20 @@ class CareerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BackGroundContainer(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Align(
-            alignment: Alignment.center,
+            alignment: .center,
             child: Container(
               width: 240,
               height: 240,
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(120)),
-                border: Border.fromBorderSide(
-                  BorderSide(color: Theme.of(context).colorScheme.primary),
-                ),
+                borderRadius: const .all(.circular(120)),
+                border: Border.fromBorderSide(BorderSide(color: Theme.of(context).colorScheme.primary)),
               ),
               child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(120)),
-                child: AppImage(
-                  image: NetworkImage(AppEnv.assetUrl(career.logoUrl)),
-                ),
+                borderRadius: const .all(.circular(120)),
+                child: AppImage(image: NetworkImage(AppEnv.assetUrl(career.logoUrl))),
               ),
             ),
           ),
@@ -42,8 +38,7 @@ class CareerCard extends StatelessWidget {
           Text(career.company, style: AppStlye.egTitleM),
           _DateRangeText(start: career.joinDate, end: career.endDate),
           const SizedBox(height: 24),
-          if (career.description != null)
-            Text(career.description!, style: AppStlye.krBodyS),
+          if (career.description != null) Text(career.description!, style: AppStlye.krBodyS),
           const SizedBox(height: 32),
           for (final detail in career.details) ..._buildDetail(context, detail),
         ],
@@ -52,54 +47,40 @@ class CareerCard extends StatelessWidget {
   }
 
   List<Widget> _buildDetail(BuildContext context, CareerDetailModel detail) => [
-        _ProjectTitleRow(title: detail.title),
-        Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: _DateRangeText(start: detail.startDate, end: detail.endDate),
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            if (detail.playstoreUrl != null)
-              IconButton(
-                onPressed: () => launchUrl(Uri.parse(detail.playstoreUrl!)),
-                icon: Image.network(
-                  AppEnv.assetUrl('social/playstore.png'),
-                  width: 28,
-                  height: 28,
-                ),
-              ),
-            if (detail.appstoreUrl != null)
-              IconButton(
-                onPressed: () => launchUrl(Uri.parse(detail.appstoreUrl!)),
-                icon: Image.network(
-                  AppEnv.assetUrl('social/appstore.png'),
-                  width: 28,
-                  height: 28,
-                ),
-              ),
-            if (detail.downloadCount != 0) ...[
-              const SizedBox(width: 16),
-              Text(
-                '다운로드 수: 약 ${NumberFormat.compact().format(detail.downloadCount)}',
-                style: AppStlye.krBodyXS,
-              ),
-            ],
-            if (detail.userCount != 0)
-              Text(
-                ', 회원 수: 약 ${NumberFormat.compact().format(detail.userCount)}',
-                style: AppStlye.krBodyXS,
-              ),
-          ],
-        ),
-        const SizedBox(height: 24),
-        for (final task in detail.tasks)
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: _TaskRow(task: task),
+    _ProjectTitleRow(title: detail.title),
+    Padding(
+      padding: const .only(left: 12),
+      child: _DateRangeText(start: detail.startDate, end: detail.endDate),
+    ),
+    const SizedBox(height: 12),
+    Row(
+      children: [
+        if (detail.playstoreUrl != null)
+          IconButton(
+            onPressed: () => launchUrl(Uri.parse(detail.playstoreUrl!)),
+            icon: Image.network(AppEnv.assetUrl('social/playstore.png'), width: 28, height: 28),
           ),
-        const SizedBox(height: 24),
-      ];
+        if (detail.appstoreUrl != null)
+          IconButton(
+            onPressed: () => launchUrl(Uri.parse(detail.appstoreUrl!)),
+            icon: Image.network(AppEnv.assetUrl('social/appstore.png'), width: 28, height: 28),
+          ),
+        if (detail.downloadCount != 0) ...[
+          const SizedBox(width: 16),
+          Text('다운로드 수: 약 ${NumberFormat.compact().format(detail.downloadCount)}', style: AppStlye.krBodyXS),
+        ],
+        if (detail.userCount != 0)
+          Text(', 회원 수: 약 ${NumberFormat.compact().format(detail.userCount)}', style: AppStlye.krBodyXS),
+      ],
+    ),
+    const SizedBox(height: 24),
+    for (final task in detail.tasks)
+      Padding(
+        padding: const EdgeInsets.only(left: 16),
+        child: _TaskRow(task: task),
+      ),
+    const SizedBox(height: 24),
+  ];
 }
 
 String _formatDate(String date) {
@@ -116,9 +97,7 @@ class _DateRangeText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final text = end == null
-        ? '${_formatDate(start)} ~'
-        : '${_formatDate(start)} ~ ${_formatDate(end!)}';
+    final text = end == null ? '${_formatDate(start)} ~' : '${_formatDate(start)} ~ ${_formatDate(end!)}';
     return Text(text, style: AppStlye.krBodyS);
   }
 }

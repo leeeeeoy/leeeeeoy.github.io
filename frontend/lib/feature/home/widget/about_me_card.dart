@@ -51,10 +51,7 @@ class AboutMeCard extends StatelessWidget {
               AppEnv.assetUrl('social/velog.svg'),
               width: 32,
               height: 32,
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).colorScheme.primary,
-                BlendMode.srcIn,
-              ),
+              colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
             ),
           ),
       ],
@@ -62,7 +59,7 @@ class AboutMeCard extends StatelessWidget {
 
     final bio = profile.bio ?? '';
     final profileImage = AppImage(
-      image: NetworkImage(AppEnv.assetUrl('profile/main.png')),
+      image: NetworkImage(AppEnv.assetUrl('profile/main.jpg')),
       width: 300,
       height: 300,
       fit: BoxFit.cover,
@@ -84,16 +81,11 @@ class AboutMeCard extends StatelessWidget {
                   child: AnimatedTextKit(
                     displayFullTextOnTap: true,
                     totalRepeatCount: 1,
-                    animatedTexts: [
-                      TyperAnimatedText(bio, textStyle: AppStlye.egTitleS),
-                    ],
+                    animatedTexts: [TyperAnimatedText(bio, textStyle: AppStlye.egTitleS)],
                   ),
                 ),
                 const SizedBox(height: 24),
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(120)),
-                  child: profileImage,
-                ),
+                ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(120)), child: profileImage),
                 const SizedBox(height: 24),
                 ...infoIcons,
                 const IconRow(icon: Icons.school, body: '한국항공대학교 (전자 및 항공전자공학 전공)', isExpanded: true),
@@ -114,23 +106,14 @@ class AboutMeCard extends StatelessWidget {
                 child: AnimatedTextKit(
                   displayFullTextOnTap: true,
                   totalRepeatCount: 5,
-                  animatedTexts: [
-                    TyperAnimatedText(
-                      bio,
-                      textStyle: AppStlye.krBodyM,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                  animatedTexts: [TyperAnimatedText(bio, textStyle: AppStlye.krBodyM, textAlign: TextAlign.center)],
                 ),
               ),
               const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(120)),
-                    child: profileImage,
-                  ),
+                  ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(120)), child: profileImage),
                   const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
