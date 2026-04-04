@@ -37,8 +37,8 @@ class AboutMeCard extends StatelessWidget {
         if (profile.githubUrl != null)
           IconButton(
             onPressed: () => launchUrl(Uri.parse(profile.githubUrl!)),
-            icon: Image.network(
-              AppEnv.assetUrl('social/github.png'),
+            icon: AppImage(
+              imageUrl: AppEnv.assetUrl('social/github.png'),
               color: Theme.of(context).colorScheme.primary,
               width: 32,
               height: 32,
@@ -58,12 +58,7 @@ class AboutMeCard extends StatelessWidget {
     );
 
     final bio = profile.bio ?? '';
-    final profileImage = AppImage(
-      image: NetworkImage(AppEnv.assetUrl('profile/main.jpg')),
-      width: 300,
-      height: 300,
-      fit: .cover,
-    );
+    final profileImage = AppImage(imageUrl: AppEnv.assetUrl('profile/main.jpg'), width: 300, height: 300, fit: .cover);
 
     return LayoutBuilder(
       builder: (context, constraints) {
