@@ -40,7 +40,7 @@ app.*.map.json
 # Firebase
 /web/firebase.js
 /.firebaserc
-/lib/firebase_options.dart
+# /lib/firebase_options.dart
 /ios/firebase_app_id_file.json
 /android/app/google-services.json
 /ios/Runner/GoogleService-Info.plist
