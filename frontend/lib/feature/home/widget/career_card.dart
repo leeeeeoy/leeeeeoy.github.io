@@ -79,6 +79,10 @@ class CareerCard extends StatelessWidget {
         padding: const .only(left: 16),
         child: _TaskRow(task: task),
       ),
+    if (detail.skills.isNotEmpty) ...[
+      const SizedBox(height: 16),
+      _SkillChips(skills: detail.skills.map((s) => s.name).toList()),
+    ],
     const SizedBox(height: 24),
   ];
 }
@@ -137,6 +141,33 @@ class _TaskRow extends StatelessWidget {
         const SizedBox(width: 8),
         Expanded(child: Text(task, style: AppStlye.krBodyS)),
       ],
+    );
+  }
+}
+
+class _SkillChips extends StatelessWidget {
+  const _SkillChips({required this.skills});
+
+  final List<String> skills;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme.primary;
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: skills
+          .map(
+            (name) => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                border: Border.all(color: color.withValues(alpha: 0.5)),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(name, style: AppStlye.krBodyXS.copyWith(color: color)),
+            ),
+          )
+          .toList(),
     );
   }
 }
