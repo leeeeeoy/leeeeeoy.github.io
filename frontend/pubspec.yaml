@@ -48,6 +48,8 @@ dependencies:
   intl: ^0.20.2
   dio: ^5.8.0
 
+  cached_network_image: ^3.4.1
+
 dev_dependencies: 
   flutter_test:
     sdk: flutter

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:leeeeeoy_portfolio/config/app_env.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/app_image.dart';
 import 'package:leeeeeoy_portfolio/data/model/skill_model.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/background_container.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
@@ -74,11 +75,16 @@ class _SkillIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final url = AppEnv.assetUrl(iconUrl);
-    if (url.isEmpty) return SizedBox(width: size, height: size);
+
+    if (url.isEmpty) {
+      return SizedBox(width: size, height: size);
+    }
+
     if (url.endsWith('.svg')) {
       return SvgPicture.network(url, width: size, height: size);
     }
-    return Image.network(url, width: size, height: size);
+
+    return AppImage(imageUrl: url, width: size, height: size);
   }
 }
 

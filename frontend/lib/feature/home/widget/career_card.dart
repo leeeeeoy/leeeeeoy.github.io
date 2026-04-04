@@ -30,7 +30,7 @@ class CareerCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: const .all(.circular(120)),
-                child: AppImage(image: NetworkImage(AppEnv.assetUrl(career.logoUrl))),
+                child: AppImage(imageUrl: AppEnv.assetUrl(career.logoUrl)),
               ),
             ),
           ),
@@ -58,12 +58,12 @@ class CareerCard extends StatelessWidget {
         if (detail.playstoreUrl != null)
           IconButton(
             onPressed: () => launchUrl(Uri.parse(detail.playstoreUrl!)),
-            icon: Image.network(AppEnv.assetUrl('social/playstore.png'), width: 28, height: 28),
+            icon: AppImage(imageUrl: AppEnv.assetUrl('social/playstore.png'), width: 28, height: 28),
           ),
         if (detail.appstoreUrl != null)
           IconButton(
             onPressed: () => launchUrl(Uri.parse(detail.appstoreUrl!)),
-            icon: Image.network(AppEnv.assetUrl('social/appstore.png'), width: 28, height: 28),
+            icon: AppImage(imageUrl: AppEnv.assetUrl('social/appstore.png'), width: 28, height: 28),
           ),
         if (detail.downloadCount != 0) ...[
           const SizedBox(width: 16),

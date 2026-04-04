@@ -64,7 +64,7 @@ class _ProjectCardState extends State<ProjectCard> {
         if (project.iconUrl != null) ...[
           ClipRRect(
             borderRadius: const .all(.circular(12)),
-            child: Image.network(AppEnv.assetUrl(project.iconUrl), width: 32, height: 32),
+            child: AppImage(imageUrl: AppEnv.assetUrl(project.iconUrl), width: 32, height: 32),
           ),
           const SizedBox(width: 12),
         ],
@@ -77,17 +77,17 @@ class _ProjectCardState extends State<ProjectCard> {
         if (project.githubUrl != null)
           IconButton(
             onPressed: () => launchUrl(Uri.parse(project.githubUrl!)),
-            icon: Image.network(AppEnv.assetUrl('social/github.png'), width: 28, height: 28),
+            icon: AppImage(imageUrl: AppEnv.assetUrl('social/github.png'), width: 28, height: 28),
           ),
         if (project.playstoreUrl != null)
           IconButton(
             onPressed: () => launchUrl(Uri.parse(project.playstoreUrl!)),
-            icon: Image.network(AppEnv.assetUrl('social/playstore.png'), width: 28, height: 28),
+            icon: AppImage(imageUrl: AppEnv.assetUrl('social/playstore.png'), width: 28, height: 28),
           ),
         if (project.appstoreUrl != null)
           IconButton(
             onPressed: () => launchUrl(Uri.parse(project.appstoreUrl!)),
-            icon: Image.network(AppEnv.assetUrl('social/appstore.png'), width: 28, height: 28),
+            icon: AppImage(imageUrl: AppEnv.assetUrl('social/appstore.png'), width: 28, height: 28),
           ),
       ],
     );
@@ -109,7 +109,7 @@ class _ProjectCardState extends State<ProjectCard> {
           itemBuilder: (context, index) => Padding(
             padding: const .symmetric(horizontal: 4),
             child: AppImage(
-              image: NetworkImage(AppEnv.assetUrl(screenshots[index])),
+              imageUrl: AppEnv.assetUrl(screenshots[index]),
               placeholder: const CircularProgressIndicator.adaptive(),
             ),
           ),
