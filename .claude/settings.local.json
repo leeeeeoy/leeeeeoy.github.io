@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(dart --version)"
+      "Bash(dart --version)",
+      "Bash(grep -E \"\\\\.\\(dart|js|ts\\)$\")",
+      "Bash(cat /Users/leeeeeoy/flutter_project/leeeeeoy_portfolio/.github/workflows/*.yml)",
+      "Bash(grep -E \"\\\\.\\(yaml|yml|json|toml|properties|cfg|conf|xml\\)$\")"
     ],
     "additionalDirectories": [
       "/Users/leeeeeoy/flutter_project/leeeeeoy_portfolio/frontend/lib/data/model"
