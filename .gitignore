@@ -10,3 +10,6 @@
 
 # Environment
 .env.*.json
+
+# AI
+CLAUDE.md
