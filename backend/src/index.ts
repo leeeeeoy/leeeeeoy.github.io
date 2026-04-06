@@ -12,7 +12,7 @@ app.use('*', cors({
   origin: (origin) => {
     if (!origin) return 'https://leeeeeoy.xyz'
     if (origin.startsWith('http://localhost:')) return origin
-    if (origin === 'https://leeeeeoy.xyz') return origin
+    if (origin === 'https://portfolio.leeeeeoy.xyz') return origin
     return null
   },
   allowMethods: ['GET'],
