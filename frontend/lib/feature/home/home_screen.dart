@@ -5,6 +5,8 @@ import 'package:leeeeeoy_portfolio/data/model/project_model.dart';
 import 'package:leeeeeoy_portfolio/data/model/skill_model.dart';
 import 'package:leeeeeoy_portfolio/data/repository/portfolio_repository.dart';
 import 'package:leeeeeoy_portfolio/di/di.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/fade_in_section.dart';
+import 'package:leeeeeoy_portfolio/feature/common/widget/section_title.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/about_me_card.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/career_card.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/project_card.dart';
@@ -95,16 +97,22 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const .symmetric(vertical: 32),
-            child: Text(key: aboutMeKey, 'About Me', style: AppStlye.egTitleL, textAlign: .center),
+          child: SectionTitle(
+            key: const ValueKey('title-about-me'),
+            text: 'About Me',
+            sectionKey: aboutMeKey,
           ),
         ),
         SliverToBoxAdapter(
           child: FutureBuilder<ProfileModel>(
             future: _profileFuture,
             builder: (context, snapshot) {
-              if (snapshot.hasData) return AboutMeCard(profile: snapshot.data!);
+              if (snapshot.hasData) {
+                return FadeInSection(
+                  key: const ValueKey('about-me'),
+                  child: AboutMeCard(profile: snapshot.data!),
+                );
+              }
               if (snapshot.hasError) return Center(child: Text('${snapshot.error}'));
               return const Center(
                 child: Padding(padding: EdgeInsets.all(64), child: CircularProgressIndicator.adaptive()),
@@ -113,16 +121,22 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32),
-            child: Text(key: skillKey, 'Skill', style: AppStlye.egTitleL, textAlign: .center),
+          child: SectionTitle(
+            key: const ValueKey('title-skill'),
+            text: 'Skill',
+            sectionKey: skillKey,
           ),
         ),
         SliverToBoxAdapter(
           child: FutureBuilder<SkillsModel>(
             future: _skillsFuture,
             builder: (context, snapshot) {
-              if (snapshot.hasData) return SkillCard(skills: snapshot.data!);
+              if (snapshot.hasData) {
+                return FadeInSection(
+                  key: const ValueKey('skill'),
+                  child: SkillCard(skills: snapshot.data!),
+                );
+              }
               if (snapshot.hasError) return Center(child: Text('${snapshot.error}'));
               return const Center(
                 child: Padding(padding: EdgeInsets.all(64), child: CircularProgressIndicator.adaptive()),
@@ -132,9 +146,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 48)),
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const .symmetric(vertical: 32),
-            child: Text(key: careerKey, 'Career', style: AppStlye.egTitleL, textAlign: .center),
+          child: SectionTitle(
+            key: const ValueKey('title-career'),
+            text: 'Career',
+            sectionKey: careerKey,
           ),
         ),
         SliverToBoxAdapter(
@@ -143,11 +158,13 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final careers = snapshot.data!;
-
                 return Column(
                   children: [
                     for (int i = 0; i < careers.length; i++) ...[
-                      CareerCard(career: careers[i]),
+                      FadeInSection(
+                        key: ValueKey('career-$i'),
+                        child: CareerCard(career: careers[i]),
+                      ),
                       if (i < careers.length - 1) const SizedBox(height: 24),
                     ],
                   ],
@@ -162,9 +179,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 24)),
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const .symmetric(vertical: 32),
-            child: Text(key: projectKey, 'Project', style: AppStlye.egTitleL, textAlign: TextAlign.center),
+          child: SectionTitle(
+            key: const ValueKey('title-project'),
+            text: 'Project',
+            sectionKey: projectKey,
           ),
         ),
         SliverToBoxAdapter(
@@ -176,7 +194,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Column(
                   children: [
                     for (int i = 0; i < projects.length; i++) ...[
-                      ProjectCard(project: projects[i]),
+                      FadeInSection(
+                        key: ValueKey('project-$i'),
+                        child: ProjectCard(project: projects[i]),
+                      ),
                       if (i < projects.length - 1) const SizedBox(height: 24),
                     ],
                   ],
@@ -184,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }
               if (snapshot.hasError) return Center(child: Text('${snapshot.error}'));
               return const Center(
-                child: Padding(padding: .all(64), child: CircularProgressIndicator.adaptive()),
+                child: Padding(padding: EdgeInsets.all(64), child: CircularProgressIndicator.adaptive()),
               );
             },
           ),
@@ -194,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             height: 80,
             color: Colors.black,
-            alignment: .center,
+            alignment: Alignment.center,
             child: const Text('© 2023. Yoel Jang. All rights reserved.', style: AppStlye.krBodyS),
           ),
         ),

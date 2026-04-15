@@ -35,7 +35,7 @@ abstract class AppStlye {
 
   static const egBodyM = TextStyle(
     fontSize: 16,
-    fontFamily: FontFamily.pacifico,
+    fontFamily: FontFamily.shantellSans,
     fontWeight: FontWeight.w400,
   );
 }

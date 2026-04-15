@@ -42,7 +42,7 @@ dependencies:
   injectable: ^2.3.2
   google_fonts: ^8.0.2
   url_launcher: ^6.2.4
-  animated_text_kit: ^4.2.2
+  visibility_detector: ^0.4.0+2
   smooth_page_indicator: ^2.0.1
   flutter_svg: ^2.0.10+1
   intl: ^0.20.2
@@ -80,11 +80,6 @@ flutter:
           weight: 500
         - asset: font/noto_sans_kr/NotoSansKR-Bold.ttf
           weight: 700
-
-    - family: Pacifico
-      fonts:
-        - asset: font/pacifico/Pacifico-Regular.ttf
-          weight: 400
 
     - family: ShantellSans
       fonts:

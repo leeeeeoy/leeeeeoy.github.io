@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:leeeeeoy_portfolio/config/app_env.dart';
@@ -7,6 +5,7 @@ import 'package:leeeeeoy_portfolio/feature/common/widget/app_image.dart';
 import 'package:leeeeeoy_portfolio/data/model/skill_model.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/background_container.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class SkillCard extends StatelessWidget {
   const SkillCard({super.key, required this.skills});
@@ -28,7 +27,7 @@ class SkillCard extends StatelessWidget {
 
         return BackGroundContainer(
           child: Column(
-            crossAxisAlignment: .start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Language — proficiency graph
               ...skills.language.map(
@@ -38,7 +37,11 @@ class SkillCard extends StatelessWidget {
                     children: [
                       _SkillIcon(iconUrl: skill.iconUrl, size: iconSize),
                       const SizedBox(width: 24),
-                      AnimatedGraph(maxWidth: graphMaxWidth, rate: (skill.proficiency ?? 0).toDouble()),
+                      AnimatedGraph(
+                        key: ValueKey('graph-${skill.iconUrl}'),
+                        maxWidth: graphMaxWidth,
+                        rate: (skill.proficiency ?? 0).toDouble(),
+                      ),
                     ],
                   ),
                 ),
@@ -46,10 +49,10 @@ class SkillCard extends StatelessWidget {
               const SizedBox(height: 32),
               // Tool + Platform — icon grid
               Padding(
-                padding: const .all(16),
+                padding: const EdgeInsets.all(16),
                 child: Wrap(
-                  runAlignment: .center,
-                  crossAxisAlignment: .center,
+                  runAlignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   spacing: 16,
                   runSpacing: 16,
                   children: [
@@ -89,7 +92,7 @@ class _SkillIcon extends StatelessWidget {
 }
 
 class AnimatedGraph extends StatefulWidget {
-  const AnimatedGraph({super.key, required this.maxWidth, required this.rate});
+  const AnimatedGraph({required super.key, required this.maxWidth, required this.rate});
 
   final double rate;
   final double maxWidth;
@@ -99,43 +102,40 @@ class AnimatedGraph extends StatefulWidget {
 }
 
 class _AnimatedGraphState extends State<AnimatedGraph> {
-  bool start = false;
-  late Timer timer;
+  bool _start = false;
 
-  @override
-  void initState() {
-    super.initState();
-    timer = Timer(Duration.zero, () => setState(() => start = true));
-  }
-
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
+  void _onVisibilityChanged(VisibilityInfo info) {
+    if (!_start && info.visibleFraction > 0.1) {
+      setState(() => _start = true);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final rightPadding = start ? ((100 - widget.rate) / 100) * widget.maxWidth : widget.maxWidth;
+    final rightPadding = _start ? ((100 - widget.rate) / 100) * widget.maxWidth : widget.maxWidth;
 
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200) * 5,
-      height: 32,
-      width: widget.maxWidth,
-      decoration: const BoxDecoration(borderRadius: .all(.circular(20))),
-      padding: .only(right: rightPadding),
-      child: Container(
+    return VisibilityDetector(
+      key: widget.key!,
+      onVisibilityChanged: _onVisibilityChanged,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200) * 5,
         height: 32,
-        alignment: .centerRight,
         width: widget.maxWidth,
-        padding: const .only(right: 16),
-        decoration: BoxDecoration(
-          borderRadius: const .all(.circular(20)),
-          gradient: LinearGradient(
-            colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.onPrimary],
+        decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
+        padding: EdgeInsets.only(right: rightPadding),
+        child: Container(
+          height: 32,
+          alignment: Alignment.centerRight,
+          width: widget.maxWidth,
+          padding: const EdgeInsets.only(right: 16),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            gradient: LinearGradient(
+              colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.onPrimary],
+            ),
           ),
+          child: Text('${widget.rate.toInt()}%', style: AppStlye.krBodyS),
         ),
-        child: Text('${widget.rate.toInt()}%', style: AppStlye.krBodyS),
       ),
     );
   }
