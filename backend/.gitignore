@@ -5,3 +5,5 @@ dist/
 *.env
 schema.sql
 seed.sql
+
+update.sql

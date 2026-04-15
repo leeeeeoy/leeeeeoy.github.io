@@ -54,6 +54,30 @@ class _ProjectCardState extends State<ProjectCard> {
       ),
   ];
 
+  String _formatCount(int count) {
+    if (count >= 10000) {
+      final formatted = (count / 10000).toStringAsFixed(count % 10000 == 0 ? 0 : 1);
+      return '$formatted만+';
+    }
+    if (count >= 1000) {
+      return '${(count / 1000).toStringAsFixed(count % 1000 == 0 ? 0 : 1)}천+';
+    }
+    return '$count+';
+  }
+
+  Widget _buildStatBadge({required IconData icon, required String label}) {
+    return Builder(
+      builder: (context) => Row(
+        mainAxisSize: .min,
+        children: [
+          Icon(icon, size: 14, color: Theme.of(context).colorScheme.primary),
+          const SizedBox(width: 4),
+          Text(label, style: AppStlye.krBodyS),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final project = widget.project;
@@ -71,6 +95,26 @@ class _ProjectCardState extends State<ProjectCard> {
         Text(project.title, style: AppStlye.egTitleM),
       ],
     );
+
+    final hasStats = project.downloadCount > 0 || project.userCount > 0;
+    final statsRow = hasStats
+        ? Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Row(
+              mainAxisAlignment: .center,
+              children: [
+                if (project.downloadCount > 0) ...[
+                  _buildStatBadge(icon: Icons.file_download_outlined, label: '${_formatCount(project.downloadCount)} 다운로드'),
+                ],
+                if (project.downloadCount > 0 && project.userCount > 0)
+                  const SizedBox(width: 16),
+                if (project.userCount > 0) ...[
+                  _buildStatBadge(icon: Icons.people_outline, label: '${_formatCount(project.userCount)} 사용자'),
+                ],
+              ],
+            ),
+          )
+        : const SizedBox.shrink();
 
     final socialRow = Row(
       children: [
@@ -127,6 +171,7 @@ class _ProjectCardState extends State<ProjectCard> {
               crossAxisAlignment: .start,
               children: [
                 nameRow,
+                statsRow,
                 const SizedBox(height: 16),
                 Align(
                   alignment: .center,
@@ -168,6 +213,7 @@ class _ProjectCardState extends State<ProjectCard> {
           child: Column(
             children: [
               nameRow,
+              statsRow,
               const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: .center,
