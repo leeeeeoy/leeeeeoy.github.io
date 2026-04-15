@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 double getWidgetOffset(GlobalKey key) {
-  final renderBox = key.currentContext!.findRenderObject() as RenderBox;
+  final renderObject = key.currentContext?.findRenderObject();
+  if (renderObject == null) return 0;
 
-  final offset = renderBox.localToGlobal(Offset.zero);
-
-  return offset.dy;
+  final viewport = RenderAbstractViewport.of(renderObject);
+  return viewport.getOffsetToReveal(renderObject, 0.0).offset;
 }
