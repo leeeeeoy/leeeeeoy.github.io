@@ -6,4 +6,4 @@ dist/
 schema.sql
 seed.sql
 
-update.sql
+query/
