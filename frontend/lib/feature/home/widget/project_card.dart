@@ -173,13 +173,15 @@ class _ProjectCardState extends State<ProjectCard> {
                 nameRow,
                 statsRow,
                 const SizedBox(height: 16),
-                Align(
-                  alignment: .center,
-                  child: SizedBox(height: 480, width: 270, child: pageView),
-                ),
-                const SizedBox(height: 16),
-                indicator,
-                const SizedBox(height: 16),
+                if (screenshots.isNotEmpty) ...[
+                  Align(
+                    alignment: .center,
+                    child: SizedBox(height: 480, width: 270, child: pageView),
+                  ),
+                  const SizedBox(height: 16),
+                  indicator,
+                  const SizedBox(height: 16),
+                ],
                 if (project.subtitle != null) ...[
                   Row(
                     children: [
@@ -219,6 +221,7 @@ class _ProjectCardState extends State<ProjectCard> {
                 mainAxisAlignment: .center,
                 crossAxisAlignment: .start,
                 children: [
+                  if (screenshots.isNotEmpty) ...[
                   SizedBox(
                     width: 360,
                     child: Column(
@@ -230,6 +233,7 @@ class _ProjectCardState extends State<ProjectCard> {
                     ),
                   ),
                   const SizedBox(width: 24),
+                ],
                   Expanded(
                     child: Column(
                       crossAxisAlignment: .start,

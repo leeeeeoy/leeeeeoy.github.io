@@ -11,23 +11,20 @@ import 'package:leeeeeoy_portfolio/feature/common/bloc/theme_bloc.dart';
 import 'package:leeeeeoy_portfolio/util/logger/app_bloc_observer.dart';
 
 void main() async {
-  runZonedGuarded(
-    () async {
-      usePathUrlStrategy();
+  runZonedGuarded(() async {
+    usePathUrlStrategy();
 
-      WidgetsFlutterBinding.ensureInitialized();
+    WidgetsFlutterBinding.ensureInitialized();
 
-      await AppConfig.initConfig();
+    await AppConfig.initConfig();
 
-      Bloc.observer = AppBlocObserver();
+    Bloc.observer = AppBlocObserver();
 
-      runApp(
-        BlocProvider(
-          create: (context) => ThemeBloc(appRepository: getIt<AppRepository>()),
-          child: const App(),
-        ),
-      );
-    },
-    catchError,
-  );
+    runApp(
+      BlocProvider(
+        create: (context) => ThemeBloc(appRepository: getIt<AppRepository>()),
+        child: const App(),
+      ),
+    );
+  }, catchError);
 }
