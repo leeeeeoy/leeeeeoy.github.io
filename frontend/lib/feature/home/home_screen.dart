@@ -9,6 +9,7 @@ import 'package:leeeeeoy_portfolio/feature/common/widget/fade_in_section.dart';
 import 'package:leeeeeoy_portfolio/feature/common/widget/section_title.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/about_me_card.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/career_card.dart';
+import 'package:leeeeeoy_portfolio/feature/home/widget/portfolio_info_sheet.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/project_card.dart';
 import 'package:leeeeeoy_portfolio/feature/home/widget/skill_card.dart';
 import 'package:leeeeeoy_portfolio/resource/resource.dart';
@@ -93,7 +94,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: const Text('Project'),
             ),
-            const SizedBox(width: 16),
+            IconButton(
+              onPressed: () => showPortfolioInfoSheet(context),
+              icon: const Icon(Icons.code, size: 20),
+              tooltip: 'About this Portfolio',
+            ),
+            const SizedBox(width: 8),
           ],
         ),
         SliverToBoxAdapter(
