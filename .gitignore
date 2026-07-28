@@ -16,3 +16,8 @@ CLAUDE.md
 
 #resume
 resume/
+
+# Private planning artifacts
+docs/private/
+docs/**/private/
+docs/**/raw/
