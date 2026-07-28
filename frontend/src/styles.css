@@ -37,12 +37,14 @@ a {
 }
 
 a,
-summary {
+summary,
+button {
   -webkit-tap-highlight-color: transparent;
 }
 
 a:focus-visible,
-summary:focus-visible {
+summary:focus-visible,
+button:focus-visible {
   outline: 3px solid var(--yellow);
   outline-offset: 4px;
 }
@@ -526,6 +528,71 @@ footer .eyebrow {
   color: rgb(23 32 29 / 65%);
 }
 
+.footer-privacy {
+  display: grid;
+  justify-items: end;
+  gap: 0.5rem;
+  text-align: right;
+}
+
+.footer-privacy button,
+.consent-actions button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.consent-banner {
+  position: fixed;
+  z-index: 30;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  max-width: 58rem;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgb(255 255 255 / 20%);
+  background: var(--ink);
+  color: white;
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 24%);
+}
+
+.consent-banner strong {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.consent-banner p {
+  margin: 0;
+  color: rgb(255 255 255 / 72%);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.consent-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.75rem;
+}
+
+.consent-actions button {
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+}
+
+.consent-actions .consent-accept {
+  background: var(--lime);
+  color: var(--ink);
+}
+
 @media (max-width: 800px) {
   .site-header {
     grid-template-columns: 1fr auto;
@@ -607,6 +674,16 @@ footer .eyebrow {
   .footer-meta {
     align-items: flex-start;
     gap: 2rem;
+  }
+
+  .footer-privacy {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .consent-banner {
+    display: grid;
+    gap: 1rem;
   }
 }
 

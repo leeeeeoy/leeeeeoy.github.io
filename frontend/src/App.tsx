@@ -1,15 +1,92 @@
+import { useEffect, useState } from 'react'
 import content from './content.json'
+
+const CLARITY_PROJECT_ID = 'xti7rw64s1'
+const CLARITY_CONSENT_KEY = 'portfolio-clarity-consent'
+const PRODUCTION_HOST = 'portfolio.leeeeeoy.xyz'
+
+type Consent = 'granted' | 'denied'
+type Clarity = ((command: string, options?: Record<string, string>) => void) & {
+  q?: unknown[][]
+}
+
+declare global {
+  interface Window {
+    clarity?: Clarity
+  }
+}
 
 const externalLinkProps = {
   target: '_blank',
   rel: 'noreferrer',
 } as const
 
+function loadClarity() {
+  if (
+    window.location.hostname !== PRODUCTION_HOST ||
+    document.querySelector('script[data-clarity]')
+  ) {
+    return
+  }
+
+  window.clarity ??= (...args: unknown[]) => {
+    window.clarity!.q ??= []
+    window.clarity!.q!.push(args)
+  }
+  window.clarity('consentv2', {
+    ad_Storage: 'denied',
+    analytics_Storage: 'granted',
+  })
+
+  const script = document.createElement('script')
+  script.async = true
+  script.dataset.clarity = CLARITY_PROJECT_ID
+  script.src = `https://www.clarity.ms/tag/${CLARITY_PROJECT_ID}`
+  document.head.append(script)
+}
+
 function Arrow() {
   return <span aria-hidden="true">↗</span>
 }
 
+function getSavedConsent(): Consent | null {
+  try {
+    const consent = localStorage.getItem(CLARITY_CONSENT_KEY)
+    return consent === 'granted' || consent === 'denied' ? consent : null
+  } catch {
+    return null
+  }
+}
+
 export default function App() {
+  const initialConsent = getSavedConsent()
+  const [consent, setConsent] = useState<Consent | null>(initialConsent)
+  const [showConsent, setShowConsent] = useState(initialConsent === null)
+
+  useEffect(() => {
+    if (consent === 'granted') loadClarity()
+  }, [consent])
+
+  const chooseConsent = (nextConsent: Consent) => {
+    try {
+      localStorage.setItem(CLARITY_CONSENT_KEY, nextConsent)
+    } catch {
+      // The current-page choice still applies when browser storage is unavailable.
+    }
+
+    if (nextConsent === 'denied' && window.clarity) {
+      window.clarity('consentv2', {
+        ad_Storage: 'denied',
+        analytics_Storage: 'denied',
+      })
+      window.location.reload()
+      return
+    }
+
+    setConsent(nextConsent)
+    setShowConsent(false)
+  }
+
   return (
     <>
       <a className="skip-link" href="#content">
@@ -204,9 +281,52 @@ export default function App() {
               </a>
             ))}
           </div>
+          <div className="footer-privacy">
+            <p>
+              허용한 경우에만 Microsoft Clarity로 사용 패턴을 분석합니다.
+            </p>
+            <button type="button" onClick={() => setShowConsent(true)}>
+              분석 설정
+            </button>
+            <a
+              href="https://www.microsoft.com/privacy/privacystatement"
+              {...externalLinkProps}
+            >
+              Microsoft 개인정보 처리방침 <Arrow />
+            </a>
+          </div>
           <p>© {new Date().getFullYear()} {content.profile.name}</p>
         </div>
       </footer>
+
+      {showConsent && (
+        <aside
+          className="consent-banner"
+          role="region"
+          aria-labelledby="consent-title"
+          aria-describedby="consent-description"
+        >
+          <div>
+            <strong id="consent-title">사이트 사용성 분석</strong>
+            <p id="consent-description">
+              Microsoft Clarity로 클릭, 스크롤, 세션 재생 데이터를 수집해
+              포트폴리오를 개선합니다. 거부하면 Clarity를 불러오지 않습니다.
+            </p>
+          </div>
+          <div className="consent-actions">
+            <button type="button" onClick={() => chooseConsent('denied')}>
+              거부
+            </button>
+            <button
+              className="consent-accept"
+              type="button"
+              onClick={() => chooseConsent('granted')}
+            >
+              허용
+            </button>
+          </div>
+        </aside>
+      )}
     </>
   )
 }
