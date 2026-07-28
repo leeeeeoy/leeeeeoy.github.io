@@ -141,10 +141,10 @@
       "subtitle": "반려견 숏폼 SNS",
       "description": "Flutter와 Supabase로 출시해 약 1년간 운영한 반려견 숏폼 서비스입니다. 관측 도구로 OOM 원인을 좁히고 모바일 영상 처리 경로를 직접 개선했습니다.",
       "image": {
-        "src": "https://assets.leeeeeoy.xyz/celdog/screenshot1.jpg",
+        "src": "https://assets.leeeeeoy.xyz/portfolio-v2/celdog.webp",
         "alt": "Celebridog 앱 피드 화면",
-        "width": 1290,
-        "height": 2796
+        "width": 720,
+        "height": 1561
       },
       "metrics": [
         {
@@ -179,10 +179,10 @@
       "subtitle": "Dynamic Island 타이머",
       "description": "기존 Flutter 패키지가 지원하지 않던 Live Activities 제어를 Swift 라이브러리와 MethodChannel로 연결한 2인 프로젝트입니다.",
       "image": {
-        "src": "https://assets.leeeeeoy.xyz/tickie/screenshot1.png",
+        "src": "https://assets.leeeeeoy.xyz/portfolio-v2/tickie.webp",
         "alt": "Tickie 타이머 앱 화면",
-        "width": 5160,
-        "height": 11184
+        "width": 720,
+        "height": 1561
       },
       "metrics": [
         {
@@ -213,10 +213,10 @@
       "subtitle": "카공인을 위한 지도",
       "description": "카페의 작업 환경과 혼잡도를 탐색하는 지도 서비스입니다. 출시 후 약 1년간 운영했으며 현재 서비스는 종료했습니다.",
       "image": {
-        "src": "https://assets.leeeeeoy.xyz/cafein/screenshot1.jpg",
+        "src": "https://assets.leeeeeoy.xyz/portfolio-v2/cafein.webp",
         "alt": "Cafein 카페 지도 화면",
-        "width": 4968,
-        "height": 8832
+        "width": 720,
+        "height": 1280
       },
       "metrics": [
         {
