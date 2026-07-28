@@ -71,6 +71,12 @@ GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 - `CLOUDFLARE_ACCOUNT_ID`
 - `SONAR_TOKEN`
 
+필요한 GitHub Repository Variables:
+
+- `SONAR_ORGANIZATION`
+- `SONAR_FRONTEND_PROJECT_KEY`
+- `SONAR_BACKEND_PROJECT_KEY`
+
 ## Cloudflare
 
 ```text
