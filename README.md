@@ -1,147 +1,82 @@
 # leeeeeoy Portfolio
 
-개인 포트폴리오 웹사이트 — Flutter Web으로 제작된 프론트엔드와 Cloudflare 인프라 기반의 백엔드로 구성되어 있습니다.
+React 정적 SPA와 Cloudflare 인프라로 구성한 개인 포트폴리오 웹사이트입니다.
 
 **URL:** https://portfolio.leeeeeoy.xyz
 
----
+## 구조
 
-## 프로젝트 구조
-
-```
+```text
 leeeeeoy_portfolio/
-├── frontend/          # Flutter Web 앱
-├── backend/           # Cloudflare Workers API (Hono + TypeScript)
-└── .github/workflows/ # CI/CD (GitHub Actions)
+├── frontend/          # React + Vite 정적 SPA
+├── backend/           # 기존 Cloudflare Workers API
+├── docs/              # 개편 계획과 운영 문서
+└── .github/workflows/ # 영역별 CI/CD
 ```
-
----
 
 ## Frontend
 
-**Flutter Web** (`frontend/`)
-
 | 항목 | 내용 |
-|------|------|
-| Framework | Flutter 3.41 / Dart SDK ^3.11 |
-| 상태관리 | flutter_bloc |
-| 라우팅 | go_router |
-| DI | get_it + injectable |
-| 네트워크 | dio + talker_dio_logger |
-| 코드 생성 | freezed, json_serializable, flutter_gen |
-| Firebase | Analytics, Crashlytics, Performance, Messaging |
-| 로컬 저장소 | hive_flutter |
+|---|---|
+| UI | React 19 + TypeScript |
+| Build | Vite 7 |
+| 콘텐츠 | `src/content.json` 정적 데이터 |
+| 스타일 | HTML/CSS 중심, 외부 UI·애니메이션 라이브러리 없음 |
+| 이미지 | Cloudflare R2 |
 | 배포 | Cloudflare Pages |
-
-### 주요 화면 구조
-
-```
-lib/
-├── feature/
-│   ├── home/      # 메인 홈 화면
-│   ├── profile/   # 프로필 섹션
-│   ├── main/      # 레이아웃 진입점
-│   └── common/    # 공통 위젯 / BLoC
-├── data/          # API 레이어 (dio)
-├── di/            # 의존성 주입 설정
-├── router/        # go_router 라우트 정의
-├── config/        # 환경 설정
-├── resource/      # 색상, 텍스트 스타일 등 리소스
-└── util/          # 유틸리티
-```
-
-### 로컬 실행
 
 ```bash
 cd frontend
-flutter pub get
-flutter run -d chrome
+npm install
+npm test
+npm run typecheck
+npm run build
+npm run dev
 ```
 
-### 빌드
-
-```bash
-flutter build web --release
-```
-
----
+Vite 빌드 결과는 `frontend/dist/`에 생성됩니다.
 
 ## Backend
 
-**Cloudflare Workers + Hono** (`backend/`)
+기존 Cloudflare Workers + Hono API는 새 Frontend가 안정화될 때까지 유지합니다.
+현재 Frontend는 공개 콘텐츠를 빌드에 포함하므로 API를 호출하지 않습니다.
 
 | 항목 | 내용 |
-|------|------|
+|---|---|
 | Runtime | Cloudflare Workers |
-| Framework | Hono ^4.6 |
-| 언어 | TypeScript 5.5 |
-| DB | Cloudflare D1 (SQLite) |
-| Storage | Cloudflare R2 (정적 에셋) |
-| 배포 도구 | Wrangler 4 |
-
-### API 엔드포인트
-
-| Method | Path | 설명 |
-|--------|------|------|
-| GET | `/` | 헬스 체크 |
-| GET | `/api/profile` | 프로필 정보 |
-| GET | `/api/careers` | 경력 사항 |
-| GET | `/api/projects` | 프로젝트 목록 |
-| GET | `/api/skills` | 기술 스택 |
-
-### 로컬 실행
+| Framework | Hono |
+| Database | Cloudflare D1 |
+| Storage | Cloudflare R2 |
+| Deploy | Wrangler |
 
 ```bash
 cd backend
 npm install
-npm run dev
-```
-
-### 배포
-
-```bash
+npm test
 npm run deploy
 ```
 
----
-
 ## CI/CD
 
-GitHub Actions를 통해 `main` 브랜치 푸시 시 변경된 영역(frontend / backend)만 자동 배포됩니다.
+GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 
-| 워크플로우 | 트리거 조건 | 배포 대상 |
-|-----------|-----------|----------|
-| `frontend.yml` | `frontend/**` 변경 | Cloudflare Pages |
-| `backend.yml` | `backend/**` 변경 | Cloudflare Workers |
+- `frontend/**`: test, typecheck, build, SonarQube Quality Gate 후 Pages 배포
+- `backend/**`: test, typecheck, SonarQube Quality Gate 후 Workers 배포
+- `main`: Production
+- `develop`: 검사만 실행
 
-### 필요한 GitHub Secrets
+필요한 GitHub Secrets:
 
-| Secret | 용도 |
-|--------|------|
-| `CLOUDFLARE_API_TOKEN` | Cloudflare 배포 인증 |
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare 계정 식별 (Pages 배포) |
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+- `SONAR_TOKEN`
 
----
+## Cloudflare
 
-## 인프라 구성
-
-```
-                    ┌─────────────────────────────┐
-                    │         Cloudflare           │
-  사용자  ──────▶  │  Pages (Flutter Web)         │
-                    │  Workers (Hono API)          │
-                    │  D1 (Database)               │
-                    │  R2 (Assets)                 │
-                    └─────────────────────────────┘
-                                  ▲
-                    ┌─────────────┴────────────┐
-                    │      GitHub Actions        │
-                    │  frontend.yml / backend.yml│
-                    └──────────────────────────┘
+```text
+사용자 ──▶ Pages (React SPA) ──▶ R2 (공개 이미지)
+                    │
+                    └─ Workers + D1 (기존 API, 정리 전 보존)
 ```
 
-- **Cloudflare Pages** — Flutter Web 빌드 결과물 (`build/web`) 호스팅
-- **Cloudflare Workers** — Edge에서 실행되는 서버리스 API
-- **Cloudflare D1** — Workers와 연결된 서버리스 SQLite DB (`leeeeeoy-portfolio`)
-- **Cloudflare R2** — 이미지 등 정적 에셋 저장소 (`leeeeeoy-portfolio-assets`, base URL: `https://assets.leeeeeoy.xyz`)
-- **Firebase** — 분석(Analytics), 오류 추적(Crashlytics), 성능 모니터링(Performance)
+상세 전환 기준은 [포트폴리오 개편 계획](./docs/portfolio-renewal/README.md)을 참고합니다.
