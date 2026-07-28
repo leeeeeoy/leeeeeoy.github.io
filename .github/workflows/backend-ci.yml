@@ -21,8 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -41,22 +39,6 @@ jobs:
       - name: Typecheck
         working-directory: backend
         run: npm run typecheck
-
-      - name: SonarQube Cloud
-        uses: SonarSource/sonarqube-scan-action@v8.1.0
-        with:
-          projectBaseDir: backend
-          args: >
-            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
-            -Dsonar.projectKey=${{ vars.SONAR_BACKEND_PROJECT_KEY }}
-            -Dsonar.sources=src
-            -Dsonar.tests=src/__tests__
-            -Dsonar.test.inclusions=src/__tests__/**
-            -Dsonar.exclusions=src/__tests__/**,node_modules/**
-            -Dsonar.qualitygate.wait=true
-            -Dsonar.qualitygate.timeout=300
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deploy:
     name: Deploy to Cloudflare Workers

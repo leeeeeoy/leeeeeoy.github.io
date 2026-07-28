@@ -60,22 +60,15 @@ npm run deploy
 
 GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 
-- `frontend/**`: test, typecheck, build, SonarQube Quality Gate 후 Pages 배포
-- `backend/**`: test, typecheck, SonarQube Quality Gate 후 Workers 배포
+- `frontend/**`: test, typecheck, build 후 Pages 배포
+- `backend/**`: test, typecheck 후 Workers 배포
 - `main`: Production
-- `develop`: 검사만 실행
+- `develop`: Frontend Preview
 
 필요한 GitHub Secrets:
 
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
-- `SONAR_TOKEN`
-
-필요한 GitHub Repository Variables:
-
-- `SONAR_ORGANIZATION`
-- `SONAR_FRONTEND_PROJECT_KEY`
-- `SONAR_BACKEND_PROJECT_KEY`
 
 ## Cloudflare
 
