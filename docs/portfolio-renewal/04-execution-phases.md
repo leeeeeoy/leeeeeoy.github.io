@@ -61,13 +61,12 @@ Git 브랜치와 Pages Preview가 롤백 수단이다.
 
 - `flutter test` 제거
 - `npm ci`, test, typecheck, build 적용
-- SonarQube Quality Gate 연결
-- deploy가 test/analysis에 `needs`로 의존
+- deploy가 test/build에 `needs`로 의존
 - main만 Production, develop은 Preview 유지
 
 완료 조건:
 
-- 테스트 또는 Quality Gate 실패 시 배포되지 않음
+- 테스트 또는 build 실패 시 배포되지 않음
 - frontend 변경은 Pages만 배포
 - backend 변경은 Workers만 배포
 

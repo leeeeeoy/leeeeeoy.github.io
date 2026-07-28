@@ -50,7 +50,7 @@ Frontend와 Backend는 서로 직접 참조하지 않는다.
 
 - Frontend 변경은 Pages만 배포한다.
 - Backend 변경은 Workers만 배포한다.
-- 테스트, 타입 검사, build, SonarQube Cloud Quality Gate가 성공해야 배포한다.
+- 테스트, 타입 검사, build가 성공해야 배포한다.
 - deploy job은 검사 job을 `needs`로 의존한다.
 - main만 Production에 배포한다.
 
