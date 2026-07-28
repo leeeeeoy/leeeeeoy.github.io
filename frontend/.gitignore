@@ -2,13 +2,4 @@ node_modules/
 dist/
 .vite/
 *.local
-
-# Local artifacts from the retired Flutter app
-.dart_tool/
-.firebase/
-.idea/
-build/
 .env*
-.firebaserc
-.flutter-plugins*
-*.iml
