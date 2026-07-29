@@ -6,9 +6,29 @@ const content = JSON.parse(
   await readFile(new URL('../src/content.json', import.meta.url), 'utf8'),
 )
 const appSource = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
+const portfolioSource = await readFile(
+  new URL('../src/pages/PortfolioPage.tsx', import.meta.url),
+  'utf8',
+)
+const notesPageSource = await readFile(
+  new URL('../src/pages/NotesPage.tsx', import.meta.url),
+  'utf8',
+)
+const notesSource = await readFile(
+  new URL('../src/notes.ts', import.meta.url),
+  'utf8',
+)
+const siteChromeSource = await readFile(
+  new URL('../src/components/SiteChrome.tsx', import.meta.url),
+  'utf8',
+)
 const htmlSource = await readFile(new URL('../index.html', import.meta.url), 'utf8')
 const stylesSource = await readFile(
   new URL('../src/styles.css', import.meta.url),
+  'utf8',
+)
+const redirectsSource = await readFile(
+  new URL('../public/_redirects', import.meta.url),
   'utf8',
 )
 const robotsSource = await readFile(
@@ -42,7 +62,7 @@ test('public portfolio content is complete and excludes private contact data', (
       ),
     ),
   )
-  assert.match(appSource, /className="company-link"/)
+  assert.match(portfolioSource, /className="company-link"/)
 
   const serialized = JSON.stringify(content)
   assert.doesNotMatch(serialized, /01[016789][-. ]?\d{3,4}[-. ]?\d{4}/)
@@ -74,11 +94,22 @@ test('theme follows the system preference and remembers an explicit choice', () 
 test('motion is progressive and respects reduced-motion preferences', () => {
   assert.match(appSource, /new IntersectionObserver/)
   assert.match(appSource, /observer\.unobserve\(entry\.target\)/)
-  assert.match(appSource, /data-reveal/)
+  assert.match(portfolioSource + notesPageSource, /data-reveal/)
   assert.match(stylesSource, /@keyframes hero-enter/)
   assert.match(stylesSource, /@keyframes disclosure-enter/)
   assert.match(stylesSource, /@media \(hover: hover\) and \(pointer: fine\)/)
   assert.match(stylesSource, /@media \(prefers-reduced-motion: reduce\)/)
+})
+
+test('engineering notes have list and detail routes without a router dependency', () => {
+  assert.match(appSource, /window\.location\.pathname\.split\('\/'\)/)
+  assert.match(appSource, /<NotesPage slug=\{noteSlug\}/)
+  assert.match(siteChromeSource, /href="\/notes\/"/)
+  assert.match(notesPageSource, /engineeringNotes\.find/)
+  assert.match(notesPageSource, /href=\{`\/notes\/\$\{item\.slug\}\/`\}/)
+  assert.match(notesSource, /'Troubleshooting' \| 'Retrospective'/)
+  assert.match(notesSource, /engineeringNotes: EngineeringNote\[\] = \[\]/)
+  assert.match(redirectsSource, /\/notes\/\* \/index\.html 200/)
 })
 
 test('social previews use the optimized R2 image', () => {
