@@ -129,9 +129,6 @@ export default function App() {
               ))}
             </div>
           </div>
-          <p className="hero-mark" aria-hidden="true">
-            01
-          </p>
         </section>
 
         <section className="metric-strip" aria-label="대표 성과">
