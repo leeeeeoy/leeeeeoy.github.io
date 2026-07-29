@@ -170,19 +170,27 @@ export default function App() {
                       </span>
                     ))}
                   </div>
-                  <details>
-                    <summary>주요 성과 보기</summary>
-                    <ul>
-                      {experience.highlights.map((highlight) => (
-                        <li key={highlight}>{highlight}</li>
-                      ))}
-                    </ul>
+                  <details className="disclosure">
+                    <summary>
+                      <span>상세 성과</span>
+                      <span className="disclosure-action" aria-hidden="true" />
+                    </summary>
+                    <div className="disclosure-content">
+                      <ul>
+                        {experience.highlights.map((highlight) => (
+                          <li key={highlight}>{highlight}</li>
+                        ))}
+                      </ul>
+                      <ul
+                        className="tags"
+                        aria-label={`${experience.company} 사용 기술`}
+                      >
+                        {experience.skills.map((skill) => (
+                          <li key={skill}>{skill}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </details>
-                  <ul className="tags" aria-label={`${experience.company} 사용 기술`}>
-                    {experience.skills.map((skill) => (
-                      <li key={skill}>{skill}</li>
-                    ))}
-                  </ul>
                 </div>
               </article>
             ))}
@@ -221,16 +229,27 @@ export default function App() {
                       </span>
                     ))}
                   </div>
-                  <ul className="project-highlights">
-                    {project.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-                  <ul className="tags" aria-label={`${project.title} 사용 기술`}>
-                    {project.skills.map((skill) => (
-                      <li key={skill}>{skill}</li>
-                    ))}
-                  </ul>
+                  <details className="disclosure">
+                    <summary>
+                      <span>프로젝트 자세히 보기</span>
+                      <span className="disclosure-action" aria-hidden="true" />
+                    </summary>
+                    <div className="disclosure-content">
+                      <ul>
+                        {project.highlights.map((highlight) => (
+                          <li key={highlight}>{highlight}</li>
+                        ))}
+                      </ul>
+                      <ul
+                        className="tags"
+                        aria-label={`${project.title} 사용 기술`}
+                      >
+                        {project.skills.map((skill) => (
+                          <li key={skill}>{skill}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </details>
                   {project.links.map((link) => (
                     <a
                       className="project-link"

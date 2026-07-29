@@ -139,6 +139,7 @@ footer {
   position: relative;
   z-index: 1;
   width: min(67rem, 92%);
+  min-width: 0;
 }
 
 .eyebrow {
@@ -162,6 +163,7 @@ h1 {
   font-weight: 500;
   line-height: 1.05;
   letter-spacing: -0.065em;
+  overflow-wrap: anywhere;
 }
 
 h1 span {
@@ -327,23 +329,48 @@ footer h2 {
   font-size: 0.86rem;
 }
 
-details {
+.disclosure {
   max-width: 52rem;
   margin: 2rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
-summary {
-  width: max-content;
+.disclosure summary {
+  display: flex;
+  min-height: 3.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   cursor: pointer;
   font-size: 0.82rem;
   font-weight: 700;
+  list-style: none;
 }
 
-details ul,
-.project-highlights {
+.disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclosure-action::before {
+  content: '펼쳐보기  +';
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.disclosure[open] .disclosure-action::before {
+  content: '접어두기  −';
+}
+
+.disclosure-content {
+  padding: 0 0 1.5rem;
+}
+
+.disclosure-content > ul:first-child {
   display: grid;
   gap: 0.8rem;
-  margin: 1.5rem 0 0;
+  margin: 0 0 1.5rem;
   padding-left: 1.25rem;
   color: #4f5a56;
   font-size: 0.9rem;
@@ -440,13 +467,9 @@ details ul,
   text-transform: uppercase;
 }
 
-.project-highlights {
-  margin: 1.75rem 0;
-}
-
 .project-link {
   display: inline-block;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 }
 
 .skills-section {
@@ -613,7 +636,7 @@ footer .eyebrow {
   }
 
   h1 {
-    font-size: clamp(2.8rem, 13vw, 5rem);
+    font-size: clamp(2.6rem, 11vw, 4.5rem);
   }
 
   .metric-strip {
