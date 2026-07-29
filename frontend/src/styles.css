@@ -1,6 +1,6 @@
 :root {
-  color: #1d1d1f;
-  background: #fff;
+  color: var(--ink);
+  background: var(--canvas);
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI',
     'Noto Sans KR', system-ui, sans-serif;
   font-synthesis: none;
@@ -11,10 +11,24 @@
   --paper: #f5f5f7;
   --tile: #272729;
   --blue: #06c;
+  --link: #06c;
   --blue-focus: #0071e3;
   --blue-on-dark: #2997ff;
   --hairline: #d2d2d7;
   --line: rgb(0 0 0 / 8%);
+  --frosted: rgb(245 245 247 / 90%);
+}
+
+:root[data-theme='dark'] {
+  --ink: #f5f5f7;
+  --muted: #a1a1a6;
+  --canvas: #000;
+  --paper: #1d1d1f;
+  --tile: #272729;
+  --link: #2997ff;
+  --hairline: #424245;
+  --line: rgb(255 255 255 / 14%);
+  --frosted: rgb(29 29 31 / 90%);
 }
 
 * {
@@ -56,7 +70,7 @@ button:focus-visible {
   left: 1rem;
   padding: 0.75rem 1rem;
   background: var(--ink);
-  color: white;
+  color: var(--canvas);
   transform: translateY(-200%);
 }
 
@@ -100,28 +114,47 @@ nav {
 
 nav a,
 .header-link,
+.theme-toggle,
 .project-link,
 .footer-meta a {
   transition: color 160ms ease;
 }
 
 nav a:hover,
-.header-link:hover {
+.header-link:hover,
+.theme-toggle:hover {
   color: white;
 }
 
 .project-link:hover,
 .footer-meta a:hover {
-  color: var(--blue);
+  color: var(--link);
   text-decoration: underline;
 }
 
-.header-link {
+.header-actions {
+  display: flex;
   justify-self: end;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-link {
   min-height: 44px;
   align-content: center;
   font-size: 12px;
   font-weight: 400;
+}
+
+.theme-toggle {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgb(255 255 255 / 80%);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
 }
 
 main,
@@ -195,7 +228,7 @@ h1 span {
 
 .hero-links a,
 .project-link {
-  color: var(--blue);
+  color: var(--link);
   font-size: 17px;
   font-weight: 400;
   letter-spacing: -0.374px;
@@ -373,7 +406,7 @@ footer h2 {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  color: var(--blue);
+  color: var(--link);
   cursor: pointer;
   font-size: 14px;
   font-weight: 400;
@@ -387,7 +420,7 @@ footer h2 {
 
 .disclosure-action::before {
   content: '펼쳐보기  +';
-  color: var(--blue);
+  color: var(--link);
   font-size: 12px;
   font-weight: 400;
 }
@@ -592,7 +625,7 @@ footer .eyebrow {
   padding: 0;
   border: 0;
   background: none;
-  color: var(--blue);
+  color: var(--link);
   font: inherit;
   text-decoration: underline;
   cursor: pointer;
@@ -613,7 +646,7 @@ footer .eyebrow {
   padding: 20px 24px;
   border: 1px solid var(--hairline);
   border-radius: 18px;
-  background: rgb(245 245 247 / 90%);
+  background: var(--frosted);
   color: var(--ink);
   backdrop-filter: saturate(180%) blur(20px);
 }
