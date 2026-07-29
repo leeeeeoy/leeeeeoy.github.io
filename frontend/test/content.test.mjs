@@ -19,6 +19,22 @@ test('public portfolio content is complete and excludes private contact data', (
   assert.equal(content.profile.eyebrow, 'SOFTWARE ENGINEER · SINCE 2022')
   assert.ok(content.experiences.every(({ highlights }) => highlights.length >= 3))
   assert.ok(content.projects.every(({ highlights }) => highlights.length >= 3))
+  assert.deepEqual(
+    content.experiences.map(({ website }) => website),
+    [
+      'https://clify.co.kr/',
+      'https://www.seoulexchange.kr/',
+      'https://www.dozn.co.kr/',
+    ],
+  )
+  assert.ok(
+    content.experiences.every(({ caseStudies }) =>
+      caseStudies.every(({ problem, analysis, action, result }) =>
+        [problem, analysis, action, result].every(Boolean),
+      ),
+    ),
+  )
+  assert.match(appSource, /className="company-link"/)
 
   const serialized = JSON.stringify(content)
   assert.doesNotMatch(serialized, /01[016789][-. ]?\d{3,4}[-. ]?\d{4}/)
