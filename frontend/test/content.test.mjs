@@ -46,3 +46,13 @@ test('theme follows the system preference and remembers an explicit choice', () 
   assert.match(appSource, /localStorage\.setItem\(THEME_KEY, nextTheme\)/)
   assert.match(stylesSource, /:root\[data-theme='dark'\]/)
 })
+
+test('social previews use the optimized R2 image', () => {
+  assert.match(
+    htmlSource,
+    /https:\/\/assets\.leeeeeoy\.xyz\/portfolio-v2\/og\.jpg/,
+  )
+  assert.match(htmlSource, /property="og:image:width" content="1200"/)
+  assert.match(htmlSource, /property="og:image:height" content="630"/)
+  assert.match(htmlSource, /name="twitter:card" content="summary_large_image"/)
+})
