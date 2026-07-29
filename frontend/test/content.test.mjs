@@ -71,6 +71,16 @@ test('theme follows the system preference and remembers an explicit choice', () 
   assert.match(stylesSource, /:root\[data-theme='dark'\]/)
 })
 
+test('motion is progressive and respects reduced-motion preferences', () => {
+  assert.match(appSource, /new IntersectionObserver/)
+  assert.match(appSource, /observer\.unobserve\(entry\.target\)/)
+  assert.match(appSource, /data-reveal/)
+  assert.match(stylesSource, /@keyframes hero-enter/)
+  assert.match(stylesSource, /@keyframes disclosure-enter/)
+  assert.match(stylesSource, /@media \(hover: hover\) and \(pointer: fine\)/)
+  assert.match(stylesSource, /@media \(prefers-reduced-motion: reduce\)/)
+})
+
 test('social previews use the optimized R2 image', () => {
   assert.match(
     htmlSource,

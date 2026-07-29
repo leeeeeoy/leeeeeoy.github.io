@@ -80,6 +80,30 @@ export default function App() {
     if (consent === 'granted') loadClarity()
   }, [consent])
 
+  useEffect(() => {
+    const elements = document.querySelectorAll('[data-reveal]')
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      !('IntersectionObserver' in window)
+    ) {
+      elements.forEach((element) => element.classList.add('is-visible'))
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        }),
+      { rootMargin: '0px 0px -8%', threshold: 0.12 },
+    )
+
+    elements.forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
+  }, [])
+
   const chooseConsent = (nextConsent: Consent) => {
     try {
       localStorage.setItem(CLARITY_CONSENT_KEY, nextConsent)
@@ -177,13 +201,17 @@ export default function App() {
         </section>
 
         <section className="section" id="experience">
-          <div className="section-heading">
+          <div className="section-heading" data-reveal>
             <p className="eyebrow">02 · EXPERIENCE</p>
             <h2>문제를 발견하고,<br />운영 가능한 답을 만듭니다.</h2>
           </div>
           <div className="timeline">
             {content.experiences.map((experience, index) => (
-              <article className="experience" key={experience.company}>
+              <article
+                className="experience"
+                key={experience.company}
+                data-reveal
+              >
                 <div className="experience-index" aria-hidden="true">
                   {String(index + 1).padStart(2, '0')}
                 </div>
@@ -266,13 +294,13 @@ export default function App() {
         </section>
 
         <section className="section projects-section" id="projects">
-          <div className="section-heading">
+          <div className="section-heading" data-reveal>
             <p className="eyebrow">03 · SELECTED PROJECTS</p>
             <h2>직접 만들고,<br />출시하고, 운영했습니다.</h2>
           </div>
           <div className="projects">
             {content.projects.map((project, index) => (
-              <article className="project" key={project.title}>
+              <article className="project" key={project.title} data-reveal>
                 <div className="project-visual">
                   <span className="project-number" aria-hidden="true">
                     {String(index + 1).padStart(2, '0')}
@@ -335,13 +363,13 @@ export default function App() {
         </section>
 
         <section className="section skills-section" id="skills">
-          <div className="section-heading">
+          <div className="section-heading" data-reveal>
             <p className="eyebrow">04 · SKILLS</p>
             <h2>기술보다<br />사용한 맥락을 말합니다.</h2>
           </div>
           <div className="skill-grid">
             {content.skillGroups.map((group) => (
-              <article key={group.title}>
+              <article key={group.title} data-reveal>
                 <p>{group.description}</p>
                 <h3>{group.title}</h3>
                 <ul>
