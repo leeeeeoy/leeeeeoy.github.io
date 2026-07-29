@@ -21,6 +21,7 @@ resume/
 /IMG_1441.HEIC
 
 # Private planning artifacts
+/DESIGN.md
 docs/private/
 docs/**/private/
 docs/**/raw/
