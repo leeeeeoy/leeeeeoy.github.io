@@ -190,7 +190,16 @@ export default function App() {
                 <div className="experience-main">
                   <div className="experience-title">
                     <div>
-                      <h3>{experience.company}</h3>
+                      <h3>
+                        <a
+                          className="company-link"
+                          href={experience.website}
+                          aria-label={`${experience.company} 홈페이지 열기`}
+                          {...externalLinkProps}
+                        >
+                          {experience.company} <Arrow />
+                        </a>
+                      </h3>
                       <p>{experience.role}</p>
                     </div>
                     <time>{experience.period}</time>
@@ -209,7 +218,33 @@ export default function App() {
                       <span className="disclosure-action" aria-hidden="true" />
                     </summary>
                     <div className="disclosure-content">
-                      <ul>
+                      <div className="case-studies">
+                        {experience.caseStudies.map((caseStudy) => (
+                          <article className="case-study" key={caseStudy.title}>
+                            <h4>{caseStudy.title}</h4>
+                            <dl>
+                              <div>
+                                <dt>문제</dt>
+                                <dd>{caseStudy.problem}</dd>
+                              </div>
+                              <div>
+                                <dt>분석</dt>
+                                <dd>{caseStudy.analysis}</dd>
+                              </div>
+                              <div>
+                                <dt>실행</dt>
+                                <dd>{caseStudy.action}</dd>
+                              </div>
+                              <div>
+                                <dt>결과</dt>
+                                <dd>{caseStudy.result}</dd>
+                              </div>
+                            </dl>
+                          </article>
+                        ))}
+                      </div>
+                      <h4 className="contribution-title">그 밖의 기여</h4>
+                      <ul className="contributions">
                         {experience.highlights.map((highlight) => (
                           <li key={highlight}>{highlight}</li>
                         ))}
