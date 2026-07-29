@@ -6,6 +6,11 @@ const content = JSON.parse(
   await readFile(new URL('../src/content.json', import.meta.url), 'utf8'),
 )
 const appSource = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
+const htmlSource = await readFile(new URL('../index.html', import.meta.url), 'utf8')
+const stylesSource = await readFile(
+  new URL('../src/styles.css', import.meta.url),
+  'utf8',
+)
 
 test('public portfolio content is complete and excludes private contact data', () => {
   assert.equal(content.experiences.length, 3)
@@ -32,4 +37,12 @@ test('Clarity loads only after consent and only on production', () => {
   assert.match(appSource, /analytics_Storage: 'granted'/)
   assert.match(appSource, /analytics_Storage: 'denied'/)
   assert.match(appSource, /if \(consent === 'granted'\) loadClarity\(\)/)
+  assert.match(appSource, /localStorage\.setItem\(CLARITY_CONSENT_KEY/)
+})
+
+test('theme follows the system preference and remembers an explicit choice', () => {
+  assert.match(htmlSource, /prefers-color-scheme: dark/)
+  assert.match(htmlSource, /localStorage\.getItem\('portfolio-theme'\)/)
+  assert.match(appSource, /localStorage\.setItem\(THEME_KEY, nextTheme\)/)
+  assert.match(stylesSource, /:root\[data-theme='dark'\]/)
 })

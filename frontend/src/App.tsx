@@ -3,9 +3,11 @@ import content from './content.json'
 
 const CLARITY_PROJECT_ID = 'xti7rw64s1'
 const CLARITY_CONSENT_KEY = 'portfolio-clarity-consent'
+const THEME_KEY = 'portfolio-theme'
 const PRODUCTION_HOST = 'portfolio.leeeeeoy.xyz'
 
 type Consent = 'granted' | 'denied'
+type Theme = 'light' | 'dark'
 type Clarity = ((command: string, options?: Record<string, string>) => void) & {
   q?: unknown[][]
 }
@@ -58,10 +60,21 @@ function getSavedConsent(): Consent | null {
   }
 }
 
+function applyTheme(theme: Theme) {
+  document.documentElement.dataset.theme = theme
+  document.documentElement.style.colorScheme = theme
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff')
+}
+
 export default function App() {
   const initialConsent = getSavedConsent()
   const [consent, setConsent] = useState<Consent | null>(initialConsent)
   const [showConsent, setShowConsent] = useState(initialConsent === null)
+  const [theme, setTheme] = useState<Theme>(() =>
+    document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+  )
 
   useEffect(() => {
     if (consent === 'granted') loadClarity()
@@ -87,6 +100,19 @@ export default function App() {
     setShowConsent(false)
   }
 
+  const toggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light'
+    applyTheme(nextTheme)
+
+    try {
+      localStorage.setItem(THEME_KEY, nextTheme)
+    } catch {
+      // The current-page choice still applies when browser storage is unavailable.
+    }
+
+    setTheme(nextTheme)
+  }
+
   return (
     <>
       <a className="skip-link" href="#content">
@@ -102,13 +128,23 @@ export default function App() {
           <a href="#projects">Projects</a>
           <a href="#skills">Skills</a>
         </nav>
-        <a
-          className="header-link"
-          href={content.profile.links[0].url}
-          {...externalLinkProps}
-        >
-          GitHub <Arrow />
-        </a>
+        <div className="header-actions">
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label={theme === 'light' ? '다크 테마로 전환' : '라이트 테마로 전환'}
+            onClick={toggleTheme}
+          >
+            {theme === 'light' ? 'Dark' : 'Light'}
+          </button>
+          <a
+            className="header-link"
+            href={content.profile.links[0].url}
+            {...externalLinkProps}
+          >
+            GitHub <Arrow />
+          </a>
+        </div>
       </header>
 
       <main id="content">
