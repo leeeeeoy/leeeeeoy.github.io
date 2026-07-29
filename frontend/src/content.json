@@ -1,9 +1,9 @@
 {
   "profile": {
-    "eyebrow": "MOBILE SOFTWARE ENGINEER · SINCE 2022",
+    "eyebrow": "SOFTWARE ENGINEER · SINCE 2022",
     "name": "Yoel Jang",
-    "headline": "복잡한 모바일 서비스를\n단순하고 안정적으로 만듭니다.",
-    "intro": "Flutter 기반 Android·iOS 서비스를 설계하고 출시한 뒤, 실제 운영 지표를 바탕으로 구조와 성능을 개선해 왔습니다. 레거시 분석부터 네이티브 연동, 배포 자동화까지 제품의 전체 흐름을 책임집니다.",
+    "headline": "제품의 문제를 발견하고\n끝까지 해결합니다.",
+    "intro": "Flutter를 중심으로 서비스를 설계하고 운영해 왔습니다. 레거시 구조와 성능 문제를 개선하고, 제품 완성에 필요하다면 웹·백엔드·배포 환경까지 직접 연결합니다.",
     "links": [
       {
         "label": "GitHub",
@@ -38,7 +38,7 @@
       "company": "유쾌한프로젝트",
       "role": "Software Engineer",
       "period": "2025.04 — 현재",
-      "summary": "심리 상담·검사 예약 및 비대면 상담 서비스를 1인 모바일 개발 환경에서 설계하고 운영합니다.",
+      "summary": "심리 상담·검사 예약 및 비대면 상담 서비스를 설계하고 운영합니다. Flutter 앱을 중심으로 예약 웹과 백엔드 API까지 제품에 필요한 영역을 함께 개발합니다.",
       "metrics": [
         {
           "value": "4K+",
@@ -51,8 +51,9 @@
       ],
       "highlights": [
         "팀 규모에 비해 복잡했던 모노레포·Clean Architecture를 Repository와 Bloc 중심 구조로 단순화해 기능 개발 흐름을 개선했습니다.",
-        "Fastlane, GitHub Actions, match로 Android·iOS 빌드와 코드사이닝을 자동화하고 개발·운영 환경을 분리했습니다.",
         "분리되어 있던 예약 흐름의 단일 원장을 정의하고 API와 동기화 구조를 구현해 다중 채널의 중복 예약을 방지했습니다.",
+        "React 기반 B2C 예약 웹과 기업용 키오스크·관리 대시보드, Spring·Node.js 기반 백엔드 기능을 개발했습니다.",
+        "GitHub Actions와 Patrol로 테스트 흐름을 만들고, Fastlane과 match로 Android·iOS 빌드·코드사이닝을 자동화했습니다.",
         "카메라·WebView·MethodChannel과 비대면 상담 SDK 등 플랫폼 경계의 기능을 제품 흐름에 연결했습니다."
       ],
       "skills": [
@@ -61,6 +62,9 @@
         "Bloc",
         "Kotlin",
         "Swift",
+        "React",
+        "Spring",
+        "Node.js",
         "GitHub Actions",
         "Fastlane"
       ]
