@@ -11,6 +11,14 @@ const stylesSource = await readFile(
   new URL('../src/styles.css', import.meta.url),
   'utf8',
 )
+const robotsSource = await readFile(
+  new URL('../public/robots.txt', import.meta.url),
+  'utf8',
+)
+const sitemapSource = await readFile(
+  new URL('../public/sitemap.xml', import.meta.url),
+  'utf8',
+)
 
 test('public portfolio content is complete and excludes private contact data', () => {
   assert.equal(content.experiences.length, 3)
@@ -71,4 +79,27 @@ test('social previews use the optimized R2 image', () => {
   assert.match(htmlSource, /property="og:image:width" content="1200"/)
   assert.match(htmlSource, /property="og:image:height" content="630"/)
   assert.match(htmlSource, /name="twitter:card" content="summary_large_image"/)
+})
+
+test('search metadata describes the portfolio and keeps it crawlable', () => {
+  assert.match(htmlSource, /name="robots" content="max-image-preview:large"/)
+  assert.match(htmlSource, /property="og:site_name" content="Yoel Jang"/)
+  assert.match(htmlSource, /name="twitter:title"/)
+  assert.match(htmlSource, /name="twitter:description"/)
+
+  const structuredData = JSON.parse(
+    htmlSource.match(
+      /<script type="application\/ld\+json">([\s\S]*?)<\/script>/,
+    )[1],
+  )
+  assert.deepEqual(
+    structuredData['@graph'].map(({ '@type': type }) => type),
+    ['WebSite', 'ProfilePage', 'Person'],
+  )
+  assert.equal(
+    structuredData['@graph'][1].mainEntity['@id'],
+    structuredData['@graph'][2]['@id'],
+  )
+  assert.match(robotsSource, /Sitemap: https:\/\/portfolio\.leeeeeoy\.xyz\/sitemap\.xml/)
+  assert.match(sitemapSource, /<loc>https:\/\/portfolio\.leeeeeoy\.xyz\/<\/loc>/)
 })
