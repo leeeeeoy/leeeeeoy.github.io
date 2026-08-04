@@ -1,4 +1,7 @@
+import type { MouseEvent } from 'react'
 import content from '../content.json'
+
+export const SCROLL_TARGET_KEY = 'portfolio-scroll-target'
 
 export const externalLinkProps = {
   target: '_blank',
@@ -7,6 +10,20 @@ export const externalLinkProps = {
 
 export function Arrow() {
   return <span aria-hidden="true">↗</span>
+}
+
+function navigateToSection(event: MouseEvent<HTMLAnchorElement>, section: string) {
+  if (window.location.pathname === '/') {
+    event.preventDefault()
+    document.getElementById(section)?.scrollIntoView()
+    return
+  }
+
+  try {
+    sessionStorage.setItem(SCROLL_TARGET_KEY, section)
+  } catch {
+    // Navigating home still works when browser storage is unavailable.
+  }
 }
 
 export function SiteHeader({
@@ -22,9 +39,15 @@ export function SiteHeader({
         Y<span>.</span>
       </a>
       <nav aria-label="주요 메뉴">
-        <a href="/#experience">Experience</a>
-        <a href="/#projects">Projects</a>
-        <a href="/#skills">Skills</a>
+        <a href="/" onClick={(event) => navigateToSection(event, 'experience')}>
+          Experience
+        </a>
+        <a href="/" onClick={(event) => navigateToSection(event, 'projects')}>
+          Projects
+        </a>
+        <a href="/" onClick={(event) => navigateToSection(event, 'skills')}>
+          Skills
+        </a>
       </nav>
       <div className="header-actions">
         <a className="header-link" href="/notes/">

@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
-import { SiteFooter, SiteHeader } from './components/SiteChrome'
+import {
+  SCROLL_TARGET_KEY,
+  SiteFooter,
+  SiteHeader,
+} from './components/SiteChrome'
 import NotesPage from './pages/NotesPage'
 import PortfolioPage from './pages/PortfolioPage'
 
@@ -99,6 +103,19 @@ export default function App() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    if (isNotes) return
+
+    try {
+      const target = sessionStorage.getItem(SCROLL_TARGET_KEY)
+      if (!target) return
+      sessionStorage.removeItem(SCROLL_TARGET_KEY)
+      requestAnimationFrame(() => document.getElementById(target)?.scrollIntoView())
+    } catch {
+      // The home page still loads when browser storage is unavailable.
+    }
+  }, [isNotes])
+
   const chooseConsent = (nextConsent: Consent) => {
     try {
       localStorage.setItem(CLARITY_CONSENT_KEY, nextConsent)
@@ -134,13 +151,17 @@ export default function App() {
 
   return (
     <>
-      <a className="skip-link" href="#content">
+      <button
+        className="skip-link"
+        type="button"
+        onClick={() => document.getElementById('content')?.focus()}
+      >
         본문으로 건너뛰기
-      </a>
+      </button>
 
       <SiteHeader theme={theme} onToggleTheme={toggleTheme} />
 
-      <main id="content">
+      <main id="content" tabIndex={-1}>
         {isNotes ? <NotesPage slug={noteSlug} /> : <PortfolioPage />}
       </main>
 
