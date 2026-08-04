@@ -55,7 +55,7 @@ test('public portfolio content includes approved contact and excludes private da
   assert.ok(
     content.experiences
       .flatMap(({ metrics }) => metrics)
-      .filter(({ label }) => /다운로드|회원|사용자/.test(label))
+      .filter(({ label }) => /다운로드|회원|사용자|MAU|관리 단지/.test(label))
       .every(({ label }) => label.startsWith('서비스 규모 ·')),
   )
   assert.ok(content.experiences.every(({ highlights }) => highlights.length >= 3))
