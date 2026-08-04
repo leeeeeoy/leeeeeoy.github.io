@@ -43,8 +43,16 @@ const sitemapSource = await readFile(
 test('public portfolio content includes approved contact and excludes private data', () => {
   assert.equal(content.experiences.length, 3)
   assert.equal(content.projects.length, 3)
-  assert.ok(content.metrics.length >= 3)
-  assert.doesNotMatch(JSON.stringify(content.metrics), /다운로드|서비스 사용자/)
+  assert.equal(content.featuredImpacts.length, 3)
+  assert.ok(
+    content.featuredImpacts.every(({ context, decision, outcome }) =>
+      [context, decision, outcome].every(Boolean),
+    ),
+  )
+  assert.doesNotMatch(
+    JSON.stringify(content.featuredImpacts),
+    /서비스 규모|등록 사용자|다운로드/,
+  )
   assert.equal(content.profile.eyebrow, 'SOFTWARE ENGINEER · SINCE 2022')
   assert.equal(content.profile.role, 'Software Engineer')
   assert.equal(content.profile.email, 'hoheho18@gmail.com')
@@ -76,6 +84,7 @@ test('public portfolio content includes approved contact and excludes private da
     ),
   )
   assert.match(portfolioSource, /className="company-link"/)
+  assert.match(portfolioSource, /content\.featuredImpacts\.map/)
 
   const serialized = JSON.stringify(content)
   assert.doesNotMatch(serialized, /01[016789][-. ]?\d{3,4}[-. ]?\d{4}/)

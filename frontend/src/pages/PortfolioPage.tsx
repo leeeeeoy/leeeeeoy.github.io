@@ -26,13 +26,33 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      <section className="metric-strip" aria-label="대표 성과">
-        {content.metrics.map((metric) => (
-          <div key={metric.label}>
-            <strong>{metric.value}</strong>
-            <span>{metric.label}</span>
-          </div>
-        ))}
+      <section className="section impact-section" aria-labelledby="impact-title">
+        <div className="section-heading" data-reveal>
+          <p className="eyebrow">01 · SELECTED IMPACT</p>
+          <h2 id="impact-title">결과보다 먼저,<br />변화의 과정을 보여드립니다.</h2>
+        </div>
+        <div className="impact-grid">
+          {content.featuredImpacts.map((impact) => (
+            <article key={impact.title} data-reveal>
+              <p className="impact-organization">{impact.organization}</p>
+              <h3>{impact.title}</h3>
+              <dl>
+                <div>
+                  <dt>상황</dt>
+                  <dd>{impact.context}</dd>
+                </div>
+                <div>
+                  <dt>판단과 실행</dt>
+                  <dd>{impact.decision}</dd>
+                </div>
+                <div>
+                  <dt>변화</dt>
+                  <dd>{impact.outcome}</dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="section" id="experience">
