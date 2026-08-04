@@ -40,11 +40,13 @@ const sitemapSource = await readFile(
   'utf8',
 )
 
-test('public portfolio content is complete and excludes private contact data', () => {
+test('public portfolio content includes approved contact and excludes private data', () => {
   assert.equal(content.experiences.length, 3)
   assert.equal(content.projects.length, 3)
   assert.ok(content.metrics.length >= 3)
   assert.equal(content.profile.eyebrow, 'SOFTWARE ENGINEER · SINCE 2022')
+  assert.equal(content.profile.role, 'Software Engineer')
+  assert.equal(content.profile.email, 'hoheho18@gmail.com')
   assert.ok(content.experiences.every(({ highlights }) => highlights.length >= 3))
   assert.ok(content.projects.every(({ highlights }) => highlights.length >= 3))
   assert.deepEqual(
@@ -66,7 +68,10 @@ test('public portfolio content is complete and excludes private contact data', (
 
   const serialized = JSON.stringify(content)
   assert.doesNotMatch(serialized, /01[016789][-. ]?\d{3,4}[-. ]?\d{4}/)
-  assert.doesNotMatch(serialized, /[\w.+-]+@[\w.-]+\.[a-z]{2,}/i)
+  assert.deepEqual(
+    serialized.match(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/gi),
+    ['hoheho18@gmail.com'],
+  )
   assert.doesNotMatch(serialized, /서울특별시\s+\S+구|상세\s?주소/)
 
   for (const project of content.projects) {

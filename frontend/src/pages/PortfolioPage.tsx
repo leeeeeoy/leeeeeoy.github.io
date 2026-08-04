@@ -13,7 +13,10 @@ export default function PortfolioPage() {
             ))}
           </h1>
           <p className="hero-intro">{content.profile.intro}</p>
-          <div className="hero-links" aria-label="외부 링크">
+          <div className="hero-links" aria-label="연락 및 외부 링크">
+            <a href={`mailto:${content.profile.email}`}>
+              Email <Arrow />
+            </a>
             {content.profile.links.map((link) => (
               <a key={link.url} href={link.url} {...externalLinkProps}>
                 {link.label} <Arrow />
