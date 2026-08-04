@@ -156,8 +156,8 @@ export default function App() {
           <div>
             <strong id="consent-title">사이트 사용성 분석</strong>
             <p id="consent-description">
-              Microsoft Clarity로 클릭, 스크롤, 세션 재생 데이터를 수집해
-              포트폴리오를 개선합니다. 거부하면 Clarity를 불러오지 않습니다.
+              Microsoft Clarity로 클릭·스크롤 등 사용 패턴을 분석합니다.
+              거부하면 불러오지 않습니다.
             </p>
           </div>
           <div className="consent-actions">

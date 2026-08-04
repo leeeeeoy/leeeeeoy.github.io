@@ -2,6 +2,8 @@
   "profile": {
     "eyebrow": "SOFTWARE ENGINEER · SINCE 2022",
     "name": "Yoel Jang",
+    "role": "Software Engineer",
+    "email": "hoheho18@gmail.com",
     "headline": "제품의 문제를 발견하고\n끝까지 해결합니다.",
     "intro": "Flutter를 중심으로 서비스를 설계하고 운영해 왔습니다. 레거시 구조와 성능 문제를 개선하고, 제품 완성에 필요하다면 웹·백엔드·배포 환경까지 직접 연결합니다.",
     "links": [

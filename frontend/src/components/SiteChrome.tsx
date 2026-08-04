@@ -62,6 +62,11 @@ export function SiteFooter({
         <h2>복잡한 문제를<br />함께 단순하게.</h2>
       </div>
       <div className="footer-meta">
+        <address className="footer-contact">
+          <strong>{content.profile.name}</strong>
+          <span>{content.profile.role}</span>
+          <a href={`mailto:${content.profile.email}`}>{content.profile.email}</a>
+        </address>
         <div>
           {content.profile.links.map((link) => (
             <a key={link.url} href={link.url} {...externalLinkProps}>

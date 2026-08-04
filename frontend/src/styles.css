@@ -165,9 +165,9 @@ footer {
 .hero {
   position: relative;
   display: grid;
-  min-height: calc(100svh - 44px);
+  min-height: clamp(520px, 72svh, 680px);
   align-items: center;
-  padding: 80px 24px;
+  padding: 64px 24px;
   background: var(--canvas);
   text-align: center;
 }
@@ -258,6 +258,7 @@ h1 span {
 
 .hero-links {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
 }
@@ -850,6 +851,19 @@ footer .eyebrow {
   color: var(--muted);
 }
 
+.footer-contact {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-style: normal;
+}
+
+.footer-contact strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
 .footer-privacy {
   display: grid;
   justify-items: end;
@@ -873,14 +887,14 @@ footer .eyebrow {
   z-index: 30;
   right: 1rem;
   bottom: 1rem;
-  left: 1rem;
+  left: auto;
   display: flex;
-  max-width: 58rem;
-  gap: 32px;
+  width: min(42rem, calc(100% - 2rem));
+  gap: 16px;
   align-items: center;
   justify-content: space-between;
-  margin: auto;
-  padding: 20px 24px;
+  margin: 0;
+  padding: 14px 16px;
   border: 1px solid var(--hairline);
   border-radius: 18px;
   background: var(--frosted);
@@ -890,7 +904,7 @@ footer .eyebrow {
 
 .consent-banner strong {
   display: block;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
 }
 
 .consent-banner p {
@@ -1005,6 +1019,10 @@ footer .eyebrow {
   .footer-meta {
     align-items: flex-start;
     gap: 2rem;
+  }
+
+  .footer-contact {
+    justify-items: start;
   }
 
   .footer-privacy {
