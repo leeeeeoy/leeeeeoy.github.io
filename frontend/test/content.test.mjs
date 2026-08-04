@@ -44,9 +44,20 @@ test('public portfolio content includes approved contact and excludes private da
   assert.equal(content.experiences.length, 3)
   assert.equal(content.projects.length, 3)
   assert.ok(content.metrics.length >= 3)
+  assert.doesNotMatch(JSON.stringify(content.metrics), /다운로드|서비스 사용자/)
   assert.equal(content.profile.eyebrow, 'SOFTWARE ENGINEER · SINCE 2022')
   assert.equal(content.profile.role, 'Software Engineer')
   assert.equal(content.profile.email, 'hoheho18@gmail.com')
+  assert.equal(
+    content.experiences[0].metrics[0].label,
+    '서비스 규모 · 등록 사용자',
+  )
+  assert.ok(
+    content.experiences
+      .flatMap(({ metrics }) => metrics)
+      .filter(({ label }) => /다운로드|회원|사용자/.test(label))
+      .every(({ label }) => label.startsWith('서비스 규모 ·')),
+  )
   assert.ok(content.experiences.every(({ highlights }) => highlights.length >= 3))
   assert.ok(content.projects.every(({ highlights }) => highlights.length >= 3))
   assert.deepEqual(
