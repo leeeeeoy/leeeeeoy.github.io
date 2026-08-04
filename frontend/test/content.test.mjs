@@ -140,6 +140,13 @@ test('engineering notes have list and detail routes without a router dependency'
   assert.match(redirectsSource, /\/notes\/\* \/index\.html 200/)
 })
 
+test('section navigation keeps the URL free of hash fragments', () => {
+  assert.doesNotMatch(appSource + siteChromeSource, /href=["'][^"']*#/)
+  assert.match(siteChromeSource, /sessionStorage\.setItem\(SCROLL_TARGET_KEY/)
+  assert.match(appSource, /sessionStorage\.removeItem\(SCROLL_TARGET_KEY\)/)
+  assert.match(appSource, /document\.getElementById\('content'\)\?\.focus\(\)/)
+})
+
 test('social previews use the optimized R2 image', () => {
   assert.match(
     htmlSource,
