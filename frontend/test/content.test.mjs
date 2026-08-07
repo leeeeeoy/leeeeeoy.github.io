@@ -93,6 +93,11 @@ test('public portfolio content includes approved contact and excludes private da
   assert.match(seoulExchange.caseStudies[0].result, /출시 직전 검증 단계/)
   assert.match(seoulExchange.caseStudies[0].result, /운영 출시는 진행하지 못했지만/)
   assert.doesNotMatch(JSON.stringify(seoulExchange), /실시간 시세 연결 복구/)
+  const dozn = content.experiences.find(({ company }) => company === '더즌')
+  assert.match(dozn.summary, /기존 React Native 앱을 대체하는 Flutter 앱/)
+  assert.match(dozn.caseStudies[0].result, /2022년 9월 Flutter 앱을 출시/)
+  assert.match(JSON.stringify(dozn.highlights), /비회원도 전자투표에 참여/)
+  assert.doesNotMatch(dozn.summary, /모바일·웹 전반.*주도/)
   assert.match(portfolioSource, /className="company-link"/)
   assert.match(portfolioSource, /content\.featuredImpacts\.map/)
 
