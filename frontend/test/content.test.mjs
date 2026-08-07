@@ -92,6 +92,7 @@ test('public portfolio content includes approved contact and excludes private da
   )
   assert.match(seoulExchange.caseStudies[0].result, /출시 직전 검증 단계/)
   assert.match(seoulExchange.caseStudies[0].result, /운영 출시는 진행하지 못했지만/)
+  assert.doesNotMatch(JSON.stringify(seoulExchange), /실시간 시세 연결 복구/)
   assert.match(portfolioSource, /className="company-link"/)
   assert.match(portfolioSource, /content\.featuredImpacts\.map/)
 
