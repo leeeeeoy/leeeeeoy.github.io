@@ -43,7 +43,7 @@ const sitemapSource = await readFile(
 test('public portfolio content includes approved contact and excludes private data', () => {
   assert.equal(content.experiences.length, 3)
   assert.equal(content.projects.length, 3)
-  assert.equal(content.featuredImpacts.length, 3)
+  assert.equal(content.featuredImpacts.length, 4)
   assert.ok(
     content.featuredImpacts.every(({ context, decision, outcome }) =>
       [context, decision, outcome].every(Boolean),
@@ -83,6 +83,12 @@ test('public portfolio content includes approved contact and excludes private da
       ),
     ),
   )
+  const pleasantProject = content.experiences.find(
+    ({ company }) => company === '유쾌한프로젝트',
+  )
+  assert.match(JSON.stringify(pleasantProject), /LCOV.*76\.5%/)
+  assert.match(JSON.stringify(pleasantProject), /Codemagic/)
+  assert.deepEqual(pleasantProject.caseStudies[1].flow.map(({ steps }) => steps.length), [5, 5])
   const seoulExchange = content.experiences.find(
     ({ company }) => company === '서울거래',
   )
@@ -92,7 +98,7 @@ test('public portfolio content includes approved contact and excludes private da
   )
   assert.match(seoulExchange.caseStudies[0].result, /출시 직전 검증 단계/)
   assert.match(seoulExchange.caseStudies[0].result, /운영 출시는 진행하지 못했지만/)
-  assert.doesNotMatch(JSON.stringify(seoulExchange), /실시간 시세 연결 복구/)
+  assert.match(JSON.stringify(seoulExchange.highlights), /WebSocket 단절 시 재연결/)
   const dozn = content.experiences.find(({ company }) => company === '더즌')
   assert.match(dozn.summary, /기존 React Native 앱을 대체하는 Flutter 앱/)
   assert.match(dozn.caseStudies[0].result, /2022년 9월 Flutter 앱을 출시/)
@@ -100,6 +106,7 @@ test('public portfolio content includes approved contact and excludes private da
   assert.doesNotMatch(dozn.summary, /모바일·웹 전반.*주도/)
   assert.match(portfolioSource, /className="company-link"/)
   assert.match(portfolioSource, /content\.featuredImpacts\.map/)
+  assert.match(portfolioSource, /caseStudy\.flow\.map/)
 
   const serialized = JSON.stringify(content)
   assert.doesNotMatch(serialized, /01[016789][-. ]?\d{3,4}[-. ]?\d{4}/)
