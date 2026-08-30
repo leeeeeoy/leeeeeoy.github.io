@@ -89,6 +89,7 @@ test('public portfolio content includes approved contact and excludes private da
   assert.match(JSON.stringify(pleasantProject), /LCOV.*76\.5%/)
   assert.match(JSON.stringify(pleasantProject), /Codemagic/)
   assert.deepEqual(pleasantProject.caseStudies[1].flow.map(({ steps }) => steps.length), [5, 5])
+  assert.deepEqual(pleasantProject.caseStudies[3].flow.map(({ steps }) => steps.length), [3, 3])
   const seoulExchange = content.experiences.find(
     ({ company }) => company === '서울거래',
   )
@@ -107,6 +108,8 @@ test('public portfolio content includes approved contact and excludes private da
   assert.match(portfolioSource, /className="company-link"/)
   assert.match(portfolioSource, /content\.featuredImpacts\.map/)
   assert.match(portfolioSource, /caseStudy\.flow\.map/)
+  assert.match(siteChromeSource, /<dialog/)
+  assert.match(siteChromeSource, /현재 Frontend 요청 경로에서는 사용하지 않습니다/)
 
   const serialized = JSON.stringify(content)
   assert.doesNotMatch(serialized, /01[016789][-. ]?\d{3,4}[-. ]?\d{4}/)

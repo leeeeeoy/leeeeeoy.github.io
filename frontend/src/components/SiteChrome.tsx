@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react'
+import { useRef, type MouseEvent } from 'react'
 import content from '../content.json'
 
 export const SCROLL_TARGET_KEY = 'portfolio-scroll-target'
@@ -78,6 +78,8 @@ export function SiteFooter({
 }: {
   onOpenConsent: () => void
 }) {
+  const architectureDialog = useRef<HTMLDialogElement>(null)
+
   return (
     <footer>
       <div>
@@ -109,8 +111,70 @@ export function SiteFooter({
             Microsoft 개인정보 처리방침 <Arrow />
           </a>
         </div>
+        <button
+          className="footer-architecture-trigger"
+          type="button"
+          onClick={() => architectureDialog.current?.showModal()}
+        >
+          How this site works <Arrow />
+        </button>
         <p>© {new Date().getFullYear()} {content.profile.name}</p>
       </div>
+      <dialog
+        className="architecture-dialog"
+        ref={architectureDialog}
+        aria-labelledby="architecture-title"
+      >
+        <form method="dialog">
+          <button className="architecture-dialog__close" type="submit">
+            닫기
+          </button>
+        </form>
+        <p className="eyebrow">HOW THIS SITE WORKS</p>
+        <h2 id="architecture-title">작게 유지한<br />포트폴리오 구조</h2>
+        <p className="architecture-dialog__intro">
+          공개 콘텐츠는 빌드에 포함하고, 브라우저에서 API를 호출하지 않아
+          로딩과 실패 지점을 줄였습니다.
+        </p>
+        <div
+          className="site-architecture"
+          role="img"
+          aria-label="사용자 브라우저가 Cloudflare Pages의 React 정적 앱을 열고 앱이 R2의 공개 이미지를 불러오는 구조"
+        >
+          <div className="architecture-node">
+            <strong>사용자 브라우저</strong>
+            <span>Desktop · Mobile</span>
+          </div>
+          <span className="architecture-arrow" aria-hidden="true">↓</span>
+          <div className="architecture-node architecture-node--primary">
+            <strong>Cloudflare Pages</strong>
+            <span>React · Vite · 정적 콘텐츠</span>
+          </div>
+          <span className="architecture-arrow" aria-hidden="true">↓ R2 URL 참조</span>
+          <div className="architecture-node">
+            <strong>Cloudflare R2</strong>
+            <span>공개 프로젝트 이미지</span>
+          </div>
+        </div>
+        <div className="architecture-ci" aria-label="배포 흐름">
+          <span>GitHub Actions</span>
+          <b aria-hidden="true">→</b>
+          <span>Test · Typecheck · Build</span>
+          <b aria-hidden="true">→</b>
+          <span>Pages Deploy</span>
+        </div>
+        <p className="architecture-dialog__legacy">
+          Workers와 D1은 이전 API를 정리하기 전까지 보존하고 있으며,
+          현재 Frontend 요청 경로에서는 사용하지 않습니다.
+        </p>
+        <a
+          className="architecture-dialog__link"
+          href="https://github.com/leeeeeoy/leeeeeoy.github.io"
+          {...externalLinkProps}
+        >
+          GitHub에서 소스 보기 <Arrow />
+        </a>
+      </dialog>
     </footer>
   )
 }
