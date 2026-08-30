@@ -303,6 +303,29 @@ h1 span {
   transition: transform 120ms ease;
 }
 
+.hero-link-icon {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  margin-right: 7px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hero-link-icon--brand {
+  fill: currentColor;
+  stroke: none;
+}
+
+.hero-link-icon--github {
+  background: currentColor;
+  -webkit-mask: url('/brand/github-invertocat-white.svg') center / contain no-repeat;
+  mask: url('/brand/github-invertocat-white.svg') center / contain no-repeat;
+}
+
 .hero-links a:first-child {
   background: var(--blue);
   color: white;
@@ -972,30 +995,25 @@ footer .eyebrow {
 
 .cloudflare-badge {
   display: inline-flex;
-  min-height: 52px;
+  min-width: 184px;
+  min-height: 44px;
   align-items: center;
-  gap: 10px;
   margin-top: 40px;
-  padding: 12px 16px;
-  border: 1px solid #f6821f;
-  border-radius: 6px;
-  background: #151515;
-  color: #f6821f;
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
+  padding: 2px 0;
+  border: 0;
+  background: none;
   cursor: pointer;
-  transition: background 160ms ease, transform 160ms ease;
+  transition: opacity 160ms ease, transform 160ms ease;
 }
 
 .cloudflare-badge img {
   display: block;
-  width: 112px;
+  width: 184px;
   height: auto;
 }
 
 .cloudflare-badge:hover {
-  background: #242424;
+  opacity: 0.8;
 }
 
 .cloudflare-badge:active {

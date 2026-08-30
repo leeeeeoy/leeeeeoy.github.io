@@ -110,9 +110,15 @@ test('public portfolio content includes approved contact and excludes private da
   assert.match(portfolioSource, /caseStudy\.flow\.map/)
   assert.match(siteChromeSource, /<dialog/)
   assert.match(siteChromeSource, /Built with/)
-  assert.match(siteChromeSource, /cloudflare-logo-white\.svg/)
+  assert.match(siteChromeSource, /built-with-cloudflare\.svg/)
   assert.match(siteChromeSource, /github-invertocat-white\.svg/)
   assert.match(siteChromeSource, /현재 Frontend 요청 경로에서는 사용하지 않습니다/)
+  assert.deepEqual(content.profile.links.map(({ label }) => label), [
+    'GitHub',
+    'Blog',
+    'LinkedIn',
+  ])
+  assert.match(portfolioSource, /<LinkIcon label="Email"/)
 
   const serialized = JSON.stringify(content)
   assert.doesNotMatch(serialized, /01[016789][-. ]?\d{3,4}[-. ]?\d{4}/)
