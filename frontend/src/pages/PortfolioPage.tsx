@@ -1,6 +1,34 @@
 import { Arrow, externalLinkProps } from '../components/SiteChrome'
 import content from '../content.json'
 
+function LinkIcon({ label }: { label: string }) {
+  if (label === 'GitHub') {
+    return <span className="hero-link-icon hero-link-icon--github" aria-hidden="true" />
+  }
+
+  if (label === 'LinkedIn') {
+    return (
+      <svg
+        className="hero-link-icon hero-link-icon--brand"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path d="M5.3 7.4a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2ZM3.6 20.5h3.5V9H3.6v11.5ZM9.4 9h3.4v1.6c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3h-3.6v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9Z" />
+      </svg>
+    )
+  }
+
+  return (
+    <svg className="hero-link-icon" viewBox="0 0 24 24" aria-hidden="true">
+      {label === 'Email' ? (
+        <path d="M3 6h18v12H3V6Zm1 1 8 6 8-6" />
+      ) : (
+        <path d="M6 3h9l3 3v15H6V3Zm8 0v4h4M9 11h6M9 15h6" />
+      )}
+    </svg>
+  )
+}
+
 export default function PortfolioPage() {
   return (
     <>
@@ -15,11 +43,11 @@ export default function PortfolioPage() {
           <p className="hero-intro">{content.profile.intro}</p>
           <div className="hero-links" aria-label="연락 및 외부 링크">
             <a href={`mailto:${content.profile.email}`}>
-              Email <Arrow />
+              <LinkIcon label="Email" /> Email <Arrow />
             </a>
             {content.profile.links.map((link) => (
               <a key={link.url} href={link.url} {...externalLinkProps}>
-                {link.label} <Arrow />
+                <LinkIcon label={link.label} /> {link.label} <Arrow />
               </a>
             ))}
           </div>

@@ -120,14 +120,12 @@ export function SiteFooter({
           aria-controls="architecture-dialog"
           onClick={() => architectureDialog.current?.showModal()}
         >
-          <span>Built with</span>
           <img
-            src="/brand/cloudflare-logo-white.svg"
-            width="112"
-            height="17"
-            alt="Cloudflare"
+            src="/brand/built-with-cloudflare.svg"
+            width="184"
+            height="39"
+            alt="Built with Cloudflare"
           />
-          <span aria-hidden="true">→</span>
         </button>
       </div>
       <div className="footer-meta">
