@@ -124,7 +124,7 @@ export default function PortfolioPage() {
                             </div>
                           </dl>
                           {'flow' in caseStudy && caseStudy.flow && (
-                            <div className="case-flow" aria-label="예약 처리 흐름">
+                            <div className="case-flow" aria-label={`${caseStudy.title} 흐름`}>
                               {caseStudy.flow.map((flow) => (
                                 <section key={flow.label}>
                                   <h5>{flow.label}</h5>

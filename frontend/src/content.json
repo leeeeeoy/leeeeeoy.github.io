@@ -117,7 +117,25 @@
           "problem": "배포 자동화 환경이 없어 Android·iOS 빌드·업로드와 iOS 코드사이닝을 수동으로 처리해야 했습니다.",
           "analysis": "초기 1인 개발 환경에서는 로컬 Fastlane이 가장 단순했습니다. 이후 다른 구성원도 배포해야 하자 로직을 새로 만들지 않고 기존 Fastlane lane을 공용 실행 경로로 확장했습니다.",
           "action": "Shell Script와 Fastlane·match로 로컬 배포를 자동화하고, 동일한 Fastlane lane을 Codemagic에 연결해 클라우드에서도 실행할 수 있도록 구성했습니다.",
-          "result": "배포 1회당 최소 20분 이상의 반복 작업을 줄이고 로컬과 클라우드에서 동일한 파이프라인으로 배포할 수 있게 했습니다."
+          "result": "배포 1회당 최소 20분 이상의 반복 작업을 줄이고 로컬과 클라우드에서 동일한 파이프라인으로 배포할 수 있게 했습니다.",
+          "flow": [
+            {
+              "label": "초기 · 1인 개발",
+              "steps": [
+                "Shell Script",
+                "Fastlane · match",
+                "Local 배포"
+              ]
+            },
+            {
+              "label": "팀 배포 필요",
+              "steps": [
+                "동일한 Fastlane lane",
+                "Codemagic",
+                "Cloud 배포"
+              ]
+            }
+          ]
         }
       ],
       "highlights": [
