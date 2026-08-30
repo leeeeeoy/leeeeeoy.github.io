@@ -9,7 +9,20 @@ export const externalLinkProps = {
 } as const
 
 export function Arrow() {
-  return <span aria-hidden="true">↗</span>
+  return <span className="external-arrow" aria-hidden="true">↗</span>
+}
+
+function ThemeIcon({ theme }: { theme: 'light' | 'dark' }) {
+  return theme === 'light' ? (
+    <svg className="header-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.4 15.7A9 9 0 0 1 8.3 3.6 9 9 0 1 0 20.4 15.7Z" />
+    </svg>
+  ) : (
+    <svg className="header-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+    </svg>
+  )
 }
 
 function navigateToSection(event: MouseEvent<HTMLAnchorElement>, section: string) {
@@ -59,14 +72,25 @@ export function SiteHeader({
           aria-label={theme === 'light' ? '다크 테마로 전환' : '라이트 테마로 전환'}
           onClick={onToggleTheme}
         >
-          {theme === 'light' ? 'Dark' : 'Light'}
+          <ThemeIcon theme={theme} />
+          <span className="header-action-label">
+            {theme === 'light' ? 'Dark' : 'Light'}
+          </span>
         </button>
         <a
           className="header-link"
           href={content.profile.links[0].url}
           {...externalLinkProps}
         >
-          GitHub <Arrow />
+          <img
+            className="header-icon"
+            src="/brand/github-invertocat-white.svg"
+            width="16"
+            height="16"
+            alt=""
+          />
+          <span className="header-action-label">GitHub</span>
+          <Arrow />
         </a>
       </div>
     </header>
@@ -82,9 +106,29 @@ export function SiteFooter({
 
   return (
     <footer>
-      <div>
+      <div className="footer-intro">
         <p className="eyebrow">LET&apos;S BUILD SOMETHING USEFUL</p>
-        <h2>복잡한 문제를<br />함께 단순하게.</h2>
+        <h2>
+          복잡한 문제를
+          <br />
+          함께 단순하게.
+        </h2>
+        <button
+          className="cloudflare-badge"
+          type="button"
+          aria-haspopup="dialog"
+          aria-controls="architecture-dialog"
+          onClick={() => architectureDialog.current?.showModal()}
+        >
+          <span>Built with</span>
+          <img
+            src="/brand/cloudflare-logo-white.svg"
+            width="112"
+            height="17"
+            alt="Cloudflare"
+          />
+          <span aria-hidden="true">→</span>
+        </button>
       </div>
       <div className="footer-meta">
         <address className="footer-contact">
@@ -92,7 +136,7 @@ export function SiteFooter({
           <span>{content.profile.role}</span>
           <a href={`mailto:${content.profile.email}`}>{content.profile.email}</a>
         </address>
-        <div>
+        <div className="footer-links">
           {content.profile.links.map((link) => (
             <a key={link.url} href={link.url} {...externalLinkProps}>
               {link.label} <Arrow />
@@ -100,27 +144,23 @@ export function SiteFooter({
           ))}
         </div>
         <div className="footer-privacy">
-          <p>허용한 경우에만 Microsoft Clarity로 사용 패턴을 분석합니다.</p>
-          <button type="button" onClick={onOpenConsent}>
-            분석 설정
-          </button>
-          <a
-            href="https://www.microsoft.com/privacy/privacystatement"
-            {...externalLinkProps}
-          >
-            Microsoft 개인정보 처리방침 <Arrow />
-          </a>
+          <p>Microsoft Clarity는 동의한 경우에만 사용합니다.</p>
+          <div className="footer-privacy-actions">
+            <button type="button" onClick={onOpenConsent}>
+              분석 설정
+            </button>
+            <a
+              href="https://www.microsoft.com/privacy/privacystatement"
+              {...externalLinkProps}
+            >
+              개인정보 처리방침 <Arrow />
+            </a>
+          </div>
         </div>
-        <button
-          className="footer-architecture-trigger"
-          type="button"
-          onClick={() => architectureDialog.current?.showModal()}
-        >
-          How this site works <Arrow />
-        </button>
         <p>© {new Date().getFullYear()} {content.profile.name}</p>
       </div>
       <dialog
+        id="architecture-dialog"
         className="architecture-dialog"
         ref={architectureDialog}
         aria-labelledby="architecture-title"
