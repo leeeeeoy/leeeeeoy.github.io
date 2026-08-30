@@ -142,13 +142,18 @@ nav a:hover,
 }
 
 .header-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   min-height: 44px;
-  align-content: center;
   font-size: 12px;
   font-weight: 400;
 }
 
 .theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   min-height: 44px;
   padding: 0;
   border: 0;
@@ -157,6 +162,20 @@ nav a:hover,
   font: inherit;
   font-size: 12px;
   cursor: pointer;
+}
+
+.header-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+svg.header-icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 main,
@@ -947,6 +966,42 @@ footer .eyebrow {
   color: var(--muted);
 }
 
+.footer-intro h2 {
+  text-wrap: balance;
+}
+
+.cloudflare-badge {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  padding: 12px 16px;
+  border: 1px solid #f6821f;
+  border-radius: 6px;
+  background: #151515;
+  color: #f6821f;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.cloudflare-badge img {
+  display: block;
+  width: 112px;
+  height: auto;
+}
+
+.cloudflare-badge:hover {
+  background: #242424;
+}
+
+.cloudflare-badge:active {
+  transform: scale(0.98);
+}
+
 .footer-meta {
   display: flex;
   flex-direction: column;
@@ -956,7 +1011,8 @@ footer .eyebrow {
   font-size: 12px;
 }
 
-.footer-meta div {
+.footer-links,
+.footer-privacy-actions {
   display: flex;
   gap: 24px;
 }
@@ -983,11 +1039,11 @@ footer .eyebrow {
   display: grid;
   justify-items: end;
   gap: 0.5rem;
+  max-width: 32ch;
   text-align: right;
 }
 
 .footer-privacy button,
-.footer-architecture-trigger,
 .consent-actions button {
   padding: 0;
   border: 0;
@@ -996,12 +1052,6 @@ footer .eyebrow {
   font: inherit;
   text-decoration: underline;
   cursor: pointer;
-}
-
-.footer-architecture-trigger {
-  display: inline-flex;
-  gap: 0.35rem;
-  align-items: center;
 }
 
 .architecture-dialog {
