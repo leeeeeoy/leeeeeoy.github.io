@@ -57,7 +57,7 @@
       "website": "https://clify.co.kr/",
       "role": "Software Engineer",
       "period": "2025.04 — 현재",
-      "summary": "심리상담 예약·비대면 상담 Flutter 앱의 기능 개발·배포·운영을 담당했습니다. 제품 흐름을 완결하기 위해 React B2C 예약 웹과 관리자 대시보드를 개발하고, Spring Backend 연동과 AWS Amplify 운영 환경까지 연결했습니다.",
+      "summary": "심리상담 예약·비대면 상담 Flutter 앱의 기능 개발·배포·운영을 담당했습니다. 제품 흐름을 완결하기 위해 React B2C 예약 웹, 얼굴·음성 측정 키오스크와 관리자 대시보드를 개발하고, Spring Backend 연동과 AWS Amplify 운영 환경까지 연결했습니다.",
       "metrics": [
         {
           "value": "5K+",
@@ -140,13 +140,20 @@
               ]
             }
           ]
+        },
+        {
+          "title": "현장 키오스크의 업데이트 경로 분리",
+          "problem": "현장 Android 키오스크 셸은 APK를 단말에 직접 배포해야 했지만, 화면과 사용자 흐름은 운영 요구사항에 따라 지속적으로 변경됐습니다.",
+          "analysis": "네이티브로 필요한 영역은 카메라·마이크 권한과 TTS·STT 같은 하드웨어 브리지였고, 화면·측정·결과 로직은 웹에서 운영할 수 있었습니다. 진행 중인 측정 세션을 새 버전 반영으로 중단해서도 안 됐습니다.",
+          "action": "Flutter는 WebView 호스트와 네이티브 브리지만 담당하도록 제한하고 React 웹앱에 화면·상태·API 연동을 배치했습니다. AWS Amplify의 배포 버전을 대기 화면에서 확인해 새 버전일 때만 다시 로드하도록 구성했습니다.",
+          "result": "Flutter 셸을 다시 배포하지 않고도 웹의 화면과 사용자 흐름을 갱신하고, 진행 중인 측정을 방해하지 않는 시점에 새 버전을 반영할 수 있게 했습니다."
         }
       ],
       "highlights": [
         "React 19·TypeScript 기반 Clify Connect의 예약 전 과정을 구현하고, Spring Connect 모듈·V2 연동과 AWS Amplify·커스텀 도메인 운영 환경까지 구성했습니다.",
         "상담 고민·증상 같은 민감 정보를 URL 대신 세션 저장소에 보관하고, 분석 도구 마스킹과 동의 절차를 적용했습니다.",
         "Clify Insight에서 앱 이용 현황과 FAV·KOSS·PHQ-9·GAD-7 통계를 기간·조직별로 탐색하는 ECharts 대시보드와 운영 기능을 개발했습니다.",
-        "일부 Android 기기의 카메라 조합 제약을 분석하고 프로덕션에서 검증된 Web 측정 모듈을 WebView로 이식해 앱의 측정 흐름을 제공했습니다."
+        "일부 Android 기기의 카메라 조합 제약을 분석하고 키오스크에서 운영 중인 Web 측정 모듈을 WebView로 이식해 앱의 측정 흐름을 제공했습니다."
       ],
       "skills": [
         "Flutter",
@@ -157,13 +164,18 @@
         "React",
         "TypeScript",
         "Vite",
+        "Zustand",
         "ECharts",
+        "TensorFlow.js",
         "Spring",
         "GitHub Actions",
         "Fastlane",
         "Codemagic",
         "Patrol",
         "SonarQube",
+        "Vitest",
+        "Sentry",
+        "Microsoft Clarity",
         "AWS Amplify"
       ]
     },
