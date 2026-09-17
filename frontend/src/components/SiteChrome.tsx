@@ -70,7 +70,7 @@ export function SiteHeader({
           lang={language === 'ko' ? 'en' : 'ko'}
           aria-label={language === 'ko' ? 'Read in English' : '한국어로 보기'}
         >
-          {language === 'ko' ? 'EN' : '한국어'}
+          {language === 'ko' ? 'EN' : 'KR'}
         </a>
         <a className="header-link" href={localizedHref("/notes/")}>
           Notes

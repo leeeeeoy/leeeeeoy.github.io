@@ -24,6 +24,8 @@ test('both languages keep the same content structure, facts, and public links', 
     } else assert.equal(en, ko, path)
   }
   compare(translations.ko, translations.en)
+  assert.equal(translations.en.experiences[0].company, 'Simpatico Project')
+  assert.ok(translations.en.featuredImpacts.slice(0, 2).every(({ organization }) => organization === 'Simpatico Project'))
   assert.doesNotMatch(JSON.stringify(translations), /01[016789][-. ]?\d{3,4}[-. ]?\d{4}/)
   assert.match(translations.en.experiences[1].caseStudies[0].result, /did not reach production during my tenure/)
 })
@@ -62,6 +64,7 @@ test('language links, metadata, and rendered pages work in both languages', asyn
       assert.ok(missingNote.includes(translations[language].ui.noteMissing))
       assert.ok(footer.includes(translations[language].ui.architectureLegacy))
       assert.ok(header.includes(`href="/notes/${language === 'en' ? '?lang=en' : ''}"`))
+      assert.match(header, language === 'en' ? />KR<\/a>/ : />EN<\/a>/)
       if (language === 'en') assert.doesNotMatch(portfolio + notes + missingNote + footer, /[가-힣]/)
     }
   } finally {

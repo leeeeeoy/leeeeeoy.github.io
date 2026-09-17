@@ -506,8 +506,8 @@
       "name": "Yoel Jang",
       "role": "Software Engineer",
       "email": "hoheho18@gmail.com",
-      "headline": "I find product problems\nand see them through.",
-      "intro": "I build and operate services with Flutter at the core. I improve legacy architecture and performance, and work across web, backend integrations, and delivery when the product needs it.",
+      "headline": "I solve product problems,\nfrom diagnosis to delivery.",
+      "intro": "I build and maintain services primarily with Flutter. I improve legacy architecture and performance, and work across web development, backend integration, and deployment to deliver complete products.",
       "links": [
         {
           "label": "GitHub",
@@ -525,17 +525,17 @@
     },
     "featuredImpacts": [
       {
-        "organization": "Pleasant Project",
+        "organization": "Simpatico Project",
         "title": "One source of truth for bookings.",
-        "context": "Two booking systems already in use by clients produced 10–20 duplicate bookings a month and required cancellations to be checked twice. Delivery time, team capacity, and the impact on ongoing operations all mattered.",
+        "context": "Two booking systems already in use by clients produced 10–20 duplicate bookings a month and required cancellations to be checked twice. Any solution had to account for delivery timelines, team capacity, and ongoing operations.",
         "decision": "Rather than rebuild both systems, I made the counselor platform the source of truth for availability and connected payment, storage, booking creation, and compensation for partial failures.",
         "outcome": "No duplicate bookings were observed for 3–4 months after the change. Counselors no longer had to reconcile schedules or check cancellations in both systems."
       },
       {
-        "organization": "Pleasant Project",
+        "organization": "Simpatico Project",
         "title": "From repeated manual checks to automated tests.",
         "context": "Without a test foundation, changes to core user journeys required repeated manual verification.",
-        "decision": "I started with login, product selection, and point payments rather than testing everything at once. AI helped draft tests; actual behavior and static analysis were used to validate them.",
+        "decision": "I started with login, product selection, and payments using points rather than testing everything at once. I used AI to draft tests, then validated them against actual behavior and static analysis results.",
         "outcome": "Unit, widget, and Patrol E2E tests, integrated with GitHub Actions and SonarQube, brought LCOV line coverage from 0% to 76.5%."
       },
       {
@@ -555,11 +555,11 @@
     ],
     "experiences": [
       {
-        "company": "Pleasant Project",
+        "company": "Simpatico Project",
         "website": "https://clify.co.kr/",
         "role": "Software Engineer",
         "period": "2025.04 — Present",
-        "summary": "I develop, release, and operate a Flutter app for counseling bookings and remote sessions. To complete the product journey, I also built a React booking website, a facial and voice measurement kiosk, and an admin dashboard, connecting Spring backend integrations and the AWS Amplify deployment environment.",
+        "summary": "I develop, release, and maintain a Flutter app for booking counseling appointments and attending remote sessions. I also built a React booking website, a kiosk for facial and voice measurements, and an admin dashboard, integrating them with the Spring backend and setting up deployment on AWS Amplify.",
         "metrics": [
           {
             "value": "5K+",
@@ -578,15 +578,15 @@
           {
             "title": "Simplifying the app architecture for the team",
             "problem": "A single Flutter app used a melos monorepo and multiple layers of Clean Architecture. Even basic CRUD changes required navigating several layers and repetitive code.",
-            "analysis": "Models were often reused unchanged across layers, and many use cases simply forwarded repository calls. At this team size and product stage, the cost of understanding and changing the code outweighed the benefit of those layers.",
+            "analysis": "Models were often reused unchanged across layers, and many use cases simply forwarded repository calls. For the team’s size and the product’s stage of development, those layers added more effort to understanding and changing the code than they saved.",
             "action": "I first removed melos and moved to a single project, then gradually removed redundant layers and pass-through use cases. I retained useful separation of responsibilities around repositories and Bloc.",
             "result": "Feature work required understanding fewer dependencies and changing fewer parts of the codebase."
           },
           {
             "title": "Resolving duplicate bookings across two systems",
             "problem": "The app and counselor scheduling platform managed bookings in separate databases, producing 10–20 duplicate bookings a month. Cancellations also had to be handled in both systems.",
-            "analysis": "The systems had different booking models, and the external platform could not be included in a single database transaction. Given existing clients, delivery time, and team capacity, I connected them through internal APIs and mapping tables, using the counselor platform as the source of truth for availability.",
-            "action": "I sequenced payment, storage on the app server, and booking creation on the counselor platform, returning success only after both bookings existed. On partial failure, compensation reversed completed steps and Slack alerts identified the failure point. Scripts based on contract information replaced manual setup of initial data and mappings for new clients.",
+            "analysis": "The systems had different booking models, and the external platform could not be included in a single database transaction. To account for existing clients, delivery timelines, and team capacity, I connected the systems through internal APIs and mapping tables, using the counselor platform as the source of truth for availability.",
+            "action": "I processed payment, saved the booking on the app server, and created the corresponding booking on the counselor platform in sequence, returning success only after both bookings existed. If a step failed, compensating actions reversed completed steps, and Slack alerts identified where the failure occurred. Scripts based on contract information replaced manual setup of initial data and mappings for new clients.",
             "result": "No duplicate bookings were observed for 3–4 months after the change. Counselors no longer needed to reconcile schedules or verify cancellations twice.",
             "flow": [
               {
@@ -614,14 +614,14 @@
           {
             "title": "Automating tests for core user journeys",
             "problem": "Regression checks for core user journeys were manual, and project-wide line coverage was 0%.",
-            "analysis": "I prioritized frequently tested journeys: login, product selection, and point payments. I reviewed and refined AI-generated test scenarios and drafts against service requirements and actual behavior.",
-            "action": "I built unit and widget tests and Patrol E2E tests, then connected GitHub Actions and SonarQube to continuously check test and static analysis results.",
+            "analysis": "I prioritized user journeys that needed repeated checks: login, product selection, and payments using points. I reviewed and refined AI-generated test scenarios and drafts against service requirements and actual behavior.",
+            "action": "I added unit, widget, and Patrol E2E tests, then integrated GitHub Actions and SonarQube to track test and static analysis results.",
             "result": "Project-wide LCOV line coverage rose from 0% to 76.5%, reducing the scope of repeated manual checks for changes to core features."
           },
           {
             "title": "Automating Android and iOS releases",
             "problem": "Android and iOS builds, uploads, and iOS code signing were all manual.",
-            "analysis": "I started with local Fastlane automation that the person handling releases could use immediately. When other team members needed to release, I ran the same lanes in Codemagic to avoid maintaining two sets of release logic.",
+            "analysis": "I started with local Fastlane automation that the person handling releases could use immediately. When other team members needed to deploy the app, I made the same lanes available in Codemagic to avoid maintaining two sets of release logic.",
             "action": "I automated local releases with shell scripts, Fastlane, and match, then connected the same Fastlane lanes to Codemagic for cloud execution.",
             "result": "This removed at least 20 minutes of repetitive work per release and enabled the same pipeline to run locally and in the cloud.",
             "flow": [
@@ -644,16 +644,16 @@
             ]
           },
           {
-            "title": "Building a facial and voice measurement kiosk",
+            "title": "Building a kiosk for facial and voice measurements",
             "problem": "Frequent changes to the kiosk screens and user journey required reinstalling the APK on each device. Updates also had to avoid interrupting measurements in progress.",
             "analysis": "Only camera and microphone permissions, text-to-speech, and speech-to-text required native integration. Screens, measurement, and result processing could run on the web, provided a new version did not reload the screen mid-session.",
             "action": "I limited the Flutter app to a WebView and native integrations, and built the UI, state, and API handling in React. The app checked for new Amplify deployments and reloaded only on the idle screen.",
-            "result": "Screen and journey changes no longer required APK redistribution, and new versions could be applied without interrupting a measurement."
+            "result": "Changes to screens and user flows no longer required reinstalling the APK, and new versions could be applied without interrupting a measurement session."
           }
         ],
         "highlights": [
-          "Built the full Clify Connect booking journey in React 19 and TypeScript, including Spring Connect and V2 integrations, AWS Amplify, and custom domain setup.",
-          "Kept sensitive counseling concerns and symptoms out of URLs by storing them in session storage, and added analytics masking and consent controls.",
+          "Built the complete Clify Connect booking flow in React 19 and TypeScript, integrated the Spring Connect module and V2 backend, and configured AWS Amplify and the custom domain.",
+          "Kept sensitive information, including counseling concerns and symptoms, out of URLs by using session storage. Added data masking in analytics and consent controls.",
           "Built Clify Insight dashboards and operational features for app usage and FAV, KOSS, PHQ-9, and GAD-7 statistics by period and organization.",
           "Investigated camera feature conflicts on certain Android devices and integrated the kiosk web measurement module into the app through a WebView."
         ],
@@ -686,7 +686,7 @@
         "website": "https://www.seoulexchange.kr/",
         "role": "Software Engineer",
         "period": "2024.04 — 2025.04",
-        "summary": "I took over development and operation of a Flutter app for unlisted stock trading without separate handover documentation. While maintaining the live app, I worked with a junior developer on a replacement through pre-release validation, improving memory use and external service integrations.",
+        "summary": "I took over development and maintenance of a Flutter app for trading unlisted stocks without handover documentation. While maintaining the live app, I worked with a junior developer to bring a replacement to pre-release validation. I also reduced memory use and improved integrations with external services.",
         "metrics": [
           {
             "value": "100K+",
@@ -708,10 +708,10 @@
         "caseStudies": [
           {
             "title": "Rebuilding a Flutter app alongside live operations",
-            "problem": "After the previous developer left, I inherited the live app with only the codebase as a reference. Routing, state, and networking depended heavily on global GetX context. Business logic triggered navigation, and resources were created for screens that had never been opened, making change impact and lifecycles difficult to trace.",
+            "problem": "After the previous developer left, I inherited the live app with only the codebase as a reference. Routing, state, and networking depended heavily on global GetX context. Business logic triggered navigation, and resources were created for screens that had never been opened, making it difficult to trace resource lifecycles and understand the impact of changes.",
             "analysis": "The issue was global coupling and resource management, rather than GetX itself. To limit the risk of extensive changes to a live app, I kept maintenance focused on essential fixes and rebuilt existing features and selected new ones in a separate structure.",
-            "action": "I set up the project, dev/stage/prod environments, GoRouter routing, and shared components. A junior developer and I divided features such as orders, stocks, and notifications, with PR reviews to align implementation. Bloc separated UI state from business logic. I documented the architecture, feature flows, key libraries, CI/CD, and release procedures.",
-            "result": "The rebuild reached pre-release validation. On the same Android device, home-screen memory use after login fell from 600–630 MB to 470–490 MB, about 20%. Business scheduling affected by regulation and the timing of my departure meant it did not reach production during my tenure. A developer who joined later said the architecture and documentation helped them understand the service."
+            "action": "I set up the project, dev/stage/prod environments, GoRouter routing, and shared components. A junior developer and I split responsibility for features such as orders, stock listings, and notifications, and used PR reviews to keep implementations consistent. Bloc separated UI state from business logic. I documented the architecture, feature flows, key libraries, CI/CD, and release procedures.",
+            "result": "The rebuild reached pre-release validation. On the same Android device, home-screen memory use after login fell from 600–630 MB to 470–490 MB, about 20%. Regulatory constraints affected the business timeline, and the app did not reach production during my tenure. A developer who joined later said the architecture and documentation helped them understand the service."
           }
         ],
         "highlights": [
@@ -735,7 +735,7 @@
         "website": "https://www.dozn.co.kr/",
         "role": "Software Engineer",
         "period": "2022.01 — 2024.04",
-        "summary": "I built and launched a Flutter replacement for a React Native app with a senior developer. I then took primary responsibility for app features, releases, and operations. I also built the initial structure and basic CRUD for a Flutter Web backoffice, plus a mobile voting website for non-members.",
+        "summary": "I built and launched a Flutter replacement for a React Native app with a senior developer. I then took primary responsibility for app features, releases, and operations. I also built the initial structure and basic CRUD for a Flutter Web back office, plus a mobile voting website for non-members.",
         "metrics": [
           {
             "value": "6K+",
@@ -753,21 +753,21 @@
         "caseStudies": [
           {
             "title": "Rebuilding and launching a React Native app in Flutter",
-            "problem": "After the decision to replace an app under development in React Native with Flutter, we needed to rebuild the main user journeys and take the app through store release.",
+            "problem": "Once the team decided to replace the React Native app under development with Flutter, we needed to rebuild the main user journeys and prepare the app for release on the app stores.",
             "analysis": "In our initial two-person development team, the senior developer handled the shared architecture and push notifications. I took on most CRUD features and user journeys.",
             "action": "I implemented address registration, household verification, direct debit, electronic voting, and other core features, then continued with launch preparation, store releases, feature improvements, and operational fixes.",
             "result": "We released the Flutter app in September 2022. After the senior developer left, I took primary responsibility for the app and continued development and operations through April 2024."
           },
           {
-            "title": "Simplifying the backoffice to match the team",
-            "problem": "The Riverpod and Clean Architecture setup in the Flutter Web backoffice increased debugging and feature-change costs after launch.",
+            "title": "Simplifying the back office to match the team",
+            "problem": "The Riverpod and Clean Architecture setup in the Flutter Web back office increased debugging and feature-change costs after launch.",
             "analysis": "Although I had proposed the architecture, I reassessed it as too layered for the team size and actual frequency of changes.",
             "action": "I removed the unused domain layer and abstractions, simplified the structure, and deployed the changes to production.",
-            "result": "Operational changes passed through fewer layers, bringing the architecture in line with the team’s needs."
+            "result": "Changes to back office features involved fewer layers, making the architecture more manageable for the team."
           }
         ],
         "highlights": [
-          "Implemented the initial architecture and basic CRUD for the property-management Flutter Web backoffice, then supported additional feature development.",
+          "Implemented the initial architecture and basic CRUD for the property-management Flutter Web back office, then supported additional feature development.",
           "Built and launched a Flutter mobile website using the app’s voting features and UI so non-members who did not use the app could participate.",
           "Added Firebase Analytics and Crashlytics and connected error alerts to Slack so operational issues could be shared and investigated.",
           "Automated repetitive app release tasks with Fastlane."
@@ -786,8 +786,8 @@
     "projects": [
       {
         "title": "Celebridog",
-        "subtitle": "Short-form video community for dogs",
-        "description": "A Flutter and Supabase service that I helped launch and operate for about a year. I traced OOM errors with Datadog and DevTools and improved on-device media processing.",
+        "subtitle": "A short-video community for dog owners",
+        "description": "A short-video service built with Flutter and Supabase that I helped launch and run for about a year. I traced OOM errors with Datadog and DevTools and improved on-device media processing.",
         "image": {
           "src": "https://assets.leeeeeoy.xyz/portfolio-v2/celdog.webp",
           "alt": "Celebridog app feed",
@@ -825,7 +825,7 @@
       {
         "title": "Tickie",
         "subtitle": "Dynamic Island timer",
-        "description": "A two-person project connecting Flutter to a Swift library through MethodChannel to control Live Activities that existing Flutter packages did not support.",
+        "description": "A two-person project in which I used a Swift library and MethodChannel to add Live Activities controls that existing Flutter packages did not support.",
         "image": {
           "src": "https://assets.leeeeeoy.xyz/portfolio-v2/tickie.webp",
           "alt": "Tickie timer app",
@@ -845,7 +845,7 @@
         "highlights": [
           "Designed start, update, and stop interfaces for a Swift-based Live Activities library.",
           "Connected the library to Flutter through MethodChannel to display timer status while the app was in the background.",
-          "Implemented Supabase authentication and the data structure."
+          "Implemented authentication and the data model with Supabase."
         ],
         "skills": [
           "Flutter",
@@ -859,7 +859,7 @@
       {
         "title": "Cafein",
         "subtitle": "A map for finding cafés to work in",
-        "description": "A map service for exploring café work environments and crowding. The service ran for about a year after launch and has since closed.",
+        "description": "A map service for finding cafés suitable for work or study and checking how busy they are. We ran the service for about a year after launch; it has since shut down.",
         "image": {
           "src": "https://assets.leeeeeoy.xyz/portfolio-v2/cafein.webp",
           "alt": "Cafein café map",
@@ -878,8 +878,8 @@
         ],
         "highlights": [
           "Debounced map movement and live location changes to reduce unnecessary API calls.",
-          "Reorganized state flows from GetX to Bloc and added image caching.",
-          "Handled app development in an eight-person team, implementing social login, map exploration, and reviews."
+          "Migrated state management from GetX to Bloc and added image caching.",
+          "Developed the app as part of an eight-person team, implementing social login, map browsing, and reviews."
         ],
         "skills": [
           "Flutter",
