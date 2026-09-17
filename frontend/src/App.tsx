@@ -1,3 +1,4 @@
+import { ui } from './content'
 import { useEffect, useState } from 'react'
 import {
   SCROLL_TARGET_KEY,
@@ -156,7 +157,7 @@ export default function App() {
         type="button"
         onClick={() => document.getElementById('content')?.focus()}
       >
-        본문으로 건너뛰기
+        {ui.skip}
       </button>
 
       <SiteHeader theme={theme} onToggleTheme={toggleTheme} />
@@ -175,22 +176,21 @@ export default function App() {
           aria-describedby="consent-description"
         >
           <div>
-            <strong id="consent-title">사이트 사용성 분석</strong>
+            <strong id="consent-title">{ui.consentTitle}</strong>
             <p id="consent-description">
-              Microsoft Clarity로 클릭·스크롤 등 사용 패턴을 분석합니다.
-              거부하면 불러오지 않습니다.
+              {ui.consentDescription}
             </p>
           </div>
           <div className="consent-actions">
             <button type="button" onClick={() => chooseConsent('denied')}>
-              거부
+              {ui.decline}
             </button>
             <button
               className="consent-accept"
               type="button"
               onClick={() => chooseConsent('granted')}
             >
-              허용
+              {ui.allow}
             </button>
           </div>
         </aside>

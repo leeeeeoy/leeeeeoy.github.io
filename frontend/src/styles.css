@@ -141,6 +141,15 @@ nav a:hover,
   gap: 20px;
 }
 
+.language-switch {
+  white-space: nowrap;
+}
+
+h2,
+.notes-hero h1 {
+  white-space: pre-line;
+}
+
 .header-link {
   display: inline-flex;
   align-items: center;

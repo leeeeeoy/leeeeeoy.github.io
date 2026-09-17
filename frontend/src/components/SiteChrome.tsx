@@ -1,5 +1,5 @@
 import { useRef, type MouseEvent } from 'react'
-import content from '../content.json'
+import { content, language, ui, localizedHref } from '../content'
 
 export const SCROLL_TARGET_KEY = 'portfolio-scroll-target'
 
@@ -48,28 +48,37 @@ export function SiteHeader({
 }) {
   return (
     <header className="site-header">
-      <a className="brand" href="/" aria-label="홈으로">
+      <a className="brand" href={localizedHref("/")} aria-label={ui.home}>
         Y<span>.</span>
       </a>
-      <nav aria-label="주요 메뉴">
-        <a href="/" onClick={(event) => navigateToSection(event, 'experience')}>
+      <nav aria-label={ui.navigation}>
+        <a href={localizedHref("/")} onClick={(event) => navigateToSection(event, 'experience')}>
           Experience
         </a>
-        <a href="/" onClick={(event) => navigateToSection(event, 'projects')}>
+        <a href={localizedHref("/")} onClick={(event) => navigateToSection(event, 'projects')}>
           Projects
         </a>
-        <a href="/" onClick={(event) => navigateToSection(event, 'skills')}>
+        <a href={localizedHref("/")} onClick={(event) => navigateToSection(event, 'skills')}>
           Skills
         </a>
       </nav>
       <div className="header-actions">
-        <a className="header-link" href="/notes/">
+        <a
+          className="header-link language-switch"
+          href={localizedHref(window.location.pathname + window.location.search + window.location.hash, language === 'ko' ? 'en' : 'ko')}
+          hrefLang={language === 'ko' ? 'en' : 'ko'}
+          lang={language === 'ko' ? 'en' : 'ko'}
+          aria-label={language === 'ko' ? 'Read in English' : '한국어로 보기'}
+        >
+          {language === 'ko' ? 'EN' : '한국어'}
+        </a>
+        <a className="header-link" href={localizedHref("/notes/")}>
           Notes
         </a>
         <button
           className="theme-toggle"
           type="button"
-          aria-label={theme === 'light' ? '다크 테마로 전환' : '라이트 테마로 전환'}
+          aria-label={theme === 'light' ? ui.darkTheme : ui.lightTheme}
           onClick={onToggleTheme}
         >
           <ThemeIcon theme={theme} />
@@ -109,9 +118,7 @@ export function SiteFooter({
       <div className="footer-intro">
         <p className="eyebrow">LET&apos;S BUILD SOMETHING USEFUL</p>
         <h2>
-          복잡한 문제를
-          <br />
-          함께 단순하게.
+          {ui.footerHeading}
         </h2>
         <button
           className="cloudflare-badge"
@@ -142,16 +149,16 @@ export function SiteFooter({
           ))}
         </div>
         <div className="footer-privacy">
-          <p>Microsoft Clarity는 동의한 경우에만 사용합니다.</p>
+          <p>{ui.privacyNote}</p>
           <div className="footer-privacy-actions">
             <button type="button" onClick={onOpenConsent}>
-              분석 설정
+              {ui.analyticsSettings}
             </button>
             <a
               href="https://www.microsoft.com/privacy/privacystatement"
               {...externalLinkProps}
             >
-              개인정보 처리방침 <Arrow />
+              {ui.privacyPolicy} <Arrow />
             </a>
           </div>
         </div>
@@ -165,36 +172,35 @@ export function SiteFooter({
       >
         <form method="dialog">
           <button className="architecture-dialog__close" type="submit">
-            닫기
+            {ui.close}
           </button>
         </form>
         <p className="eyebrow">HOW THIS SITE WORKS</p>
-        <h2 id="architecture-title">작게 유지한<br />포트폴리오 구조</h2>
+        <h2 id="architecture-title">{ui.architectureTitle}</h2>
         <p className="architecture-dialog__intro">
-          공개 콘텐츠는 빌드에 포함하고, 브라우저에서 API를 호출하지 않아
-          로딩과 실패 지점을 줄였습니다.
+          {ui.architectureIntro}
         </p>
         <div
           className="site-architecture"
           role="img"
-          aria-label="사용자 브라우저가 Cloudflare Pages의 React 정적 앱을 열고 앱이 R2의 공개 이미지를 불러오는 구조"
+          aria-label={ui.architectureAlt}
         >
           <div className="architecture-node">
-            <strong>사용자 브라우저</strong>
+            <strong>{ui.browser}</strong>
             <span>Desktop · Mobile</span>
           </div>
           <span className="architecture-arrow" aria-hidden="true">↓</span>
           <div className="architecture-node architecture-node--primary">
             <strong>Cloudflare Pages</strong>
-            <span>React · Vite · 정적 콘텐츠</span>
+            <span>{ui.staticContent}</span>
           </div>
-          <span className="architecture-arrow" aria-hidden="true">↓ R2 URL 참조</span>
+          <span className="architecture-arrow" aria-hidden="true">{ui.r2Reference}</span>
           <div className="architecture-node">
             <strong>Cloudflare R2</strong>
-            <span>공개 프로젝트 이미지</span>
+            <span>{ui.publicImages}</span>
           </div>
         </div>
-        <div className="architecture-ci" aria-label="배포 흐름">
+        <div className="architecture-ci" aria-label={ui.deploymentFlow}>
           <span>GitHub Actions</span>
           <b aria-hidden="true">→</b>
           <span>Test · Typecheck · Build</span>
@@ -202,15 +208,14 @@ export function SiteFooter({
           <span>Pages Deploy</span>
         </div>
         <p className="architecture-dialog__legacy">
-          Workers와 D1은 이전 API를 정리하기 전까지 보존하고 있으며,
-          현재 Frontend 요청 경로에서는 사용하지 않습니다.
+          {ui.architectureLegacy}
         </p>
         <a
           className="architecture-dialog__link"
           href="https://github.com/leeeeeoy/leeeeeoy.github.io"
           {...externalLinkProps}
         >
-          GitHub에서 소스 보기 <Arrow />
+          {ui.source} <Arrow />
         </a>
       </dialog>
     </footer>
