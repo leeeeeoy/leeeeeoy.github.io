@@ -1,445 +1,1004 @@
 {
-  "profile": {
-    "eyebrow": "SOFTWARE ENGINEER · SINCE 2022",
-    "name": "Yoel Jang",
-    "role": "Software Engineer",
-    "email": "hoheho18@gmail.com",
-    "headline": "제품의 문제를 발견하고\n끝까지 해결합니다.",
-    "intro": "Flutter를 중심으로 서비스를 설계하고 운영해 왔습니다. 레거시 구조와 성능 문제를 개선하고, 제품 완성에 필요하다면 웹·백엔드·배포 환경까지 직접 연결합니다.",
-    "links": [
-      {
-        "label": "GitHub",
-        "url": "https://github.com/leeeeeoy"
-      },
-      {
-        "label": "Blog",
-        "url": "https://velog.io/@leeeeeoy/posts"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "https://www.linkedin.com/in/yoel-jang-915a95207/"
-      }
-    ]
-  },
-  "featuredImpacts": [
-    {
-      "organization": "유쾌한프로젝트",
-      "title": "예약 기준을 하나로 정리했습니다.",
-      "context": "앱과 상담사 일정 관리 플랫폼이 분리돼 월 10–20건의 중복 예약과 이중 취소 확인이 발생했습니다.",
-      "decision": "운영 중인 두 시스템을 다시 만들지 않고 상담사 플랫폼을 일정의 기준으로 정해 결제·저장·예약 생성과 실패 보상을 하나의 흐름으로 연결했습니다.",
-      "outcome": "보상 처리 적용 후 3~4개월 동안 중복 예약이 발생하지 않았고 상담사의 일정 대조와 취소 이중 확인 절차도 사라졌습니다."
-    },
-    {
-      "organization": "유쾌한프로젝트",
-      "title": "반복하던 검증을 테스트로 바꿨습니다.",
-      "context": "테스트 기반이 없어 핵심 사용자 흐름을 변경할 때마다 수동으로 반복 검증했습니다.",
-      "decision": "모든 코드를 한 번에 테스트하지 않고 로그인·상품 선택·포인트 결제부터 자동화했으며, AI는 초안 작성에만 활용하고 실제 동작과 정적 분석으로 검증했습니다.",
-      "outcome": "Unit·Widget·Patrol E2E와 GitHub Actions·SonarQube를 연결해 LCOV 라인 커버리지를 0%에서 76.5%로 높였습니다."
-    },
-    {
-      "organization": "서울거래",
-      "title": "운영을 이어가며 새 앱을 개발했습니다.",
-      "context": "인수인계 자료 없이 넘겨받은 앱은 라우팅·상태·통신이 전역 컨텍스트에 결합되고 비활성 화면의 리소스까지 유지했습니다.",
-      "decision": "기존 앱은 꼭 필요한 문제만 고치면서, 신입 개발자와 2인으로 Bloc 기반의 새 앱을 개발했습니다. 저는 구조 설계와 작업 분담·리뷰를 맡았습니다.",
-      "outcome": "출시 직전 검증 단계에서 동일 Android 기기의 로그인 후 홈 화면 메모리를 600–630MB에서 470–490MB로 줄여 약 20% 절감했습니다."
-    },
-    {
-      "organization": "Celebridog",
-      "title": "데이터를 따라 OOM 원인을 찾았습니다.",
-      "context": "숏폼 이미지 처리 과정에서 메모리 사용량과 OOM이 반복적으로 증가했습니다.",
-      "decision": "Datadog RUM과 Flutter DevTools로 이미지 디코딩이 원인임을 확인하고 다운샘플링과 WebP 변환을 적용했습니다.",
-      "outcome": "메모리 사용량을 30%, OOM 발생을 90% 줄였습니다."
-    }
-  ],
-  "experiences": [
-    {
-      "company": "유쾌한프로젝트",
-      "website": "https://clify.co.kr/",
+  "ko": {
+    "profile": {
+      "eyebrow": "SOFTWARE ENGINEER · SINCE 2022",
+      "name": "Yoel Jang",
       "role": "Software Engineer",
-      "period": "2025.04 — 현재",
-      "summary": "심리상담 예약·비대면 상담 Flutter 앱의 기능 개발·배포·운영을 담당했습니다. 제품 흐름을 완결하기 위해 React B2C 예약 웹, 얼굴·음성 측정 키오스크와 관리자 대시보드를 개발하고, Spring Backend 연동과 AWS Amplify 운영 환경까지 연결했습니다.",
-      "metrics": [
-        {
-          "value": "5K+",
-          "label": "서비스 규모 · 등록 사용자"
-        },
-        {
-          "value": "0→76.5%",
-          "label": "LCOV 라인 커버리지"
-        },
-        {
-          "value": "20분+",
-          "label": "배포 작업 단축"
-        }
-      ],
-      "caseStudies": [
-        {
-          "title": "팀 규모에 맞춘 앱 구조 단순화",
-          "problem": "단일 Flutter 앱에 melos 모노레포와 다단계 Clean Architecture가 적용돼 있었고, 단순 CRUD 기능도 여러 레이어와 반복 코드를 거쳐야 했습니다.",
-          "analysis": "모델을 레이어 사이에서 그대로 재사용하고 Use Case가 Repository 호출을 전달하기만 하는 경우가 많아, 현재 팀과 제품 단계에서는 책임 분리의 이점보다 탐색과 변경 비용이 더 크다고 판단했습니다.",
-          "action": "먼저 melos를 제거해 단일 프로젝트로 전환한 뒤, 필요한 책임 분리는 유지하면서 역할이 없는 Use Case와 중복 레이어를 단계적으로 제거해 Repository와 Bloc 중심으로 정리했습니다.",
-          "result": "기능을 추가하거나 수정할 때 파악해야 하는 의존성과 변경 범위를 줄였습니다."
-        },
-        {
-          "title": "두 예약 시스템의 중복 예약 해결",
-          "problem": "앱과 상담사 일정 관리 플랫폼이 서로 다른 DB에서 예약을 관리해 월 10–20건의 중복 예약이 발생하고, 취소도 양쪽에서 각각 처리해야 했습니다.",
-          "analysis": "두 시스템의 예약·서비스 구조가 달랐고 외부 플랫폼까지 하나의 DB 트랜잭션으로 묶을 수 없었습니다. 이미 사용하는 고객사를 위해 두 시스템을 다시 만들지 않고, 상담사 플랫폼을 일정의 기준으로 정의한 뒤 내부 API와 매핑 테이블로 단계적으로 연결했습니다.",
-          "action": "결제, 앱 서버 저장, 상담사 플랫폼 예약 생성을 순서대로 처리하고 양쪽 예약이 모두 생성된 경우에만 성공을 반환했습니다. 부분 실패 시 성공한 단계를 되돌리는 보상 처리를 적용하고 실패 지점을 Slack으로 알렸습니다. 신규 고객사의 양쪽 DB 초기 데이터와 매핑 생성은 계약 정보 기반 스크립트로 전환했습니다.",
-          "result": "적용 이후 3~4개월 동안 중복 예약이 발생하지 않았고, 상담사가 양쪽 일정을 대조하거나 취소 여부를 이중으로 확인하던 절차도 제거했습니다.",
-          "flow": [
-            {
-              "label": "정상 흐름",
-              "steps": [
-                "본인인증",
-                "PG 결제",
-                "앱 Backend 예약 생성",
-                "상담사 플랫폼 예약 생성",
-                "성공"
-              ]
-            },
-            {
-              "label": "실패 보상",
-              "steps": [
-                "PG 결제 성공",
-                "앱 예약 생성 성공",
-                "상담사 플랫폼 생성 실패",
-                "보상 처리",
-                "Slack 알림"
-              ]
-            }
-          ]
-        },
-        {
-          "title": "핵심 사용자 흐름 테스트 자동화",
-          "problem": "핵심 사용자 흐름의 회귀 검증을 수동으로 진행했고 프로젝트 전체 라인 커버리지는 0%였습니다.",
-          "analysis": "로그인·상품 선택·포인트 결제처럼 반복 검증이 필요한 흐름을 우선 자동화 대상으로 정하고, AI로 만든 테스트 시나리오와 코드 초안은 실제 서비스 요구사항과 동작을 기준으로 검증·보완했습니다.",
-          "action": "Unit·Widget Test와 Patrol E2E 테스트를 구축하고, GitHub Actions와 SonarQube를 연결해 테스트와 정적 분석 결과를 지속적으로 확인했습니다.",
-          "result": "LCOV 기준 프로젝트 전체 라인 커버리지를 0%에서 76.5%로 높이고 핵심 기능 변경 시 반복하던 수동 검증 범위를 줄였습니다."
-        },
-        {
-          "title": "Android·iOS 배포 자동화",
-          "problem": "배포 자동화 환경이 없어 Android·iOS 빌드·업로드와 iOS 코드사이닝을 수동으로 처리해야 했습니다.",
-          "analysis": "초기에는 빠르게 실행할 수 있는 로컬 Fastlane이 적합했습니다. 이후 다른 구성원도 배포해야 하자 로직을 새로 만들지 않고 기존 Fastlane lane을 공용 실행 경로로 확장했습니다.",
-          "action": "Shell Script와 Fastlane·match로 로컬 배포를 자동화하고, 동일한 Fastlane lane을 Codemagic에 연결해 클라우드에서도 실행할 수 있도록 구성했습니다.",
-          "result": "배포 1회당 최소 20분 이상의 반복 작업을 줄이고 로컬과 클라우드에서 동일한 파이프라인으로 배포할 수 있게 했습니다.",
-          "flow": [
-            {
-              "label": "초기 · 로컬 중심",
-              "steps": [
-                "Shell Script",
-                "Fastlane · match",
-                "Local 배포"
-              ]
-            },
-            {
-              "label": "팀 배포 필요",
-              "steps": [
-                "동일한 Fastlane lane",
-                "Codemagic",
-                "Cloud 배포"
-              ]
-            }
-          ]
-        },
-        {
-          "title": "얼굴·음성 측정 키오스크 개발",
-          "problem": "현장 키오스크는 화면과 사용자 흐름이 자주 바뀌었지만, Flutter 앱을 수정할 때마다 APK를 단말에 다시 설치해야 했습니다.",
-          "analysis": "카메라·마이크 권한과 TTS·STT만 네이티브 기능이 필요했고, 화면과 측정·결과 처리는 웹으로 구현할 수 있었습니다. 다만 측정 중에는 새 버전 때문에 화면이 다시 로드되지 않아야 했습니다.",
-          "action": "Flutter 앱은 WebView와 네이티브 기능 연결만 맡기고, 화면과 상태·API 처리는 React 웹앱에 구현했습니다. Amplify에 새 버전이 배포되면 대기 화면에서만 확인하고 다시 로드하도록 했습니다.",
-          "result": "화면이나 사용자 흐름을 바꿀 때 APK를 다시 배포할 필요가 없어졌고, 측정 중인 사용자를 방해하지 않고 새 버전을 적용할 수 있게 됐습니다."
-        }
-      ],
-      "highlights": [
-        "React 19·TypeScript로 Clify Connect의 예약 전 과정을 만들고, Spring Connect 모듈과 V2 연동부터 AWS Amplify·커스텀 도메인 설정까지 맡았습니다.",
-        "상담 고민과 증상 같은 민감 정보는 URL에 남기지 않고 세션 저장소에 보관했으며, 분석 화면 마스킹과 동의 절차도 적용했습니다.",
-        "Clify Insight에서 앱 이용 현황과 FAV·KOSS·PHQ-9·GAD-7 통계를 기간과 조직별로 확인할 수 있는 대시보드와 운영 기능을 개발했습니다.",
-        "일부 Android 기기에서 카메라 기능이 함께 동작하지 않는 원인을 찾고, 키오스크용 Web 측정 모듈을 앱의 WebView에 연결했습니다."
-      ],
-      "skills": [
-        "Flutter",
-        "Dart",
-        "Bloc",
-        "Kotlin",
-        "Swift",
-        "React",
-        "TypeScript",
-        "Vite",
-        "Zustand",
-        "ECharts",
-        "TensorFlow.js",
-        "Spring",
-        "GitHub Actions",
-        "Fastlane",
-        "Codemagic",
-        "Patrol",
-        "SonarQube",
-        "Vitest",
-        "Sentry",
-        "Microsoft Clarity",
-        "AWS Amplify"
-      ]
-    },
-    {
-      "company": "서울거래",
-      "website": "https://www.seoulexchange.kr/",
-      "role": "Software Engineer",
-      "period": "2024.04 — 2025.04",
-      "summary": "비상장 주식 거래 Flutter 앱을 별도 인수인계 자료 없이 파악해 개발·운영했습니다. 기존 앱을 운영하면서 신입 개발자와 새 앱을 함께 개발해 출시 직전 검증까지 마쳤고, 메모리 사용량과 외부 서비스 연동 문제를 개선했습니다.",
-      "metrics": [
-        {
-          "value": "100K+",
-          "label": "서비스 규모 · 다운로드"
-        },
-        {
-          "value": "40K+",
-          "label": "서비스 규모 · 회원"
-        },
-        {
-          "value": "14–15K",
-          "label": "서비스 규모 · MAU"
-        },
-        {
-          "value": "−20%",
-          "label": "메모리 사용량"
-        }
-      ],
-      "caseStudies": [
-        {
-          "title": "운영과 함께 진행한 Flutter 앱 재개발",
-          "problem": "전임자 퇴사 후 코드 외 별도 인수인계 자료 없이 운영 앱을 넘겨받았습니다. 라우팅·상태·통신이 GetX의 전역 컨텍스트에 폭넓게 의존해 비즈니스 로직이 화면 이동을 수행하고, 진입하지 않은 화면의 리소스까지 생성되는 등 변경 영향과 생명주기를 파악하기 어려웠습니다.",
-          "analysis": "GetX 자체보다 전역 의존과 리소스 관리 방식이 문제라고 판단했습니다. 운영 중인 앱을 직접 대규모로 수정하는 위험을 줄이기 위해 기존 앱은 필수 이슈 위주로 유지하고, 기존 기능과 일부 신규 기능을 별도 구조로 다시 구현하는 방식을 선택했습니다.",
-          "action": "초기 프로젝트 설정과 dev·stage·prod 환경 분리, GoRouter 기반 라우팅과 공통 컴포넌트를 구성했습니다. 신입 개발자와 주문·종목·알림 등 기능을 나눠 구현하고 PR 리뷰를 진행했으며, Bloc 중심으로 UI 상태와 비즈니스 로직의 책임을 분리했습니다. 구조 설명·기능별 흐름·주요 라이브러리와 CI/CD·배포 절차도 문서화했습니다.",
-          "result": "리빌드를 출시 직전 검증 단계까지 완료하고, 동일한 Android 기기의 로그인 후 홈 화면 기준 메모리 사용량을 600–630MB에서 470–490MB로 줄여 약 20% 절감했습니다. 규제 환경에 따른 사업 일정과 퇴사 시점으로 재직 중 운영 출시는 진행하지 못했지만, 이후 합류한 개발자로부터 남긴 구조와 문서가 서비스 파악에 도움이 됐다는 피드백을 받았습니다."
-        }
-      ],
-      "highlights": [
-        "Flutter SDK가 없던 채널톡의 Android·iOS Native SDK를 MethodChannel 공통 인터페이스로 연결했습니다.",
-        "외부 증권사 WebView 인증 결과를 앱의 후속 거래 로직과 연결해 Android와 iOS에서 같은 흐름으로 처리했습니다.",
-        "WebSocket 연결이 끊기면 다시 연결하고, 앱으로 돌아왔을 때 최신 시세를 다시 받아오도록 했습니다.",
-        "Fastlane과 match로 iOS 코드사이닝과 배포 과정을 자동화했습니다."
-      ],
-      "skills": [
-        "Flutter",
-        "Dart",
-        "Bloc",
-        "WebSocket",
-        "MethodChannel",
-        "Sentry",
-        "Fastlane"
-      ]
-    },
-    {
-      "company": "더즌",
-      "website": "https://www.dozn.co.kr/",
-      "role": "Software Engineer",
-      "period": "2022.01 — 2024.04",
-      "summary": "기존 React Native 앱을 대체하는 Flutter 앱을 시니어 개발자와 처음부터 개발해 출시했습니다. 이후 앱의 기능 개발과 배포·운영을 주로 담당했고, Flutter Web 백오피스의 초기 구조·기본 CRUD와 비회원용 전자투표 모바일 웹을 개발했습니다.",
-      "metrics": [
-        {
-          "value": "6K+",
-          "label": "서비스 규모 · 앱 다운로드"
-        },
-        {
-          "value": "3K+",
-          "label": "서비스 규모 · 인증 회원"
-        },
-        {
-          "value": "900–1,000",
-          "label": "서비스 규모 · MAU"
-        }
-      ],
-      "caseStudies": [
-        {
-          "title": "React Native 앱의 Flutter 재구축과 출시",
-          "problem": "기존에 React Native로 개발 중이던 앱을 Flutter로 다시 개발하기로 결정해, 주요 사용자 흐름을 처음부터 구현하고 스토어 출시까지 연결해야 했습니다.",
-          "analysis": "초기 2인 개발에서 시니어 개발자가 공통 구조와 푸시 기능을 맡고, 저는 대부분의 CRUD와 사용자 흐름을 맡는 방식으로 범위를 나눴습니다.",
-          "action": "거주지 등록·세대 인증·자동이체·전자투표를 비롯한 주요 기능을 구현하고, 출시 준비와 스토어 배포 이후 기능 개선·운영 이슈 대응을 이어갔습니다.",
-          "result": "2022년 9월 Flutter 앱을 출시했고, 이후 시니어 개발자 퇴사 후에는 앱을 주로 담당하며 2024년 4월까지 기능 개발과 운영을 이어갔습니다."
-        },
-        {
-          "title": "백오피스 구조를 팀 규모에 맞게 단순화",
-          "problem": "Flutter Web 백오피스에 도입한 Riverpod·Clean Architecture가 운영 이후 디버깅과 기능 수정 비용을 높였습니다.",
-          "analysis": "직접 제안한 구조였지만 팀 규모와 실제 변경 빈도에 비해 계층 분리가 과도하다고 다시 판단했습니다.",
-          "action": "사용되지 않는 Domain 계층과 추상화를 제거해 구조를 단순화하고 운영 환경에 배포했습니다.",
-          "result": "운영 기능을 수정할 때 거쳐야 하는 계층을 줄여 팀 규모에 맞는 구조로 조정했습니다."
-        }
-      ],
-      "highlights": [
-        "관리사무소 Flutter Web 백오피스의 초기 구조와 기본 CRUD를 구현하고, 이후 추가 기능 개발을 지원했습니다.",
-        "앱을 사용하지 않는 비회원도 전자투표에 참여할 수 있도록 앱의 기능과 UI를 Flutter 모바일 웹으로 구현해 출시했습니다.",
-        "Firebase Analytics와 Crashlytics를 적용하고 오류 알림을 Slack에 연결해 운영 중 발생한 문제를 공유·분석하는 흐름을 만들었습니다.",
-        "Fastlane으로 반복되는 앱 배포 과정을 자동화했습니다."
-      ],
-      "skills": [
-        "Flutter",
-        "Dart",
-        "Bloc",
-        "Riverpod",
-        "GraphQL",
-        "Firebase",
-        "Fastlane"
-      ]
-    }
-  ],
-  "projects": [
-    {
-      "title": "Celebridog",
-      "subtitle": "반려견 숏폼 SNS",
-      "description": "Flutter와 Supabase로 출시해 약 1년간 운영한 반려견 숏폼 서비스입니다. Datadog과 DevTools로 OOM 원인을 찾고 모바일 영상 처리 방식을 개선했습니다.",
-      "image": {
-        "src": "https://assets.leeeeeoy.xyz/portfolio-v2/celdog.webp",
-        "alt": "Celebridog 앱 피드 화면",
-        "width": 720,
-        "height": 1561
-      },
-      "metrics": [
-        {
-          "value": "10K+",
-          "label": "서비스 규모 · 다운로드"
-        },
-        {
-          "value": "−30%",
-          "label": "메모리"
-        },
-        {
-          "value": "−90%",
-          "label": "OOM"
-        }
-      ],
-      "highlights": [
-        "Datadog RUM과 Flutter DevTools로 과도한 이미지 디코딩이 OOM의 원인임을 확인했습니다.",
-        "영상 편집 패키지를 수정해 다운샘플링과 WebP 변환을 적용했습니다.",
-        "모바일 영상 trim·인코딩으로 서버 처리 비용을 줄였습니다."
-      ],
-      "skills": [
-        "Flutter",
-        "Supabase",
-        "Datadog",
-        "Sentry",
-        "FFmpeg"
-      ],
-      "links": []
-    },
-    {
-      "title": "Tickie",
-      "subtitle": "Dynamic Island 타이머",
-      "description": "기존 Flutter 패키지가 지원하지 않던 Live Activities 제어를 Swift 라이브러리와 MethodChannel로 연결한 2인 프로젝트입니다.",
-      "image": {
-        "src": "https://assets.leeeeeoy.xyz/portfolio-v2/tickie.webp",
-        "alt": "Tickie 타이머 앱 화면",
-        "width": 720,
-        "height": 1561
-      },
-      "metrics": [
-        {
-          "value": "1인",
-          "label": "개발"
-        },
-        {
-          "value": "iOS",
-          "label": "Live Activities"
-        }
-      ],
-      "highlights": [
-        "Swift 기반 Live Activities 라이브러리의 시작·갱신·종료 인터페이스를 설계했습니다.",
-        "MethodChannel로 Flutter와 연결해 백그라운드에서도 타이머 상태를 표시했습니다.",
-        "Supabase 인증과 데이터 구조를 함께 구현했습니다."
-      ],
-      "skills": [
-        "Flutter",
-        "Swift",
-        "MethodChannel",
-        "ActivityKit",
-        "Supabase"
-      ],
-      "links": []
-    },
-    {
-      "title": "Cafein",
-      "subtitle": "카공인을 위한 지도",
-      "description": "카페의 작업 환경과 혼잡도를 탐색하는 지도 서비스입니다. 출시 후 약 1년간 운영했으며 현재 서비스는 종료했습니다.",
-      "image": {
-        "src": "https://assets.leeeeeoy.xyz/portfolio-v2/cafein.webp",
-        "alt": "Cafein 카페 지도 화면",
-        "width": 720,
-        "height": 1280
-      },
-      "metrics": [
-        {
-          "value": "2.5K+",
-          "label": "등록 카페"
-        },
-        {
-          "value": "1.1K+",
-          "label": "사용자"
-        }
-      ],
-      "highlights": [
-        "지도 이동과 실시간 위치 변화에 debounce를 적용해 불필요한 API 호출을 줄였습니다.",
-        "GetX에서 Bloc으로 상태 흐름을 정리하고 이미지 캐싱을 적용했습니다.",
-        "8인 팀에서 앱 개발을 맡아 소셜 로그인, 지도 탐색, 리뷰 흐름을 구현했습니다."
-      ],
-      "skills": [
-        "Flutter",
-        "Bloc",
-        "Map",
-        "Firebase"
-      ],
+      "email": "hoheho18@gmail.com",
+      "headline": "제품의 문제를 발견하고\n끝까지 해결합니다.",
+      "intro": "Flutter를 중심으로 서비스를 설계하고 운영해 왔습니다. 레거시 구조와 성능 문제를 개선하고, 제품 완성에 필요하다면 웹·백엔드·배포 환경까지 직접 연결합니다.",
       "links": [
         {
           "label": "GitHub",
-          "url": "https://github.com/dalbong-cafein/cafein_flutter"
+          "url": "https://github.com/leeeeeoy"
+        },
+        {
+          "label": "Blog",
+          "url": "https://velog.io/@leeeeeoy/posts"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/yoel-jang-915a95207/"
         }
       ]
+    },
+    "featuredImpacts": [
+      {
+        "organization": "유쾌한프로젝트",
+        "title": "예약 기준을 하나로 정리했습니다.",
+        "context": "이미 고객사가 사용하는 두 예약 시스템에서 월 10–20건의 중복 예약과 취소 이중 확인이 발생했습니다. 개발 기간과 인력, 운영 영향을 함께 고려해야 했습니다.",
+        "decision": "운영 중인 두 시스템을 다시 만들지 않고 상담사 플랫폼을 일정의 기준으로 정해 결제·저장·예약 생성과 실패 보상을 하나의 흐름으로 연결했습니다.",
+        "outcome": "보상 처리 적용 후 3~4개월 동안 중복 예약이 발생하지 않았고 상담사의 일정 대조와 취소 이중 확인 절차도 사라졌습니다."
+      },
+      {
+        "organization": "유쾌한프로젝트",
+        "title": "반복하던 검증을 테스트로 바꿨습니다.",
+        "context": "테스트 기반이 없어 핵심 사용자 흐름을 변경할 때마다 수동으로 반복 검증했습니다.",
+        "decision": "모든 코드를 한 번에 테스트하지 않고 로그인·상품 선택·포인트 결제부터 자동화했으며, AI는 초안 작성에만 활용하고 실제 동작과 정적 분석으로 검증했습니다.",
+        "outcome": "Unit·Widget·Patrol E2E와 GitHub Actions·SonarQube를 연결해 LCOV 라인 커버리지를 0%에서 76.5%로 높였습니다."
+      },
+      {
+        "organization": "서울거래",
+        "title": "운영을 이어가며 새 앱을 개발했습니다.",
+        "context": "인수인계 자료 없이 넘겨받은 앱의 전역 의존과 리소스 관리 문제가 있었지만, 2인 개발팀이 기존 서비스 운영도 이어가야 했습니다.",
+        "decision": "기존 앱은 꼭 필요한 문제만 고치면서, 신입 개발자와 2인으로 Bloc 기반의 새 앱을 개발했습니다. 저는 구조 설계와 작업 분담·리뷰를 맡았습니다.",
+        "outcome": "출시 직전 검증 단계에서 동일 Android 기기의 로그인 후 홈 화면 메모리를 600–630MB에서 470–490MB로 줄여 약 20% 절감했습니다."
+      },
+      {
+        "organization": "Celebridog",
+        "title": "데이터를 따라 OOM 원인을 찾았습니다.",
+        "context": "숏폼 이미지 처리 과정에서 메모리 사용량과 OOM이 반복적으로 증가했습니다.",
+        "decision": "Datadog RUM과 Flutter DevTools로 이미지 디코딩이 원인임을 확인하고 다운샘플링과 WebP 변환을 적용했습니다.",
+        "outcome": "메모리 사용량을 30%, OOM 발생을 90% 줄였습니다."
+      }
+    ],
+    "experiences": [
+      {
+        "company": "유쾌한프로젝트",
+        "website": "https://clify.co.kr/",
+        "role": "Software Engineer",
+        "period": "2025.04 — 현재",
+        "summary": "심리상담 예약·비대면 상담 Flutter 앱의 기능 개발·배포·운영을 담당했습니다. 제품 흐름을 완결하기 위해 React B2C 예약 웹, 얼굴·음성 측정 키오스크와 관리자 대시보드를 개발하고, Spring Backend 연동과 AWS Amplify 운영 환경까지 연결했습니다.",
+        "metrics": [
+          {
+            "value": "5K+",
+            "label": "서비스 규모 · 등록 사용자"
+          },
+          {
+            "value": "0→76.5%",
+            "label": "LCOV 라인 커버리지"
+          },
+          {
+            "value": "20분+",
+            "label": "배포 작업 단축"
+          }
+        ],
+        "caseStudies": [
+          {
+            "title": "팀 규모에 맞춘 앱 구조 단순화",
+            "problem": "단일 Flutter 앱에 melos 모노레포와 다단계 Clean Architecture가 적용돼 있었고, 단순 CRUD 기능도 여러 레이어와 반복 코드를 거쳐야 했습니다.",
+            "analysis": "모델을 레이어 사이에서 그대로 재사용하고 Use Case가 Repository 호출을 전달하기만 하는 경우가 많아, 현재 팀과 제품 단계에서는 책임 분리의 이점보다 탐색과 변경 비용이 더 크다고 판단했습니다.",
+            "action": "먼저 melos를 제거해 단일 프로젝트로 전환한 뒤, 필요한 책임 분리는 유지하면서 역할이 없는 Use Case와 중복 레이어를 단계적으로 제거해 Repository와 Bloc 중심으로 정리했습니다.",
+            "result": "기능을 추가하거나 수정할 때 파악해야 하는 의존성과 변경 범위를 줄였습니다."
+          },
+          {
+            "title": "두 예약 시스템의 중복 예약 해결",
+            "problem": "앱과 상담사 일정 관리 플랫폼이 서로 다른 DB에서 예약을 관리해 월 10–20건의 중복 예약이 발생하고, 취소도 양쪽에서 각각 처리해야 했습니다.",
+            "analysis": "두 시스템의 예약·서비스 구조가 달랐고 외부 플랫폼까지 하나의 DB 트랜잭션으로 묶을 수 없었습니다. 기존 고객사의 운영 영향과 개발 기간·인력을 고려해 전면 통합 대신 상담사 플랫폼을 일정의 기준으로 정하고 내부 API와 매핑 테이블로 연결했습니다.",
+            "action": "결제, 앱 서버 저장, 상담사 플랫폼 예약 생성을 순서대로 처리하고 양쪽 예약이 모두 생성된 경우에만 성공을 반환했습니다. 부분 실패 시 성공한 단계를 되돌리는 보상 처리를 적용하고 실패 지점을 Slack으로 알렸습니다. 신규 고객사의 양쪽 DB 초기 데이터와 매핑 생성은 계약 정보 기반 스크립트로 전환했습니다.",
+            "result": "적용 이후 3~4개월 동안 중복 예약이 발생하지 않았고, 상담사가 양쪽 일정을 대조하거나 취소 여부를 이중으로 확인하던 절차도 제거했습니다.",
+            "flow": [
+              {
+                "label": "정상 흐름",
+                "steps": [
+                  "본인인증",
+                  "PG 결제",
+                  "앱 Backend 예약 생성",
+                  "상담사 플랫폼 예약 생성",
+                  "성공"
+                ]
+              },
+              {
+                "label": "실패 보상",
+                "steps": [
+                  "PG 결제 성공",
+                  "앱 예약 생성 성공",
+                  "상담사 플랫폼 생성 실패",
+                  "보상 처리",
+                  "Slack 알림"
+                ]
+              }
+            ]
+          },
+          {
+            "title": "핵심 사용자 흐름 테스트 자동화",
+            "problem": "핵심 사용자 흐름의 회귀 검증을 수동으로 진행했고 프로젝트 전체 라인 커버리지는 0%였습니다.",
+            "analysis": "로그인·상품 선택·포인트 결제처럼 반복 검증이 필요한 흐름을 우선 자동화 대상으로 정하고, AI로 만든 테스트 시나리오와 코드 초안은 실제 서비스 요구사항과 동작을 기준으로 검증·보완했습니다.",
+            "action": "Unit·Widget Test와 Patrol E2E 테스트를 구축하고, GitHub Actions와 SonarQube를 연결해 테스트와 정적 분석 결과를 지속적으로 확인했습니다.",
+            "result": "LCOV 기준 프로젝트 전체 라인 커버리지를 0%에서 76.5%로 높이고 핵심 기능 변경 시 반복하던 수동 검증 범위를 줄였습니다."
+          },
+          {
+            "title": "Android·iOS 배포 자동화",
+            "problem": "배포 자동화 환경이 없어 Android·iOS 빌드·업로드와 iOS 코드사이닝을 수동으로 처리해야 했습니다.",
+            "analysis": "처음에는 배포 담당자가 바로 사용할 수 있는 로컬 Fastlane으로 반복 작업을 줄였습니다. 이후 다른 구성원도 배포해야 하자 기존 lane을 Codemagic에서 실행하도록 확장해, 배포 로직을 두 벌로 관리하지 않도록 했습니다.",
+            "action": "Shell Script와 Fastlane·match로 로컬 배포를 자동화하고, 동일한 Fastlane lane을 Codemagic에 연결해 클라우드에서도 실행할 수 있도록 구성했습니다.",
+            "result": "배포 1회당 최소 20분 이상의 반복 작업을 줄이고 로컬과 클라우드에서 동일한 파이프라인으로 배포할 수 있게 했습니다.",
+            "flow": [
+              {
+                "label": "초기 · 로컬 중심",
+                "steps": [
+                  "Shell Script",
+                  "Fastlane · match",
+                  "Local 배포"
+                ]
+              },
+              {
+                "label": "팀 배포 필요",
+                "steps": [
+                  "동일한 Fastlane lane",
+                  "Codemagic",
+                  "Cloud 배포"
+                ]
+              }
+            ]
+          },
+          {
+            "title": "얼굴·음성 측정 키오스크 개발",
+            "problem": "현장 키오스크의 화면과 사용자 흐름이 자주 바뀌어, 수정할 때마다 단말에 APK를 다시 설치하는 운영 부담이 있었습니다. 업데이트가 진행 중인 측정을 방해해서도 안 됐습니다.",
+            "analysis": "카메라·마이크 권한과 TTS·STT만 네이티브 기능이 필요했고, 화면과 측정·결과 처리는 웹으로 구현할 수 있었습니다. 다만 측정 중에는 새 버전 때문에 화면이 다시 로드되지 않아야 했습니다.",
+            "action": "Flutter 앱은 WebView와 네이티브 기능 연결만 맡기고, 화면과 상태·API 처리는 React 웹앱에 구현했습니다. Amplify에 새 버전이 배포되면 대기 화면에서만 확인하고 다시 로드하도록 했습니다.",
+            "result": "화면이나 사용자 흐름을 바꿀 때 APK를 다시 배포할 필요가 없어졌고, 측정 중인 사용자를 방해하지 않고 새 버전을 적용할 수 있게 됐습니다."
+          }
+        ],
+        "highlights": [
+          "React 19·TypeScript로 Clify Connect의 예약 전 과정을 만들고, Spring Connect 모듈과 V2 연동부터 AWS Amplify·커스텀 도메인 설정까지 맡았습니다.",
+          "상담 고민과 증상 같은 민감 정보는 URL에 남기지 않고 세션 저장소에 보관했으며, 분석 화면 마스킹과 동의 절차도 적용했습니다.",
+          "Clify Insight에서 앱 이용 현황과 FAV·KOSS·PHQ-9·GAD-7 통계를 기간과 조직별로 확인할 수 있는 대시보드와 운영 기능을 개발했습니다.",
+          "일부 Android 기기에서 카메라 기능이 함께 동작하지 않는 원인을 찾고, 키오스크용 Web 측정 모듈을 앱의 WebView에 연결했습니다."
+        ],
+        "skills": [
+          "Flutter",
+          "Dart",
+          "Bloc",
+          "Kotlin",
+          "Swift",
+          "React",
+          "TypeScript",
+          "Vite",
+          "Zustand",
+          "ECharts",
+          "TensorFlow.js",
+          "Spring",
+          "GitHub Actions",
+          "Fastlane",
+          "Codemagic",
+          "Patrol",
+          "SonarQube",
+          "Vitest",
+          "Sentry",
+          "Microsoft Clarity",
+          "AWS Amplify"
+        ]
+      },
+      {
+        "company": "서울거래",
+        "website": "https://www.seoulexchange.kr/",
+        "role": "Software Engineer",
+        "period": "2024.04 — 2025.04",
+        "summary": "비상장 주식 거래 Flutter 앱을 별도 인수인계 자료 없이 파악해 개발·운영했습니다. 기존 앱을 운영하면서 신입 개발자와 새 앱을 함께 개발해 출시 직전 검증까지 마쳤고, 메모리 사용량과 외부 서비스 연동 문제를 개선했습니다.",
+        "metrics": [
+          {
+            "value": "100K+",
+            "label": "서비스 규모 · 다운로드"
+          },
+          {
+            "value": "40K+",
+            "label": "서비스 규모 · 회원"
+          },
+          {
+            "value": "14–15K",
+            "label": "서비스 규모 · MAU"
+          },
+          {
+            "value": "−20%",
+            "label": "메모리 사용량"
+          }
+        ],
+        "caseStudies": [
+          {
+            "title": "운영과 함께 진행한 Flutter 앱 재개발",
+            "problem": "전임자 퇴사 후 코드 외 별도 인수인계 자료 없이 운영 앱을 넘겨받았습니다. 라우팅·상태·통신이 GetX의 전역 컨텍스트에 폭넓게 의존해 비즈니스 로직이 화면 이동을 수행하고, 진입하지 않은 화면의 리소스까지 생성되는 등 변경 영향과 생명주기를 파악하기 어려웠습니다.",
+            "analysis": "GetX 자체보다 전역 의존과 리소스 관리 방식이 문제라고 판단했습니다. 운영 중인 앱을 직접 대규모로 수정하는 위험을 줄이기 위해 기존 앱은 필수 이슈 위주로 유지하고, 기존 기능과 일부 신규 기능을 별도 구조로 다시 구현하는 방식을 선택했습니다.",
+            "action": "초기 프로젝트 설정과 dev·stage·prod 환경 분리, GoRouter 기반 라우팅과 공통 컴포넌트를 구성했습니다. 신입 개발자와 주문·종목·알림 등 기능을 나눠 구현하고 PR 리뷰를 진행했으며, Bloc 중심으로 UI 상태와 비즈니스 로직의 책임을 분리했습니다. 구조 설명·기능별 흐름·주요 라이브러리와 CI/CD·배포 절차도 문서화했습니다.",
+            "result": "리빌드를 출시 직전 검증 단계까지 완료하고, 동일한 Android 기기의 로그인 후 홈 화면 기준 메모리 사용량을 600–630MB에서 470–490MB로 줄여 약 20% 절감했습니다. 규제 환경에 따른 사업 일정과 퇴사 시점으로 재직 중 운영 출시는 진행하지 못했지만, 이후 합류한 개발자로부터 남긴 구조와 문서가 서비스 파악에 도움이 됐다는 피드백을 받았습니다."
+          }
+        ],
+        "highlights": [
+          "Flutter SDK가 없던 채널톡의 Android·iOS Native SDK를 MethodChannel 공통 인터페이스로 연결했습니다.",
+          "외부 증권사 WebView 인증 결과를 앱의 후속 거래 로직과 연결해 Android와 iOS에서 같은 흐름으로 처리했습니다.",
+          "WebSocket 연결이 끊기면 다시 연결하고, 앱으로 돌아왔을 때 최신 시세를 다시 받아오도록 했습니다.",
+          "Fastlane과 match로 iOS 코드사이닝과 배포 과정을 자동화했습니다."
+        ],
+        "skills": [
+          "Flutter",
+          "Dart",
+          "Bloc",
+          "WebSocket",
+          "MethodChannel",
+          "Sentry",
+          "Fastlane"
+        ]
+      },
+      {
+        "company": "더즌",
+        "website": "https://www.dozn.co.kr/",
+        "role": "Software Engineer",
+        "period": "2022.01 — 2024.04",
+        "summary": "기존 React Native 앱을 대체하는 Flutter 앱을 시니어 개발자와 처음부터 개발해 출시했습니다. 이후 앱의 기능 개발과 배포·운영을 주로 담당했고, Flutter Web 백오피스의 초기 구조·기본 CRUD와 비회원용 전자투표 모바일 웹을 개발했습니다.",
+        "metrics": [
+          {
+            "value": "6K+",
+            "label": "서비스 규모 · 앱 다운로드"
+          },
+          {
+            "value": "3K+",
+            "label": "서비스 규모 · 인증 회원"
+          },
+          {
+            "value": "900–1,000",
+            "label": "서비스 규모 · MAU"
+          }
+        ],
+        "caseStudies": [
+          {
+            "title": "React Native 앱의 Flutter 재구축과 출시",
+            "problem": "기존에 React Native로 개발 중이던 앱을 Flutter로 다시 개발하기로 결정해, 주요 사용자 흐름을 처음부터 구현하고 스토어 출시까지 연결해야 했습니다.",
+            "analysis": "초기 2인 개발에서 시니어 개발자가 공통 구조와 푸시 기능을 맡고, 저는 대부분의 CRUD와 사용자 흐름을 맡는 방식으로 범위를 나눴습니다.",
+            "action": "거주지 등록·세대 인증·자동이체·전자투표를 비롯한 주요 기능을 구현하고, 출시 준비와 스토어 배포 이후 기능 개선·운영 이슈 대응을 이어갔습니다.",
+            "result": "2022년 9월 Flutter 앱을 출시했고, 이후 시니어 개발자 퇴사 후에는 앱을 주로 담당하며 2024년 4월까지 기능 개발과 운영을 이어갔습니다."
+          },
+          {
+            "title": "백오피스 구조를 팀 규모에 맞게 단순화",
+            "problem": "Flutter Web 백오피스에 도입한 Riverpod·Clean Architecture가 운영 이후 디버깅과 기능 수정 비용을 높였습니다.",
+            "analysis": "직접 제안한 구조였지만 팀 규모와 실제 변경 빈도에 비해 계층 분리가 과도하다고 다시 판단했습니다.",
+            "action": "사용되지 않는 Domain 계층과 추상화를 제거해 구조를 단순화하고 운영 환경에 배포했습니다.",
+            "result": "운영 기능을 수정할 때 거쳐야 하는 계층을 줄여 팀 규모에 맞는 구조로 조정했습니다."
+          }
+        ],
+        "highlights": [
+          "관리사무소 Flutter Web 백오피스의 초기 구조와 기본 CRUD를 구현하고, 이후 추가 기능 개발을 지원했습니다.",
+          "앱을 사용하지 않는 비회원도 전자투표에 참여할 수 있도록 앱의 기능과 UI를 Flutter 모바일 웹으로 구현해 출시했습니다.",
+          "Firebase Analytics와 Crashlytics를 적용하고 오류 알림을 Slack에 연결해 운영 중 발생한 문제를 공유·분석하는 흐름을 만들었습니다.",
+          "Fastlane으로 반복되는 앱 배포 과정을 자동화했습니다."
+        ],
+        "skills": [
+          "Flutter",
+          "Dart",
+          "Bloc",
+          "Riverpod",
+          "GraphQL",
+          "Firebase",
+          "Fastlane"
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "title": "Celebridog",
+        "subtitle": "반려견 숏폼 SNS",
+        "description": "Flutter와 Supabase로 출시해 약 1년간 운영한 반려견 숏폼 서비스입니다. Datadog과 DevTools로 OOM 원인을 찾고 모바일 영상 처리 방식을 개선했습니다.",
+        "image": {
+          "src": "https://assets.leeeeeoy.xyz/portfolio-v2/celdog.webp",
+          "alt": "Celebridog 앱 피드 화면",
+          "width": 720,
+          "height": 1561
+        },
+        "metrics": [
+          {
+            "value": "10K+",
+            "label": "서비스 규모 · 다운로드"
+          },
+          {
+            "value": "−30%",
+            "label": "메모리"
+          },
+          {
+            "value": "−90%",
+            "label": "OOM"
+          }
+        ],
+        "highlights": [
+          "Datadog RUM과 Flutter DevTools로 과도한 이미지 디코딩이 OOM의 원인임을 확인했습니다.",
+          "영상 편집 패키지를 수정해 다운샘플링과 WebP 변환을 적용했습니다.",
+          "모바일 영상 trim·인코딩으로 서버 처리 비용을 줄였습니다."
+        ],
+        "skills": [
+          "Flutter",
+          "Supabase",
+          "Datadog",
+          "Sentry",
+          "FFmpeg"
+        ],
+        "links": []
+      },
+      {
+        "title": "Tickie",
+        "subtitle": "Dynamic Island 타이머",
+        "description": "기존 Flutter 패키지가 지원하지 않던 Live Activities 제어를 Swift 라이브러리와 MethodChannel로 연결한 2인 프로젝트입니다.",
+        "image": {
+          "src": "https://assets.leeeeeoy.xyz/portfolio-v2/tickie.webp",
+          "alt": "Tickie 타이머 앱 화면",
+          "width": 720,
+          "height": 1561
+        },
+        "metrics": [
+          {
+            "value": "1인",
+            "label": "개발"
+          },
+          {
+            "value": "iOS",
+            "label": "Live Activities"
+          }
+        ],
+        "highlights": [
+          "Swift 기반 Live Activities 라이브러리의 시작·갱신·종료 인터페이스를 설계했습니다.",
+          "MethodChannel로 Flutter와 연결해 백그라운드에서도 타이머 상태를 표시했습니다.",
+          "Supabase 인증과 데이터 구조를 함께 구현했습니다."
+        ],
+        "skills": [
+          "Flutter",
+          "Swift",
+          "MethodChannel",
+          "ActivityKit",
+          "Supabase"
+        ],
+        "links": []
+      },
+      {
+        "title": "Cafein",
+        "subtitle": "카공인을 위한 지도",
+        "description": "카페의 작업 환경과 혼잡도를 탐색하는 지도 서비스입니다. 출시 후 약 1년간 운영했으며 현재 서비스는 종료했습니다.",
+        "image": {
+          "src": "https://assets.leeeeeoy.xyz/portfolio-v2/cafein.webp",
+          "alt": "Cafein 카페 지도 화면",
+          "width": 720,
+          "height": 1280
+        },
+        "metrics": [
+          {
+            "value": "2.5K+",
+            "label": "등록 카페"
+          },
+          {
+            "value": "1.1K+",
+            "label": "사용자"
+          }
+        ],
+        "highlights": [
+          "지도 이동과 실시간 위치 변화에 debounce를 적용해 불필요한 API 호출을 줄였습니다.",
+          "GetX에서 Bloc으로 상태 흐름을 정리하고 이미지 캐싱을 적용했습니다.",
+          "8인 팀에서 앱 개발을 맡아 소셜 로그인, 지도 탐색, 리뷰 흐름을 구현했습니다."
+        ],
+        "skills": [
+          "Flutter",
+          "Bloc",
+          "Map",
+          "Firebase"
+        ],
+        "links": [
+          {
+            "label": "GitHub",
+            "url": "https://github.com/dalbong-cafein/cafein_flutter"
+          }
+        ]
+      }
+    ],
+    "skillGroups": [
+      {
+        "title": "Core",
+        "description": "모바일 제품 설계와 운영",
+        "items": [
+          "Flutter",
+          "Dart",
+          "Bloc",
+          "Android",
+          "iOS"
+        ]
+      },
+      {
+        "title": "Platform",
+        "description": "네이티브와 웹 기능 연결",
+        "items": [
+          "Kotlin",
+          "Swift",
+          "MethodChannel",
+          "WebView",
+          "WebSocket"
+        ]
+      },
+      {
+        "title": "Quality & Ops",
+        "description": "테스트와 배포 운영",
+        "items": [
+          "GitHub Actions",
+          "SonarQube",
+          "Patrol",
+          "Fastlane",
+          "Codemagic",
+          "Datadog",
+          "Sentry"
+        ]
+      },
+      {
+        "title": "Adjacent",
+        "description": "웹·백엔드 개발",
+        "items": [
+          "React",
+          "TypeScript",
+          "Spring",
+          "Node.js",
+          "GraphQL",
+          "Supabase"
+        ]
+      }
+    ],
+    "ui": {
+      "skip": "본문으로 건너뛰기",
+      "home": "홈으로",
+      "navigation": "주요 메뉴",
+      "darkTheme": "다크 테마로 전환",
+      "lightTheme": "라이트 테마로 전환",
+      "contactLinks": "연락 및 외부 링크",
+      "impactHeading": "결과보다 먼저,\n변화의 과정을 보여드립니다.",
+      "experienceHeading": "문제를 발견하고,\n운영 가능한 답을 만듭니다.",
+      "projectsHeading": "직접 만들고,\n출시하고, 운영했습니다.",
+      "skillsHeading": "기술보다\n사용한 맥락을 말합니다.",
+      "context": "상황과 조건",
+      "decision": "판단과 실행",
+      "outcome": "변화",
+      "details": "상세 성과",
+      "problem": "문제",
+      "analysis": "판단 근거",
+      "action": "실행",
+      "result": "결과",
+      "contributions": "그 밖의 기여",
+      "projectDetails": "프로젝트 자세히 보기",
+      "website": "홈페이지 열기",
+      "flow": "흐름",
+      "technologies": "사용 기술",
+      "viewOn": "에서 보기",
+      "footerHeading": "복잡한 문제를\n함께 단순하게.",
+      "privacyNote": "Microsoft Clarity는 동의한 경우에만 사용합니다.",
+      "analyticsSettings": "분석 설정",
+      "privacyPolicy": "개인정보 처리방침",
+      "close": "닫기",
+      "architectureTitle": "작게 유지한\n포트폴리오 구조",
+      "architectureIntro": "공개 콘텐츠는 빌드에 포함하고, 브라우저에서 API를 호출하지 않아 로딩과 실패 지점을 줄였습니다.",
+      "architectureAlt": "사용자 브라우저가 Cloudflare Pages의 React 정적 앱을 열고 앱이 R2의 공개 이미지를 불러오는 구조",
+      "browser": "사용자 브라우저",
+      "staticContent": "React · Vite · 정적 콘텐츠",
+      "r2Reference": "↓ R2 URL 참조",
+      "publicImages": "공개 프로젝트 이미지",
+      "deploymentFlow": "배포 흐름",
+      "architectureLegacy": "Workers와 D1은 이전 API를 정리하기 전까지 보존하고 있으며, 현재 Frontend 요청 경로에서는 사용하지 않습니다.",
+      "source": "GitHub에서 소스 보기",
+      "consentTitle": "사이트 사용성 분석",
+      "consentDescription": "Microsoft Clarity로 클릭·스크롤 등 사용 패턴을 분석합니다. 거부하면 불러오지 않습니다.",
+      "decline": "거부",
+      "allow": "허용",
+      "noteMissing": "아직 작성되지 않은 기록입니다.",
+      "backToNotes": "← Notes로 돌아가기",
+      "tags": "관련 태그",
+      "notesHeading": "문제를 풀고 결정하며\n배운 것들을 기록합니다.",
+      "notesIntro": "기술적인 문제 해결과 제품·기술 의사결정의 근거, 실험 이후의 생각을 정리합니다.",
+      "notesList": "노트 목록",
+      "notesEmpty": "아직 작성된 기록이 없습니다.",
+      "engineeringDescription": "성능, 아키텍처, 플랫폼 제약과 외부 연동 문제를 분석하고 해결한 과정을 기록합니다.",
+      "decisionsDescription": "우선순위와 기술 선택, 제품 실험에서 무엇을 근거로 결정했는지 기록합니다.",
+      "metaDescription": "Yoel Jang의 소프트웨어 엔지니어 포트폴리오입니다. Flutter 기반 제품 설계와 운영, 레거시 구조·메모리 개선, 웹·백엔드·배포 자동화 경험을 소개합니다.",
+      "imageAlt": "숲과 연못을 바라보는 소프트웨어 엔지니어 Yoel Jang"
     }
-  ],
-  "skillGroups": [
-    {
-      "title": "Core",
-      "description": "모바일 제품 설계와 운영",
-      "items": [
-        "Flutter",
-        "Dart",
-        "Bloc",
-        "Android",
-        "iOS"
+  },
+  "en": {
+    "profile": {
+      "eyebrow": "SOFTWARE ENGINEER · SINCE 2022",
+      "name": "Yoel Jang",
+      "role": "Software Engineer",
+      "email": "hoheho18@gmail.com",
+      "headline": "I find product problems\nand see them through.",
+      "intro": "I build and operate services with Flutter at the core. I improve legacy architecture and performance, and work across web, backend integrations, and delivery when the product needs it.",
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/leeeeeoy"
+        },
+        {
+          "label": "Blog",
+          "url": "https://velog.io/@leeeeeoy/posts"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/yoel-jang-915a95207/"
+        }
       ]
     },
-    {
-      "title": "Platform",
-      "description": "네이티브와 웹 기능 연결",
-      "items": [
-        "Kotlin",
-        "Swift",
-        "MethodChannel",
-        "WebView",
-        "WebSocket"
-      ]
-    },
-    {
-      "title": "Quality & Ops",
-      "description": "테스트와 배포 운영",
-      "items": [
-        "GitHub Actions",
-        "SonarQube",
-        "Patrol",
-        "Fastlane",
-        "Codemagic",
-        "Datadog",
-        "Sentry"
-      ]
-    },
-    {
-      "title": "Adjacent",
-      "description": "웹·백엔드 개발",
-      "items": [
-        "React",
-        "TypeScript",
-        "Spring",
-        "Node.js",
-        "GraphQL",
-        "Supabase"
-      ]
+    "featuredImpacts": [
+      {
+        "organization": "Pleasant Project",
+        "title": "One source of truth for bookings.",
+        "context": "Two booking systems already in use by clients produced 10–20 duplicate bookings a month and required cancellations to be checked twice. Delivery time, team capacity, and the impact on ongoing operations all mattered.",
+        "decision": "Rather than rebuild both systems, I made the counselor platform the source of truth for availability and connected payment, storage, booking creation, and compensation for partial failures.",
+        "outcome": "No duplicate bookings were observed for 3–4 months after the change. Counselors no longer had to reconcile schedules or check cancellations in both systems."
+      },
+      {
+        "organization": "Pleasant Project",
+        "title": "From repeated manual checks to automated tests.",
+        "context": "Without a test foundation, changes to core user journeys required repeated manual verification.",
+        "decision": "I started with login, product selection, and point payments rather than testing everything at once. AI helped draft tests; actual behavior and static analysis were used to validate them.",
+        "outcome": "Unit, widget, and Patrol E2E tests, integrated with GitHub Actions and SonarQube, brought LCOV line coverage from 0% to 76.5%."
+      },
+      {
+        "organization": "Seoul Exchange",
+        "title": "Rebuilding while keeping the service running.",
+        "context": "I inherited an app with no handover documentation, tightly coupled global dependencies, and resource lifecycle issues. Our two-person development team also had to maintain the live service.",
+        "decision": "We kept fixes to the existing app focused on essential issues while building a Bloc-based replacement. I handled the architecture, divided the work with a junior developer, and reviewed changes.",
+        "outcome": "In pre-release validation on the same Android device, home-screen memory use after login fell from 600–630 MB to 470–490 MB, a reduction of about 20%."
+      },
+      {
+        "organization": "Celebridog",
+        "title": "Tracing out-of-memory errors to their source.",
+        "context": "Image processing for short videos repeatedly drove up memory use and caused out-of-memory (OOM) errors.",
+        "decision": "I used Datadog RUM and Flutter DevTools to identify image decoding as the cause, then applied downsampling and WebP conversion.",
+        "outcome": "Memory use decreased by 30%, and OOM occurrences by 90%."
+      }
+    ],
+    "experiences": [
+      {
+        "company": "Pleasant Project",
+        "website": "https://clify.co.kr/",
+        "role": "Software Engineer",
+        "period": "2025.04 — Present",
+        "summary": "I develop, release, and operate a Flutter app for counseling bookings and remote sessions. To complete the product journey, I also built a React booking website, a facial and voice measurement kiosk, and an admin dashboard, connecting Spring backend integrations and the AWS Amplify deployment environment.",
+        "metrics": [
+          {
+            "value": "5K+",
+            "label": "Service scale · registered users"
+          },
+          {
+            "value": "0→76.5%",
+            "label": "LCOV line coverage"
+          },
+          {
+            "value": "20+ min",
+            "label": "saved per release"
+          }
+        ],
+        "caseStudies": [
+          {
+            "title": "Simplifying the app architecture for the team",
+            "problem": "A single Flutter app used a melos monorepo and multiple layers of Clean Architecture. Even basic CRUD changes required navigating several layers and repetitive code.",
+            "analysis": "Models were often reused unchanged across layers, and many use cases simply forwarded repository calls. At this team size and product stage, the cost of understanding and changing the code outweighed the benefit of those layers.",
+            "action": "I first removed melos and moved to a single project, then gradually removed redundant layers and pass-through use cases. I retained useful separation of responsibilities around repositories and Bloc.",
+            "result": "Feature work required understanding fewer dependencies and changing fewer parts of the codebase."
+          },
+          {
+            "title": "Resolving duplicate bookings across two systems",
+            "problem": "The app and counselor scheduling platform managed bookings in separate databases, producing 10–20 duplicate bookings a month. Cancellations also had to be handled in both systems.",
+            "analysis": "The systems had different booking models, and the external platform could not be included in a single database transaction. Given existing clients, delivery time, and team capacity, I connected them through internal APIs and mapping tables, using the counselor platform as the source of truth for availability.",
+            "action": "I sequenced payment, storage on the app server, and booking creation on the counselor platform, returning success only after both bookings existed. On partial failure, compensation reversed completed steps and Slack alerts identified the failure point. Scripts based on contract information replaced manual setup of initial data and mappings for new clients.",
+            "result": "No duplicate bookings were observed for 3–4 months after the change. Counselors no longer needed to reconcile schedules or verify cancellations twice.",
+            "flow": [
+              {
+                "label": "Successful booking",
+                "steps": [
+                  "Identity verification",
+                  "Payment",
+                  "App backend booking",
+                  "Counselor platform booking",
+                  "Success"
+                ]
+              },
+              {
+                "label": "Compensation on failure",
+                "steps": [
+                  "Payment succeeds",
+                  "App booking succeeds",
+                  "Platform booking fails",
+                  "Compensating actions",
+                  "Slack alert"
+                ]
+              }
+            ]
+          },
+          {
+            "title": "Automating tests for core user journeys",
+            "problem": "Regression checks for core user journeys were manual, and project-wide line coverage was 0%.",
+            "analysis": "I prioritized frequently tested journeys: login, product selection, and point payments. I reviewed and refined AI-generated test scenarios and drafts against service requirements and actual behavior.",
+            "action": "I built unit and widget tests and Patrol E2E tests, then connected GitHub Actions and SonarQube to continuously check test and static analysis results.",
+            "result": "Project-wide LCOV line coverage rose from 0% to 76.5%, reducing the scope of repeated manual checks for changes to core features."
+          },
+          {
+            "title": "Automating Android and iOS releases",
+            "problem": "Android and iOS builds, uploads, and iOS code signing were all manual.",
+            "analysis": "I started with local Fastlane automation that the person handling releases could use immediately. When other team members needed to release, I ran the same lanes in Codemagic to avoid maintaining two sets of release logic.",
+            "action": "I automated local releases with shell scripts, Fastlane, and match, then connected the same Fastlane lanes to Codemagic for cloud execution.",
+            "result": "This removed at least 20 minutes of repetitive work per release and enabled the same pipeline to run locally and in the cloud.",
+            "flow": [
+              {
+                "label": "Initially · local releases",
+                "steps": [
+                  "Shell Script",
+                  "Fastlane · match",
+                  "Local release"
+                ]
+              },
+              {
+                "label": "When the team needed access",
+                "steps": [
+                  "Same Fastlane lanes",
+                  "Codemagic",
+                  "Cloud release"
+                ]
+              }
+            ]
+          },
+          {
+            "title": "Building a facial and voice measurement kiosk",
+            "problem": "Frequent changes to the kiosk screens and user journey required reinstalling the APK on each device. Updates also had to avoid interrupting measurements in progress.",
+            "analysis": "Only camera and microphone permissions, text-to-speech, and speech-to-text required native integration. Screens, measurement, and result processing could run on the web, provided a new version did not reload the screen mid-session.",
+            "action": "I limited the Flutter app to a WebView and native integrations, and built the UI, state, and API handling in React. The app checked for new Amplify deployments and reloaded only on the idle screen.",
+            "result": "Screen and journey changes no longer required APK redistribution, and new versions could be applied without interrupting a measurement."
+          }
+        ],
+        "highlights": [
+          "Built the full Clify Connect booking journey in React 19 and TypeScript, including Spring Connect and V2 integrations, AWS Amplify, and custom domain setup.",
+          "Kept sensitive counseling concerns and symptoms out of URLs by storing them in session storage, and added analytics masking and consent controls.",
+          "Built Clify Insight dashboards and operational features for app usage and FAV, KOSS, PHQ-9, and GAD-7 statistics by period and organization.",
+          "Investigated camera feature conflicts on certain Android devices and integrated the kiosk web measurement module into the app through a WebView."
+        ],
+        "skills": [
+          "Flutter",
+          "Dart",
+          "Bloc",
+          "Kotlin",
+          "Swift",
+          "React",
+          "TypeScript",
+          "Vite",
+          "Zustand",
+          "ECharts",
+          "TensorFlow.js",
+          "Spring",
+          "GitHub Actions",
+          "Fastlane",
+          "Codemagic",
+          "Patrol",
+          "SonarQube",
+          "Vitest",
+          "Sentry",
+          "Microsoft Clarity",
+          "AWS Amplify"
+        ]
+      },
+      {
+        "company": "Seoul Exchange",
+        "website": "https://www.seoulexchange.kr/",
+        "role": "Software Engineer",
+        "period": "2024.04 — 2025.04",
+        "summary": "I took over development and operation of a Flutter app for unlisted stock trading without separate handover documentation. While maintaining the live app, I worked with a junior developer on a replacement through pre-release validation, improving memory use and external service integrations.",
+        "metrics": [
+          {
+            "value": "100K+",
+            "label": "Service scale · downloads"
+          },
+          {
+            "value": "40K+",
+            "label": "Service scale · members"
+          },
+          {
+            "value": "14–15K",
+            "label": "Service scale · MAU"
+          },
+          {
+            "value": "−20%",
+            "label": "memory use"
+          }
+        ],
+        "caseStudies": [
+          {
+            "title": "Rebuilding a Flutter app alongside live operations",
+            "problem": "After the previous developer left, I inherited the live app with only the codebase as a reference. Routing, state, and networking depended heavily on global GetX context. Business logic triggered navigation, and resources were created for screens that had never been opened, making change impact and lifecycles difficult to trace.",
+            "analysis": "The issue was global coupling and resource management, rather than GetX itself. To limit the risk of extensive changes to a live app, I kept maintenance focused on essential fixes and rebuilt existing features and selected new ones in a separate structure.",
+            "action": "I set up the project, dev/stage/prod environments, GoRouter routing, and shared components. A junior developer and I divided features such as orders, stocks, and notifications, with PR reviews to align implementation. Bloc separated UI state from business logic. I documented the architecture, feature flows, key libraries, CI/CD, and release procedures.",
+            "result": "The rebuild reached pre-release validation. On the same Android device, home-screen memory use after login fell from 600–630 MB to 470–490 MB, about 20%. Business scheduling affected by regulation and the timing of my departure meant it did not reach production during my tenure. A developer who joined later said the architecture and documentation helped them understand the service."
+          }
+        ],
+        "highlights": [
+          "Integrated Channel Talk’s Android and iOS native SDKs through a shared MethodChannel interface when no Flutter SDK was available.",
+          "Connected a brokerage’s WebView authentication results to subsequent trading logic, keeping the flow consistent across Android and iOS.",
+          "Added WebSocket reconnection and refreshed quotes when the app returned to the foreground.",
+          "Automated iOS code signing and releases with Fastlane and match."
+        ],
+        "skills": [
+          "Flutter",
+          "Dart",
+          "Bloc",
+          "WebSocket",
+          "MethodChannel",
+          "Sentry",
+          "Fastlane"
+        ]
+      },
+      {
+        "company": "DOZN",
+        "website": "https://www.dozn.co.kr/",
+        "role": "Software Engineer",
+        "period": "2022.01 — 2024.04",
+        "summary": "I built and launched a Flutter replacement for a React Native app with a senior developer. I then took primary responsibility for app features, releases, and operations. I also built the initial structure and basic CRUD for a Flutter Web backoffice, plus a mobile voting website for non-members.",
+        "metrics": [
+          {
+            "value": "6K+",
+            "label": "Service scale · app downloads"
+          },
+          {
+            "value": "3K+",
+            "label": "Service scale · verified members"
+          },
+          {
+            "value": "900–1,000",
+            "label": "Service scale · MAU"
+          }
+        ],
+        "caseStudies": [
+          {
+            "title": "Rebuilding and launching a React Native app in Flutter",
+            "problem": "After the decision to replace an app under development in React Native with Flutter, we needed to rebuild the main user journeys and take the app through store release.",
+            "analysis": "In our initial two-person development team, the senior developer handled the shared architecture and push notifications. I took on most CRUD features and user journeys.",
+            "action": "I implemented address registration, household verification, direct debit, electronic voting, and other core features, then continued with launch preparation, store releases, feature improvements, and operational fixes.",
+            "result": "We released the Flutter app in September 2022. After the senior developer left, I took primary responsibility for the app and continued development and operations through April 2024."
+          },
+          {
+            "title": "Simplifying the backoffice to match the team",
+            "problem": "The Riverpod and Clean Architecture setup in the Flutter Web backoffice increased debugging and feature-change costs after launch.",
+            "analysis": "Although I had proposed the architecture, I reassessed it as too layered for the team size and actual frequency of changes.",
+            "action": "I removed the unused domain layer and abstractions, simplified the structure, and deployed the changes to production.",
+            "result": "Operational changes passed through fewer layers, bringing the architecture in line with the team’s needs."
+          }
+        ],
+        "highlights": [
+          "Implemented the initial architecture and basic CRUD for the property-management Flutter Web backoffice, then supported additional feature development.",
+          "Built and launched a Flutter mobile website using the app’s voting features and UI so non-members who did not use the app could participate.",
+          "Added Firebase Analytics and Crashlytics and connected error alerts to Slack so operational issues could be shared and investigated.",
+          "Automated repetitive app release tasks with Fastlane."
+        ],
+        "skills": [
+          "Flutter",
+          "Dart",
+          "Bloc",
+          "Riverpod",
+          "GraphQL",
+          "Firebase",
+          "Fastlane"
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "title": "Celebridog",
+        "subtitle": "Short-form video community for dogs",
+        "description": "A Flutter and Supabase service that I helped launch and operate for about a year. I traced OOM errors with Datadog and DevTools and improved on-device media processing.",
+        "image": {
+          "src": "https://assets.leeeeeoy.xyz/portfolio-v2/celdog.webp",
+          "alt": "Celebridog app feed",
+          "width": 720,
+          "height": 1561
+        },
+        "metrics": [
+          {
+            "value": "10K+",
+            "label": "Service scale · downloads"
+          },
+          {
+            "value": "−30%",
+            "label": "memory"
+          },
+          {
+            "value": "−90%",
+            "label": "OOM"
+          }
+        ],
+        "highlights": [
+          "Used Datadog RUM and Flutter DevTools to trace OOM errors to excessive image decoding.",
+          "Modified the video editing package to add downsampling and WebP conversion.",
+          "Reduced server processing costs by trimming and encoding video on the device."
+        ],
+        "skills": [
+          "Flutter",
+          "Supabase",
+          "Datadog",
+          "Sentry",
+          "FFmpeg"
+        ],
+        "links": []
+      },
+      {
+        "title": "Tickie",
+        "subtitle": "Dynamic Island timer",
+        "description": "A two-person project connecting Flutter to a Swift library through MethodChannel to control Live Activities that existing Flutter packages did not support.",
+        "image": {
+          "src": "https://assets.leeeeeoy.xyz/portfolio-v2/tickie.webp",
+          "alt": "Tickie timer app",
+          "width": 720,
+          "height": 1561
+        },
+        "metrics": [
+          {
+            "value": "1",
+            "label": "developer"
+          },
+          {
+            "value": "iOS",
+            "label": "Live Activities"
+          }
+        ],
+        "highlights": [
+          "Designed start, update, and stop interfaces for a Swift-based Live Activities library.",
+          "Connected the library to Flutter through MethodChannel to display timer status while the app was in the background.",
+          "Implemented Supabase authentication and the data structure."
+        ],
+        "skills": [
+          "Flutter",
+          "Swift",
+          "MethodChannel",
+          "ActivityKit",
+          "Supabase"
+        ],
+        "links": []
+      },
+      {
+        "title": "Cafein",
+        "subtitle": "A map for finding cafés to work in",
+        "description": "A map service for exploring café work environments and crowding. The service ran for about a year after launch and has since closed.",
+        "image": {
+          "src": "https://assets.leeeeeoy.xyz/portfolio-v2/cafein.webp",
+          "alt": "Cafein café map",
+          "width": 720,
+          "height": 1280
+        },
+        "metrics": [
+          {
+            "value": "2.5K+",
+            "label": "listed cafés"
+          },
+          {
+            "value": "1.1K+",
+            "label": "users"
+          }
+        ],
+        "highlights": [
+          "Debounced map movement and live location changes to reduce unnecessary API calls.",
+          "Reorganized state flows from GetX to Bloc and added image caching.",
+          "Handled app development in an eight-person team, implementing social login, map exploration, and reviews."
+        ],
+        "skills": [
+          "Flutter",
+          "Bloc",
+          "Map",
+          "Firebase"
+        ],
+        "links": [
+          {
+            "label": "GitHub",
+            "url": "https://github.com/dalbong-cafein/cafein_flutter"
+          }
+        ]
+      }
+    ],
+    "skillGroups": [
+      {
+        "title": "Core",
+        "description": "Mobile product development and operations",
+        "items": [
+          "Flutter",
+          "Dart",
+          "Bloc",
+          "Android",
+          "iOS"
+        ]
+      },
+      {
+        "title": "Platform",
+        "description": "Connecting native and web capabilities",
+        "items": [
+          "Kotlin",
+          "Swift",
+          "MethodChannel",
+          "WebView",
+          "WebSocket"
+        ]
+      },
+      {
+        "title": "Quality & Ops",
+        "description": "Testing, releases, and operations",
+        "items": [
+          "GitHub Actions",
+          "SonarQube",
+          "Patrol",
+          "Fastlane",
+          "Codemagic",
+          "Datadog",
+          "Sentry"
+        ]
+      },
+      {
+        "title": "Adjacent",
+        "description": "Web and backend development",
+        "items": [
+          "React",
+          "TypeScript",
+          "Spring",
+          "Node.js",
+          "GraphQL",
+          "Supabase"
+        ]
+      }
+    ],
+    "ui": {
+      "skip": "Skip to content",
+      "home": "Home",
+      "navigation": "Main navigation",
+      "darkTheme": "Switch to dark theme",
+      "lightTheme": "Switch to light theme",
+      "contactLinks": "Contact and external links",
+      "impactHeading": "The decisions\nbehind the results.",
+      "experienceHeading": "Finding problems.\nBuilding solutions that work in practice.",
+      "projectsHeading": "Built, launched,\nand operated.",
+      "skillsHeading": "Skills,\nwith context.",
+      "context": "Context & constraints",
+      "decision": "Decision & action",
+      "outcome": "Outcome",
+      "details": "Case studies",
+      "problem": "Problem",
+      "analysis": "Rationale",
+      "action": "Action",
+      "result": "Result",
+      "contributions": "Other contributions",
+      "projectDetails": "Project details",
+      "website": "website",
+      "flow": "flow",
+      "technologies": "technologies",
+      "viewOn": "View on",
+      "footerHeading": "Let’s make complex\nproblems simpler.",
+      "privacyNote": "Microsoft Clarity is used only with your consent.",
+      "analyticsSettings": "Analytics settings",
+      "privacyPolicy": "Privacy statement",
+      "close": "Close",
+      "architectureTitle": "A small, straightforward\nportfolio architecture",
+      "architectureIntro": "Public content is bundled at build time. The browser does not fetch it from an API, reducing loading steps and points of failure.",
+      "architectureAlt": "The browser loads a static React app from Cloudflare Pages, which loads public images from R2.",
+      "browser": "Browser",
+      "staticContent": "React · Vite · static content",
+      "r2Reference": "↓ R2 image URLs",
+      "publicImages": "Public project images",
+      "deploymentFlow": "Deployment flow",
+      "architectureLegacy": "Workers and D1 are retained pending cleanup of the previous API. They are not part of the current frontend request path.",
+      "source": "View source on GitHub",
+      "consentTitle": "Site usage analytics",
+      "consentDescription": "Microsoft Clarity analyzes interactions such as clicks and scrolling. It will not load if you decline.",
+      "decline": "Decline",
+      "allow": "Allow",
+      "noteMissing": "This note is not available yet.",
+      "backToNotes": "← Back to Notes",
+      "tags": "Related tags",
+      "notesHeading": "Notes on solving problems\nand making decisions.",
+      "notesIntro": "How I solve technical problems, make product and engineering decisions, and reflect on experiments.",
+      "notesList": "Notes",
+      "notesEmpty": "No notes published yet.",
+      "engineeringDescription": "Investigations and solutions involving performance, architecture, platform constraints, and external integrations.",
+      "decisionsDescription": "The reasoning behind priorities, technology choices, and product experiments.",
+      "metaDescription": "Yoel Jang’s software engineering portfolio: Flutter products, system integrations, performance improvements, and release automation, with the decisions behind the work.",
+      "imageAlt": "Software engineer Yoel Jang overlooking a forest and pond"
     }
-  ]
+  }
 }

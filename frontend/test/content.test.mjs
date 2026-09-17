@@ -2,9 +2,10 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
-const content = JSON.parse(
+const translations = JSON.parse(
   await readFile(new URL('../src/content.json', import.meta.url), 'utf8'),
 )
+const content = translations.ko
 const appSource = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
 const portfolioSource = await readFile(
   new URL('../src/pages/PortfolioPage.tsx', import.meta.url),
@@ -112,7 +113,7 @@ test('public portfolio content includes approved contact and excludes private da
   assert.match(siteChromeSource, /Built with/)
   assert.match(siteChromeSource, /built-with-cloudflare\.svg/)
   assert.match(siteChromeSource, /github-invertocat-white\.svg/)
-  assert.match(siteChromeSource, /현재 Frontend 요청 경로에서는 사용하지 않습니다/)
+  assert.match(content.ui.architectureLegacy, /현재 Frontend 요청 경로에서는 사용하지 않습니다/)
   assert.deepEqual(content.profile.links.map(({ label }) => label), [
     'GitHub',
     'Blog',
@@ -163,9 +164,9 @@ test('motion is progressive and respects reduced-motion preferences', () => {
 test('engineering notes have list and detail routes without a router dependency', () => {
   assert.match(appSource, /window\.location\.pathname\.split\('\/'\)/)
   assert.match(appSource, /<NotesPage slug=\{noteSlug\}/)
-  assert.match(siteChromeSource, /href="\/notes\/"/)
+  assert.match(siteChromeSource, /localizedHref\("\/notes\/"\)/)
   assert.match(notesPageSource, /notes\.find/)
-  assert.match(notesPageSource, /href=\{`\/notes\/\$\{item\.slug\}\/`\}/)
+  assert.match(notesPageSource, /localizedHref\(`\/notes\/\$\{item\.slug\}\/`\)/)
   assert.match(notesSource, /id: 'Engineering'/)
   assert.match(notesSource, /id: 'Decision'/)
   assert.match(notesSource, /notes: Note\[\] = \[\]/)

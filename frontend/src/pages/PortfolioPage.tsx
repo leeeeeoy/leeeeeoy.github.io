@@ -1,5 +1,5 @@
 import { Arrow, externalLinkProps } from '../components/SiteChrome'
-import content from '../content.json'
+import { content, language, ui } from '../content'
 
 function LinkIcon({ label }: { label: string }) {
   if (label === 'GitHub') {
@@ -41,7 +41,7 @@ export default function PortfolioPage() {
             ))}
           </h1>
           <p className="hero-intro">{content.profile.intro}</p>
-          <div className="hero-links" aria-label="연락 및 외부 링크">
+          <div className="hero-links" aria-label={ui.contactLinks}>
             <a href={`mailto:${content.profile.email}`}>
               <LinkIcon label="Email" /> Email <Arrow />
             </a>
@@ -57,7 +57,7 @@ export default function PortfolioPage() {
       <section className="section impact-section" aria-labelledby="impact-title">
         <div className="section-heading" data-reveal>
           <p className="eyebrow">01 · SELECTED IMPACT</p>
-          <h2 id="impact-title">결과보다 먼저,<br />변화의 과정을 보여드립니다.</h2>
+          <h2 id="impact-title">{ui.impactHeading}</h2>
         </div>
         <div className="impact-grid">
           {content.featuredImpacts.map((impact) => (
@@ -66,15 +66,15 @@ export default function PortfolioPage() {
               <h3>{impact.title}</h3>
               <dl>
                 <div>
-                  <dt>상황</dt>
+                  <dt>{ui.context}</dt>
                   <dd>{impact.context}</dd>
                 </div>
                 <div>
-                  <dt>판단과 실행</dt>
+                  <dt>{ui.decision}</dt>
                   <dd>{impact.decision}</dd>
                 </div>
                 <div>
-                  <dt>변화</dt>
+                  <dt>{ui.outcome}</dt>
                   <dd>{impact.outcome}</dd>
                 </div>
               </dl>
@@ -86,7 +86,7 @@ export default function PortfolioPage() {
       <section className="section" id="experience">
         <div className="section-heading" data-reveal>
           <p className="eyebrow">02 · EXPERIENCE</p>
-          <h2>문제를 발견하고,<br />운영 가능한 답을 만듭니다.</h2>
+          <h2>{ui.experienceHeading}</h2>
         </div>
         <div className="timeline">
           {content.experiences.map((experience, index) => (
@@ -105,7 +105,7 @@ export default function PortfolioPage() {
                       <a
                         className="company-link"
                         href={experience.website}
-                        aria-label={`${experience.company} 홈페이지 열기`}
+                        aria-label={`${experience.company} ${ui.website}`}
                         {...externalLinkProps}
                       >
                         {experience.company} <Arrow />
@@ -125,7 +125,7 @@ export default function PortfolioPage() {
                 </div>
                 <details className="disclosure">
                   <summary>
-                    <span>상세 성과</span>
+                    <span>{ui.details}</span>
                     <span className="disclosure-action" aria-hidden="true" />
                   </summary>
                   <div className="disclosure-content">
@@ -135,24 +135,24 @@ export default function PortfolioPage() {
                           <h4>{caseStudy.title}</h4>
                           <dl>
                             <div>
-                              <dt>문제</dt>
+                              <dt>{ui.problem}</dt>
                               <dd>{caseStudy.problem}</dd>
                             </div>
                             <div>
-                              <dt>분석</dt>
+                              <dt>{ui.analysis}</dt>
                               <dd>{caseStudy.analysis}</dd>
                             </div>
                             <div>
-                              <dt>실행</dt>
+                              <dt>{ui.action}</dt>
                               <dd>{caseStudy.action}</dd>
                             </div>
                             <div>
-                              <dt>결과</dt>
+                              <dt>{ui.result}</dt>
                               <dd>{caseStudy.result}</dd>
                             </div>
                           </dl>
                           {'flow' in caseStudy && caseStudy.flow && (
-                            <div className="case-flow" aria-label={`${caseStudy.title} 흐름`}>
+                            <div className="case-flow" aria-label={`${caseStudy.title} ${ui.flow}`}>
                               {caseStudy.flow.map((flow) => (
                                 <section key={flow.label}>
                                   <h5>{flow.label}</h5>
@@ -168,7 +168,7 @@ export default function PortfolioPage() {
                         </article>
                       ))}
                     </div>
-                    <h4 className="contribution-title">그 밖의 기여</h4>
+                    <h4 className="contribution-title">{ui.contributions}</h4>
                     <ul className="contributions">
                       {experience.highlights.map((highlight) => (
                         <li key={highlight}>{highlight}</li>
@@ -176,7 +176,7 @@ export default function PortfolioPage() {
                     </ul>
                     <ul
                       className="tags"
-                      aria-label={`${experience.company} 사용 기술`}
+                      aria-label={`${experience.company} ${ui.technologies}`}
                     >
                       {experience.skills.map((skill) => (
                         <li key={skill}>{skill}</li>
@@ -193,7 +193,7 @@ export default function PortfolioPage() {
       <section className="section projects-section" id="projects">
         <div className="section-heading" data-reveal>
           <p className="eyebrow">03 · SELECTED PROJECTS</p>
-          <h2>직접 만들고,<br />출시하고, 운영했습니다.</h2>
+          <h2>{ui.projectsHeading}</h2>
         </div>
         <div className="projects">
           {content.projects.map((project, index) => (
@@ -224,7 +224,7 @@ export default function PortfolioPage() {
                 </div>
                 <details className="disclosure">
                   <summary>
-                    <span>프로젝트 자세히 보기</span>
+                    <span>{ui.projectDetails}</span>
                     <span className="disclosure-action" aria-hidden="true" />
                   </summary>
                   <div className="disclosure-content">
@@ -235,7 +235,7 @@ export default function PortfolioPage() {
                     </ul>
                     <ul
                       className="tags"
-                      aria-label={`${project.title} 사용 기술`}
+                      aria-label={`${project.title} ${ui.technologies}`}
                     >
                       {project.skills.map((skill) => (
                         <li key={skill}>{skill}</li>
@@ -250,7 +250,7 @@ export default function PortfolioPage() {
                     href={link.url}
                     {...externalLinkProps}
                   >
-                    {link.label}에서 보기 <Arrow />
+                    {language === 'en' ? `${ui.viewOn} ${link.label}` : `${link.label}${ui.viewOn}`} <Arrow />
                   </a>
                 ))}
               </div>
@@ -262,7 +262,7 @@ export default function PortfolioPage() {
       <section className="section skills-section" id="skills">
         <div className="section-heading" data-reveal>
           <p className="eyebrow">04 · SKILLS</p>
-          <h2>기술보다<br />사용한 맥락을 말합니다.</h2>
+          <h2>{ui.skillsHeading}</h2>
         </div>
         <div className="skill-grid">
           {content.skillGroups.map((group) => (

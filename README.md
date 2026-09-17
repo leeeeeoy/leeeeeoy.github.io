@@ -36,6 +36,11 @@ npm run dev
 
 Vite 빌드 결과는 `frontend/dist/`에 생성됩니다.
 
+기본 언어는 한국어이며 `?lang=en`으로 영어 버전을 공유할 수 있습니다.
+상단 언어 링크와 내부 페이지 이동은 URL로 언어를 유지합니다.
+공개 본문과 UI 문구는 `src/content.json`의 `ko`·`en`에서 함께 관리합니다.
+JavaScript 실행 전의 검색·공유 미리보기 HTML은 기존 한국어 버전을 사용합니다.
+
 ## Backend
 
 기존 Cloudflare Workers + Hono API는 새 Frontend가 안정화될 때까지 유지합니다.

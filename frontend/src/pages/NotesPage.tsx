@@ -1,3 +1,4 @@
+import { ui, localizedHref } from '../content'
 import { noteCategories, notes } from '../notes'
 
 export default function NotesPage({ slug }: { slug?: string }) {
@@ -9,8 +10,8 @@ export default function NotesPage({ slug }: { slug?: string }) {
         <section className="notes-hero" id="top">
           <div className="hero-copy">
             <p className="eyebrow">ENGINEERING NOTES</p>
-            <h1>아직 작성되지 않은 기록입니다.</h1>
-            <a className="notes-back" href="/notes/">← Notes로 돌아가기</a>
+            <h1>{ui.noteMissing}</h1>
+            <a className="notes-back" href={localizedHref("/notes/")}>{ui.backToNotes}</a>
           </div>
         </section>
       )
@@ -18,11 +19,11 @@ export default function NotesPage({ slug }: { slug?: string }) {
 
     return (
       <article className="note-article" id="top">
-        <a className="notes-back" href="/notes/">← Notes</a>
+        <a className="notes-back" href={localizedHref("/notes/")}>← Notes</a>
         <p className="eyebrow">{note.category}</p>
         <h1>{note.title}</h1>
         <p className="note-lead">{note.summary}</p>
-        <ul className="tags" aria-label="관련 태그">
+        <ul className="tags" aria-label={ui.tags}>
           {note.tags.map((tag) => <li key={tag}>{tag}</li>)}
         </ul>
         {note.sections.map((section) => (
@@ -42,14 +43,13 @@ export default function NotesPage({ slug }: { slug?: string }) {
       <section className="notes-hero" id="top">
         <div className="hero-copy">
           <p className="eyebrow">NOTES</p>
-          <h1>문제를 풀고 결정하며<br />배운 것들을 기록합니다.</h1>
+          <h1>{ui.notesHeading}</h1>
           <p className="hero-intro">
-            기술적인 문제 해결과 제품·기술 의사결정의 근거, 실험 이후의
-            생각을 정리합니다.
+            {ui.notesIntro}
           </p>
         </div>
       </section>
-      <section className="section notes-section" aria-label="노트 목록">
+      <section className="section notes-section" aria-label={ui.notesList}>
         <div className="note-categories">
           {noteCategories.map((category) => {
             const categoryNotes = notes.filter(
@@ -66,14 +66,14 @@ export default function NotesPage({ slug }: { slug?: string }) {
                   <p>{category.description}</p>
                 </div>
                 {categoryNotes.length === 0 ? (
-                  <p className="notes-empty">아직 작성된 기록이 없습니다.</p>
+                  <p className="notes-empty">{ui.notesEmpty}</p>
                 ) : (
                   <div className="notes-list">
                     {categoryNotes.map((item) => (
                       <article key={item.slug}>
-                        <h3><a href={`/notes/${item.slug}/`}>{item.title}</a></h3>
+                        <h3><a href={localizedHref(`/notes/${item.slug}/`)}>{item.title}</a></h3>
                         <p>{item.summary}</p>
-                        <ul className="tags" aria-label={`${item.title} 관련 태그`}>
+                        <ul className="tags" aria-label={`${item.title} ${ui.tags}`}>
                           {item.tags.map((tag) => <li key={tag}>{tag}</li>)}
                         </ul>
                       </article>
