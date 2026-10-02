@@ -5,9 +5,13 @@ import { readFile } from 'node:fs/promises'
 const base = process.argv[2]
 assert.ok(base, 'Usage: node scripts/check-deployment.mjs https://portfolio.example.com')
 if (process.argv.includes('--protected')) {
-  const response = await fetch(base, { redirect: 'manual' })
-  assert.equal(response.status, 302, 'Unauthenticated preview must redirect to Access')
-  assert.match(response.headers.get('location'), /\.cloudflareaccess\.com\//)
+  const response = await fetch(base, { redirect: 'manual', headers: { Accept: 'text/html' } })
+  if (response.status === 302) {
+    assert.match(response.headers.get('location'), /\.cloudflareaccess\.com\//)
+  } else {
+    assert.equal(response.status, 403, 'Unauthenticated preview must be denied')
+    assert.match(response.headers.get('www-authenticate') ?? '', /Cloudflare-Access/)
+  }
   console.log('PASS: unauthenticated preview is protected by Access')
   process.exit(0)
 }
