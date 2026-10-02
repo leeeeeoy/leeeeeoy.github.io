@@ -28,10 +28,10 @@ const stylesSource = await readFile(
   new URL('../src/styles.css', import.meta.url),
   'utf8',
 )
-const redirectsSource = await readFile(
-  new URL('../public/_redirects', import.meta.url),
+const workerConfig = JSON.parse(await readFile(
+  new URL('../wrangler.jsonc', import.meta.url),
   'utf8',
-)
+))
 const robotsSource = await readFile(
   new URL('../public/robots.txt', import.meta.url),
   'utf8',
@@ -172,7 +172,8 @@ test('engineering notes have list and detail routes without a router dependency'
   assert.match(notesSource, /notes: Note\[\] = \[\]/)
   assert.match(notesPageSource, /noteCategories\.map/)
   assert.match(notesPageSource, /notes\.filter/)
-  assert.match(redirectsSource, /\/notes\/\* \/index\.html 200/)
+  assert.equal(workerConfig.assets.not_found_handling, 'single-page-application')
+  assert.equal(workerConfig.env.preview.assets.not_found_handling, 'single-page-application')
 })
 
 test('section navigation keeps the URL free of hash fragments', () => {
