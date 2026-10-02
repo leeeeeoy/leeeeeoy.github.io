@@ -70,4 +70,3 @@ jobs:
           workingDirectory: frontend
           wranglerVersion: '4.147.0'
           command: deploy --env="${{ github.ref_name == 'develop' && 'preview' || '' }}"
-
