@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import test from 'node:test'
+import vm from 'node:vm'
 
 const translations = JSON.parse(
   await readFile(new URL('../src/content.json', import.meta.url), 'utf8'),
@@ -214,4 +215,27 @@ test('search metadata describes the portfolio and keeps it crawlable', () => {
   )
   assert.match(robotsSource, /Sitemap: https:\/\/leeeeeoy\.xyz\/sitemap\.xml/)
   assert.match(sitemapSource, /<loc>https:\/\/leeeeeoy\.xyz\/<\/loc>/)
+})
+
+
+test('legacy Flutter service worker retires without intercepting new app requests', async () => {
+  const source = await readFile(new URL('../public/flutter_service_worker.js', import.meta.url), 'utf8')
+  const handlers = new Map()
+  let skipped = false
+  let unregistered = false
+  let navigated
+  vm.runInNewContext(source, { console, self: {
+    addEventListener: (name, handler) => handlers.set(name, handler),
+    skipWaiting: () => { skipped = true },
+    registration: { unregister: async () => { unregistered = true } },
+    clients: { matchAll: async () => [{ url: 'https://leeeeeoy.xyz/notes/?lang=en', navigate: (url) => { navigated = url } }] },
+  } })
+  handlers.get('install')()
+  let activation
+  handlers.get('activate')({ waitUntil: (work) => { activation = work } })
+  await activation
+  assert.equal(skipped, true)
+  assert.equal(unregistered, true)
+  assert.equal(navigated, 'https://leeeeeoy.xyz/notes/?lang=en')
+  assert.equal(handlers.has('fetch'), false)
 })

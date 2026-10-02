@@ -10,3 +10,6 @@
 
 https://preview-portfolio.leeeeeoy.xyz/*
   X-Robots-Tag: noindex, nofollow
+
+/flutter_service_worker.js
+  Cache-Control: no-store
