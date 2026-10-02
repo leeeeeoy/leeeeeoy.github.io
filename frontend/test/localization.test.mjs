@@ -36,7 +36,7 @@ test('language links, metadata, and rendered pages work in both languages', asyn
   const server = await createServer({ server: { middlewareMode: true, hmr: false, ws: false } })
   try {
     for (const language of ['ko', 'en']) {
-      globalThis.window = { location: new URL(`https://portfolio.leeeeeoy.xyz/?lang=${language}`) }
+      globalThis.window = { location: new URL(`https://leeeeeoy.xyz/?lang=${language}`) }
       const meta = new Map()
       globalThis.document = {
         documentElement: {},

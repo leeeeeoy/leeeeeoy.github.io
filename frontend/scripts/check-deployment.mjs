@@ -18,6 +18,16 @@ if (process.argv.includes('--protected')) {
   console.log('PASS: unauthenticated preview is protected by Access')
   process.exit(0)
 }
+const redirectTarget = process.argv.find((arg) => arg.startsWith('--redirect-to='))?.split('=')[1]
+if (redirectTarget) {
+  for (const path of ['/', '/?lang=en', '/notes/?lang=en&ref=domain-migration']) {
+    const response = await fetch(new URL(path, base), { redirect: 'manual', headers })
+    assert.equal(response.status, 301, path)
+    assert.equal(response.headers.get('location'), new URL(path, redirectTarget).href, path)
+  }
+  console.log('PASS: canonical redirects preserve paths and query parameters')
+  process.exit(0)
+}
 const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8')
 const assets = [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/g)].map(([_, path]) => path)
 assert.ok(assets.length >= 2)
@@ -29,6 +39,7 @@ for (const path of ['/', '/?lang=en', '/notes/', '/notes/?lang=en']) {
   assert.match(response.headers.get('content-security-policy'), /frame-ancestors 'none'/, path)
   assert.match(response.headers.get('cache-control'), /max-age=0/, path)
   const body = await response.text()
+  assert.ok(body.includes('<link rel="canonical" href="https://leeeeeoy.xyz/"'), `${path}: canonical domain`)
   for (const asset of assets) assert.ok(body.includes(asset), `${path}: current build ${asset}`)
 }
 for (const path of assets) {

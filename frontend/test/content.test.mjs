@@ -137,7 +137,7 @@ test('public portfolio content includes approved contact and excludes private da
 
 test('Clarity loads only after consent and only on production', () => {
   assert.match(appSource, /xti7rw64s1/)
-  assert.match(appSource, /portfolio\.leeeeeoy\.xyz/)
+  assert.match(appSource, /leeeeeoy\.xyz/)
   assert.match(appSource, /analytics_Storage: 'granted'/)
   assert.match(appSource, /analytics_Storage: 'denied'/)
   assert.match(appSource, /if \(consent === 'granted'\) loadClarity\(\)/)
@@ -212,6 +212,6 @@ test('search metadata describes the portfolio and keeps it crawlable', () => {
     structuredData['@graph'][1].mainEntity['@id'],
     structuredData['@graph'][2]['@id'],
   )
-  assert.match(robotsSource, /Sitemap: https:\/\/portfolio\.leeeeeoy\.xyz\/sitemap\.xml/)
-  assert.match(sitemapSource, /<loc>https:\/\/portfolio\.leeeeeoy\.xyz\/<\/loc>/)
+  assert.match(robotsSource, /Sitemap: https:\/\/leeeeeoy\.xyz\/sitemap\.xml/)
+  assert.match(sitemapSource, /<loc>https:\/\/leeeeeoy\.xyz\/<\/loc>/)
 })
