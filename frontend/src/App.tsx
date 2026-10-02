@@ -11,7 +11,7 @@ import PortfolioPage from './pages/PortfolioPage'
 const CLARITY_PROJECT_ID = 'xti7rw64s1'
 const CLARITY_CONSENT_KEY = 'portfolio-clarity-consent'
 const THEME_KEY = 'portfolio-theme'
-const PRODUCTION_HOST = 'portfolio.leeeeeoy.xyz'
+const PRODUCTION_HOST = 'leeeeeoy.xyz'
 
 type Consent = 'granted' | 'denied'
 type Theme = 'light' | 'dark'

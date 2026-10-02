@@ -17,6 +17,10 @@
   },
   "routes": [
     {
+      "pattern": "leeeeeoy.xyz",
+      "custom_domain": true
+    },
+    {
       "pattern": "portfolio.leeeeeoy.xyz",
       "custom_domain": true
     }

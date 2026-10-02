@@ -2,7 +2,7 @@
 
 React 정적 SPA와 Cloudflare 인프라로 구성한 개인 포트폴리오 웹사이트입니다.
 
-**URL:** https://portfolio.leeeeeoy.xyz
+**URL:** https://leeeeeoy.xyz
 
 ## 구조
 
@@ -90,7 +90,7 @@ GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 
 - `frontend/wrangler.jsonc`로 정적 파일만 배포합니다. Worker 서버 코드와 DB 바인딩은 없습니다.
 - `develop`: `preview-portfolio.leeeeeoy.xyz`에 배포하며 Cloudflare Access로 소유자만 접근합니다.
-- `main`: `portfolio.leeeeeoy.xyz` Workers Custom Domain으로 제공합니다. Pages 프로젝트와 연결은 백업 후 삭제했습니다.
+- `main`: `leeeeeoy.xyz` Workers Custom Domain으로 제공합니다. `www.leeeeeoy.xyz`와 기존 `portfolio.leeeeeoy.xyz`는 경로·쿼리를 유지해 대표 주소로 301 이동합니다. Pages는 삭제했고 이전 Firebase Hosting은 백업 후 비활성화했습니다.
 - `workers.dev`와 버전 미리보기 URL은 비활성화해 Access 우회를 막습니다.
 - `_headers`는 보안 헤더와 해시 파일의 1년 브라우저 캐시를 설정합니다. HTML은 기본 재검증 정책을 유지합니다.
 - 운영 장애 시 검증된 이전 Worker 버전을 재배포하거나 rollback합니다. Pages로 자동 복귀하지 않습니다.
@@ -99,7 +99,9 @@ GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 배포 후 검증은 `frontend`에서 다음 스크립트로 실행합니다.
 
 ```bash
-node scripts/check-deployment.mjs https://portfolio.leeeeeoy.xyz
+node scripts/check-deployment.mjs https://leeeeeoy.xyz
+node scripts/check-deployment.mjs https://www.leeeeeoy.xyz --redirect-to=https://leeeeeoy.xyz
+node scripts/check-deployment.mjs https://portfolio.leeeeeoy.xyz --redirect-to=https://leeeeeoy.xyz
 node scripts/check-deployment.mjs https://preview-portfolio.leeeeeoy.xyz --protected
 ```
 
