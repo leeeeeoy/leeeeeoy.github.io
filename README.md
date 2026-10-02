@@ -94,3 +94,12 @@ GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 - `_headers`는 보안 헤더와 해시 파일의 1년 브라우저 캐시를 설정합니다. HTML은 기본 재검증 정책을 유지합니다.
 - 운영 장애 시 해당 Worker Route를 제거하면 보존한 Pages 배포로 돌아갑니다.
 - 무료 정적 파일 요청과 Worker 코드 실행 한도는 별개입니다. 이후 API를 추가하면 별도 한도를 확인합니다.
+
+배포 후 검증은 `frontend`에서 다음 스크립트로 실행합니다.
+
+```bash
+node scripts/check-deployment.mjs https://portfolio.leeeeeoy.xyz
+node scripts/check-deployment.mjs https://preview-portfolio.leeeeeoy.xyz --protected
+```
+
+이 검증은 운영 경로·헤더·배포 파일을 확인합니다. 미리보기에서는 익명 Access 응답을 확인하며, 소유자 로그인은 브라우저에서 별도로 확인합니다. GitHub 호스팅 러너는 기존 Cloudflare 보안 설정에 의해 Managed Challenge를 받을 수 있어 이 외부 접속 검증을 CI의 배포 성공 조건에는 넣지 않습니다.

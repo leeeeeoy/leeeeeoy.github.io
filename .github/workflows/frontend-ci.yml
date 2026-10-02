@@ -69,13 +69,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: frontend
           wranglerVersion: '4.147.0'
-          command: deploy ${{ github.ref_name == 'develop' && '--env preview' || '' }}
+          command: deploy --env="${{ github.ref_name == 'develop' && 'preview' || '' }}"
 
-      - name: Verify deployment
-        working-directory: frontend
-        run: |
-          if [ "${{ github.ref_name }}" = "main" ]; then
-            node scripts/check-deployment.mjs https://portfolio.leeeeeoy.xyz
-          else
-            node scripts/check-deployment.mjs https://preview-portfolio.leeeeeoy.xyz --protected
-          fi
