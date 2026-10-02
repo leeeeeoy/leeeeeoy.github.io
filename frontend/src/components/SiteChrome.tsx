@@ -191,7 +191,7 @@ export function SiteFooter({
           </div>
           <span className="architecture-arrow" aria-hidden="true">↓</span>
           <div className="architecture-node architecture-node--primary">
-            <strong>Cloudflare Pages</strong>
+            <strong>Cloudflare Workers</strong>
             <span>{ui.staticContent}</span>
           </div>
           <span className="architecture-arrow" aria-hidden="true">{ui.r2Reference}</span>
@@ -205,7 +205,7 @@ export function SiteFooter({
           <b aria-hidden="true">→</b>
           <span>Test · Typecheck · Build</span>
           <b aria-hidden="true">→</b>
-          <span>Pages Deploy</span>
+          <span>Workers Deploy</span>
         </div>
         <p className="architecture-dialog__legacy">
           {ui.architectureLegacy}
