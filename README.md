@@ -90,10 +90,10 @@ GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 
 - `frontend/wrangler.jsonc`로 정적 파일만 배포합니다. Worker 서버 코드와 DB 바인딩은 없습니다.
 - `develop`: `preview-portfolio.leeeeeoy.xyz`에 배포하며 Cloudflare Access로 소유자만 접근합니다.
-- `main`: `portfolio.leeeeeoy.xyz/*` Worker Route로 제공합니다. 기존 Pages와 DNS는 복구용으로 남습니다.
+- `main`: `portfolio.leeeeeoy.xyz` Workers Custom Domain으로 제공합니다. Pages 프로젝트와 연결은 백업 후 삭제했습니다.
 - `workers.dev`와 버전 미리보기 URL은 비활성화해 Access 우회를 막습니다.
 - `_headers`는 보안 헤더와 해시 파일의 1년 브라우저 캐시를 설정합니다. HTML은 기본 재검증 정책을 유지합니다.
-- 운영 장애 시 해당 Worker Route를 제거하면 보존한 Pages 배포로 돌아갑니다.
+- 운영 장애 시 검증된 이전 Worker 버전을 재배포하거나 rollback합니다. Pages로 자동 복귀하지 않습니다.
 - 무료 정적 파일 요청과 Worker 코드 실행 한도는 별개입니다. 이후 API를 추가하면 별도 한도를 확인합니다.
 
 배포 후 검증은 `frontend`에서 다음 스크립트로 실행합니다.

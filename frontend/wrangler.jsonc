@@ -17,8 +17,8 @@
   },
   "routes": [
     {
-      "pattern": "portfolio.leeeeeoy.xyz/*",
-      "zone_name": "leeeeeoy.xyz"
+      "pattern": "portfolio.leeeeeoy.xyz",
+      "custom_domain": true
     }
   ],
   "env": {
