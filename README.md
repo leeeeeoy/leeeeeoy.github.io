@@ -72,7 +72,8 @@ GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 
 필요한 GitHub Secrets:
 
-- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_FRONTEND_API_TOKEN` (Frontend: Workers Scripts Write, 해당 Zone의 Workers Routes Write·Zone Read)
+- `CLOUDFLARE_API_TOKEN` (기존 Backend)
 - `CLOUDFLARE_ACCOUNT_ID`
 
 ## Cloudflare
