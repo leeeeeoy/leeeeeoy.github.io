@@ -23,7 +23,7 @@ leeeeeoy_portfolio/
 | 콘텐츠 | `src/content.json` 정적 데이터 |
 | 스타일 | HTML/CSS 중심, 외부 UI·애니메이션 라이브러리 없음 |
 | 이미지 | Cloudflare R2 |
-| 배포 | Cloudflare Pages |
+| 배포 | Cloudflare Workers Static Assets |
 
 ```bash
 cd frontend
@@ -65,7 +65,7 @@ npm run deploy
 
 GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 
-- `frontend/**`: test, typecheck, build 후 Pages 배포
+- `frontend/**`: test, typecheck, build 후 Workers Static Assets 배포
 - `backend/**`: test, typecheck 후 Workers 배포
 - `main`: Production
 - `develop`: Frontend Preview
@@ -78,9 +78,19 @@ GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 ## Cloudflare
 
 ```text
-사용자 ──▶ Pages (React SPA) ──▶ R2 (공개 이미지)
+사용자 ──▶ Workers Static Assets (React SPA) ──▶ R2 (공개 이미지)
                     │
-                    └─ Workers + D1 (기존 API, 정리 전 보존)
+                    └─ 이전 API Worker·D1 설정 (Frontend는 호출하지 않음)
 ```
 
 상세 전환 기준은 [포트폴리오 개편 계획](./docs/portfolio-renewal/README.md)을 참고합니다.
+
+## Workers 운영
+
+- `frontend/wrangler.jsonc`로 정적 파일만 배포합니다. Worker 서버 코드와 DB 바인딩은 없습니다.
+- `develop`: `preview-portfolio.leeeeeoy.xyz`에 배포하며 Cloudflare Access로 소유자만 접근합니다.
+- `main`: `portfolio.leeeeeoy.xyz/*` Worker Route로 제공합니다. 기존 Pages와 DNS는 복구용으로 남습니다.
+- `workers.dev`와 버전 미리보기 URL은 비활성화해 Access 우회를 막습니다.
+- `_headers`는 보안 헤더와 해시 파일의 1년 브라우저 캐시를 설정합니다. HTML은 기본 재검증 정책을 유지합니다.
+- 운영 장애 시 해당 Worker Route를 제거하면 보존한 Pages 배포로 돌아갑니다.
+- 무료 정적 파일 요청과 Worker 코드 실행 한도는 별개입니다. 이후 API를 추가하면 별도 한도를 확인합니다.

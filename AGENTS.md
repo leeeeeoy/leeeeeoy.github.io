@@ -7,7 +7,7 @@
 개인 포트폴리오 웹사이트다.
 
 - Frontend: React + Vite + TypeScript
-- Hosting: Cloudflare Pages
+- Hosting: Cloudflare Workers Static Assets
 - Assets: Cloudflare R2
 - Backend: Cloudflare Workers + Hono
 - Database: Cloudflare D1
@@ -48,7 +48,7 @@ Frontend와 Backend는 서로 직접 참조하지 않는다.
 
 ## CI/CD
 
-- Frontend 변경은 Pages만 배포한다.
+- Frontend 변경은 Workers Static Assets만 배포한다.
 - Backend 변경은 Workers만 배포한다.
 - 테스트, 타입 검사, build가 성공해야 배포한다.
 - deploy job은 검사 job을 `needs`로 의존한다.

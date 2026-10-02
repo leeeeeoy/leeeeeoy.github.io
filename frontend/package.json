@@ -19,6 +19,11 @@
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.1.0",
     "typescript": "^5.9.0",
-    "vite": "^7.2.0"
+    "vite": "^7.2.0",
+    "wrangler": "4.147.0"
+  },
+  "allowScripts": {
+    "workerd": true,
+    "esbuild": true
   }
 }

@@ -113,7 +113,7 @@ test('public portfolio content includes approved contact and excludes private da
   assert.match(siteChromeSource, /Built with/)
   assert.match(siteChromeSource, /built-with-cloudflare\.svg/)
   assert.match(siteChromeSource, /github-invertocat-white\.svg/)
-  assert.match(content.ui.architectureLegacy, /현재 Frontend 요청 경로에서는 사용하지 않습니다/)
+  assert.match(content.ui.architectureLegacy, /Frontend는 API를 호출하지 않습니다/)
   assert.deepEqual(content.profile.links.map(({ label }) => label), [
     'GitHub',
     'Blog',
