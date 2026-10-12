@@ -111,7 +111,9 @@ export default function App() {
       const target = sessionStorage.getItem(SCROLL_TARGET_KEY)
       if (!target) return
       sessionStorage.removeItem(SCROLL_TARGET_KEY)
-      requestAnimationFrame(() => document.getElementById(target)?.scrollIntoView())
+      requestAnimationFrame(() =>
+        document.getElementById(target)?.scrollIntoView(),
+      )
     } catch {
       // The home page still loads when browser storage is unavailable.
     }
@@ -177,9 +179,7 @@ export default function App() {
         >
           <div>
             <strong id="consent-title">{ui.consentTitle}</strong>
-            <p id="consent-description">
-              {ui.consentDescription}
-            </p>
+            <p id="consent-description">{ui.consentDescription}</p>
           </div>
           <div className="consent-actions">
             <button type="button" onClick={() => chooseConsent('denied')}>

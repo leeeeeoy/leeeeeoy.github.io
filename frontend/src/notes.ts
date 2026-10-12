@@ -4,14 +4,12 @@ export const noteCategories = [
   {
     id: 'Engineering',
     title: 'Engineering',
-    description:
-      ui.engineeringDescription,
+    description: ui.engineeringDescription,
   },
   {
     id: 'Decision',
     title: 'Decisions',
-    description:
-      ui.decisionsDescription,
+    description: ui.decisionsDescription,
   },
 ] as const
 

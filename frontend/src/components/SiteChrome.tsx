@@ -9,7 +9,11 @@ export const externalLinkProps = {
 } as const
 
 export function Arrow() {
-  return <span className="external-arrow" aria-hidden="true">↗</span>
+  return (
+    <span className="external-arrow" aria-hidden="true">
+      ↗
+    </span>
+  )
 }
 
 function ThemeIcon({ theme }: { theme: 'light' | 'dark' }) {
@@ -25,7 +29,10 @@ function ThemeIcon({ theme }: { theme: 'light' | 'dark' }) {
   )
 }
 
-function navigateToSection(event: MouseEvent<HTMLAnchorElement>, section: string) {
+function navigateToSection(
+  event: MouseEvent<HTMLAnchorElement>,
+  section: string,
+) {
   if (window.location.pathname === '/') {
     event.preventDefault()
     document.getElementById(section)?.scrollIntoView()
@@ -48,31 +55,45 @@ export function SiteHeader({
 }) {
   return (
     <header className="site-header">
-      <a className="brand" href={localizedHref("/")} aria-label={ui.home}>
+      <a className="brand" href={localizedHref('/')} aria-label={ui.home}>
         Y<span>.</span>
       </a>
       <nav aria-label={ui.navigation}>
-        <a href={localizedHref("/")} onClick={(event) => navigateToSection(event, 'experience')}>
+        <a
+          href={localizedHref('/')}
+          onClick={(event) => navigateToSection(event, 'experience')}
+        >
           Experience
         </a>
-        <a href={localizedHref("/")} onClick={(event) => navigateToSection(event, 'projects')}>
+        <a
+          href={localizedHref('/')}
+          onClick={(event) => navigateToSection(event, 'projects')}
+        >
           Projects
         </a>
-        <a href={localizedHref("/")} onClick={(event) => navigateToSection(event, 'skills')}>
+        <a
+          href={localizedHref('/')}
+          onClick={(event) => navigateToSection(event, 'skills')}
+        >
           Skills
         </a>
       </nav>
       <div className="header-actions">
         <a
           className="header-link language-switch"
-          href={localizedHref(window.location.pathname + window.location.search + window.location.hash, language === 'ko' ? 'en' : 'ko')}
+          href={localizedHref(
+            window.location.pathname +
+              window.location.search +
+              window.location.hash,
+            language === 'ko' ? 'en' : 'ko',
+          )}
           hrefLang={language === 'ko' ? 'en' : 'ko'}
           lang={language === 'ko' ? 'en' : 'ko'}
           aria-label={language === 'ko' ? 'Read in English' : '한국어로 보기'}
         >
           {language === 'ko' ? 'EN' : 'KR'}
         </a>
-        <a className="header-link" href={localizedHref("/notes/")}>
+        <a className="header-link" href={localizedHref('/notes/')}>
           Notes
         </a>
         <button
@@ -106,20 +127,14 @@ export function SiteHeader({
   )
 }
 
-export function SiteFooter({
-  onOpenConsent,
-}: {
-  onOpenConsent: () => void
-}) {
+export function SiteFooter({ onOpenConsent }: { onOpenConsent: () => void }) {
   const architectureDialog = useRef<HTMLDialogElement>(null)
 
   return (
     <footer>
       <div className="footer-intro">
         <p className="eyebrow">LET&apos;S BUILD SOMETHING USEFUL</p>
-        <h2>
-          {ui.footerHeading}
-        </h2>
+        <h2>{ui.footerHeading}</h2>
         <button
           className="cloudflare-badge"
           type="button"
@@ -139,7 +154,9 @@ export function SiteFooter({
         <address className="footer-contact">
           <strong>{content.profile.name}</strong>
           <span>{content.profile.role}</span>
-          <a href={`mailto:${content.profile.email}`}>{content.profile.email}</a>
+          <a href={`mailto:${content.profile.email}`}>
+            {content.profile.email}
+          </a>
         </address>
         <div className="footer-links">
           {content.profile.links.map((link) => (
@@ -162,7 +179,9 @@ export function SiteFooter({
             </a>
           </div>
         </div>
-        <p>© {new Date().getFullYear()} {content.profile.name}</p>
+        <p>
+          © {new Date().getFullYear()} {content.profile.name}
+        </p>
       </div>
       <dialog
         id="architecture-dialog"
@@ -177,9 +196,7 @@ export function SiteFooter({
         </form>
         <p className="eyebrow">HOW THIS SITE WORKS</p>
         <h2 id="architecture-title">{ui.architectureTitle}</h2>
-        <p className="architecture-dialog__intro">
-          {ui.architectureIntro}
-        </p>
+        <p className="architecture-dialog__intro">{ui.architectureIntro}</p>
         <div
           className="site-architecture"
           role="img"
@@ -189,12 +206,16 @@ export function SiteFooter({
             <strong>{ui.browser}</strong>
             <span>Desktop · Mobile</span>
           </div>
-          <span className="architecture-arrow" aria-hidden="true">↓</span>
+          <span className="architecture-arrow" aria-hidden="true">
+            ↓
+          </span>
           <div className="architecture-node architecture-node--primary">
             <strong>Cloudflare Workers</strong>
             <span>{ui.staticContent}</span>
           </div>
-          <span className="architecture-arrow" aria-hidden="true">{ui.r2Reference}</span>
+          <span className="architecture-arrow" aria-hidden="true">
+            {ui.r2Reference}
+          </span>
           <div className="architecture-node">
             <strong>Cloudflare R2</strong>
             <span>{ui.publicImages}</span>
@@ -207,9 +228,7 @@ export function SiteFooter({
           <b aria-hidden="true">→</b>
           <span>Workers Deploy</span>
         </div>
-        <p className="architecture-dialog__legacy">
-          {ui.architectureLegacy}
-        </p>
+        <p className="architecture-dialog__legacy">{ui.architectureLegacy}</p>
         <a
           className="architecture-dialog__link"
           href="https://github.com/leeeeeoy/leeeeeoy.github.io"

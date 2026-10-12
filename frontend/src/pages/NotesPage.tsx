@@ -11,7 +11,9 @@ export default function NotesPage({ slug }: { slug?: string }) {
           <div className="hero-copy">
             <p className="eyebrow">ENGINEERING NOTES</p>
             <h1>{ui.noteMissing}</h1>
-            <a className="notes-back" href={localizedHref("/notes/")}>{ui.backToNotes}</a>
+            <a className="notes-back" href={localizedHref('/notes/')}>
+              {ui.backToNotes}
+            </a>
           </div>
         </section>
       )
@@ -19,12 +21,16 @@ export default function NotesPage({ slug }: { slug?: string }) {
 
     return (
       <article className="note-article" id="top">
-        <a className="notes-back" href={localizedHref("/notes/")}>← Notes</a>
+        <a className="notes-back" href={localizedHref('/notes/')}>
+          ← Notes
+        </a>
         <p className="eyebrow">{note.category}</p>
         <h1>{note.title}</h1>
         <p className="note-lead">{note.summary}</p>
         <ul className="tags" aria-label={ui.tags}>
-          {note.tags.map((tag) => <li key={tag}>{tag}</li>)}
+          {note.tags.map((tag) => (
+            <li key={tag}>{tag}</li>
+          ))}
         </ul>
         {note.sections.map((section) => (
           <section key={section.heading}>
@@ -44,9 +50,7 @@ export default function NotesPage({ slug }: { slug?: string }) {
         <div className="hero-copy">
           <p className="eyebrow">NOTES</p>
           <h1>{ui.notesHeading}</h1>
-          <p className="hero-intro">
-            {ui.notesIntro}
-          </p>
+          <p className="hero-intro">{ui.notesIntro}</p>
         </div>
       </section>
       <section className="section notes-section" aria-label={ui.notesList}>
@@ -71,10 +75,19 @@ export default function NotesPage({ slug }: { slug?: string }) {
                   <div className="notes-list">
                     {categoryNotes.map((item) => (
                       <article key={item.slug}>
-                        <h3><a href={localizedHref(`/notes/${item.slug}/`)}>{item.title}</a></h3>
+                        <h3>
+                          <a href={localizedHref(`/notes/${item.slug}/`)}>
+                            {item.title}
+                          </a>
+                        </h3>
                         <p>{item.summary}</p>
-                        <ul className="tags" aria-label={`${item.title} ${ui.tags}`}>
-                          {item.tags.map((tag) => <li key={tag}>{tag}</li>)}
+                        <ul
+                          className="tags"
+                          aria-label={`${item.title} ${ui.tags}`}
+                        >
+                          {item.tags.map((tag) => (
+                            <li key={tag}>{tag}</li>
+                          ))}
                         </ul>
                       </article>
                     ))}
