@@ -126,19 +126,11 @@
             "flow": [
               {
                 "label": "초기 · 로컬 중심",
-                "steps": [
-                  "Shell Script",
-                  "Fastlane · match",
-                  "Local 배포"
-                ]
+                "steps": ["Shell Script", "Fastlane · match", "Local 배포"]
               },
               {
                 "label": "팀 배포 필요",
-                "steps": [
-                  "동일한 Fastlane lane",
-                  "Codemagic",
-                  "Cloud 배포"
-                ]
+                "steps": ["동일한 Fastlane lane", "Codemagic", "Cloud 배포"]
               }
             ]
           },
@@ -312,13 +304,7 @@
           "영상 편집 패키지를 수정해 다운샘플링과 WebP 변환을 적용했습니다.",
           "모바일 영상 trim·인코딩으로 서버 처리 비용을 줄였습니다."
         ],
-        "skills": [
-          "Flutter",
-          "Supabase",
-          "Datadog",
-          "Sentry",
-          "FFmpeg"
-        ],
+        "skills": ["Flutter", "Supabase", "Datadog", "Sentry", "FFmpeg"],
         "links": []
       },
       {
@@ -380,12 +366,7 @@
           "GetX에서 Bloc으로 상태 흐름을 정리하고 이미지 캐싱을 적용했습니다.",
           "8인 팀에서 앱 개발을 맡아 소셜 로그인, 지도 탐색, 리뷰 흐름을 구현했습니다."
         ],
-        "skills": [
-          "Flutter",
-          "Bloc",
-          "Map",
-          "Firebase"
-        ],
+        "skills": ["Flutter", "Bloc", "Map", "Firebase"],
         "links": [
           {
             "label": "GitHub",
@@ -398,24 +379,12 @@
       {
         "title": "Core",
         "description": "모바일 제품 설계와 운영",
-        "items": [
-          "Flutter",
-          "Dart",
-          "Bloc",
-          "Android",
-          "iOS"
-        ]
+        "items": ["Flutter", "Dart", "Bloc", "Android", "iOS"]
       },
       {
         "title": "Platform",
         "description": "네이티브와 웹 기능 연결",
-        "items": [
-          "Kotlin",
-          "Swift",
-          "MethodChannel",
-          "WebView",
-          "WebSocket"
-        ]
+        "items": ["Kotlin", "Swift", "MethodChannel", "WebView", "WebSocket"]
       },
       {
         "title": "Quality & Ops",
@@ -627,19 +596,11 @@
             "flow": [
               {
                 "label": "Initially · local releases",
-                "steps": [
-                  "Shell Script",
-                  "Fastlane · match",
-                  "Local release"
-                ]
+                "steps": ["Shell Script", "Fastlane · match", "Local release"]
               },
               {
                 "label": "When the team needed access",
-                "steps": [
-                  "Same Fastlane lanes",
-                  "Codemagic",
-                  "Cloud release"
-                ]
+                "steps": ["Same Fastlane lanes", "Codemagic", "Cloud release"]
               }
             ]
           },
@@ -813,13 +774,7 @@
           "Modified the video editing package to add downsampling and WebP conversion.",
           "Reduced server processing costs by trimming and encoding video on the device."
         ],
-        "skills": [
-          "Flutter",
-          "Supabase",
-          "Datadog",
-          "Sentry",
-          "FFmpeg"
-        ],
+        "skills": ["Flutter", "Supabase", "Datadog", "Sentry", "FFmpeg"],
         "links": []
       },
       {
@@ -881,12 +836,7 @@
           "Migrated state management from GetX to Bloc and added image caching.",
           "Developed the app as part of an eight-person team, implementing social login, map browsing, and reviews."
         ],
-        "skills": [
-          "Flutter",
-          "Bloc",
-          "Map",
-          "Firebase"
-        ],
+        "skills": ["Flutter", "Bloc", "Map", "Firebase"],
         "links": [
           {
             "label": "GitHub",
@@ -899,24 +849,12 @@
       {
         "title": "Core",
         "description": "Mobile product development and operations",
-        "items": [
-          "Flutter",
-          "Dart",
-          "Bloc",
-          "Android",
-          "iOS"
-        ]
+        "items": ["Flutter", "Dart", "Bloc", "Android", "iOS"]
       },
       {
         "title": "Platform",
         "description": "Connecting native and web capabilities",
-        "items": [
-          "Kotlin",
-          "Swift",
-          "MethodChannel",
-          "WebView",
-          "WebSocket"
-        ]
+        "items": ["Kotlin", "Swift", "MethodChannel", "WebView", "WebSocket"]
       },
       {
         "title": "Quality & Ops",

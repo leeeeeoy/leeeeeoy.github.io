@@ -24,11 +24,17 @@ export function applyLanguageMetadata() {
     'meta[property="og:description"]',
     'meta[name="twitter:description"]',
   ]) {
-    document.querySelector(selector)?.setAttribute('content', ui.metaDescription)
+    document
+      .querySelector(selector)
+      ?.setAttribute('content', ui.metaDescription)
   }
-  for (const selector of ['meta[property="og:image:alt"]', 'meta[name="twitter:image:alt"]']) {
+  for (const selector of [
+    'meta[property="og:image:alt"]',
+    'meta[name="twitter:image:alt"]',
+  ]) {
     document.querySelector(selector)?.setAttribute('content', ui.imageAlt)
   }
-  document.querySelector('meta[property="og:locale"]')
+  document
+    .querySelector('meta[property="og:locale"]')
     ?.setAttribute('content', language === 'en' ? 'en_US' : 'ko_KR')
 }

@@ -3,7 +3,12 @@ import { content, language, ui } from '../content'
 
 function LinkIcon({ label }: { label: string }) {
   if (label === 'GitHub') {
-    return <span className="hero-link-icon hero-link-icon--github" aria-hidden="true" />
+    return (
+      <span
+        className="hero-link-icon hero-link-icon--github"
+        aria-hidden="true"
+      />
+    )
   }
 
   if (label === 'LinkedIn') {
@@ -54,7 +59,10 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      <section className="section impact-section" aria-labelledby="impact-title">
+      <section
+        className="section impact-section"
+        aria-labelledby="impact-title"
+      >
         <div className="section-heading" data-reveal>
           <p className="eyebrow">01 · SELECTED IMPACT</p>
           <h2 id="impact-title">{ui.impactHeading}</h2>
@@ -152,7 +160,10 @@ export default function PortfolioPage() {
                             </div>
                           </dl>
                           {'flow' in caseStudy && caseStudy.flow && (
-                            <div className="case-flow" aria-label={`${caseStudy.title} ${ui.flow}`}>
+                            <div
+                              className="case-flow"
+                              aria-label={`${caseStudy.title} ${ui.flow}`}
+                            >
                               {caseStudy.flow.map((flow) => (
                                 <section key={flow.label}>
                                   <h5>{flow.label}</h5>
@@ -250,7 +261,10 @@ export default function PortfolioPage() {
                     href={link.url}
                     {...externalLinkProps}
                   >
-                    {language === 'en' ? `${ui.viewOn} ${link.label}` : `${link.label}${ui.viewOn}`} <Arrow />
+                    {language === 'en'
+                      ? `${ui.viewOn} ${link.label}`
+                      : `${link.label}${ui.viewOn}`}{' '}
+                    <Arrow />
                   </a>
                 ))}
               </div>

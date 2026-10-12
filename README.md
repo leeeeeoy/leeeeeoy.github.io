@@ -20,6 +20,8 @@ leeeeeoy_portfolio/
 |---|---|
 | UI | React 19 + TypeScript |
 | Build | Vite 7 |
+| 개발 환경 | Node.js 26.x (`frontend/.nvmrc`) |
+| 코드 검사·포맷 | ESLint + TypeScript/React Hooks 권장 규칙, Prettier |
 | 콘텐츠 | `src/content.json` 정적 데이터 |
 | 스타일 | HTML/CSS 중심, 외부 UI·애니메이션 라이브러리 없음 |
 | 이미지 | Cloudflare R2 |
@@ -27,7 +29,9 @@ leeeeeoy_portfolio/
 
 ```bash
 cd frontend
-npm install
+npm ci
+npm run lint
+npm run format:check
 npm test
 npm run typecheck
 npm run build
@@ -35,6 +39,10 @@ npm run dev
 ```
 
 Vite 빌드 결과는 `frontend/dist/`에 생성됩니다.
+
+Frontend의 로컬 개발과 CI는 Node.js 26.x를 사용합니다. nvm을 사용한다면
+`frontend`에서 `nvm use`로 버전을 선택합니다. `npm run lint:fix`는 린터의
+자동 수정, `npm run format`은 코드 포맷을 적용합니다. TypeScript는 현재 5.9를 유지합니다.
 
 기본 언어는 한국어이며 `?lang=en`으로 영어 버전을 공유할 수 있습니다.
 상단 언어 링크와 내부 페이지 이동은 URL로 언어를 유지합니다.
@@ -65,7 +73,7 @@ npm run deploy
 
 GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 
-- `frontend/**`: test, typecheck, build 후 Workers Static Assets 배포
+- `frontend/**`: lint, format check, test, typecheck, build 후 Workers Static Assets 배포
 - `backend/**`: test, typecheck 후 Workers 배포
 - `main`: Production
 - `develop`: Frontend Preview
