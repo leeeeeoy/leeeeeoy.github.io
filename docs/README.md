@@ -6,7 +6,7 @@
 |---|---|
 | 사이트의 목적·범위 판단 | `00-vision-and-scope.md` |
 | 현재 코드·옛 문서 정합성 파악 | [01-current-state.md](01-current-state.md), [Phase 0 감사](08-migration-audit-2026-10-14.md) |
-| 경로·의존 관계·콘텐츠 구조 변경 | `02-target-architecture.md` |
+| 경로·의존 관계·콘텐츠 구조 변경 | [02 설계](02-target-architecture.md), [Phase 2 페이지 기록](11-phase2-pages-record-2026-10-14.md) |
 | Lab·Writing 글 추가 또는 Markdown 파서 변경 | `03-content-and-writing.md` |
 | 저장소 이전/리네임/CI 변경 | [04-migration-plan.md](04-migration-plan.md), [active plan](exec-plans/active/site-migration.md), [상세 실행 계획](09-migration-execution-plan-2026-10-14.md), [Phase 1 기록](10-phase1-migration-record-2026-10-14.md) |
 | 기술 실험 코드·결과 | `05-lab-practices.md` |
@@ -25,7 +25,7 @@
 
 - 현행 경로·실행 명령: 루트 README/AGENTS/ARCHITECTURE와 01/04/06.
 - Phase 0 감사 08은 당시 관측 기록이며 원문을 유지한다. 09는 실행안과 이후 승인 기록을 구분한다.
-- 02/03의 신규 라우트·Markdown 계약, 07의 기능은 향후 제안으로 실제 구현과 구분한다.
+- 02의 기본 라우트는 Phase 2 로컬 구현이며 글 상세·03 Markdown 계약·07 기능은 향후 제안이다. Phase 1과 Phase 2의 실제 검사·미검증은 각 단계 기록을 따른다.
 - 최초 패키지 안내는 [archive/migration-proposal](archive/migration-proposal/00-READ-ME-FIRST.md)에 보존한다.
 
 ### 참고 외부 글

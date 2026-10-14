@@ -1,6 +1,6 @@
 # Execution Plan — Personal Space Migration
 
-- **상태:** Phase 1 완료(로컬) / Phase 2 승인 대기 / push·배포 금지
+- **상태:** Phase 2 완료(로컬) / Phase 3 승인 대기 / push·PR·배포 금지
 - **범위:** 기존 포트폴리오 + Lab + Writing 모노레포 정리
 - **소스:** `leeeeeoy/leeeeeoy.github.io` main (실작업 시작 시 최신 커밋 확인)
 - **목표 repo:** 기존 `leeeeeoy/leeeeeoy.github.io`와 origin 유지. 로컬 루트는 `<local-home>/leeeeeoy`, 작업 브랜치는 `migration/phase1-monorepo`.
@@ -30,12 +30,12 @@
 
 ## Phase 2 — 사이트 정보 구조
 
-- [ ] Home과 Portfolio 라우트 분리(기존 콘텐츠 전체 유지)
-- [ ] Lab/Writing 목록 빈 상태 제공 및 링크 정리
-- [ ] 기존 `/notes/` 링크/라우트 호환 방침 구현·검증
-- [ ] 언어/테마/동의/모바일/URL 새로고침 회귀 검사
+- [x] Home과 Portfolio 라우트 분리; 기존 Portfolio 본문·경력 데이터 전체 유지
+- [x] Lab/Writing 설명·빈 상태와 공통 메뉴·현재 페이지 표시
+- [x] Notes 목록/상세 유지 + Lab 안내; 옛 root 섹션 주소도 연결
+- [x] 언어/테마/동의/모바일/직접 접근·새로고침·뒤로/앞으로·키보드 로컬 회귀 검사
 
-**완료 조건:** 페이지마다 의미와 기존 동작이 확인됨.
+**상태: 완료(로컬).** 검증 근거는 [Phase 2 기록](../../11-phase2-pages-record-2026-10-14.md). 운영/Preview 미검증은 그대로 유지한다.
 
 ## Phase 3 — 글 발행
 
@@ -86,3 +86,11 @@
 - 로컬 Chrome에서 양언어/Notes/없는 글/새로고침/테마/본문 포커스/섹션 이동/R2 이미지 확인.
 - push·배포·Cloudflare 변경 없음. Preview 인증·모바일 전체·실제 GitHub CI·관리 상태·Go 원본 미검증.
 - Phase 2는 별도 사용자 지시 이후 로컬 구현으로 진행 가능. 이 세션은 여기서 종료.
+
+## 2026-10-14 Phase 2 세션 결과
+
+- Home/Portfolio/Lab/Writing 및 현재 메뉴·양언어 UI·모바일 Header 구현, 일반 anchor/pathname 유지.
+- Portfolio 데이터·본문 보존. Notes 목록/상세 + Lab 안내, legacy root 섹션 주소 호환.
+- Web lint/format:check/test(12)/typecheck/build, local Chrome desktop/390px/320px·언어·테마·동의·키보드·history·Notes·Portfolio 상세/R2 검증.
+- 구현·검사 근거와 HTTP 404/초기 HTML·실기기·운영 미검증은 [Phase 2 기록](../../11-phase2-pages-record-2026-10-14.md).
+- Phase 3 Markdown/실제 글/실험/배포 미실행. 이번 단계 종료 후 다음 지시 대기.

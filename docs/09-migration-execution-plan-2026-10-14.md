@@ -205,3 +205,7 @@ GitHub rename은 일반 저장소 링크 및 Git 작업을 새 이름으로 연�
 - 원본 `.git`의 단순 이동 대신 전체 refs bundle에서 별도 작업본을 복원·검증한 후 루트에 적용한다. 기존 작업 폴더는 소유자 전용 backup 경로로 보존하며 이름 충돌로 덮어쓰지 않는다.
 - 구조/문서/CI 경로만 수정하고 UI·데이터·연락처·Notes·보안/Access 설정을 유지한다. slug·Markdown·새 라우트 결정은 후속 단계에 남긴다.
 - 운영/Preview 배포 및 관리 상태 검증은 보류다. 로컬 Phase 1 승인으로 S4/S8 배포 승인까지 받은 것으로 해석하지 않는다.
+
+## 2026-10-14 Phase 2 구현 결정
+
+기본 네 페이지와 내비게이션은 현재 migration branch에서 로컬 구현한다. Notes 주소·화면을 유지하고 Lab 안내를 추가하는 방식을 선택했다. 옛 root section hash와 저장된 섹션 이동은 Portfolio로 이어받는다. Markdown·글 상세·실험·배포는 제외한다. 실제 결과와 현재 한계는 [Phase 2 기록](11-phase2-pages-record-2026-10-14.md)에 남긴다.

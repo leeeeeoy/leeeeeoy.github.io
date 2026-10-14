@@ -1,7 +1,7 @@
 # leeeeeoy — Personal Space
 
 개인의 경험·생각·기술적 호기심을 기록하는 웹사이트와 독립 실험을 관리합니다.
-현재 Phase 1은 로컬 구조 이전만 완료하며, 운영 UI와 `/`, `/notes/` 동작은 기존 포트폴리오 그대로입니다. Home/Lab/Writing UI와 Markdown 파이프라인은 다음 단계입니다.
+현재 Phase 2는 로컬 Home·Portfolio·Lab·Writing 및 공통 내비게이션을 제공합니다. Lab/Writing은 빈 목록이며 Markdown·실제 글은 다음 단계입니다. 이번 변경은 미배포 상태이며 운영 사이트를 이번 단계에서 검증하지 않았습니다.
 
 **URL:** https://leeeeeoy.xyz
 
@@ -52,7 +52,18 @@ Frontend의 로컬 개발과 CI는 Node.js 26.x를 사용합니다. nvm을 사�
 기본 언어는 한국어이며 `?lang=en`으로 영어 버전을 공유할 수 있습니다.
 상단 언어 링크와 내부 페이지 이동은 URL로 언어를 유지합니다.
 공개 본문과 UI 문구는 `src/content.json`의 `ko`·`en`에서 함께 관리합니다.
-JavaScript 실행 전의 검색·공유 미리보기 HTML은 기존 한국어 버전을 사용합니다.
+JavaScript 실행 전의 검색·공유 미리보기 HTML은 공통 한국어 사이트 셸을 사용합니다. 브라우저가 실행되면 경로와 언어에 맞는 제목·설명·canonical을 적용합니다. 글별 초기 HTML 생성은 구현하지 않았습니다.
+
+## 현재 페이지와 호환 경로
+
+- `/`: 자기소개와 Portfolio/Lab/Writing 링크
+- `/portfolio/`: 경력·프로젝트·문제 해결 사례 전체, 기존 섹션 이동
+- `/lab/`, `/writing/`: 서로 다른 목적의 소개·빈 상태, 가상 글 없음
+- `/notes/`, `/notes/:slug/`: 기존 주소와 화면 유지, Lab 안내 추가
+- 옛 루트의 `#experience`, `#projects`, `#skills`: 쿼리·해시를 유지해 브라우저에서 Portfolio로 이동
+- 알 수 없는 경로: 페이지 없음 UI. HTTP 상태는 SPA fallback과 별개입니다.
+
+[Phase 2 기록](docs/11-phase2-pages-record-2026-10-14.md)에 검사 결과와 한계를 정리했습니다.
 
 ## Backend
 

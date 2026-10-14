@@ -212,7 +212,9 @@ test('motion is progressive and respects reduced-motion preferences', () => {
 test('engineering notes have list and detail routes without a router dependency', () => {
   assert.match(appSource, /window\.location\.pathname\.split\('\/'\)/)
   assert.match(appSource, /<NotesPage slug=\{noteSlug\}/)
-  assert.match(siteChromeSource, /localizedHref\(['"]\/notes\/['"]\)/)
+  assert.match(notesPageSource, /localizedHref\(['"]\/notes\/['"]\)/)
+  assert.match(notesPageSource, /ui\.notesCompatibility/)
+  assert.match(notesPageSource, /localizedHref\(['"]\/lab\/['"]\)/)
   assert.match(notesPageSource, /notes\.find/)
   assert.match(
     notesPageSource,
@@ -271,6 +273,15 @@ test('search metadata describes the portfolio and keeps it crawlable', () => {
   )
   assert.match(robotsSource, /Sitemap: https:\/\/leeeeeoy\.xyz\/sitemap\.xml/)
   assert.match(sitemapSource, /<loc>https:\/\/leeeeeoy\.xyz\/<\/loc>/)
+  for (const path of ['portfolio', 'lab', 'writing']) {
+    assert.ok(
+      sitemapSource.includes(`<loc>https://leeeeeoy.xyz/${path}/</loc>`),
+    )
+  }
+  assert.equal(
+    structuredData['@graph'][1].url,
+    'https://leeeeeoy.xyz/portfolio/',
+  )
 })
 
 test('legacy Flutter service worker retires without intercepting new app requests', async () => {
