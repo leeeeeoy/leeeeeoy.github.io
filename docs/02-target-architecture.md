@@ -1,6 +1,6 @@
 # Target Architecture & Boundaries
 
-상태: 구조는 Phase 1 승인 범위 / 신규 라우트·Markdown 계약은 제안. 기존 GitHub repo·이력을 유지하고 로컬 루트를 `leeeeeoy/`로 전환한다. 새 repo 생성·rename은 하지 않는다.
+상태: 디렉터리와 기본 라우트는 Phase 2 로컬 구현 완료 / Markdown·글 상세 계약은 제안. 기존 GitHub repo·이력을 유지하고 로컬 루트를 `leeeeeoy/`로 전환한다. 새 repo 생성·rename은 하지 않는다.
 
 ## 디렉터리 계약
 
@@ -45,12 +45,13 @@ draft: false
 
 ## 라우팅 원칙
 
-- `/` Home: 소개·최근 글. 기존 포트폴리오의 핵심 내용을 접근 가능한 `/portfolio/`로 이전.
+- `/` Home: 소개·세 영역 링크만 제공. 글이 없어 최근 글·가상 글을 표시하지 않는다. Portfolio 전체는 `/portfolio/`에서 제공한다.
 - `/portfolio/` Portfolio 상세. 실제 페이지 개편 전 기존 `/` 콘텐츠의 누락 방지 테스트 작성.
 - `/lab/`/`/lab/:slug/`: Lab 글 목록/상세, 관련 코드 저장소 링크.
 - `/writing/`/`/writing/:slug/`: Writing 글 목록/상세.
-- `/notes/`, `/notes/:slug/`: 이전 route 처리(별칭/리다이렉션/명확한 안내)는 실 코드와 사이트 링크를 점검해 결정.
-- 기존 `App.tsx`의 pathname 분기는 작은 범위에서 유지할 수 있다. 라우팅 복잡성 때문에 실제 문제가 생길 때만 라우터를 검토한다.
+- `/notes/`, `/notes/:slug/`: 원래 화면·주소를 유지하고 Lab 안내 링크를 추가했다. 일괄 redirect나 삭제를 하지 않는다.
+- `routes.ts`에서 기본 경로와 Notes 상세를 명시적으로 구분한다. 일반 anchor를 유지하고 router 라이브러리는 추가하지 않았다. 옛 root section hash·저장된 이동은 Portfolio로 이어받는다.
+- 실제 글 상세는 Phase 3까지 미구현. 없는 경로 안내는 UI이며 HTTP 404 보장은 아니다. [Phase 2 기록](11-phase2-pages-record-2026-10-14.md)을 따른다.
 
 ## 운영 경계
 

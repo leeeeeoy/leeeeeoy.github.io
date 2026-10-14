@@ -11,8 +11,12 @@ export default function NotesPage({ slug }: { slug?: string }) {
           <div className="hero-copy">
             <p className="eyebrow">ENGINEERING NOTES</p>
             <h1>{ui.noteMissing}</h1>
+            <p className="hero-intro">{ui.notesCompatibility}</p>
             <a className="notes-back" href={localizedHref('/notes/')}>
               {ui.backToNotes}
+            </a>
+            <a className="notes-back" href={localizedHref('/lab/')}>
+              {ui.visitLab}
             </a>
           </div>
         </section>
@@ -51,6 +55,10 @@ export default function NotesPage({ slug }: { slug?: string }) {
           <p className="eyebrow">NOTES</p>
           <h1>{ui.notesHeading}</h1>
           <p className="hero-intro">{ui.notesIntro}</p>
+          <p className="notes-compatibility">
+            {ui.notesCompatibility}{' '}
+            <a href={localizedHref('/lab/')}>{ui.visitLab}</a>
+          </p>
         </div>
       </section>
       <section className="section notes-section" aria-label={ui.notesList}>

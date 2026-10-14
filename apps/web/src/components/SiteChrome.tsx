@@ -1,5 +1,6 @@
 import { useRef, type MouseEvent } from 'react'
 import { content, language, ui, localizedHref } from '../content'
+import { getPage, type Page } from '../routes'
 
 export const SCROLL_TARGET_KEY = 'portfolio-scroll-target'
 
@@ -33,7 +34,8 @@ function navigateToSection(
   event: MouseEvent<HTMLAnchorElement>,
   section: string,
 ) {
-  if (window.location.pathname === '/') {
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+  if (getPage(window.location.pathname) === 'portfolio') {
     event.preventDefault()
     document.getElementById(section)?.scrollIntoView()
     return
@@ -42,41 +44,44 @@ function navigateToSection(
   try {
     sessionStorage.setItem(SCROLL_TARGET_KEY, section)
   } catch {
-    // Navigating home still works when browser storage is unavailable.
+    // The portfolio still loads when browser storage is unavailable.
   }
 }
 
 export function SiteHeader({
+  page,
   theme,
   onToggleTheme,
 }: {
+  page: Page
   theme: 'light' | 'dark'
   onToggleTheme: () => void
 }) {
+  const links = [
+    { page: 'home', href: '/', label: ui.navHome },
+    { page: 'portfolio', href: '/portfolio/', label: ui.navPortfolio },
+    { page: 'lab', href: '/lab/', label: ui.navLab },
+    { page: 'writing', href: '/writing/', label: ui.navWriting },
+  ]
   return (
     <header className="site-header">
       <a className="brand" href={localizedHref('/')} aria-label={ui.home}>
         Y<span>.</span>
       </a>
-      <nav aria-label={ui.navigation}>
-        <a
-          href={localizedHref('/')}
-          onClick={(event) => navigateToSection(event, 'experience')}
-        >
-          Experience
-        </a>
-        <a
-          href={localizedHref('/')}
-          onClick={(event) => navigateToSection(event, 'projects')}
-        >
-          Projects
-        </a>
-        <a
-          href={localizedHref('/')}
-          onClick={(event) => navigateToSection(event, 'skills')}
-        >
-          Skills
-        </a>
+      <nav className="primary-nav" aria-label={ui.navigation}>
+        {links.map((link) => (
+          <a
+            key={link.page}
+            href={localizedHref(link.href)}
+            aria-current={
+              page === link.page || (page === 'notes' && link.page === 'lab')
+                ? 'page'
+                : undefined
+            }
+          >
+            {link.label}
+          </a>
+        ))}
       </nav>
       <div className="header-actions">
         <a
@@ -93,9 +98,6 @@ export function SiteHeader({
         >
           {language === 'ko' ? 'EN' : 'KR'}
         </a>
-        <a className="header-link" href={localizedHref('/notes/')}>
-          Notes
-        </a>
         <button
           className="theme-toggle"
           type="button"
@@ -110,6 +112,7 @@ export function SiteHeader({
         <a
           className="header-link"
           href={content.profile.links[0].url}
+          aria-label="GitHub"
           {...externalLinkProps}
         >
           <img
@@ -123,18 +126,52 @@ export function SiteHeader({
           <Arrow />
         </a>
       </div>
+      {page === 'portfolio' && (
+        <nav className="portfolio-nav" aria-label={ui.portfolioNavigation}>
+          <a
+            href={localizedHref('/portfolio/')}
+            onClick={(event) => navigateToSection(event, 'experience')}
+          >
+            {ui.experienceNav}
+          </a>
+          <a
+            href={localizedHref('/portfolio/')}
+            onClick={(event) => navigateToSection(event, 'projects')}
+          >
+            {ui.projectsNav}
+          </a>
+          <a
+            href={localizedHref('/portfolio/')}
+            onClick={(event) => navigateToSection(event, 'skills')}
+          >
+            {ui.skillsNav}
+          </a>
+        </nav>
+      )}
     </header>
   )
 }
 
-export function SiteFooter({ onOpenConsent }: { onOpenConsent: () => void }) {
+export function SiteFooter({
+  page,
+  onOpenConsent,
+}: {
+  page: Page
+  onOpenConsent: () => void
+}) {
   const architectureDialog = useRef<HTMLDialogElement>(null)
 
   return (
     <footer>
       <div className="footer-intro">
-        <p className="eyebrow">LET&apos;S BUILD SOMETHING USEFUL</p>
-        <h2>{ui.footerHeading}</h2>
+        <p className="eyebrow">
+          {page === 'portfolio'
+            ? "LET'S BUILD SOMETHING USEFUL"
+            : 'PERSONAL SPACE'}
+        </p>
+        <h2>
+          {page === 'portfolio' ? ui.footerHeading : ui.siteFooterHeading}
+        </h2>
         <button
           className="cloudflare-badge"
           type="button"
