@@ -46,7 +46,7 @@ leeeeeoy/
 | `/notes/`, `/notes/:slug/` | 기존 목록·상세/없는 글 화면 유지, Lab 안내 제공 |
 | 그 밖의 경로 | 페이지 없음 UI. SPA fallback이므로 HTTP 404 보장은 아님 |
 
-일반 anchor와 pathname 분기로 이동하며 React Router는 추가하지 않았다. 끝의 slash가 없는 기본 경로도 지원한다. `?lang=en`과 테마·동의 저장을 유지한다. 옛 `/#experience`, `/#projects`, `/#skills`는 쿼리·해시를 보존해 브라우저에서 `/portfolio/`로 replace한다. 예전 저장된 섹션 이동도 이어받는다. 서버 301/DNS/Access 정책을 변경한 것은 아니다.
+일반 anchor와 pathname 분기로 이동하며 React Router는 추가하지 않았다. 끝의 slash가 없는 기본 경로도 지원한다. `?lang=en`과 테마·동의 저장을 유지한다. 옛 `/#experience`, `/#projects`, `/#skills`는 첫 진입과 같은 문서의 hashchange 모두 쿼리·해시를 보존해 브라우저에서 `/portfolio/`로 replace한다. 예전 저장된 섹션 이동도 이어받는다. 서버 301/DNS/Access 정책을 변경한 것은 아니다.
 
 `/lab/:slug/`, `/writing/:slug/`의 실제 글과 Markdown 처리는 Phase 3의 후속 범위이며 현재는 페이지 없음 UI다. `/about/` 독립 페이지는 만들지 않는다. 초기 HTML은 하나의 공통 정적 셸이고 경로별 본문·메타데이터는 브라우저에서 적용한다.
 

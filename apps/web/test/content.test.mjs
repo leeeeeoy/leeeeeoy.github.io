@@ -11,6 +11,10 @@ const appSource = await readFile(
   new URL('../src/App.tsx', import.meta.url),
   'utf8',
 )
+const mainSource = await readFile(
+  new URL('../src/main.tsx', import.meta.url),
+  'utf8',
+)
 const portfolioSource = await readFile(
   new URL('../src/pages/PortfolioPage.tsx', import.meta.url),
   'utf8',
@@ -213,6 +217,8 @@ test('section navigation keeps the URL free of hash fragments', () => {
   assert.match(siteChromeSource, /sessionStorage\.setItem\(SCROLL_TARGET_KEY/)
   assert.match(appSource, /sessionStorage\.removeItem\(SCROLL_TARGET_KEY\)/)
   assert.match(appSource, /document\.getElementById\('content'\)\?\.focus\(\)/)
+  assert.match(mainSource, /window\.addEventListener\('hashchange'/)
+  assert.match(mainSource, /legacyPortfolioHref\(pathname, search, hash\)/)
 })
 
 test('social previews use the optimized R2 image', () => {
