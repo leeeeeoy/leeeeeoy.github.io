@@ -4,12 +4,16 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - 'frontend/**'
+      - 'apps/web/**'
+      - 'content/lab/**'
+      - 'content/writing/**'
       - '.github/workflows/frontend-ci.yml'
   pull_request:
     branches: [main, develop]
     paths:
-      - 'frontend/**'
+      - 'apps/web/**'
+      - 'content/lab/**'
+      - 'content/writing/**'
       - '.github/workflows/frontend-ci.yml'
 
 permissions:
@@ -24,28 +28,28 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version-file: frontend/.nvmrc
+          node-version-file: apps/web/.nvmrc
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: apps/web/package-lock.json
 
       - name: Install dependencies
-        working-directory: frontend
+        working-directory: apps/web
         run: npm ci
 
       - name: Lint
-        working-directory: frontend
+        working-directory: apps/web
         run: npm run lint
 
       - name: Check formatting
-        working-directory: frontend
+        working-directory: apps/web
         run: npm run format:check
 
       - name: Test
-        working-directory: frontend
+        working-directory: apps/web
         run: npm test
 
       - name: Build
-        working-directory: frontend
+        working-directory: apps/web
         run: npm run build
 
   deploy:
@@ -58,16 +62,16 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version-file: frontend/.nvmrc
+          node-version-file: apps/web/.nvmrc
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: apps/web/package-lock.json
 
       - name: Install dependencies
-        working-directory: frontend
+        working-directory: apps/web
         run: npm ci
 
       - name: Build
-        working-directory: frontend
+        working-directory: apps/web
         run: npm run build
 
       - name: Deploy to Cloudflare Workers
@@ -75,6 +79,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_FRONTEND_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: frontend
+          workingDirectory: apps/web
           wranglerVersion: '4.147.0'
           command: deploy --env="${{ github.ref_name == 'develop' && 'preview' || '' }}"

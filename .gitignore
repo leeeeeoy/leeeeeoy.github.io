@@ -9,10 +9,12 @@
 *.log
 
 # Environment
-.env.*.json
+.env*
+.dev.vars*
 
-# AI
-CLAUDE.md
+# Local tooling (the shared CLAUDE.md entry point is tracked)
+.claude/
+.wrangler/
 
 #resume
 resume/

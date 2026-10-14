@@ -1,3 +1,5 @@
+> ARCHIVE / superseded — 전환 당시 기록입니다. 현재 작업 규칙은 [루트 AGENTS](../../../AGENTS.md), 배포 기준은 [현재 README](../../../README.md)를 따릅니다. Pages 배포·Backend 삭제 계획을 재실행하지 않습니다.
+
 # 개인정보와 콘텐츠 처리 기준
 
 ## Git에 저장하지 않는 정보
