@@ -4,12 +4,12 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - 'backend/**'
+      - 'apps/legacy-api/**'
       - '.github/workflows/backend-ci.yml'
   pull_request:
     branches: [main, develop]
     paths:
-      - 'backend/**'
+      - 'apps/legacy-api/**'
       - '.github/workflows/backend-ci.yml'
 
 permissions:
@@ -26,18 +26,18 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-          cache-dependency-path: backend/package-lock.json
+          cache-dependency-path: apps/legacy-api/package-lock.json
 
       - name: Install dependencies
-        working-directory: backend
+        working-directory: apps/legacy-api
         run: npm ci
 
       - name: Test
-        working-directory: backend
+        working-directory: apps/legacy-api
         run: npm test
 
       - name: Typecheck
-        working-directory: backend
+        working-directory: apps/legacy-api
         run: npm run typecheck
 
   deploy:
@@ -52,10 +52,10 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-          cache-dependency-path: backend/package-lock.json
+          cache-dependency-path: apps/legacy-api/package-lock.json
 
       - name: Install dependencies
-        working-directory: backend
+        working-directory: apps/legacy-api
         run: npm ci
 
       - name: Deploy to Cloudflare Workers
@@ -63,5 +63,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: backend
+          workingDirectory: apps/legacy-api
           command: deploy
