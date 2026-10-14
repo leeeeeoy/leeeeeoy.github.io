@@ -22,7 +22,7 @@
 
 Notes를 일괄 redirect하지 않은 이유: 실제 글은 0개지만 원래 목록/상세 계약과 URL을 보존하면서 새 목적지를 설명할 수 있다. Notes 화면에서는 Lab 메뉴를 해당 영역으로 표시한다. 기존 `notes.ts`와 상세 렌더 분기는 삭제하지 않았다.
 
-옛 `/#experience`, `/#projects`, `/#skills`는 브라우저에서 `/portfolio/`로 `location.replace`한다. 쿼리와 해시를 그대로 유지한다. 예전 `portfolio-scroll-target` 저장값도 알려진 섹션일 때 이어받으며 저장소 접근이 막혀도 hash 연결은 동작한다. 새 Portfolio 섹션 메뉴는 기존처럼 URL에 hash를 추가하지 않고 스크롤한다. 고정 Header가 제목을 가리지 않도록 scroll margin을 적용했다.
+옛 `/#experience`, `/#projects`, `/#skills`는 브라우저에서 `/portfolio/`로 `location.replace`한다. 쿼리와 해시를 그대로 유지한다. Home을 이미 연 상태에서 해시만 바뀌는 경우도 hashchange로 처리한다. 예전 `portfolio-scroll-target` 저장값도 알려진 섹션일 때 이어받으며 저장소 접근이 막혀도 hash 연결은 동작한다. 새 Portfolio 섹션 메뉴는 기존처럼 URL에 hash를 추가하지 않고 스크롤한다. 고정 Header가 제목을 가리지 않도록 scroll margin을 적용했다.
 
 ## 2. 구현과 디자인 선택
 
@@ -81,7 +81,7 @@ Vite production build를 `127.0.0.1:4173`에서 제공했다. 운영/Preview 도
 | 390×844 / 320×844 viewport | 네 화면의 메뉴 노출·44px 높이·가로 넘침 없음, Portfolio 보조 메뉴 노출 |
 | 언어·내비게이션 | Lab/Writing의 영문 소개·빈 상태, 내부 링크 `?lang=en` 유지 |
 | 직접 접근·reload·history | 기본 화면/Notes/없는 경로와 slash 없는 Portfolio 직접 진입, reload, 뒤로·앞으로 정상 |
-| Notes·옛 section URL | 안내와 양언어 링크, 없는 글 유지; old root query/hash가 Portfolio로 보존됨 |
+| Notes·옛 section URL | 안내와 양언어 링크, 없는 글 유지; old root query/hash 및 같은 Home 문서에서 hash-only 이동이 Portfolio로 보존됨 |
 | Portfolio | 3경력·3프로젝트, 경력 상세 펼침·영문 Collapse 표시, R2 이미지 3개 로딩 |
 | 키보드·focus | Tab으로 skip button과 focus ring, Enter로 content focus, 다음 Tab으로 본문 링크 |
 | 테마·동의 | light/dark 전환·reload 저장, analytics 설정 열기/거부 후 닫힘, 로컬 Clarity script 0개 |

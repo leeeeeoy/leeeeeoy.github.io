@@ -15,6 +15,12 @@ try {
 }
 const legacyTarget = legacyPortfolioHref(pathname, search, hash, scrollTarget)
 
+window.addEventListener('hashchange', () => {
+  const { pathname, search, hash } = window.location
+  const target = legacyPortfolioHref(pathname, search, hash)
+  if (target) window.location.replace(target)
+})
+
 if (legacyTarget) {
   window.location.replace(legacyTarget)
 } else {
