@@ -48,6 +48,14 @@ test('both languages keep the same content structure, facts, and public links', 
 test('language links, metadata, and rendered pages work in both languages', async () => {
   const originalWindow = globalThis.window
   const originalDocument = globalThis.document
+  const originalStorage = Object.getOwnPropertyDescriptor(
+    globalThis,
+    'localStorage',
+  )
+  Object.defineProperty(globalThis, 'localStorage', {
+    configurable: true,
+    value: { getItem: () => null },
+  })
   const server = await createServer({
     server: { middlewareMode: true, hmr: false, ws: false },
   })
@@ -58,7 +66,7 @@ test('language links, metadata, and rendered pages work in both languages', asyn
       }
       const meta = new Map()
       globalThis.document = {
-        documentElement: {},
+        documentElement: { dataset: { theme: 'light' } },
         querySelector: (selector) => ({
           setAttribute: (key, value) => meta.set(`${selector}:${key}`, value),
         }),
@@ -80,7 +88,7 @@ test('language links, metadata, and rendered pages work in both languages', asyn
       assert.equal(globalThis.document.documentElement.lang, language)
       assert.equal(
         meta.get('meta[name="description"]:content'),
-        translations[language].ui.metaDescription,
+        translations[language].ui.siteDescription,
       )
       const { default: PortfolioPage } = await server.ssrLoadModule(
         '/src/pages/PortfolioPage.tsx',
@@ -97,10 +105,14 @@ test('language links, metadata, and rendered pages work in both languages', asyn
         createElement(NotesPage, { slug: 'missing' }),
       )
       const header = renderToStaticMarkup(
-        createElement(SiteHeader, { theme: 'light', onToggleTheme() {} }),
+        createElement(SiteHeader, {
+          page: 'home',
+          theme: 'light',
+          onToggleTheme() {},
+        }),
       )
       const footer = renderToStaticMarkup(
-        createElement(SiteFooter, { onOpenConsent() {} }),
+        createElement(SiteFooter, { page: 'portfolio', onOpenConsent() {} }),
       )
       assert.ok(
         portfolio.includes(
@@ -111,15 +123,176 @@ test('language links, metadata, and rendered pages work in both languages', asyn
       assert.ok(missingNote.includes(translations[language].ui.noteMissing))
       assert.ok(footer.includes(translations[language].ui.architectureLegacy))
       assert.ok(
-        header.includes(`href="/notes/${language === 'en' ? '?lang=en' : ''}"`),
+        header.includes(
+          `href="/portfolio/${language === 'en' ? '?lang=en' : ''}"`,
+        ),
       )
       assert.match(header, language === 'en' ? />KR<\/a>/ : />EN<\/a>/)
+      assert.ok(
+        header.includes('aria-label="GitHub"'),
+        'icon-only mobile link keeps an accessible name',
+      )
       if (language === 'en')
         assert.doesNotMatch(portfolio + notes + missingNote + footer, /[가-힣]/)
+
+      const { default: App } = await server.ssrLoadModule('/src/App.tsx')
+      const routes = [
+        ['/', translations[language].ui.homeHeading, 'home'],
+        ['/portfolio/', translations[language].profile.headline, 'portfolio'],
+        ['/lab/', translations[language].ui.navLab, 'lab'],
+        ['/writing/', translations[language].ui.navWriting, 'writing'],
+        ['/notes/', translations[language].ui.notesHeading, 'lab'],
+        ['/notes/missing/', translations[language].ui.noteMissing, 'lab'],
+        ['/lab/missing/', translations[language].ui.pageMissing, null],
+        ['/writing/missing/', translations[language].ui.pageMissing, null],
+        ['/missing/', translations[language].ui.pageMissing, null],
+      ]
+      for (const [path, heading, active] of routes) {
+        globalThis.window.location = new URL(
+          `https://leeeeeoy.xyz${path}?lang=${language}`,
+        )
+        const rendered = renderToStaticMarkup(createElement(App))
+        assert.ok(
+          rendered.includes(heading.split('\n')[0]),
+          `${language} ${path}`,
+        )
+        assert.equal((rendered.match(/<h1(?:\s|>)/g) ?? []).length, 1, path)
+        assert.ok(rendered.includes('id="content" tabindex="-1"'), path)
+        for (const href of ['/', '/portfolio/', '/lab/', '/writing/']) {
+          assert.ok(
+            rendered.includes(
+              `href="${href}${language === 'en' ? '?lang=en' : ''}"`,
+            ),
+            path,
+          )
+        }
+        assert.equal(
+          (rendered.match(/aria-current="page"/g) ?? []).length,
+          active ? 1 : 0,
+          path,
+        )
+        if (active) {
+          const activePath = active === 'home' ? '/' : `/${active}/`
+          assert.ok(
+            rendered.includes(
+              `href="${activePath}${language === 'en' ? '?lang=en' : ''}" aria-current="page"`,
+            ),
+            path,
+          )
+        }
+        if (path === '/portfolio/') {
+          assert.ok(
+            rendered.includes(portfolio),
+            'full portfolio markup must be preserved',
+          )
+          assert.ok(
+            rendered.includes(
+              `aria-label="${translations[language].ui.portfolioNavigation}"`,
+            ),
+          )
+        } else {
+          assert.doesNotMatch(
+            rendered,
+            /class="timeline"|class="impact-grid"|class="projects"/,
+            path,
+          )
+        }
+        if (path === '/lab/' || path === '/writing/') {
+          assert.ok(
+            rendered.includes(translations[language].ui.recordsEmpty),
+            path,
+          )
+          assert.doesNotMatch(rendered, /<article/)
+        }
+        if (path.startsWith('/notes/'))
+          assert.ok(
+            rendered.includes(translations[language].ui.notesCompatibility),
+          )
+        content.applyLanguageMetadata()
+        const labels = {
+          home: translations[language].ui.navHome,
+          portfolio: translations[language].ui.navPortfolio,
+          lab: translations[language].ui.navLab,
+          writing: translations[language].ui.navWriting,
+        }
+        const expectedLabel = path.startsWith('/notes/')
+          ? 'Notes'
+          : active
+            ? labels[active]
+            : translations[language].ui.pageMissing
+        assert.equal(
+          globalThis.document.title,
+          `${translations[language].profile.name} — ${expectedLabel}`,
+        )
+        if (path === '/portfolio/')
+          assert.equal(
+            meta.get('meta[name="description"]:content'),
+            translations[language].ui.metaDescription,
+          )
+        if (language === 'en') {
+          // The Korean-language switch keeps its native-language accessible name.
+          assert.doesNotMatch(
+            rendered.replace('aria-label="한국어로 보기"', ''),
+            /[가-힣]/,
+            path,
+          )
+        }
+      }
     }
   } finally {
     await server.close()
     globalThis.window = originalWindow
     globalThis.document = originalDocument
+    if (originalStorage)
+      Object.defineProperty(globalThis, 'localStorage', originalStorage)
+    else delete globalThis.localStorage
+  }
+})
+
+test('routes and legacy portfolio addresses are explicit and preserve queries', async () => {
+  const server = await createServer({
+    server: { middlewareMode: true, hmr: false, ws: false },
+  })
+  try {
+    const { getPage, legacyPortfolioHref } =
+      await server.ssrLoadModule('/src/routes.ts')
+    for (const [path, page] of [
+      ['/', 'home'],
+      ['/portfolio', 'portfolio'],
+      ['/portfolio/', 'portfolio'],
+      ['/lab', 'lab'],
+      ['/lab/', 'lab'],
+      ['/writing', 'writing'],
+      ['/writing/', 'writing'],
+      ['/notes', 'notes'],
+      ['/notes/', 'notes'],
+      ['/notes/missing', 'notes'],
+      ['/notes/missing/', 'notes'],
+      ['/notes/a/b/', 'not-found'],
+      ['/portfolio/a/', 'not-found'],
+      ['/lab/a/', 'not-found'],
+      ['/writing/a/', 'not-found'],
+      ['/unknown/', 'not-found'],
+    ]) {
+      assert.equal(getPage(path), page, path)
+    }
+    for (const section of ['experience', 'projects', 'skills']) {
+      assert.equal(
+        legacyPortfolioHref('/', '?lang=en&ref=old', `#${section}`),
+        `/portfolio/?lang=en&ref=old#${section}`,
+      )
+      assert.equal(
+        legacyPortfolioHref('/', '?lang=en', '', section),
+        '/portfolio/?lang=en',
+      )
+    }
+    assert.equal(legacyPortfolioHref('/', '', ''), null)
+    assert.equal(legacyPortfolioHref('/', '', '#other', 'unknown'), null)
+    assert.equal(
+      legacyPortfolioHref('/portfolio/', '?lang=en', '#skills'),
+      null,
+    )
+  } finally {
+    await server.close()
   }
 })

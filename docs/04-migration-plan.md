@@ -4,7 +4,7 @@
 
 - **원본:** `leeeeeoy/leeeeeoy.github.io` (React SPA + Workers Static Assets), 운영 도메인 `leeeeeoy.xyz`.
 - **확정:** 기존 GitHub repo·origin·이력을 유지하고 로컬 루트를 `leeeeeoy/`로 전환. `migration/phase1-monorepo` 브랜치에서 수행하며 main/develop은 변경하지 않는다.
-- **승인 범위:** Phase 1 로컬 구조·문서·CI 경로 이전 및 검사. push·Production/Preview 배포·원격 이름/URL·리소스 변경은 금지. 공개 데이터·UI·현재 `/` 및 Notes 동작 보존.
+- **현재 승인 범위:** Phase 2 로컬 페이지·내비게이션 구현 및 검사. Phase 1 구조와 기존 경력 데이터·Portfolio 인터랙션·Notes 주소를 보존한다. push·PR·Production/Preview 배포·원격 이름/URL·리소스 변경은 금지.
 
 ## 합의한 Git 이전 전략
 
@@ -39,10 +39,10 @@
 ### Phase 2. 개인 웹사이트 내비게이션
 
 - 기존 `/`의 경력 콘텐츠를 `/portfolio/`에서 접근 가능하게 하되 정보 손실 없이 이전.
-- `/` Home은 자기소개/사이트 소개/최근 글로 가볍게 변경.
+- `/` Home은 자기소개/사이트 소개/세 영역 링크로 변경. 실제 글이 없으므로 최근 글·예시 글은 표시하지 않음.
 - `/lab/`, `/writing/`는 첫 글이 없어도 빈 상태를 정상 표시.
-- 기존 `/notes/` 링크/경로는 실제 현황 기준으로 호환 방침 확정.
-- **Gate:** 포트폴리오 경력·프로젝트 전체가 유지됨. 새 경로·뒤로가기·새로고침·한국어/영어 UI 검증.
+- `/notes/` 목록·상세 주소와 화면을 유지하고 Lab 안내를 제공. 옛 root 섹션 링크는 Portfolio로 연결.
+- **Gate:** 포트폴리오 경력·프로젝트 전체 유지, 새 경로·뒤로/앞으로·새로고침·양언어·반응형·키보드 검증. 로컬 결과는 [Phase 2 기록](11-phase2-pages-record-2026-10-14.md); 배포 검증은 별도.
 
 ### Phase 3. Markdown 콘텐츠 파이프라인
 

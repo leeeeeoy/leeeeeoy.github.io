@@ -1,4 +1,5 @@
 import translations from './content.json'
+import { getPage } from './routes'
 
 export type Language = 'ko' | 'en'
 
@@ -18,16 +19,42 @@ export function localizedHref(path: string, target: Language = language) {
 }
 
 export function applyLanguageMetadata() {
+  const page = getPage(window.location.pathname)
+  const [label, description] = {
+    home: [ui.navHome, ui.siteDescription],
+    portfolio: [ui.navPortfolio, ui.metaDescription],
+    lab: [ui.navLab, ui.labIntro],
+    writing: [ui.navWriting, ui.writingIntro],
+    notes: ['Notes', ui.notesIntro],
+    'not-found': [ui.pageMissing, ui.siteDescription],
+  }[page]
+  const title = `${content.profile.name} — ${label}`
+  document.title = title
   document.documentElement.lang = language
   for (const selector of [
     'meta[name="description"]',
     'meta[property="og:description"]',
     'meta[name="twitter:description"]',
   ]) {
-    document
-      .querySelector(selector)
-      ?.setAttribute('content', ui.metaDescription)
+    document.querySelector(selector)?.setAttribute('content', description)
   }
+  for (const selector of [
+    'meta[property="og:title"]',
+    'meta[name="twitter:title"]',
+  ]) {
+    document.querySelector(selector)?.setAttribute('content', title)
+  }
+  const path =
+    page === 'home' || page === 'not-found'
+      ? '/'
+      : `${window.location.pathname.replace(/\/$/, '')}/`
+  const canonical = `https://leeeeeoy.xyz${path}`
+  document
+    .querySelector('link[rel="canonical"]')
+    ?.setAttribute('href', canonical)
+  document
+    .querySelector('meta[property="og:url"]')
+    ?.setAttribute('content', canonical)
   for (const selector of [
     'meta[property="og:image:alt"]',
     'meta[name="twitter:image:alt"]',

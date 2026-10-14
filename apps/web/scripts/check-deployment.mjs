@@ -65,7 +65,14 @@ const assets = [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/g)].map(
   ([, path]) => path,
 )
 assert.ok(assets.length >= 2)
-for (const path of ['/', '/?lang=en', '/notes/', '/notes/?lang=en']) {
+for (const path of [
+  '/',
+  '/portfolio/',
+  '/lab/',
+  '/writing/',
+  '/notes/',
+  '/notes/missing/',
+].flatMap((path) => [path, `${path}?lang=en`])) {
   const response = await fetch(new URL(path, base), { headers })
   assert.equal(response.status, 200, path)
   assert.equal(response.headers.get('x-content-type-options'), 'nosniff', path)

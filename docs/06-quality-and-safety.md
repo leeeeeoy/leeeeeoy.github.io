@@ -79,6 +79,8 @@ Go 소스가 실제 이관되기 전에는 위 명령을 실행할 수 없다. �
 
 검증 실패 시 성공이라고 요약하지 않고 원인과 복구 방법을 먼저 제시한다. CI 또는 문서 검증이 반복적으로 깨지는 규칙만 실행 가능한 검사로 승격한다.
 
-## Phase 1의 배포 경계
+## 로컬 단계의 배포 경계
 
-이번 단계는 로컬 검증만 승인되었다. migration branch는 main/develop workflow push 대상이 아니고 PR은 배포하지 않는다. docs/templates/labs-only 변경은 앱 workflow 대상이 아니다. 구조 이전 전체를 main에 반영하면 두 앱과 두 workflow가 바뀌어 웹·API deploy가 모두 대상이 되므로, 실제 main 반영 전에 별도 배포 승인을 받는다. 배포 조건을 임의로 바꾸거나 테스트를 비활성화하지 않는다.
+Phase 1 구조 이전과 Phase 2 페이지 구현은 로컬 작업·검증만 승인되었다. migration branch는 main/develop workflow push 대상이 아니고 PR은 배포하지 않는다. docs/templates/labs-only 변경은 앱 workflow 대상이 아니다. 구조 이전 전체를 main에 반영하면 두 앱과 두 workflow가 바뀌어 웹·API deploy가 모두 대상이 되므로, 실제 main 반영 전에 별도 배포 승인을 받는다. 배포 조건을 임의로 바꾸거나 테스트를 비활성화하지 않는다.
+
+Phase 2에서 기본 경로·Notes·없는 경로 UI와 양언어 App 렌더링 검사를 구현했다. 실제 Chrome 검증과 Phase 1에서 이어지는 미검증 범위는 [Phase 2 기록](11-phase2-pages-record-2026-10-14.md)에 구분했다. Markdown 계약·글 상세 검사는 Phase 3 이후 추가한다.

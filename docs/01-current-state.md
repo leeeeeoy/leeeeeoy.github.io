@@ -1,6 +1,6 @@
 # Source Repository — 확인된 상태와 과거 문서 구분
 
-확인 기준: 2026-10-14, 기존 main `dad0449c6350c4ba8f618cb4d03a52bcee42af6b`에서 로컬 Phase 1 구조 이전. repo·origin·main/develop 참조를 보존하며 배포하지 않는다. [Phase 0 감사](08-migration-audit-2026-10-14.md)는 이전 전 스냅샷, [Phase 1 기록](10-phase1-migration-record-2026-10-14.md)은 이번 검사 근거다. Cloudflare 관리 상태·Secrets·배포 ID는 재조회하지 않았다.
+확인 기준: 2026-10-14, Phase 1 `8d9db50`에서 로컬 Phase 2 페이지 구현. repo·origin·main/develop 참조를 보존하며 배포하지 않는다. [Phase 0 감사](08-migration-audit-2026-10-14.md)는 이전 전 스냅샷, [Phase 1 기록](10-phase1-migration-record-2026-10-14.md)은 구조 이전 기록, [Phase 2 기록](11-phase2-pages-record-2026-10-14.md)은 현재 페이지 검사 근거다. Cloudflare 관리 상태·Secrets·배포 ID는 재조회하지 않았다.
 
 ## 확인한 파일과 사실
 
@@ -8,8 +8,8 @@
 |---|---|---|
 | `apps/web/` | React 19, TypeScript, Vite 7, Node 26 (`.nvmrc`) | 현재 위치; 소스 내용 보존 |
 | `apps/web/src/content.json` | 한국어/영어 공개 프로필·경력·프로젝트 정적 데이터 | Portfolio의 원본으로 유지 |
-| `apps/web/src/App.tsx` | URL pathname으로 `/notes/` 분기, 테마, Clarity 동의 | 라우팅/동의 동작 회귀 주의 |
-| `apps/web/src/notes.ts` | `Engineering`, `Decision` 범주, `notes: Note[] = []` | 글 작성/렌더링 시스템은 확장 필요 |
+| `apps/web/src/App.tsx` | routes.ts의 명시적 pathname 분기, 네 기본 페이지·Notes·없는 경로 UI, 테마·Clarity 동의 | 라우팅/동의 동작 회귀 주의 |
+| `apps/web/src/notes.ts` | `Engineering`, `Decision` 범주, `notes: Note[] = []` | Legacy 주소·데이터 보존; Markdown은 미구현 |
 | `apps/web/src/pages/NotesPage.tsx` | 제목·요약·태그·문단 리스트 렌더링 | Markdown 코드/표/이미지 표시 신규 요구 |
 | `apps/web/test/content.test.mjs` | 경력·개인정보, `/notes/` 빈 목록, SPA 라우팅 등 문자열 기반 검증 | 경로 변경 시 검증 의도 유지하며 수정 |
 | `apps/web/wrangler.jsonc` | Workers Static Assets, SPA fallback, Production·Preview Custom Domain | 경로 이동 시 Wrangler working dir 확인 |
@@ -19,7 +19,7 @@
 | `.github/workflows/backend-ci.yml` | Backend 테스트, main 배포 | 경로만 변경, Node 22/main-only deploy 유지 |
 | `README.md`와 `AGENTS.md` | 현재 웹/백엔드·보호 규칙·개인정보 규칙 | 목표 구조에 맞게 재작성하되 원칙 계승 |
 | `docs/archive/portfolio-renewal/` | 2026년 이전 개편 당시 계획·의사결정 | 과거 판단의 기록으로 보존 |
-| `apps/web/public/sitemap.xml` | 홈페이지 한 URL | 새 공개 글/경로 추가 시 갱신 검토 |
+| `apps/web/public/sitemap.xml` | Home/Portfolio/Lab/Writing 네 URL | 새 공개 글/경로 추가 시 갱신 검토 |
 
 ## 서로 다른 시대의 문서가 공존한다
 

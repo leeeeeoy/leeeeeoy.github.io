@@ -4,7 +4,7 @@
 
 추측하지 말고 객관적으로 답한다. 사용자 의견에 근거 없이 동의하지 않는다.
 
-현재는 Phase 1의 로컬 구조 이전 상태다. 웹의 UI·라우트는 기존 포트폴리오이며 신규 Home/Lab/Writing 기능은 다음 단계의 승인 범위다.
+현재는 Phase 2의 로컬 페이지 구조다. Home/Portfolio/Lab/Writing과 Notes 호환 경로를 제공한다. 글 목록은 빈 상태이며 Markdown·게시글·실험 코드는 Phase 3 이후 별도 승인 범위다.
 
 ## 시작할 때 읽기
 
@@ -16,7 +16,7 @@
 ## 절대 지킬 규칙
 
 - 사용자가 승인하지 않은 push, Production/Preview 배포, Cloudflare 리소스 삭제·이전, GitHub 저장소 변경, Secrets 변경을 실행하지 않는다.
-- Cloudflare 작업은 프로젝트에 Wrangler 설정이 있으면 Wrangler를 사용하고, 없으면 cf CLI를 사용한다. 이번 Phase 1은 로컬 작업만 승인되었다.
+- Cloudflare 작업은 프로젝트에 Wrangler 설정이 있으면 Wrangler를 사용하고, 없으면 cf CLI를 사용한다. 이번 Phase 2는 로컬 구현·검증만 승인되었다.
 - 기존 `leeeeeoy.xyz`, `preview-portfolio.leeeeeoy.xyz`, `portfolio.leeeeeoy.xyz`, `www.leeeeeoy.xyz`의 라우팅·접근 제어를 의도치 않게 변경하지 않는다.
 - 확인된 운영 경력과 개인 실험 결과를 섞거나, 측정하지 않은 수치를 사실로 쓰지 않는다.
 - 개인정보·회사 비공개 데이터·인증 정보는 커밋하지 않는다. `docs/06-quality-and-safety.md`를 확인한다.
@@ -28,7 +28,7 @@
 
 | 영역 | 책임 | 상세 |
 |---|---|---|
-| `apps/web/` | 기존 React/Vite Portfolio·Notes; 향후 글 표시 | [02-target-architecture.md](docs/02-target-architecture.md) |
+| `apps/web/` | React/Vite Home·Portfolio·Lab/Writing 빈 목록·Notes 호환 | [02-target-architecture.md](docs/02-target-architecture.md) |
 | `apps/legacy-api/` | 이전 Worker/Hono/D1 자산: 보존 대상 | [04-migration-plan.md](docs/04-migration-plan.md) |
 | `content/lab/` | 공개용 기술 글·실험 분석 | [03-content-and-writing.md](docs/03-content-and-writing.md) |
 | `content/writing/` | 공개용 일상·회고·생각 | [03-content-and-writing.md](docs/03-content-and-writing.md) |

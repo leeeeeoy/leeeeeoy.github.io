@@ -129,6 +129,39 @@ nav a:hover,
   color: white;
 }
 
+.primary-nav a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 0 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.primary-nav a[aria-current='page'] {
+  border-bottom-color: var(--blue-on-dark);
+  color: white;
+}
+
+.portfolio-nav {
+  grid-column: 1 / -1;
+  justify-content: center;
+  border-top: 1px solid rgb(255 255 255 / 18%);
+}
+
+.portfolio-nav a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
+
+#experience,
+#projects,
+#skills {
+  scroll-margin-top: 96px;
+}
+
 .project-link:hover,
 .footer-meta a:hover {
   color: var(--link);
@@ -156,6 +189,8 @@ h2,
   align-items: center;
   gap: 6px;
   min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
   font-size: 12px;
   font-weight: 400;
 }
@@ -165,6 +200,8 @@ h2,
   align-items: center;
   gap: 6px;
   min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
   padding: 0;
   border: 0;
   background: none;
@@ -584,6 +621,14 @@ footer h2 {
   content: '접어두기  −';
 }
 
+html[lang='en'] .disclosure-action::before {
+  content: 'Expand  +';
+}
+
+html[lang='en'] .disclosure[open] .disclosure-action::before {
+  content: 'Collapse  −';
+}
+
 .disclosure-content {
   padding: 0 0 24px;
 }
@@ -804,6 +849,103 @@ footer h2 {
   .footer-meta a:hover span {
     transform: translate(2px, -2px);
   }
+}
+
+.hero.home-hero {
+  min-height: clamp(360px, 52svh, 520px);
+}
+
+.home-hero .hero-intro {
+  max-width: 600px;
+  word-break: keep-all;
+}
+
+.home-spaces,
+.collection-section {
+  background: var(--paper);
+}
+
+.home-space-list,
+.collection-empty {
+  max-width: 980px;
+  margin: auto;
+}
+
+.home-space {
+  display: grid;
+  grid-template-columns: 48px 1fr 32px;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.home-space:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.home-space h3 {
+  margin-bottom: 12px;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 600;
+}
+
+.home-space p,
+.collection-empty p {
+  max-width: 680px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.home-space-number {
+  align-self: start;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.home-space-arrow {
+  color: var(--link);
+  font-size: 24px;
+}
+
+.home-space:hover h3 {
+  color: var(--link);
+}
+
+.collection-section {
+  min-height: 240px;
+}
+
+.collection-empty {
+  padding-block: 32px;
+  border-block: 1px solid var(--hairline);
+}
+
+.collection-empty h2 {
+  margin-bottom: 16px;
+  font-size: clamp(22px, 3vw, 28px);
+  line-height: 1.3;
+}
+
+.notes-compatibility {
+  max-width: 680px;
+  margin: auto;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.notes-compatibility a {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+.notes-back + .notes-back {
+  margin-left: 24px;
 }
 
 .notes-hero {
@@ -1247,8 +1389,35 @@ footer .eyebrow {
     min-height: 44px;
   }
 
-  nav {
+  .primary-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .portfolio-nav {
+    grid-row: 3;
+  }
+
+  #experience,
+  #projects,
+  #skills {
+    scroll-margin-top: 144px;
+  }
+
+  .header-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .header-action-label {
     display: none;
+  }
+
+  .home-space {
+    grid-template-columns: 24px 1fr 24px;
+    gap: 16px;
   }
 
   .hero {

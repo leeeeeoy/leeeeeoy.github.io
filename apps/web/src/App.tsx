@@ -7,6 +7,10 @@ import {
 } from './components/SiteChrome'
 import NotesPage from './pages/NotesPage'
 import PortfolioPage from './pages/PortfolioPage'
+import HomePage from './pages/HomePage'
+import RecordListPage from './pages/RecordListPage'
+import NotFoundPage from './pages/NotFoundPage'
+import { getPage, portfolioSections } from './routes'
 
 const CLARITY_PROJECT_ID = 'xti7rw64s1'
 const CLARITY_CONSENT_KEY = 'portfolio-clarity-consent'
@@ -73,8 +77,8 @@ export default function App() {
   const [theme, setTheme] = useState<Theme>(() =>
     document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
   )
-  const [, section, noteSlug] = window.location.pathname.split('/')
-  const isNotes = section === 'notes'
+  const [, , noteSlug] = window.location.pathname.split('/')
+  const page = getPage(window.location.pathname)
 
   useEffect(() => {
     if (consent === 'granted') loadClarity()
@@ -105,19 +109,22 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    if (isNotes) return
+    if (page !== 'portfolio') return
 
+    let target: string | undefined = portfolioSections.find(
+      (section) => window.location.hash === `#${section}`,
+    )
     try {
-      const target = sessionStorage.getItem(SCROLL_TARGET_KEY)
-      if (!target) return
+      target = sessionStorage.getItem(SCROLL_TARGET_KEY) ?? target
       sessionStorage.removeItem(SCROLL_TARGET_KEY)
-      requestAnimationFrame(() =>
-        document.getElementById(target)?.scrollIntoView(),
-      )
     } catch {
-      // The home page still loads when browser storage is unavailable.
+      // Direct section links still work when browser storage is unavailable.
     }
-  }, [isNotes])
+    if (target) {
+      const element = document.getElementById(target)
+      requestAnimationFrame(() => element?.scrollIntoView())
+    }
+  }, [page])
 
   const chooseConsent = (nextConsent: Consent) => {
     try {
@@ -162,13 +169,19 @@ export default function App() {
         {ui.skip}
       </button>
 
-      <SiteHeader theme={theme} onToggleTheme={toggleTheme} />
+      <SiteHeader page={page} theme={theme} onToggleTheme={toggleTheme} />
 
       <main id="content" tabIndex={-1}>
-        {isNotes ? <NotesPage slug={noteSlug} /> : <PortfolioPage />}
+        {page === 'home' && <HomePage />}
+        {page === 'portfolio' && <PortfolioPage />}
+        {(page === 'lab' || page === 'writing') && (
+          <RecordListPage kind={page} />
+        )}
+        {page === 'notes' && <NotesPage slug={noteSlug} />}
+        {page === 'not-found' && <NotFoundPage />}
       </main>
 
-      <SiteFooter onOpenConsent={() => setShowConsent(true)} />
+      <SiteFooter page={page} onOpenConsent={() => setShowConsent(true)} />
 
       {showConsent && (
         <aside
