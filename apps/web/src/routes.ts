@@ -9,6 +9,8 @@ export function getPage(pathname: string): Page {
   if (path === '/portfolio') return 'portfolio'
   if (path === '/lab') return 'lab'
   if (path === '/writing') return 'writing'
+  if (/^\/lab\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(path)) return 'lab'
+  if (/^\/writing\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(path)) return 'writing'
   if (path === '/notes' || /^\/notes\/[^/]+$/.test(path)) return 'notes'
   return 'not-found'
 }

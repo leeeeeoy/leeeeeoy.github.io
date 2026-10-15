@@ -58,6 +58,7 @@ test('language links, metadata, and rendered pages work in both languages', asyn
   })
   const server = await createServer({
     server: { middlewareMode: true, hmr: false, ws: false },
+    optimizeDeps: { noDiscovery: true, include: [] },
   })
   try {
     for (const language of ['ko', 'en']) {
@@ -143,8 +144,12 @@ test('language links, metadata, and rendered pages work in both languages', asyn
         ['/writing/', translations[language].ui.navWriting, 'writing'],
         ['/notes/', translations[language].ui.notesHeading, 'lab'],
         ['/notes/missing/', translations[language].ui.noteMissing, 'lab'],
-        ['/lab/missing/', translations[language].ui.pageMissing, null],
-        ['/writing/missing/', translations[language].ui.pageMissing, null],
+        ['/lab/missing/', translations[language].ui.recordMissing, 'lab'],
+        [
+          '/writing/missing/',
+          translations[language].ui.recordMissing,
+          'writing',
+        ],
         ['/missing/', translations[language].ui.pageMissing, null],
       ]
       for (const [path, heading, active] of routes) {
@@ -215,11 +220,13 @@ test('language links, metadata, and rendered pages work in both languages', asyn
           lab: translations[language].ui.navLab,
           writing: translations[language].ui.navWriting,
         }
-        const expectedLabel = path.startsWith('/notes/')
-          ? 'Notes'
-          : active
-            ? labels[active]
-            : translations[language].ui.pageMissing
+        const expectedLabel = /^\/(lab|writing)\/missing\/$/.test(path)
+          ? translations[language].ui.recordMissing
+          : path.startsWith('/notes/')
+            ? 'Notes'
+            : active
+              ? labels[active]
+              : translations[language].ui.pageMissing
         assert.equal(
           globalThis.document.title,
           `${translations[language].profile.name} — ${expectedLabel}`,
@@ -252,6 +259,7 @@ test('language links, metadata, and rendered pages work in both languages', asyn
 test('routes and legacy portfolio addresses are explicit and preserve queries', async () => {
   const server = await createServer({
     server: { middlewareMode: true, hmr: false, ws: false },
+    optimizeDeps: { noDiscovery: true, include: [] },
   })
   try {
     const { getPage, legacyPortfolioHref } =
@@ -270,8 +278,11 @@ test('routes and legacy portfolio addresses are explicit and preserve queries', 
       ['/notes/missing/', 'notes'],
       ['/notes/a/b/', 'not-found'],
       ['/portfolio/a/', 'not-found'],
-      ['/lab/a/', 'not-found'],
-      ['/writing/a/', 'not-found'],
+      ['/lab/a/', 'lab'],
+      ['/writing/a/', 'writing'],
+      ['/lab/a/b/', 'not-found'],
+      ['/lab/%2e%2e/', 'not-found'],
+      ['/writing/UPPER/', 'not-found'],
       ['/unknown/', 'not-found'],
     ]) {
       assert.equal(getPage(path), page, path)
