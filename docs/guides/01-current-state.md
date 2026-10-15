@@ -1,6 +1,6 @@
 # Source Repository — 확인된 상태와 과거 문서 구분
 
-확인 기준: 2026-10-14, Phase 1 `8d9db50`에서 로컬 Phase 2 페이지 구현. repo·origin·main/develop 참조를 보존하며 배포하지 않는다. [Phase 0 감사](08-migration-audit-2026-10-14.md)는 이전 전 스냅샷, [Phase 1 기록](10-phase1-migration-record-2026-10-14.md)은 구조 이전 기록, [Phase 2 기록](11-phase2-pages-record-2026-10-14.md)은 현재 페이지 검사 근거다. Cloudflare 관리 상태·Secrets·배포 ID는 재조회하지 않았다.
+확인 기준: 2026-10-15, Phase 2 HEAD `5fb158d`에서 Phase 3 콘텐츠 시스템과 Phase 4 독립 Go 실험·Lab 초안(draft:true)을 로컬 구현. repo·origin·main/develop 참조를 보존하며 배포하지 않는다. [Phase 0 감사](../archive/work-records/08-migration-audit-2026-10-14.md)는 이전 전 스냅샷, [Phase 1 기록](../archive/work-records/10-phase1-migration-record-2026-10-14.md)은 구조 이전 기록, [Phase 2 기록](../archive/work-records/11-phase2-pages-record-2026-10-14.md)은 페이지 전환 기록, [Phase 3 기록](../archive/work-records/12-phase3-content-record-2026-10-14.md)은 현재 콘텐츠 검사 근거다. Cloudflare 관리 상태·Secrets·배포 ID는 재조회하지 않았다.
 
 ## 확인한 파일과 사실
 
@@ -8,13 +8,14 @@
 |---|---|---|
 | `apps/web/` | React 19, TypeScript, Vite 7, Node 26 (`.nvmrc`) | 현재 위치; 소스 내용 보존 |
 | `apps/web/src/content.json` | 한국어/영어 공개 프로필·경력·프로젝트 정적 데이터 | Portfolio의 원본으로 유지 |
-| `apps/web/src/App.tsx` | routes.ts의 명시적 pathname 분기, 네 기본 페이지·Notes·없는 경로 UI, 테마·Clarity 동의 | 라우팅/동의 동작 회귀 주의 |
-| `apps/web/src/notes.ts` | `Engineering`, `Decision` 범주, `notes: Note[] = []` | Legacy 주소·데이터 보존; Markdown은 미구현 |
-| `apps/web/src/pages/NotesPage.tsx` | 제목·요약·태그·문단 리스트 렌더링 | Markdown 코드/표/이미지 표시 신규 요구 |
+| `apps/web/src/App.tsx` | routes.ts의 명시적 pathname 분기, 기본 페이지·Markdown 목록/상세·Notes·없는 경로 UI, 테마·Clarity 동의 | 라우팅/동의 동작 회귀 주의 |
+| `apps/web/src/notes.ts` | `Engineering`, `Decision` 범주, `notes: Note[] = []` | Legacy 주소·데이터 보존; 새 Markdown 영역과 분리 |
+| `apps/web/src/pages/NotesPage.tsx` | 제목·요약·태그·문단 리스트 렌더링 | 기존 Notes 렌더러 유지; Markdown은 RecordPage |
 | `apps/web/test/content.test.mjs` | 경력·개인정보, `/notes/` 빈 목록, SPA 라우팅 등 문자열 기반 검증 | 경로 변경 시 검증 의도 유지하며 수정 |
 | `apps/web/wrangler.jsonc` | Workers Static Assets, SPA fallback, Production·Preview Custom Domain | 경로 이동 시 Wrangler working dir 확인 |
 | `apps/web/public/_headers` | 보안·캐시 응답 헤더 | 무단 변경 금지 |
-| `.github/workflows/frontend-ci.yml` | `apps/web/**`, `content/lab/**`, `content/writing/**` 변경 때 테스트·빌드·배포, main/develop 구분 | workflow 경로 반영; content는 아직 build 입력 아님 |
+| `.github/workflows/frontend-ci.yml` | `apps/web/**`, `content/lab/**`, `content/writing/**` 변경 때 테스트·빌드·배포, main/develop 구분 | content 검증·빌드 입력 연결, 기존 branch/event/path 정책 유지 |
+| `labs/go-load-test/` | 새 표준 라이브러리 HTTP 실험, 본42회·보조검증·그래프·README | 과거 원본 복원이 아닌 독립 구현 |
 | `apps/legacy-api/`와 `apps/legacy-api/wrangler.toml` | Worker/Hono/D1/R2 구성 | 현 위치에서 binding·vars 보존, 삭제 금지 |
 | `.github/workflows/backend-ci.yml` | Backend 테스트, main 배포 | 경로만 변경, Node 22/main-only deploy 유지 |
 | `README.md`와 `AGENTS.md` | 현재 웹/백엔드·보호 규칙·개인정보 규칙 | 목표 구조에 맞게 재작성하되 원칙 계승 |
@@ -35,7 +36,7 @@
 - Workers Static Assets 배포에서 사용하는 토큰·Secrets·환경·커스텀 도메인 소유 관계
 - legacy API의 외부 사용처, D1 데이터 백업 여부
 - 현재 사이트의 각 URL 및 모바일/데스크톱 스냅샷
-- Go Load Lab 실험의 **실제 소스 경로**(현재 포트폴리오 레포에는 존재하지 않음)
+- 과거 Go Load Lab 원본은 미확보. 사용자 지시로 만든 새 실험의 소스/결과는 labs/go-load-test에 있으며 과거 결과와 동일하다고 주장하지 않음
 - 방식은 기존 GitHub repo·이력·origin 유지, 로컬 루트 `leeeeeoy/` 전환으로 사용자 승인되었다. 새 repo·rename·push는 실행하지 않는다.
 
 > 기존 실무 이력과 수치는 웹의 `content.json`을 보존하는 것이 이번 프로젝트의 기본이며, 개편 과정에서 임의로 새 경력 데이터를 생성하지 않는다.

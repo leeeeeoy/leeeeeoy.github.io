@@ -1,7 +1,7 @@
 # leeeeeoy — Personal Space
 
 개인의 경험·생각·기술적 호기심을 기록하는 웹사이트와 독립 실험을 관리합니다.
-현재 Phase 2는 로컬 Home·Portfolio·Lab·Writing 및 공통 내비게이션을 제공합니다. Lab/Writing은 빈 목록이며 Markdown·실제 글은 다음 단계입니다. 이번 변경은 미배포 상태이며 운영 사이트를 이번 단계에서 검증하지 않았습니다.
+Phase 3에서 Markdown 기반 Lab·Writing 목록/상세와 빌드 검증을 구현했습니다. Go HTTP 실험의 첫 Lab 초안은 draft:true이며 공개 글은 0개라 빈 목록을 표시합니다. 이번 변경은 미배포 상태이며 운영 사이트를 이번 단계에서 검증하지 않았습니다.
 
 **URL:** https://leeeeeoy.xyz
 
@@ -11,10 +11,10 @@
 leeeeeoy/
 ├── apps/web/          # 기존 React + Vite 정적 SPA
 ├── apps/legacy-api/   # 기존 Worker/Hono/D1/R2 보존
-├── content/lab/       # 기술 글용 디렉터리, 아직 빌드 입력 아님
-├── content/writing/   # 개인 글용 디렉터리, 아직 빌드 입력 아님
-├── labs/              # 독립 실험용 디렉터리, 코드 미확보
-├── docs/              # 현행 설계·계획 + archive 역사 기록
+├── content/lab/       # 공개 기술 글, Markdown 빌드 입력
+├── content/writing/   # 공개 개인 글, Markdown 빌드 입력
+├── labs/              # 독립 Go HTTP 실험·원본 측정/그래프
+├── docs/              # Entry 인덱스·guides 현행 기준·archive 기록
 ├── templates/         # 글/실험 템플릿
 └── .github/workflows/ # 영역별 CI/CD
 ```
@@ -27,7 +27,7 @@ leeeeeoy/
 | Build | Vite 7 |
 | 개발 환경 | Node.js 26.x (`apps/web/.nvmrc`) |
 | 코드 검사·포맷 | ESLint + TypeScript/React Hooks 권장 규칙, Prettier |
-| 콘텐츠 | `src/content.json` 정적 데이터 |
+| 콘텐츠 | Portfolio/UI JSON + `content/` Markdown |
 | 스타일 | HTML/CSS 중심, 외부 UI·애니메이션 라이브러리 없음 |
 | 이미지 | Cloudflare R2 |
 | 배포 | Cloudflare Workers Static Assets |
@@ -51,19 +51,34 @@ Frontend의 로컬 개발과 CI는 Node.js 26.x를 사용합니다. nvm을 사�
 
 기본 언어는 한국어이며 `?lang=en`으로 영어 버전을 공유할 수 있습니다.
 상단 언어 링크와 내부 페이지 이동은 URL로 언어를 유지합니다.
-공개 본문과 UI 문구는 `src/content.json`의 `ko`·`en`에서 함께 관리합니다.
+Portfolio와 UI 문구는 `src/content.json`의 `ko`·`en`에서 관리합니다. Lab·Writing 본문은 Markdown 원문을 표시하며 영어 UI에서도 번역하거나 숨기지 않습니다.
 JavaScript 실행 전의 검색·공유 미리보기 HTML은 공통 한국어 사이트 셸을 사용합니다. 브라우저가 실행되면 경로와 언어에 맞는 제목·설명·canonical을 적용합니다. 글별 초기 HTML 생성은 구현하지 않았습니다.
 
 ## 현재 페이지와 호환 경로
 
 - `/`: 자기소개와 Portfolio/Lab/Writing 링크
 - `/portfolio/`: 경력·프로젝트·문제 해결 사례 전체, 기존 섹션 이동
-- `/lab/`, `/writing/`: 서로 다른 목적의 소개·빈 상태, 가상 글 없음
+- `/lab/`, `/writing/`: 서로 다른 목적의 공개 글 목록·빈 상태, 가상 글 없음
+- `/lab/:slug/`, `/writing/:slug/`: Markdown 상세와 없는 글 안내
 - `/notes/`, `/notes/:slug/`: 기존 주소와 화면 유지, Lab 안내 추가
 - 옛 루트의 `#experience`, `#projects`, `#skills`: 쿼리·해시를 유지해 브라우저에서 Portfolio로 이동
 - 알 수 없는 경로: 페이지 없음 UI. HTTP 상태는 SPA fallback과 별개입니다.
 
-[Phase 2 기록](docs/11-phase2-pages-record-2026-10-14.md)에 검사 결과와 한계를 정리했습니다.
+[Phase 2 기록](docs/archive/work-records/11-phase2-pages-record-2026-10-14.md)에 검사 결과와 한계를 정리했습니다.
+
+## 첫 글 작성과 로컬 확인
+
+1. `templates/experiment.md`, `lab-note.md`, `writing.md` 중 필요한 템플릿을 `content/lab/{slug}.md` 또는 `content/writing/{slug}.md`로 복사합니다. 파일명은 소문자 영문·숫자·하이픈이고 하위 폴더는 사용하지 않습니다.
+2. `title`, `date`, `summary`를 채웁니다. `YYYY-MM-DD` 자리에는 실제 날짜를 넣어야 초안도 검증에 통과합니다. `tags`·`updated`는 선택입니다.
+3. `draft: true`를 유지합니다. 초안은 개발 서버에서도 제외되므로 화면 검토는 [콘텐츠 계약](docs/guides/03-content-and-writing.md)의 격리 미리보기 방식을 따릅니다. `draft: false` 전환은 사용자 공개 승인 후에만 합니다. **Public Git의 초안은 사이트와 무관하게 공개되므로 비공개 내용은 저장소 밖에서 작성합니다.**
+4. `apps/web`에서 `npm run content:check`, `npm test`, `npm run build`를 실행하고 `npm run dev` 또는 `npm run preview`로 목록·상세·모바일·언어·링크를 확인합니다. dev는 content 파일 추가/수정/삭제를 자동 반영하고 preview는 rebuild가 필요합니다.
+5. 실제 발행·원격 반영·배포는 별도 승인 범위입니다. Phase 4에서는 첫 글을 draft:true로 작성했으며 공개하지 않습니다.
+
+[콘텐츠 계약](docs/guides/03-content-and-writing.md)과 [Phase 3 검사 기록](docs/archive/work-records/12-phase3-content-record-2026-10-14.md)을 참고합니다. raw HTML/MDX·자동 번역·코드 실행·문법 강조는 제공하지 않습니다.
+
+## 첫 Lab 실험
+
+[Go HTTP Load Lab](labs/go-load-test/README.md)은 웹과 독립 실행합니다. 42개 본 측정과 별도 보조 검증, 첫 Lab 글 `content/lab/go-http-concurrency.md`(draft:true)은 로컬에 보존합니다. **사용자 결정으로 결과 디렉터리와 이 초안은 ignore하며 커밋을 보류합니다.** 원격 저장소에 자료가 모두 있다고 가정하지 마세요. [Phase 4 기록](docs/archive/work-records/13-phase4-go-lab-record-2026-10-15.md)은 당시 검증 기록이며 [공개 준비 점검](docs/archive/work-records/16-precommit-review-2026-10-15.md)에 보류 이유를 정리합니다.
 
 ## Backend
 
@@ -89,7 +104,7 @@ npm test
 
 GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 
-- `apps/web/**`, `content/lab/**`, `content/writing/**`: 웹 검사와 배포 대상. 콘텐츠는 아직 빌드에 연결되지 않았습니다.
+- `apps/web/**`, `content/lab/**`, `content/writing/**`: 웹 검사와 배포 대상. 콘텐츠 검증은 Vite build에서 수행합니다.
 - `apps/legacy-api/**`: test, typecheck 후 Workers 배포
 - `main`: Production
 - `develop`: Frontend Preview
@@ -109,7 +124,7 @@ GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 ```
 
 현재 지침은 [AGENTS](AGENTS.md), 경계는 [ARCHITECTURE](ARCHITECTURE.md), 상세 문서는 [docs 인덱스](docs/README.md)를 참고합니다.
-이전 판단은 [역사 문서](docs/archive/portfolio-renewal/README.md), 실행 근거는 [Phase 1 기록](docs/10-phase1-migration-record-2026-10-14.md)에 보존합니다.
+이전 판단은 [역사 문서](docs/archive/portfolio-renewal/README.md), 실행 근거는 [Phase 1 기록](docs/archive/work-records/10-phase1-migration-record-2026-10-14.md)에 보존합니다.
 
 ## Workers 운영
 
