@@ -1,5 +1,6 @@
 import translations from './content.json'
 import { getPage } from './routes'
+import { getPost } from './posts'
 
 export type Language = 'ko' | 'en'
 
@@ -20,7 +21,7 @@ export function localizedHref(path: string, target: Language = language) {
 
 export function applyLanguageMetadata() {
   const page = getPage(window.location.pathname)
-  const [label, description] = {
+  let [label, description] = {
     home: [ui.navHome, ui.siteDescription],
     portfolio: [ui.navPortfolio, ui.metaDescription],
     lab: [ui.navLab, ui.labIntro],
@@ -28,6 +29,14 @@ export function applyLanguageMetadata() {
     notes: ['Notes', ui.notesIntro],
     'not-found': [ui.pageMissing, ui.siteDescription],
   }[page]
+  if (
+    (page === 'lab' || page === 'writing') &&
+    window.location.pathname.split('/')[2]
+  ) {
+    const post = getPost(page, window.location.pathname.split('/')[2])
+    label = post?.title ?? ui.recordMissing
+    description = post?.summary ?? ui.recordMissingDescription
+  }
   const title = `${content.profile.name} — ${label}`
   document.title = title
   document.documentElement.lang = language

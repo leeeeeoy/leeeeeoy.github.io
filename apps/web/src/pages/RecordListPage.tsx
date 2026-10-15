@@ -1,7 +1,9 @@
-import { ui } from '../content'
+import { localizedHref, ui } from '../content'
+import { posts, type Section } from '../posts'
 
-export default function RecordListPage({ kind }: { kind: 'lab' | 'writing' }) {
+export default function RecordListPage({ kind }: { kind: Section }) {
   const isLab = kind === 'lab'
+  const entries = posts.filter((post) => post.section === kind)
   return (
     <>
       <section className="notes-hero" id="top">
@@ -13,12 +15,35 @@ export default function RecordListPage({ kind }: { kind: 'lab' | 'writing' }) {
       </section>
       <section
         className="section collection-section"
-        aria-labelledby={`${kind}-status`}
+        aria-label={isLab ? ui.labRecords : ui.writingRecords}
       >
-        <div className="collection-empty">
-          <h2 id={`${kind}-status`}>{ui.recordsEmpty}</h2>
-          <p>{isLab ? ui.labEmptyDescription : ui.writingEmptyDescription}</p>
-        </div>
+        {entries.length ? (
+          <ul className="record-list">
+            {entries.map((post) => (
+              <li key={post.slug}>
+                <time dateTime={post.date}>{post.date}</time>
+                <h2>
+                  <a href={localizedHref(`/${kind}/${post.slug}/`)}>
+                    {post.title}
+                  </a>
+                </h2>
+                <p>{post.summary}</p>
+                {post.tags.length > 0 && (
+                  <ul className="record-tags" aria-label={ui.recordTags}>
+                    {post.tags.map((tag, index) => (
+                      <li key={index}>{tag}</li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="collection-empty">
+            <h2 id={`${kind}-status`}>{ui.recordsEmpty}</h2>
+            <p>{isLab ? ui.labEmptyDescription : ui.writingEmptyDescription}</p>
+          </div>
+        )}
       </section>
     </>
   )
