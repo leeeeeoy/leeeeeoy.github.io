@@ -41,7 +41,7 @@ leeeeeoy/                         # 현재 작업 폴더, Git 저장소 아님
 
 | 항목 | 확인 결과 |
 |---|---|
-| Git 루트 | `/Users/leeeeeoy/leeeeeoy/leeeeeoy_portfolio` |
+| Git 루트 | `<repo>/leeeeeoy_portfolio` |
 | origin | `https://github.com/leeeeeoy/leeeeeoy.github.io.git` |
 | 현재 브랜치·HEAD | `main` / `dad0449c6350c4ba8f618cb4d03a52bcee42af6b` |
 | 원본 변경 사항 | staged / unstaged / 일반 untracked 변경 없음, 추적 파일 56개 |
@@ -107,14 +107,14 @@ Frontend Secrets 이름은 `CLOUDFLARE_FRONTEND_API_TOKEN`, `CLOUDFLARE_ACCOUNT_
 | `CLAUDE.md` | KEEP | AGENTS를 원본으로 삼는 짧은 진입점이 적합. Git에서 추적되도록 ignore 충돌 해결 필요 |
 | `ARCHITECTURE.md` | UPDATE | 전체 구조는 적합. 확보 전 Go 실험을 확정 자산처럼 보이지 않게 표시하고 build-time 콘텐츠와 HTML 생성 구분 |
 | `docs/README.md` | UPDATE | 이 감사·실행 계획 링크 및 문서의 제안/현행/역사 상태 안내 추가. 본문 규칙은 다른 문서에 재복제하지 않음 |
-| `docs/00-vision-and-scope.md` | KEEP | 개인 공간 목적·Lab/Writing 구분·비목표가 이번 요청과 일치 |
-| `docs/01-current-state.md` | UPDATE | 공개 main 열람 스냅샷을 로컬 HEAD·원격 참조·검사·HTTP 증거로 보강. 실환경 미확인 구분 유지 |
-| `docs/02-target-architecture.md` | UPDATE | rename 없는 기존 repo 개편도 선택지에 추가. 초안 산출물 제외·slug namespace·404의 HTTP 한계·외부 content 개발 입력 확정 필요 |
-| `docs/03-content-and-writing.md` | UPDATE | 내용/글쓰기 구분 유지. 필수 필드와 기본값, 카테고리별 slug 중복 기준, draft의 dist 제외 계약을 02와 일치시킴 |
-| `docs/04-migration-plan.md` | UPDATE | repo 이름 변경을 기존 repo 재사용의 필수조건에서 분리. 루트 승격·로컬 자산·자동 Backend 배포 위험·승인 게이트 보완 |
-| `docs/05-lab-practices.md` | KEEP | 독립 실행·측정/가설 구분·허가된 부하 대상 원칙 유지. Go 예시는 원본 확보 전 요구사항으로 실행하지 않음 |
-| `docs/06-quality-and-safety.md` | UPDATE | Backend Node 22, 설치/테스트 한계, approved contact 예외, 경로별 배포와 승인 조건 명시 |
-| `docs/07-future-considerations.md` | KEEP | 미래 기능 재검토 조건을 정리하며 이번 구현과 구분함 |
+| `docs/guides/00-vision-and-scope.md` | KEEP | 개인 공간 목적·Lab/Writing 구분·비목표가 이번 요청과 일치 |
+| `docs/guides/01-current-state.md` | UPDATE | 공개 main 열람 스냅샷을 로컬 HEAD·원격 참조·검사·HTTP 증거로 보강. 실환경 미확인 구분 유지 |
+| `docs/guides/02-target-architecture.md` | UPDATE | rename 없는 기존 repo 개편도 선택지에 추가. 초안 산출물 제외·slug namespace·404의 HTTP 한계·외부 content 개발 입력 확정 필요 |
+| `docs/guides/03-content-and-writing.md` | UPDATE | 내용/글쓰기 구분 유지. 필수 필드와 기본값, 카테고리별 slug 중복 기준, draft의 dist 제외 계약을 02와 일치시킴 |
+| `docs/guides/04-migration-plan.md` | UPDATE | repo 이름 변경을 기존 repo 재사용의 필수조건에서 분리. 루트 승격·로컬 자산·자동 Backend 배포 위험·승인 게이트 보완 |
+| `docs/guides/05-lab-practices.md` | KEEP | 독립 실행·측정/가설 구분·허가된 부하 대상 원칙 유지. Go 예시는 원본 확보 전 요구사항으로 실행하지 않음 |
+| `docs/guides/06-quality-and-safety.md` | UPDATE | Backend Node 22, 설치/테스트 한계, approved contact 예외, 경로별 배포와 승인 조건 명시 |
+| `docs/guides/07-future-considerations.md` | KEEP | 미래 기능 재검토 조건을 정리하며 이번 구현과 구분함 |
 | `docs/exec-plans/active/site-migration.md` | UPDATE | 미시작 상태 유지. 이 감사 완료만으로 Phase 0 체크박스를 모두 완료하지 않음; 09의 작은 단계·검증·승인에 맞춤 |
 | `templates/experiment.md` | KEEP | 질문·예상·환경·실측·한계 구분이 적합; placeholder 날짜는 실제 content에서 검증해야 함 |
 | `templates/lab-note.md` | KEEP | 실험 없는 기술 학습 기록을 허용함 |
@@ -132,7 +132,7 @@ Frontend Secrets 이름은 `CLOUDFLARE_FRONTEND_API_TOKEN`, `CLOUDFLARE_ACCOUNT_
 | `leeeeeoy_portfolio/docs/portfolio-renewal/02-data-renewal-plan.md` | ARCHIVE | 데이터 선정 이유·정적 원본 결정 기록 보존. D1 삭제 단계는 이번 범위와 충돌 |
 | `leeeeeoy_portfolio/docs/portfolio-renewal/03-frontend-migration-plan.md` | ARCHIVE | Pages deploy와 이전 canonical 계획이 현재 Worker/apex와 다름 |
 | `leeeeeoy_portfolio/docs/portfolio-renewal/04-execution-phases.md` | ARCHIVE | 이미 지난 Flutter→React 계획, Pages rollback·Backend 정리 단계는 재실행 금지 |
-| `leeeeeoy_portfolio/docs/portfolio-renewal/05-privacy-and-content-policy.md` | MERGE | 새 `docs/06-quality-and-safety.md`에 프라이버시 원칙 통합, 기존 approved contact 예외는 사용자 확인. 원문은 다른 역사 자료와 함께 보존 |
+| `leeeeeoy_portfolio/docs/portfolio-renewal/05-privacy-and-content-policy.md` | MERGE | 새 `docs/guides/06-quality-and-safety.md`에 프라이버시 원칙 통합, 기존 approved contact 예외는 사용자 확인. 원문은 다른 역사 자료와 함께 보존 |
 
 기존 `leeeeeoy_portfolio/CLAUDE.md`는 실제 파일이 없고 ignore 규칙만 있다. 별도 문서 분류 대상이 아니다. 문서 **DELETE 제안은 없다**. 중복 내용은 탐색 진입점과 상세 원본을 구분해 정리하고 역사적 판단은 보존하는 편이 낫다.
 

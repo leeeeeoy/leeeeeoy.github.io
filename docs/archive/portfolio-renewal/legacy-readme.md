@@ -94,7 +94,7 @@ GitHub Actions는 변경된 영역만 검사하고 배포합니다.
                     └─ 이전 API Worker·D1 설정 (Frontend는 호출하지 않음)
 ```
 
-상세 전환 기준은 [포트폴리오 개편 계획](./README.md)을 참고합니다.
+상세 전환 기준은 [포트폴리오 개편 계획](README.md)을 참고합니다.
 
 ## Workers 운영
 

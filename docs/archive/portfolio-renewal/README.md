@@ -47,11 +47,11 @@ React 전환을 시작하려면 먼저 이 규칙을 새 구조에 맞게 변경
 
 ## 문서
 
-- [현재 상태와 이력서 차이](./01-current-state-and-resume-gap.md)
-- [데이터 개편 계획](./02-data-renewal-plan.md)
-- [Frontend 전환 계획](./03-frontend-migration-plan.md)
-- [실행 페이즈](./04-execution-phases.md)
-- [개인정보 처리 기준](./05-privacy-and-content-policy.md)
+- [현재 상태와 이력서 차이](01-current-state-and-resume-gap.md)
+- [데이터 개편 계획](02-data-renewal-plan.md)
+- [Frontend 전환 계획](03-frontend-migration-plan.md)
+- [실행 페이즈](04-execution-phases.md)
+- [개인정보 처리 기준](05-privacy-and-content-policy.md)
 
 ## 범위 밖
 

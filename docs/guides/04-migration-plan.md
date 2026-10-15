@@ -4,13 +4,13 @@
 
 - **원본:** `leeeeeoy/leeeeeoy.github.io` (React SPA + Workers Static Assets), 운영 도메인 `leeeeeoy.xyz`.
 - **확정:** 기존 GitHub repo·origin·이력을 유지하고 로컬 루트를 `leeeeeoy/`로 전환. `migration/phase1-monorepo` 브랜치에서 수행하며 main/develop은 변경하지 않는다.
-- **현재 승인 범위:** Phase 2 로컬 페이지·내비게이션 구현 및 검사. Phase 1 구조와 기존 경력 데이터·Portfolio 인터랙션·Notes 주소를 보존한다. push·PR·Production/Preview 배포·원격 이름/URL·리소스 변경은 금지.
+- **현재 승인 범위:** Phase 4·Harness 구현 이후 문서 정리·공개 위험 점검·검증·로컬 커밋. 실험 결과와 첫 초안은 사용자 결정으로 커밋을 보류한다. Phase 1 구조와 기존 경력 데이터·Portfolio 인터랙션·Notes 주소를 보존한다. push·PR·main/develop 병합·배포·원격 이름/URL·리소스 변경은 금지.
 
 ## 합의한 Git 이전 전략
 
 기존 모든 refs의 bundle과 작업 트리·비공개 자산/상위 문서 백업을 저장소 밖 소유자 전용 경로에 만든다. bundle 복원 작업본에서 refs·fsck·파일 hash를 검증한 뒤 새 migration branch에 경로 이전을 기록한다. 검증한 작업본을 최종 루트에 적용하고 원본 중첩 저장소는 비공개 backup 위치에 보존한다. 원본 `.git`만 승격하거나 상위 `git init` 후 중첩 repo를 add하지 않는다.
 
-`develop`을 병합하거나 main에 맞춰 변경하지 않는다. GitHub repo 이름·origin은 그대로다. 다른 전략의 비교와 당시 제안은 [09 실행안](09-migration-execution-plan-2026-10-14.md), 실제 위치·복구 절차는 [Phase 1 기록](10-phase1-migration-record-2026-10-14.md)을 따른다.
+`develop`을 병합하거나 main에 맞춰 변경하지 않는다. GitHub repo 이름·origin은 그대로다. 다른 전략의 비교와 당시 제안은 [09 실행안](../archive/work-records/09-migration-execution-plan-2026-10-14.md), 실제 위치·복구 절차는 [Phase 1 기록](../archive/work-records/10-phase1-migration-record-2026-10-14.md)을 따른다.
 
 ## Phase 1에서 달라진 승인 게이트
 
@@ -42,21 +42,21 @@
 - `/` Home은 자기소개/사이트 소개/세 영역 링크로 변경. 실제 글이 없으므로 최근 글·예시 글은 표시하지 않음.
 - `/lab/`, `/writing/`는 첫 글이 없어도 빈 상태를 정상 표시.
 - `/notes/` 목록·상세 주소와 화면을 유지하고 Lab 안내를 제공. 옛 root 섹션 링크는 Portfolio로 연결.
-- **Gate:** 포트폴리오 경력·프로젝트 전체 유지, 새 경로·뒤로/앞으로·새로고침·양언어·반응형·키보드 검증. 로컬 결과는 [Phase 2 기록](11-phase2-pages-record-2026-10-14.md); 배포 검증은 별도.
+- **Gate:** 포트폴리오 경력·프로젝트 전체 유지, 새 경로·뒤로/앞으로·새로고침·양언어·반응형·키보드 검증. 로컬 결과는 [Phase 2 기록](../archive/work-records/11-phase2-pages-record-2026-10-14.md); 배포 검증은 별도.
 
 ### Phase 3. Markdown 콘텐츠 파이프라인
 
 - `content/lab/`, `content/writing/` 빌드 통합, 목록·상세 표시, frontmatter 검증.
-- 코드 블록·표·이미지·링크를 가진 샘플 글 1개로 렌더링 확인.
+- 코드 블록·표·이미지·링크를 가진 합성 테스트 fixture로 렌더링 확인. 공개 content에 샘플/실제 글을 넣지 않는다.
 - 초안 제외, 중복 slug 차단, 공개 링크/정적 사이트 fallback 확인.
-- **Gate:** 새 글 파일만 추가해 목록·상세에 표시 가능. 샘플 글 제거 또는 게시 여부 사용자 결정.
+- **Gate:** 새 글 파일만 추가해 목록·상세에 표시 가능. 실제 글·게시 없이 테스트 fixture로 검증한다. 사용자 Phase 3 지시가 종전 샘플 발행 제안을 대체한다. [검사 기록](../archive/work-records/12-phase3-content-record-2026-10-14.md).
 
 ### Phase 4. Lab 실험 도입
 
-- Go Load Lab의 **실제 코드**를 확보한 뒤 `labs/go-load-test/`에 이전하고 원본 기여/출처를 기록.
+- 원본이 없으므로 사용자 지시에 따라 `labs/go-load-test/`에 새 표준 라이브러리 실험을 작성하고 과거 결과와 분리한다.
 - `go test ./...`와 실행 명령, 결과의 측정 환경을 문서화.
 - 실험 변경으로 웹 배포가 발생하지 않도록 워크플로 검증.
-- **Gate:** 타인이 README만으로 실험을 재현할 최소 요건 충족. 재현 실패는 한계를 기록.
+- **Gate:** 타인이 README만으로 실험을 재현할 최소 요건 충족. 재현 실패는 한계를 기록. 이번 로컬 결과와 초안 상태는 [Phase 4 기록](../archive/work-records/13-phase4-go-lab-record-2026-10-15.md)을 따른다.
 
 ### Phase 5. 운영 전환·검증
 

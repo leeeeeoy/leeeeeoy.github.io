@@ -46,7 +46,7 @@ leeeeeoy/
 
 백업은 공개 저장소 밖 소유자 전용 디렉터리에 두었다.
 
-`/Users/leeeeeoy/.local/share/leeeeeoy-migration-backups/phase1-20261014-202546`
+`~/.local/share/leeeeeoy-migration-backups/phase1-20261014-202546`
 
 - `original-all-refs.bundle`: 모든 refs가 도달하는 Git 객체. bundle verify 및 복원 fsck 검증.
 - `original-checkout.tar`: Git metadata와 tracked/ignored/private 원본. 재생성 가능한 앱 node_modules/dist/일부 runtime cache는 archive에서 제외.
@@ -97,7 +97,7 @@ leeeeeoy/
 | API fresh npm ci / typecheck / npm test | 전환 작업본 설치 및 최종 루트 검사 통과, 1/1 테스트. 실행 Node 26.9.0; CI Node 22 재현은 미검증 |
 | workflow YAML·전체 구조 비교 | 경로/웹 content 필터 외 변경 없음; 경로의 실제 존재 확인 |
 | CI event/branch/path 시나리오 | 54 조합 통과. PR/migration branch 배포 없음, docs/Lab-only 앱 트리거 없음 |
-| 문서 links/fences, git diff --check, 최종 루트 | 통과; 실제 Git 루트가 `/Users/leeeeeoy/leeeeeoy` |
+| 문서 links/fences, git diff --check, 최종 루트 | 통과; 실제 Git 루트가 `<repo>` |
 | 로컬 Chrome | 한국어/영어·Notes·없는 글·새로고침·light/dark 및 저장·본문 focus·Notes→프로젝트 이동·R2 이미지 3개 로딩 확인, 관측한 console warn/error 없음 |
 | Production/Preview | 이번에 배포·인증 검증하지 않음. Phase 0 HTTP 관측과 이번 로컬 결과를 구분 |
 

@@ -27,3 +27,6 @@ resume/
 docs/private/
 docs/**/private/
 docs/**/raw/
+
+# Public Git review pending: preserve locally, exclude from commits until approved.
+/content/lab/go-http-concurrency.md
