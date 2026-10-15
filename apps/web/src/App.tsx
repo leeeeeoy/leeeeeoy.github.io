@@ -9,6 +9,7 @@ import NotesPage from './pages/NotesPage'
 import PortfolioPage from './pages/PortfolioPage'
 import HomePage from './pages/HomePage'
 import RecordListPage from './pages/RecordListPage'
+import RecordPage from './pages/RecordPage'
 import NotFoundPage from './pages/NotFoundPage'
 import { getPage, portfolioSections } from './routes'
 
@@ -174,9 +175,12 @@ export default function App() {
       <main id="content" tabIndex={-1}>
         {page === 'home' && <HomePage />}
         {page === 'portfolio' && <PortfolioPage />}
-        {(page === 'lab' || page === 'writing') && (
-          <RecordListPage kind={page} />
-        )}
+        {(page === 'lab' || page === 'writing') &&
+          (noteSlug ? (
+            <RecordPage kind={page} slug={noteSlug} />
+          ) : (
+            <RecordListPage kind={page} />
+          ))}
         {page === 'notes' && <NotesPage slug={noteSlug} />}
         {page === 'not-found' && <NotFoundPage />}
       </main>

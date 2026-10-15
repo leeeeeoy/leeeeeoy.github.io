@@ -492,7 +492,17 @@
       "pageMissing": "페이지를 찾을 수 없습니다.",
       "pageMissingDescription": "현재 이 주소에 공개된 페이지가 없습니다.",
       "backHome": "홈으로 돌아가기",
-      "siteDescription": "Yoel Jang의 개인 웹사이트입니다. 경험과 생각, 관심사와 기술적 호기심을 기록합니다."
+      "siteDescription": "Yoel Jang의 개인 웹사이트입니다. 경험과 생각, 관심사와 기술적 호기심을 기록합니다.",
+      "labRecords": "Lab 기록",
+      "writingRecords": "Writing 기록",
+      "recordTags": "태그",
+      "backToLab": "Lab 목록으로",
+      "backToWriting": "Writing 목록으로",
+      "recordMissing": "글을 찾을 수 없습니다.",
+      "recordMissingDescription": "주소가 올바른지 확인하거나 목록에서 다른 글을 찾아보세요.",
+      "recordUpdated": "수정",
+      "recordCode": "코드 블록",
+      "recordTable": "표"
     }
   },
   "en": {
@@ -988,7 +998,17 @@
       "pageMissing": "Page not found.",
       "pageMissingDescription": "There is no public page at this address.",
       "backHome": "Back to Home",
-      "siteDescription": "Yoel Jang’s personal website for experiences, thoughts, interests, and technical curiosity."
+      "siteDescription": "Yoel Jang’s personal website for experiences, thoughts, interests, and technical curiosity.",
+      "labRecords": "Lab records",
+      "writingRecords": "Writing records",
+      "recordTags": "Tags",
+      "backToLab": "Back to Lab",
+      "backToWriting": "Back to Writing",
+      "recordMissing": "This post could not be found.",
+      "recordMissingDescription": "Check the address or return to the list to find another post.",
+      "recordUpdated": "Updated",
+      "recordCode": "Code block",
+      "recordTable": "Table"
     }
   }
 }
