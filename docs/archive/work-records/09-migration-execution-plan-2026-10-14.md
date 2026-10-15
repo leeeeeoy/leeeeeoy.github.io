@@ -1,6 +1,6 @@
 # 개인 웹사이트 모노레포 실행 계획 — 2026-10-14
 
-상태: 최초 실행안 보존 / Phase 1 로컬 이전 승인. 현재 진행·결과는 [active plan](exec-plans/active/site-migration.md)과 [Phase 1 기록](10-phase1-migration-record-2026-10-14.md)을 따른다.
+상태: 최초 실행안 보존 / Phase 1 로컬 이전 승인. 현재 진행·결과는 [active plan](../../exec-plans/active/site-migration.md)과 [Phase 1 기록](10-phase1-migration-record-2026-10-14.md)을 따른다.
 
 현황과 파일별 처분 근거: [08-migration-audit-2026-10-14.md](08-migration-audit-2026-10-14.md).
 
@@ -90,7 +90,7 @@ GitHub rename은 일반 저장소 링크 및 Git 작업을 새 이름으로 연�
 ### S0 — 전략·운영 baseline 확정 (기존 Phase 0)
 
 - **목표:** 무손실 이전과 배포 복구에 필요한 기준·승인 범위를 확정.
-- **대상:** 이번 감사/계획, `docs/01-current-state.md`, `docs/04-migration-plan.md`, active plan. 소스 변경 없음.
+- **대상:** 이번 감사/계획, `docs/guides/01-current-state.md`, `docs/guides/04-migration-plan.md`, active plan. 소스 변경 없음.
 - **작업:** A/B/C 및 로컬 루트 선택, refs/미추적 자산 목록 확인, 공개 연락처 예외 결정, GitHub 설정·Secrets 존재/권한(값 제외)·진행 중 배포 확인. 현재 Production/Preview Worker 배포 ID와 이전 검증 버전, 도메인/Access 관계를 기록. 읽기 전용 Cloudflare 조회가 필요하면 프로젝트의 Wrangler 설정이 있으므로 Wrangler를 사용.
 - **검증:** `git -C leeeeeoy_portfolio status --short --branch`, `rev-parse HEAD`, `ls-remote --heads origin main develop`; 감사의 HTTP 4개 명령; 소유자 로그인/핵심 화면 확인.
 - **완료:** 전략·기준 commit·백업 위치·복구 버전·공통 지침·배포 승인 범위가 기록됨. 아직 이 게이트는 완료되지 않았다.

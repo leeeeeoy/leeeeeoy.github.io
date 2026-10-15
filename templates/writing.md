@@ -2,7 +2,6 @@
 title: "글 제목"
 date: "YYYY-MM-DD"
 summary: "짧은 소개"
-tags: []
 draft: true
 ---
 
