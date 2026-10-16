@@ -12,12 +12,12 @@ Phase 4와 Engineering Lab Harness까지 로컬 구현했다. Home/Portfolio/Lab
 2. [docs/README.md](docs/README.md) — 과제별 상세 문서 안내
 3. 해당 변경 범위의 문서 및 실제 소스 코드만 읽는다. **모든 문서를 매번 읽지 않는다.**
 4. 모노레포 이전 작업이면 [active plan](docs/exec-plans/active/site-migration.md)의 현재 단계만 진행한다.
-5. 새 기술 질문을 탐구할 때는 [Lab Workflow](docs/guides/14-engineering-lab-workflow.md)를 따른다. 기본은 계획 작성 후 승인 대기이며, 이미 명시적으로 승인된 범위는 다시 묻지 않는다. 후속 연구·초안 작성·공개 승인은 구분한다.
+5. 새 기술 질문을 탐구할 때는 [Lab Workflow](docs/guides/14-engineering-lab-workflow.md)를 따른다. 기본은 계획 후 승인 대기이며 승인된 범위는 다시 묻지 않는다. 결과는 핵심 답→원리→근거로 전달하고 이해 대화는 선택 사항이다. 후속 연구·초안·공개 승인은 구분한다.
 
 ## 절대 지킬 규칙
 
 - 사용자가 승인하지 않은 push, Production/Preview 배포, Cloudflare 리소스 삭제·이전, GitHub 저장소 변경, Secrets 변경을 실행하지 않는다.
-- Cloudflare 작업은 프로젝트에 Wrangler 설정이 있으면 Wrangler를 사용하고, 없으면 cf CLI를 사용한다. 현재는 문서 정리·검증·로컬 커밋만 승인되었으며 Push·PR·배포·main/develop 병합은 수행하지 않는다.
+- Cloudflare 작업은 프로젝트에 Wrangler 설정이 있으면 Wrangler를 사용하고, 없으면 cf CLI를 사용한다. 작업 범위는 현재 사용자 지시를 따르며 과거 세션의 일회성 승인을 다음 작업에 자동 적용하지 않는다.
 - 기존 `leeeeeoy.xyz`, `preview-portfolio.leeeeeoy.xyz`, `portfolio.leeeeeoy.xyz`, `www.leeeeeoy.xyz`의 라우팅·접근 제어를 의도치 않게 변경하지 않는다.
 - 확인된 운영 경력과 개인 실험 결과를 섞거나, 측정하지 않은 수치를 사실로 쓰지 않는다.
 - 개인정보·회사 비공개 데이터·인증 정보는 커밋하지 않는다. `docs/guides/06-quality-and-safety.md`를 확인한다.

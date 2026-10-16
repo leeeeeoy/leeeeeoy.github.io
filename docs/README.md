@@ -24,7 +24,7 @@
 | Lab 운영·실험 신뢰성 | [05 Lab 운영 기준](guides/05-lab-practices.md) |
 | 테스트·CI·보안·개인정보 | [06 품질과 안전](guides/06-quality-and-safety.md) |
 | 향후 기능 검토 | [07 향후 고려사항](guides/07-future-considerations.md) — 현재 구현 승인이 아님 |
-| 새 연구 계획·승인·실행·분석·재개 | [14 Engineering Lab Workflow](guides/14-engineering-lab-workflow.md) |
+| 새 연구 계획·승인·실행·분석·Brief·이해 대화·재개 | [14 Understanding-First Lab Workflow](guides/14-engineering-lab-workflow.md) |
 
 Guides는 현재 규칙의 원본입니다. 현재 구현 사실은 실제 소스·설정을 기준으로 판단합니다. 운영 상태는 배포 시점에 별도로 확인하며 로컬 검사를 운영 검증으로 대체하지 않습니다.
 
@@ -46,7 +46,7 @@ Guides는 현재 규칙의 원본입니다. 현재 구현 사실은 실제 소�
 | 필요한 양식 | 파일 |
 |---|---|
 | 승인 전 연구 계획 | [research-plan.md](../templates/research-plan.md) |
-| 진행·재개·근거 네 분류·후속 후보·사용자 회고 | [research-record.md](../templates/research-record.md) |
+| Brief·선택적 이해 대화·근거 네 분류·진행/재개·후속 후보·사용자 회고 | [research-record.md](../templates/research-record.md) |
 | 실험 기반 Lab 글 초안 | [experiment.md](../templates/experiment.md) |
 | 이론·학습 Lab 글 초안 | [lab-note.md](../templates/lab-note.md) |
 | 개인 Writing 초안 | [writing.md](../templates/writing.md) |
