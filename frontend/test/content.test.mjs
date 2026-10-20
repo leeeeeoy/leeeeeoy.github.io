@@ -98,13 +98,40 @@ test('public portfolio content includes approved contact and excludes private da
   assert.match(JSON.stringify(pleasantProject), /LCOV.*76\.5%/)
   assert.match(JSON.stringify(pleasantProject), /Codemagic/)
   assert.deepEqual(
-    pleasantProject.caseStudies[1].flow.map(({ steps }) => steps.length),
+    pleasantProject.caseStudies[0].flow.map(({ steps }) => steps.length),
     [5, 5],
   )
   assert.deepEqual(
-    pleasantProject.caseStudies[3].flow.map(({ steps }) => steps.length),
+    pleasantProject.caseStudies
+      .find(({ title }) => title === 'Android·iOS 배포 자동화')
+      .flow.map(({ steps }) => steps.length),
     [3, 3],
   )
+  for (const [language, { experiences, featuredImpacts }] of Object.entries(
+    translations,
+  )) {
+    const [booking, connect, kiosk] = experiences[0].caseStudies
+    assert.match(booking.title, /예약|bookings/)
+    assert.match(connect.title, /Clify Connect/)
+    assert.match(connect.action, /React 19.*TypeScript.*Spring/)
+    assert.match(connect.action, /Connect 모듈.*개발|developed.*Connect module/)
+    assert.match(connect.result, /AWS Amplify/)
+    assert.match(kiosk.title, /FAV/)
+    assert.match(kiosk.action, /React/)
+    assert.match(experiences[0].summary, /Clify Connect.*FAV/)
+    assert.doesNotMatch(experiences[0].highlights.join(' '), /Clify Connect/)
+    const analytics = experiences[0].highlights.find((text) =>
+      text.includes('BigQuery'),
+    )
+    assert.match(
+      analytics,
+      /아직 입증되지 않았습니다|not yet been demonstrated/,
+    )
+    assert.match(featuredImpacts[3].outcome, /Android OOM/)
+    const unreleased = language === 'ko' ? /미출시/ : /before any store release/
+    assert.match(featuredImpacts[2].outcome, unreleased)
+    assert.match(experiences[1].metrics[3].label, /미출시|unreleased/)
+  }
   const seoulExchange = content.experiences.find(
     ({ company }) => company === '서울거래',
   )

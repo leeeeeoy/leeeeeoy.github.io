@@ -5,8 +5,8 @@
       "name": "Yoel Jang",
       "role": "Software Engineer",
       "email": "hoheho18@gmail.com",
-      "headline": "제품의 문제를 발견하고\n끝까지 해결합니다.",
-      "intro": "Flutter를 중심으로 서비스를 설계하고 운영해 왔습니다. 레거시 구조와 성능 문제를 개선하고, 제품 완성에 필요하다면 웹·백엔드·배포 환경까지 직접 연결합니다.",
+      "headline": "운영에서 발견한 문제를\n기술로 해결합니다.",
+      "intro": "Flutter를 중심으로 서비스를 개발하고 운영해 왔습니다. 예약 정합성과 성능 문제를 해결하며, 필요한 웹·백엔드 연동·운영 도구·배포 환경까지 구현했습니다. 앞으로는 제품 문제를 정의하고 결과를 검증하는 과정에도 더 깊이 참여하고 싶습니다.",
       "links": [
         {
           "label": "GitHub",
@@ -42,14 +42,14 @@
         "title": "운영을 이어가며 새 앱을 개발했습니다.",
         "context": "인수인계 자료 없이 넘겨받은 앱의 전역 의존과 리소스 관리 문제가 있었지만, 2인 개발팀이 기존 서비스 운영도 이어가야 했습니다.",
         "decision": "기존 앱은 꼭 필요한 문제만 고치면서, 신입 개발자와 2인으로 Bloc 기반의 새 앱을 개발했습니다. 저는 구조 설계와 작업 분담·리뷰를 맡았습니다.",
-        "outcome": "출시 직전 검증 단계에서 동일 Android 기기의 로그인 후 홈 화면 메모리를 600–630MB에서 470–490MB로 줄여 약 20% 절감했습니다."
+        "outcome": "스토어 미출시 상태의 출시 직전 검증 단계에서 동일 Android 기기의 로그인 후 홈 화면 메모리를 600–630MB에서 470–490MB로 줄여 약 20% 절감했습니다."
       },
       {
         "organization": "Celebridog",
         "title": "데이터를 따라 OOM 원인을 찾았습니다.",
         "context": "숏폼 이미지 처리 과정에서 메모리 사용량과 OOM이 반복적으로 증가했습니다.",
         "decision": "Datadog RUM과 Flutter DevTools로 이미지 디코딩이 원인임을 확인하고 다운샘플링과 WebP 변환을 적용했습니다.",
-        "outcome": "메모리 사용량을 30%, OOM 발생을 90% 줄였습니다."
+        "outcome": "동일 실기기 조건에서 메모리 사용량을 약 30%, Android OOM 발생을 약 90% 줄였습니다."
       }
     ],
     "experiences": [
@@ -58,7 +58,7 @@
         "website": "https://clify.co.kr/",
         "role": "Software Engineer",
         "period": "2025.04 — 현재",
-        "summary": "심리상담 예약·비대면 상담 Flutter 앱의 기능 개발·배포·운영을 담당했습니다. 제품 흐름을 완결하기 위해 React B2C 예약 웹, 얼굴·음성 측정 키오스크와 관리자 대시보드를 개발하고, Spring Backend 연동과 AWS Amplify 운영 환경까지 연결했습니다.",
+        "summary": "심리상담 예약·비대면 상담 Flutter 앱을 개발·배포·운영하며 두 예약 시스템의 정합성을 개선했습니다. Clify Connect 예약 웹은 React 구현부터 Spring Backend 기능 개발·연동·AWS Amplify 배포까지 맡았습니다. FAV 키오스크는 Flutter·React로 구현해 현장 업데이트 제약을 해결하고, 관리자 대시보드도 개발했습니다.",
         "metrics": [
           {
             "value": "5K+",
@@ -74,13 +74,6 @@
           }
         ],
         "caseStudies": [
-          {
-            "title": "팀 규모에 맞춘 앱 구조 단순화",
-            "problem": "단일 Flutter 앱에 melos 모노레포와 다단계 Clean Architecture가 적용돼 있었고, 단순 CRUD 기능도 여러 레이어와 반복 코드를 거쳐야 했습니다.",
-            "analysis": "모델을 레이어 사이에서 그대로 재사용하고 Use Case가 Repository 호출을 전달하기만 하는 경우가 많아, 현재 팀과 제품 단계에서는 책임 분리의 이점보다 탐색과 변경 비용이 더 크다고 판단했습니다.",
-            "action": "먼저 melos를 제거해 단일 프로젝트로 전환한 뒤, 필요한 책임 분리는 유지하면서 역할이 없는 Use Case와 중복 레이어를 단계적으로 제거해 Repository와 Bloc 중심으로 정리했습니다.",
-            "result": "기능을 추가하거나 수정할 때 파악해야 하는 의존성과 변경 범위를 줄였습니다."
-          },
           {
             "title": "두 예약 시스템의 중복 예약 해결",
             "problem": "앱과 상담사 일정 관리 플랫폼이 서로 다른 DB에서 예약을 관리해 월 10–20건의 중복 예약이 발생하고, 취소도 양쪽에서 각각 처리해야 했습니다.",
@@ -111,6 +104,27 @@
             ]
           },
           {
+            "title": "Clify Connect · React 예약 웹과 Spring 연동·배포",
+            "problem": "모바일 앱 외에 B2C 예약 웹에서도 예약 전 과정을 제공해야 했습니다.",
+            "analysis": "예약 웹은 화면 구현뿐 아니라 기존 Spring Backend의 기능 개발·연동과 웹 배포 환경 구성이 함께 필요했습니다.",
+            "action": "React 19·TypeScript로 예약 전 과정을 구현하고 Spring Backend의 Connect 모듈과 V2 연동을 개발했습니다.",
+            "result": "AWS Amplify 배포와 커스텀 도메인 설정까지 맡아 Clify Connect 예약 웹을 구성했습니다."
+          },
+          {
+            "title": "FAV 키오스크 · 현장 배포 제약을 고려한 업데이트",
+            "problem": "현장 키오스크의 화면과 사용자 흐름이 자주 바뀌어, 수정할 때마다 단말에 APK를 다시 설치하는 운영 부담이 있었습니다. 업데이트가 진행 중인 측정을 방해해서도 안 됐습니다.",
+            "analysis": "카메라·마이크 권한과 TTS·STT만 네이티브 기능이 필요했고, 화면과 측정·결과 처리는 웹으로 구현할 수 있었습니다. 다만 측정 중에는 새 버전 때문에 화면이 다시 로드되지 않아야 했습니다.",
+            "action": "Flutter 앱은 WebView와 네이티브 기능 연결만 맡기고, 화면과 상태·API 처리는 React 웹앱에 구현했습니다. Amplify에 새 버전이 배포되면 대기 화면에서만 확인하고 다시 로드하도록 했습니다.",
+            "result": "화면이나 사용자 흐름을 바꿀 때 APK를 다시 배포할 필요가 없어졌고, 측정 중인 사용자를 방해하지 않고 새 버전을 적용할 수 있게 됐습니다."
+          },
+          {
+            "title": "팀 규모에 맞춘 앱 구조 단순화",
+            "problem": "단일 Flutter 앱에 melos 모노레포와 다단계 Clean Architecture가 적용돼 있었고, 단순 CRUD 기능도 여러 레이어와 반복 코드를 거쳐야 했습니다.",
+            "analysis": "모델을 레이어 사이에서 그대로 재사용하고 Use Case가 Repository 호출을 전달하기만 하는 경우가 많아, 현재 팀과 제품 단계에서는 책임 분리의 이점보다 탐색과 변경 비용이 더 크다고 판단했습니다.",
+            "action": "먼저 melos를 제거해 단일 프로젝트로 전환한 뒤, 필요한 책임 분리는 유지하면서 역할이 없는 Use Case와 중복 레이어를 단계적으로 제거해 Repository와 Bloc 중심으로 정리했습니다.",
+            "result": "기능을 추가하거나 수정할 때 파악해야 하는 의존성과 변경 범위를 줄였습니다."
+          },
+          {
             "title": "핵심 사용자 흐름 테스트 자동화",
             "problem": "핵심 사용자 흐름의 회귀 검증을 수동으로 진행했고 프로젝트 전체 라인 커버리지는 0%였습니다.",
             "analysis": "로그인·상품 선택·포인트 결제처럼 반복 검증이 필요한 흐름을 우선 자동화 대상으로 정하고, AI로 만든 테스트 시나리오와 코드 초안은 실제 서비스 요구사항과 동작을 기준으로 검증·보완했습니다.",
@@ -133,20 +147,13 @@
                 "steps": ["동일한 Fastlane lane", "Codemagic", "Cloud 배포"]
               }
             ]
-          },
-          {
-            "title": "얼굴·음성 측정 키오스크 개발",
-            "problem": "현장 키오스크의 화면과 사용자 흐름이 자주 바뀌어, 수정할 때마다 단말에 APK를 다시 설치하는 운영 부담이 있었습니다. 업데이트가 진행 중인 측정을 방해해서도 안 됐습니다.",
-            "analysis": "카메라·마이크 권한과 TTS·STT만 네이티브 기능이 필요했고, 화면과 측정·결과 처리는 웹으로 구현할 수 있었습니다. 다만 측정 중에는 새 버전 때문에 화면이 다시 로드되지 않아야 했습니다.",
-            "action": "Flutter 앱은 WebView와 네이티브 기능 연결만 맡기고, 화면과 상태·API 처리는 React 웹앱에 구현했습니다. Amplify에 새 버전이 배포되면 대기 화면에서만 확인하고 다시 로드하도록 했습니다.",
-            "result": "화면이나 사용자 흐름을 바꿀 때 APK를 다시 배포할 필요가 없어졌고, 측정 중인 사용자를 방해하지 않고 새 버전을 적용할 수 있게 됐습니다."
           }
         ],
         "highlights": [
-          "React 19·TypeScript로 Clify Connect의 예약 전 과정을 만들고, Spring Connect 모듈과 V2 연동부터 AWS Amplify·커스텀 도메인 설정까지 맡았습니다.",
           "상담 고민과 증상 같은 민감 정보는 URL에 남기지 않고 세션 저장소에 보관했으며, 분석 화면 마스킹과 동의 절차도 적용했습니다.",
           "Clify Insight에서 앱 이용 현황과 FAV·KOSS·PHQ-9·GAD-7 통계를 기간과 조직별로 확인할 수 있는 대시보드와 운영 기능을 개발했습니다.",
-          "일부 Android 기기에서 카메라 기능이 함께 동작하지 않는 원인을 찾고, 키오스크용 Web 측정 모듈을 앱의 WebView에 연결했습니다."
+          "일부 Android 기기에서 카메라 기능이 함께 동작하지 않는 원인을 찾고, 키오스크용 Web 측정 모듈을 앱의 WebView에 연결했습니다.",
+          "GA4·BigQuery 원본 이벤트와 운영 DB·오류 모니터링을 교차 분석해 이용 흐름의 이탈·반복 오류와 집계 기준의 한계를 확인하고, 이벤트·실패 사유 추적 항목을 정의해 일부 적용했습니다. 관측 체계 정비와 문제 구간 식별 단계이며, 전환율·매출 개선 효과는 아직 입증되지 않았습니다."
         ],
         "skills": [
           "Flutter",
@@ -177,7 +184,7 @@
         "website": "https://www.seoulexchange.kr/",
         "role": "Software Engineer",
         "period": "2024.04 — 2025.04",
-        "summary": "비상장 주식 거래 Flutter 앱을 별도 인수인계 자료 없이 파악해 개발·운영했습니다. 기존 앱을 운영하면서 신입 개발자와 새 앱을 함께 개발해 출시 직전 검증까지 마쳤고, 메모리 사용량과 외부 서비스 연동 문제를 개선했습니다.",
+        "summary": "비상장 주식 거래 Flutter 앱을 별도 인수인계 자료 없이 파악해 개발·운영했습니다. 기존 앱을 운영하면서 신입 개발자와 새 앱을 함께 개발해 스토어 미출시 상태로 출시 직전 검증까지 마쳤고, 메모리 사용량과 외부 서비스 연동 문제를 개선했습니다.",
         "metrics": [
           {
             "value": "100K+",
@@ -193,7 +200,7 @@
           },
           {
             "value": "−20%",
-            "label": "메모리 사용량"
+            "label": "메모리 사용량 · 미출시 앱 검증"
           }
         ],
         "caseStudies": [
@@ -419,14 +426,14 @@
       "darkTheme": "다크 테마로 전환",
       "lightTheme": "라이트 테마로 전환",
       "contactLinks": "연락 및 외부 링크",
-      "impactHeading": "결과보다 먼저,\n변화의 과정을 보여드립니다.",
+      "impactHeading": "문제와 판단, 실행,\n그리고 검증된 결과.",
       "experienceHeading": "문제를 발견하고,\n운영 가능한 답을 만듭니다.",
       "projectsHeading": "직접 만들고,\n출시하고, 운영했습니다.",
       "skillsHeading": "기술보다\n사용한 맥락을 말합니다.",
       "context": "상황과 조건",
       "decision": "판단과 실행",
-      "outcome": "변화",
-      "details": "상세 성과",
+      "outcome": "검증된 결과",
+      "details": "문제 해결 사례와 구현 상세",
       "problem": "문제",
       "analysis": "판단 근거",
       "action": "실행",
@@ -475,8 +482,8 @@
       "name": "Yoel Jang",
       "role": "Software Engineer",
       "email": "hoheho18@gmail.com",
-      "headline": "I solve product problems,\nfrom diagnosis to delivery.",
-      "intro": "I build and maintain services primarily with Flutter. I improve legacy architecture and performance, and work across web development, backend integration, and deployment to deliver complete products.",
+      "headline": "I solve problems in live services\nthrough software.",
+      "intro": "I develop and maintain services primarily with Flutter. I have addressed booking consistency and performance issues, working across web development, backend integration, operational tools, and deployment as needed. I want to take a greater part in defining product problems and validating the results.",
       "links": [
         {
           "label": "GitHub",
@@ -512,14 +519,14 @@
         "title": "Rebuilding while keeping the service running.",
         "context": "I inherited an app with no handover documentation, tightly coupled global dependencies, and resource lifecycle issues. Our two-person development team also had to maintain the live service.",
         "decision": "We kept fixes to the existing app focused on essential issues while building a Bloc-based replacement. I handled the architecture, divided the work with a junior developer, and reviewed changes.",
-        "outcome": "In pre-release validation on the same Android device, home-screen memory use after login fell from 600–630 MB to 470–490 MB, a reduction of about 20%."
+        "outcome": "In pre-release validation before any store release on the same Android device, home-screen memory use after login fell from 600–630 MB to 470–490 MB, a reduction of about 20%."
       },
       {
         "organization": "Celebridog",
         "title": "Tracing out-of-memory errors to their source.",
         "context": "Image processing for short videos repeatedly drove up memory use and caused out-of-memory (OOM) errors.",
         "decision": "I used Datadog RUM and Flutter DevTools to identify image decoding as the cause, then applied downsampling and WebP conversion.",
-        "outcome": "Memory use decreased by 30%, and OOM occurrences by 90%."
+        "outcome": "Under the same physical-device conditions, memory use decreased by about 30%, and Android OOM occurrences by about 90%."
       }
     ],
     "experiences": [
@@ -528,7 +535,7 @@
         "website": "https://clify.co.kr/",
         "role": "Software Engineer",
         "period": "2025.04 — Present",
-        "summary": "I develop, release, and maintain a Flutter app for booking counseling appointments and attending remote sessions. I also built a React booking website, a kiosk for facial and voice measurements, and an admin dashboard, integrating them with the Spring backend and setting up deployment on AWS Amplify.",
+        "summary": "I develop, release, and maintain a Flutter app for counseling bookings and remote sessions, and improved booking consistency across two systems. For Clify Connect, I built the React booking website, developed the Spring Connect module and V2 integration, and configured AWS Amplify deployment. I also built the FAV kiosk with Flutter and React to address on-site update constraints, along with an admin dashboard.",
         "metrics": [
           {
             "value": "5K+",
@@ -544,13 +551,6 @@
           }
         ],
         "caseStudies": [
-          {
-            "title": "Simplifying the app architecture for the team",
-            "problem": "A single Flutter app used a melos monorepo and multiple layers of Clean Architecture. Even basic CRUD changes required navigating several layers and repetitive code.",
-            "analysis": "Models were often reused unchanged across layers, and many use cases simply forwarded repository calls. For the team’s size and the product’s stage of development, those layers added more effort to understanding and changing the code than they saved.",
-            "action": "I first removed melos and moved to a single project, then gradually removed redundant layers and pass-through use cases. I retained useful separation of responsibilities around repositories and Bloc.",
-            "result": "Feature work required understanding fewer dependencies and changing fewer parts of the codebase."
-          },
           {
             "title": "Resolving duplicate bookings across two systems",
             "problem": "The app and counselor scheduling platform managed bookings in separate databases, producing 10–20 duplicate bookings a month. Cancellations also had to be handled in both systems.",
@@ -581,6 +581,27 @@
             ]
           },
           {
+            "title": "Clify Connect · React booking website, Spring integration, and deployment",
+            "problem": "The complete booking flow needed to be available through a B2C website as well as the mobile app.",
+            "analysis": "Delivering the booking website required feature development and integration within the existing Spring backend, along with a web deployment environment.",
+            "action": "I built the complete booking flow in React 19 and TypeScript and developed the Spring backend's Connect module and V2 integration.",
+            "result": "I also configured AWS Amplify deployment and the custom domain for the Clify Connect booking website."
+          },
+          {
+            "title": "FAV kiosk · Updating on-site devices without interrupting measurements",
+            "problem": "Frequent changes to the kiosk screens and user journey required reinstalling the APK on each device. Updates also had to avoid interrupting measurements in progress.",
+            "analysis": "Only camera and microphone permissions, text-to-speech, and speech-to-text required native integration. Screens, measurement, and result processing could run on the web, provided a new version did not reload the screen mid-session.",
+            "action": "I limited the Flutter app to a WebView and native integrations, and built the UI, state, and API handling in React. The app checked for new Amplify deployments and reloaded only on the idle screen.",
+            "result": "Changes to screens and user flows no longer required reinstalling the APK, and new versions could be applied without interrupting a measurement session."
+          },
+          {
+            "title": "Simplifying the app architecture for the team",
+            "problem": "A single Flutter app used a melos monorepo and multiple layers of Clean Architecture. Even basic CRUD changes required navigating several layers and repetitive code.",
+            "analysis": "Models were often reused unchanged across layers, and many use cases simply forwarded repository calls. For the team’s size and the product’s stage of development, those layers added more effort to understanding and changing the code than they saved.",
+            "action": "I first removed melos and moved to a single project, then gradually removed redundant layers and pass-through use cases. I retained useful separation of responsibilities around repositories and Bloc.",
+            "result": "Feature work required understanding fewer dependencies and changing fewer parts of the codebase."
+          },
+          {
             "title": "Automating tests for core user journeys",
             "problem": "Regression checks for core user journeys were manual, and project-wide line coverage was 0%.",
             "analysis": "I prioritized user journeys that needed repeated checks: login, product selection, and payments using points. I reviewed and refined AI-generated test scenarios and drafts against service requirements and actual behavior.",
@@ -603,20 +624,13 @@
                 "steps": ["Same Fastlane lanes", "Codemagic", "Cloud release"]
               }
             ]
-          },
-          {
-            "title": "Building a kiosk for facial and voice measurements",
-            "problem": "Frequent changes to the kiosk screens and user journey required reinstalling the APK on each device. Updates also had to avoid interrupting measurements in progress.",
-            "analysis": "Only camera and microphone permissions, text-to-speech, and speech-to-text required native integration. Screens, measurement, and result processing could run on the web, provided a new version did not reload the screen mid-session.",
-            "action": "I limited the Flutter app to a WebView and native integrations, and built the UI, state, and API handling in React. The app checked for new Amplify deployments and reloaded only on the idle screen.",
-            "result": "Changes to screens and user flows no longer required reinstalling the APK, and new versions could be applied without interrupting a measurement session."
           }
         ],
         "highlights": [
-          "Built the complete Clify Connect booking flow in React 19 and TypeScript, integrated the Spring Connect module and V2 backend, and configured AWS Amplify and the custom domain.",
           "Kept sensitive information, including counseling concerns and symptoms, out of URLs by using session storage. Added data masking in analytics and consent controls.",
           "Built Clify Insight dashboards and operational features for app usage and FAV, KOSS, PHQ-9, and GAD-7 statistics by period and organization.",
-          "Investigated camera feature conflicts on certain Android devices and integrated the kiosk web measurement module into the app through a WebView."
+          "Investigated camera feature conflicts on certain Android devices and integrated the kiosk web measurement module into the app through a WebView.",
+          "Cross-analyzed raw GA4 and BigQuery events, operational database records, and error monitoring to identify drop-off points, recurring errors, and limits in metric definitions. I defined event and failure-reason tracking requirements and implemented some of them. This work has reached instrumentation improvements and problem identification; improvements in conversion or revenue have not yet been demonstrated."
         ],
         "skills": [
           "Flutter",
@@ -647,7 +661,7 @@
         "website": "https://www.seoulexchange.kr/",
         "role": "Software Engineer",
         "period": "2024.04 — 2025.04",
-        "summary": "I took over development and maintenance of a Flutter app for trading unlisted stocks without handover documentation. While maintaining the live app, I worked with a junior developer to bring a replacement to pre-release validation. I also reduced memory use and improved integrations with external services.",
+        "summary": "I took over development and maintenance of a Flutter app for trading unlisted stocks without handover documentation. While maintaining the live app, I worked with a junior developer to bring a replacement to pre-release validation without a store release. I also reduced memory use and improved integrations with external services.",
         "metrics": [
           {
             "value": "100K+",
@@ -663,7 +677,7 @@
           },
           {
             "value": "−20%",
-            "label": "memory use"
+            "label": "memory use · unreleased app validation"
           }
         ],
         "caseStudies": [
@@ -889,14 +903,14 @@
       "darkTheme": "Switch to dark theme",
       "lightTheme": "Switch to light theme",
       "contactLinks": "Contact and external links",
-      "impactHeading": "The decisions\nbehind the results.",
+      "impactHeading": "Problems, decisions, execution,\nand verified results.",
       "experienceHeading": "Finding problems.\nBuilding solutions that work in practice.",
       "projectsHeading": "Built, launched,\nand operated.",
       "skillsHeading": "Skills,\nwith context.",
       "context": "Context & constraints",
       "decision": "Decision & action",
-      "outcome": "Outcome",
-      "details": "Case studies",
+      "outcome": "Verified result",
+      "details": "Problem-solving cases and implementation details",
       "problem": "Problem",
       "analysis": "Rationale",
       "action": "Action",
