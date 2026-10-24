@@ -22,6 +22,9 @@ export default function HomePage() {
             ))}
           </h1>
           <p className="hero-intro">{ui.homeIntro}</p>
+          <div className="hero-links">
+            <a href={localizedHref('/portfolio/')}>{ui.viewPortfolio}</a>
+          </div>
         </div>
       </section>
       <section className="section home-spaces" aria-labelledby="spaces-title">
