@@ -13,7 +13,7 @@ leeeeeoy/
 ├── apps/legacy-api/   # 기존 Worker/Hono/D1/R2 보존
 ├── content/lab/       # 공개 기술 글, Markdown 빌드 입력
 ├── content/writing/   # 공개 개인 글, Markdown 빌드 입력
-├── labs/              # 독립 Go HTTP 실험·원본 측정/그래프
+├── labs/              # 독립 Go HTTP·DB 정합성·분산 결제 보상 실험
 ├── docs/              # Entry 인덱스·guides 현행 기준·archive 기록
 ├── templates/         # 글/실험 템플릿
 └── .github/workflows/ # 영역별 CI/CD
@@ -79,6 +79,8 @@ JavaScript 실행 전의 검색·공유 미리보기 HTML은 공통 한국어 �
 ## 첫 Lab 실험
 
 [Go HTTP Load Lab](labs/go-load-test/README.md)은 웹과 독립 실행합니다. 42개 본 측정과 별도 보조 검증, 첫 Lab 글 `content/lab/go-http-concurrency.md`(draft:true)은 로컬에 보존합니다. **사용자 결정으로 결과 디렉터리와 이 초안은 ignore하며 커밋을 보류합니다.** 원격 저장소에 자료가 모두 있다고 가정하지 마세요. [Phase 4 기록](docs/archive/work-records/13-phase4-go-lab-record-2026-10-15.md)은 당시 검증 기록이며 [공개 준비 점검](docs/archive/work-records/16-precommit-review-2026-10-15.md)에 보류 이유를 정리합니다.
+
+추가 독립 실험은 [구간 정합성 P0](labs/concurrency-integrity/README.md)와 [Booking Compensation Lab](labs/booking-compensation/README.md)입니다. 후자는 각각 독립 실행하는 Go 예약/일정 API와 두 DB, 가상 PG·Slack으로 결제 후 예약 실패·보상과 pool·알림 대기를 관찰하는 기준 구현입니다. 자동 복구·공개 글 구현 완료를 뜻하지 않습니다.
 
 ## Backend
 
