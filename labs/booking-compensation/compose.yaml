@@ -1,0 +1,109 @@
+name: booking-compensation
+x-db: &db
+  image: postgres@sha256:77f585114c32fbca283dc835b0596f4e52b51b4c6662d7810b2f4084f60a1873
+  environment:
+    POSTGRES_USER: lab
+    POSTGRES_HOST_AUTH_METHOD: trust
+  cpus: 0.5
+  mem_limit: 512m
+  healthcheck:
+    test: [CMD-SHELL, "pg_isready -h 127.0.0.1 -U lab -d $$POSTGRES_DB"]
+    interval: 1s
+    timeout: 2s
+    retries: 30
+x-api: &api
+  cpus: 1
+  mem_limit: 256m
+  read_only: true
+  healthcheck:
+    test: [CMD, /server, health]
+    interval: 1s
+    timeout: 2s
+    retries: 30
+x-double: &double
+  image: python@sha256:b658b05ce9c4eb97ec6fc19424818a1f31993659c2b505a532f470e83807815d
+  cpus: 0.5
+  mem_limit: 128m
+  read_only: true
+  user: "65532:65532"
+  environment:
+    PYTHONDONTWRITEBYTECODE: "1"
+  volumes:
+    - ./stubs:/stubs:ro
+  healthcheck:
+    test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=1).read()"]
+    interval: 1s
+    timeout: 2s
+    retries: 30
+services:
+  booking-db:
+    <<: *db
+    environment:
+      POSTGRES_USER: lab
+      POSTGRES_DB: bookings
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports: ["127.0.0.1:15490:5432"]
+    volumes:
+      - booking-data:/var/lib/postgresql
+      - ./booking-api/db/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+      - ./booking-api/db/fixtures.sql:/docker-entrypoint-initdb.d/002-fixtures.sql:ro
+  schedule-db:
+    <<: *db
+    environment:
+      POSTGRES_USER: lab
+      POSTGRES_DB: schedules
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports: ["127.0.0.1:15491:5432"]
+    volumes:
+      - schedule-data:/var/lib/postgresql
+      - ./schedule-api/db/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+      - ./schedule-api/db/fixtures.sql:/docker-entrypoint-initdb.d/002-fixtures.sql:ro
+  pg:
+    <<: *double
+    command: [python, -u, /stubs/pg.py]
+    ports: ["127.0.0.1:18092:8080"]
+  slack:
+    <<: *double
+    command: [python, -u, /stubs/slack.py]
+    ports: ["127.0.0.1:18093:8080"]
+  booking-api:
+    <<: *api
+    image: booking-compensation-booking:local
+    build: ./booking-api
+    ports: ["127.0.0.1:18090:8080"]
+    environment:
+      DATABASE_URL: postgres://lab@booking-db:5432/bookings?sslmode=disable
+      SCHEDULE_URL: http://schedule-api:8080
+      PG_URL: http://pg:8080
+      SLACK_URL: http://slack:8080/hooks/bookings
+      DB_POOL_SIZE: "20"
+    depends_on:
+      booking-db: {condition: service_healthy}
+      pg: {condition: service_healthy}
+      slack: {condition: service_healthy}
+      schedule-api: {condition: service_healthy}
+  schedule-api:
+    <<: *api
+    image: booking-compensation-schedule:local
+    build: ./schedule-api
+    ports: ["127.0.0.1:18091:8080"]
+    environment:
+      DATABASE_URL: postgres://lab@schedule-db:5432/schedules?sslmode=disable
+      BOOKING_URL: http://booking-api:8080
+      SLACK_URL: http://slack:8080/hooks/schedules
+      DB_POOL_SIZE: "20"
+    depends_on:
+      schedule-db: {condition: service_healthy}
+      slack: {condition: service_healthy}
+  valkey:
+    image: valkey/valkey@sha256:c6c2f0020be34bbf684a53a0ef716ab16ff70295186d4d9f2518435beb7afbff
+    profiles: [cache]
+    command: [valkey-server, --save, "", --appendonly, "no", --maxmemory, 32mb, --maxmemory-policy, noeviction]
+    cpus: 0.25
+    mem_limit: 128m
+networks:
+  default:
+    driver: bridge
+volumes:
+  booking-data:
+  schedule-data:
