@@ -163,6 +163,18 @@ test('language links, metadata, and rendered pages work in both languages', asyn
         )
         assert.equal((rendered.match(/<h1(?:\s|>)/g) ?? []).length, 1, path)
         assert.ok(rendered.includes('id="content" tabindex="-1"'), path)
+        if (path === '/') {
+          const hero = rendered.match(
+            /<section class="hero home-hero"[^>]*>([\s\S]*?)<\/section>/,
+          )?.[1]
+          assert.ok(hero, 'Home intro must be present')
+          assert.ok(
+            hero.includes(
+              `<a href="/portfolio/${language === 'en' ? '?lang=en' : ''}">${translations[language].ui.viewPortfolio}</a>`,
+            ),
+            'Home intro must link directly to the portfolio in the current language',
+          )
+        }
         for (const href of ['/', '/portfolio/', '/lab/', '/writing/']) {
           assert.ok(
             rendered.includes(

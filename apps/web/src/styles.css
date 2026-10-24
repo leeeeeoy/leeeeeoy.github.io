@@ -852,7 +852,8 @@ html[lang='en'] .disclosure[open] .disclosure-action::before {
 }
 
 .hero.home-hero {
-  min-height: clamp(360px, 52svh, 520px);
+  min-height: clamp(320px, 42svh, 440px);
+  padding-block: 48px;
 }
 
 .home-hero .hero-intro {
