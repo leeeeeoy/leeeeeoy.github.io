@@ -82,6 +82,8 @@ JavaScript 실행 전의 검색·공유 미리보기 HTML은 공통 한국어 �
 
 추가 독립 실험은 [구간 정합성 P0](labs/concurrency-integrity/README.md)와 [Booking Compensation Lab](labs/booking-compensation/README.md)입니다. 후자는 각각 독립 실행하는 Go 예약/일정 API와 두 DB, 가상 PG·Slack으로 결제 후 예약 실패·보상과 pool·알림 대기를 관찰하는 기준 구현입니다. 자동 복구·공개 글 구현 완료를 뜻하지 않습니다.
 
+모든 `labs/**/results/`는 로컬 실행 자료로 보존하고 Git 추적에서 제외합니다. 코드·실행 절차·Research Record의 요약은 유지합니다. 새 clone에는 과거 측정 원본이 없으며, 재실행 결과는 환경과 동시성에 따라 달라질 수 있습니다.
+
 ## Backend
 
 기존 Cloudflare Workers + Hono API와 D1/R2 바인딩을 보존합니다. Backend CI의 Node.js는 22이며 Frontend Node 26과 독립적으로 검사합니다.

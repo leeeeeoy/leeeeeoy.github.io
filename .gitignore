@@ -30,3 +30,6 @@ docs/**/raw/
 
 # Public Git review pending: preserve locally, exclude from commits until approved.
 /content/lab/go-http-concurrency.md
+
+# Generated Lab evidence stays local; publish reviewed summaries separately.
+/labs/**/results/

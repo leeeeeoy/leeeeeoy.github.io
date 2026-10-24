@@ -36,6 +36,7 @@ Guides는 현재 규칙의 원본입니다. 현재 구현 사실은 실제 소�
 - [10 Phase 1 구조 이전](archive/work-records/10-phase1-migration-record-2026-10-14.md), [11 Phase 2 페이지](archive/work-records/11-phase2-pages-record-2026-10-14.md)
 - [12 Phase 3 콘텐츠](archive/work-records/12-phase3-content-record-2026-10-14.md), [13 Phase 4 Go 실험](archive/work-records/13-phase4-go-lab-record-2026-10-15.md)
 - [15 Harness 적용 검토](archive/work-records/15-engineering-lab-harness-review-2026-10-15.md), [16 공개·커밋 준비 점검](archive/work-records/16-precommit-review-2026-10-15.md)
+- [17 Git 이력·산출물 감사](archive/work-records/17-git-artifact-audit-2026-10-24.md) — 결과 로컬 보존·브랜치 이력 정리 범위와 한계
 - [기존 포트폴리오 개편 문서](archive/portfolio-renewal/README.md) — 과거 Pages·단일 페이지 제안 포함
 - [최초 모노레포 제안 진입 문서](archive/migration-proposal/00-READ-ME-FIRST.md)
 

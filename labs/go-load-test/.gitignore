@@ -1,5 +1,4 @@
 /bin/
 __pycache__/
 
-# Raw results include local paths in profiles/checkpoints; public scope awaits review.
-/results/2026-10-14/
+# All Lab results are ignored by the repository root policy.
