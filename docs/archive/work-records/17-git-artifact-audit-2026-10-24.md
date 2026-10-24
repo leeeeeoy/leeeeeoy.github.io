@@ -60,3 +60,13 @@ python3 <temporary-tool>/git-filter-repo \
 | CI 정적 검토 | 앱 workflow는 main/develop push 대상이며 migration 브랜치는 대상이 아님. workflow 내용 변경 없음 |
 
 브라우저·운영 사이트·Cloudflare Access·새 의존성 설치·전체 Docker 시나리오·P0 DB 실험은 이번에 재검증하지 않았다. 기존 부하 측정·실패 결과를 재실행하거나 검증 범위를 확대하지 않았다. 배포·PR 생성·main/develop 병합은 하지 않는다.
+
+## 같은 날 후속 정리 — main 기준 rebase
+
+사용자가 브랜치 정렬을 요청해 최신 origin/main(0d549c8)을 공통 기반으로 삼았다. migration 추가 커밋 18개 중 이미 main에 반영된 포트폴리오 수정 1개는 파일 내용 일치를 확인해 제외하고 17개를 다시 적용했다. 첫 구조 이전 커밋에는 main에서 상속한 로컬 도구 메타데이터 2개의 추적 해제를 포함했다. 이 기록 보완 전 최종 트리는 rebase 전과 정확히 같았다.
+
+**앞선 전체 이력 필터링의 범위와 구분한다.** main 이력을 변경하지 않고 그 위로 rebase했으므로, main의 공통 과거에 있는 .claude/.wrangler 메타데이터는 migration에서도 다시 도달 가능하다. 최신 트리에서는 제외하며 results는 여전히 migration 전체 이력에서 제외한다. main까지 정리했다거나 저장소 전체에서 삭제됐다는 의미가 아니다.
+
+main에 모두 반영된 로컬 feat/bilingual-portfolio와 release/portfolio-copy-20261020을 삭제하고 로컬 main을 원격 main까지 fast-forward했다. release 작업 폴더는 삭제하지 않고 detached HEAD로 보존했다. develop은 main의 조상이며 Preview용 상시 브랜치로 유지했다. 새 백업 bundle과 range-diff는 로컬 비공개 경로에 보관했다.
+
+동일한 파일 트리의 독립 복제본에서 Web의 content/lint/format/test 15개/typecheck/build, Legacy API test 1개/typecheck, 네 Go 모듈의 test/race/vet를 다시 실행해 통과했다. booking-api의 전용 로컬 DB 트랜잭션 검사도 실행했다. 기존의 브라우저·CI Node 22·운영·실험 재측정 미검증 범위는 유지한다. 원격 갱신 대상은 migration만이며 main/develop push나 배포를 포함하지 않는다.
