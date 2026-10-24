@@ -1,5 +1,6 @@
 # Concurrency Integrity Lab
 
+> `results/`는 Git 추적에서 제외한 로컬 실행 증거다. 아래 경로는 기존 로컬 자료를 가리키며 새 clone에는 포함되지 않는다. 재실행 수치는 달라질 수 있어 원본은 보존한다. 과거 기록의 커밋 ID는 이력 정리 전 식별자다.
 회사에서 발생한 동시성 문제와 비슷한 상황을 합성 모델로 재현하고 이해하는 독립 실험이다. 현재는 [PLAN v3](PLAN.md)의 **P0만 완료**했다. 시간 구간의 겹침을 판정하는 환경을 준비했으며, 동시 요청의 실패 재현(P1)과 잠금 비교(P2)는 아직 수행하지 않았다.
 
 ## 구조와 환경
@@ -11,9 +12,9 @@
 | `state_test.go` | 연결 대상 경계 테스트 13개 |
 | `integration_test.go` | 실제 DB에서 세션 분리와 순차 경계 테스트 9개 |
 | [RESEARCH-RECORD.md](RESEARCH-RECORD.md) | 완료 범위·관측·미검증 |
-| [results/2026-10-20-p0/](results/2026-10-20-p0/) | 실행 환경·원본 JSONL·검사 상태·종료 전 DB 상태 |
+| results/2026-10-20-p0/ (로컬: `results/2026-10-20-p0/`) | 실행 환경·원본 JSONL·검사 상태·종료 전 DB 상태 |
 
-실행 환경은 Go 1.27.3 / darwin arm64, pgx v5.11.0, PostgreSQL 18.6 / linux arm64다. Go 모듈과 이미지 digest를 고정했다. 전체 환경과 파일 hash는 [environment.json](results/2026-10-20-p0/environment.json)에 있다.
+실행 환경은 Go 1.27.3 / darwin arm64, pgx v5.11.0, PostgreSQL 18.6 / linux arm64다. Go 모듈과 이미지 digest를 고정했다. 전체 환경과 파일 hash는 environment.json (로컬: `results/2026-10-20-p0/environment.json`)에 있다.
 
 P0는 참여용 DB 연결 2개와 관측용 연결 1개를 동시에 확보하고 서로 다른 세션인지 확인한다. 참여 연결은 Read Committed다. 판정기만 읽기 전용 Repeatable Read 트랜잭션으로 행 목록과 충돌 수를 같은 snapshot에서 읽는다. 이는 후속 실험의 쓰기 격리 수준을 변경하는 해결책이 아니다. Read Committed에서는 문장마다 관측 snapshot이 달라질 수 있다는 [PostgreSQL 18 공식 설명](https://www.postgresql.org/docs/18/transaction-iso.html#XACT-READ-COMMITTED)을 참고했다(확인: 2026-10-20).
 

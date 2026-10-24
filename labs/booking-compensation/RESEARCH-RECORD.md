@@ -1,5 +1,6 @@
 # Research Record — booking-compensation
 
+> `results/`는 Git 추적에서 제외한 로컬 실행 증거다. 아래 경로는 기존 로컬 자료를 가리키며 새 clone에는 포함되지 않는다. 재실행 수치는 달라질 수 있어 원본은 보존한다. 과거 기록의 커밋 ID는 이력 정리 전 식별자다.
 현재 단계는 아래 **v8 Schedule API 구조 정리 기록**이다. v1~v7 기록과 원본은 당시 구현·검증의 근거로 보존하며 현재 패키지 경로와 구분한다.
 
 ## v1 — 최초 일반 합성 기준선
@@ -7,7 +8,7 @@
 - 계획: [PLAN v1](PLAN.md), 2026-10-23 Docker 구성·동작 확인 요청으로 승인.
 - 범위: 독립 합성 기준 구현·최소 A/B/C/D 확인. 기존 P0 원본·다른 실험·회사 프로젝트는 변경하지 않았다.
 - 단계: B/C의 초기 환경·문제 재현 완료. 자동 복구 개선·공개 글·이해 대화는 아직 수행하지 않음.
-- 환경·코드·명령: [environment.json](results/2026-10-23-01/environment.json). 코드와 원본 hash를 포함한다. 초기 실행 당시 미커밋 상태.
+- 환경·코드·명령: environment.json (로컬: `results/2026-10-23-01/environment.json`). 코드와 원본 hash를 포함한다. 초기 실행 당시 미커밋 상태.
 - 예산: 3시간·전체 6 CPU/4GiB·결과 20MiB 이내. 실제 Compose 제한은 상시 3.25 CPU/2,176MiB, 검사기 실행 중 추가 0.5 CPU/256MiB. stats.jsonl은 한 번의 관측이며 피크 사용량이 아니다.
 
 ## Research Brief — 핵심 이해
@@ -31,7 +32,7 @@
 | 기존 Web/API 회귀 | 완료 | 웹 lint/format/15 tests/typecheck/build, API 1 test/typecheck. API는 로컬 Node 26이며 CI Node 22 별도 미검증 |
 | 개선 전후 비교·재시작 복구·글 | 미실행 | 다음 범위 선택 필요 |
 
-원본: [run.jsonl](results/2026-10-23-01/run.jsonl), [status.json](results/2026-10-23-01/status.json). 14개 항목은 S0·A 3개·B 1개·C 7개·D 1개·S-final이다. 14/14라는 표기는 **문제 재현을 포함한 실험 판정의 통과**다.
+원본: run.jsonl (로컬: `results/2026-10-23-01/run.jsonl`), status.json (로컬: `results/2026-10-23-01/status.json`). 14개 항목은 S0·A 3개·B 1개·C 7개·D 1개·S-final이다. 14/14라는 표기는 **문제 재현을 포함한 실험 판정의 통과**다.
 
 실행은 한 번이며 실패 원본을 고쳐 성공으로 만든 과정은 없다. Go 테스트와 Compose 정적 확인 후 실제 기동·검사를 수행했다. 검사기는 기존 DB 행과 기존 결과 디렉터리를 거절한다. 정상 원본은 임시 파일을 검증한 뒤 이름을 교체했고 stderr·서비스별 최근 300줄 로그·stats도 보존했다. 기존 스냅샷을 덮어쓰지 않는다.
 
@@ -48,7 +49,7 @@
 
 ## Calculated — 계산
 
-[analysis.json](results/2026-10-23-01/analysis.json)은 run.jsonl의 S-final을 입력으로 사용하고 입력 SHA-256을 기록했다. PG CAPTURED의 payment_id를 각 DB의 활성 행 payment_id 집합과 비교했다.
+analysis.json (로컬: `results/2026-10-23-01/analysis.json`)은 run.jsonl의 S-final을 입력으로 사용하고 입력 SHA-256을 기록했다. PG CAPTURED의 payment_id를 각 DB의 활성 행 payment_id 집합과 비교했다.
 
 - 두 DB 모두 활성 예약이 없는 승인: 3개. 경쟁 패자와 정상 취소 뒤 미환불이 포함된다.
 - 일정 DB에만 활성 예약이 있는 승인: 3개. 보상 실패·commit 예외·응답 유실이다.
@@ -96,7 +97,7 @@
 
 - v1 raw/analysis/status의 hash와 당시 소스 15개의 SHA를 확인한 뒤 이 랩의 컨테이너만 재생성했다. 다른 Java 랩·기존 P0·Go Load Lab은 변경하지 않았다.
 - Go 서비스는 오케스트레이터·일정 서버만 남겼다. PG·Slack 테스트는 Python 이미지의 stdlib 더블로 옮겨 거절·멱등 환불·입력·429 검증을 유지했다. DB/Valkey/Python은 digest 고정, 호스트 포트 없음·내부 네트워크다.
-- [run.jsonl](results/2026-10-23-02/run.jsonl): 20/20 예상 조건 확인. [environment](results/2026-10-23-02/environment.json), [status](results/2026-10-23-02/status.json), [실행 당시 소스](results/2026-10-23-02/source/), 서비스 로그·단일 stats snapshot을 보존했다.
+- run.jsonl (로컬: `results/2026-10-23-02/run.jsonl`): 20/20 예상 조건 확인. environment (로컬: `results/2026-10-23-02/environment.json`), status (로컬: `results/2026-10-23-02/status.json`), 실행 당시 소스 (로컬: `results/2026-10-23-02/source/`), 서비스 로그·단일 stats snapshot을 보존했다.
 - 명령: `python3 scripts/check.py --session 2026-10-23-02`. 새 DB, 전체 180초·각 판정 15초 상한. 실제 Docker CLI·바이너리 SHA·이미지·소스 hash·시각·명령은 environment/status가 원본이다.
 - 현재 상시 Compose 제한 2.75 CPU / 1,920MiB, 일회성 검사기 추가 0.5 CPU / 256MiB. 두 Go 서버 DB pool 각각 4, HTTP 500ms, 검사기 HTTP 3초. 운영 설정이 아니다.
 
@@ -159,11 +160,11 @@
 
 ### 실행 증거
 
-- [원본 21개 판정](results/2026-10-24-01/run.jsonl), [HTTP 요청·응답](results/2026-10-24-01/http.jsonl), [환경·명령·소스/바이너리 SHA](results/2026-10-24-01/environment.json), [최종 완료·원본 hash](results/2026-10-24-01/status.json), [실행 당시 소스 사본](results/2026-10-24-01/source/).
+- 원본 21개 판정 (로컬: `results/2026-10-24-01/run.jsonl`), HTTP 요청·응답 (로컬: `results/2026-10-24-01/http.jsonl`), 환경·명령·소스/바이너리 SHA (로컬: `results/2026-10-24-01/environment.json`), 최종 완료·원본 hash (로컬: `results/2026-10-24-01/status.json`), 실행 당시 소스 사본 (로컬: `results/2026-10-24-01/source/`).
 - 실행 명령: `python3 scripts/verify.py --session 2026-10-24-01`. 21개 사례의 실제 HTTP·별도 psql 조회를 보존했다. `progress.json`은 당시 각 사례 checkpoint이고, 전체 완료 판정은 `status.json`이다.
 - Go 1.27.3 / pgx 5.11.0, PostgreSQL 18.6, Docker·이미지 식별자는 environment에 있다. 두 pool 각각 20, outbound HTTP 3초, PG 응답 1초, Slack 수락 간격/수락 응답 각각 1초다. 실제 운영 설정과 같은 성능이라고 주장하지 않는다.
 - 상시 Compose 한도 4 CPU/1,792MiB. host 검증기는 별도 프로세스이며 worker 최대 100·HTTP 35초/전체 신규 요청 300초 상한이다. CPU 피크·운영 p95를 측정한 결과는 아니다.
-- [계산 요약](results/2026-10-24-01/summary.json)은 `python3 scripts/summarize.py 2026-10-24-01`로 생성했다. 입력 run.jsonl SHA와 계산 스크립트 SHA를 포함한다. raw를 고치지 않으며 같은 summary를 덮어쓰지 않는다.
+- 계산 요약 (로컬: `results/2026-10-24-01/summary.json`)은 `python3 scripts/summarize.py 2026-10-24-01`로 생성했다. 입력 run.jsonl SHA와 계산 스크립트 SHA를 포함한다. raw를 고치지 않으며 같은 summary를 덮어쓰지 않는다.
 
 ### Observed — 실제 상태로 확인한 것
 
@@ -200,7 +201,7 @@ summary.json은 S-final의 원본 조회를 사용한다. 최종 로컬 예약 1
 
 - 두 module 각각 `go test -count=1 ./...`, `go test -race -count=1 ./...`, `go vet ./...` 통과. Go 단위 각 4개, 합계 8개다. Linux arm64 바이너리와 각 Docker 이미지를 빌드했고 실제 실행 바이너리 SHA를 기록했다. Docker 21개 판정은 일반 빌드이며 분산 부하 중 Race 빌드를 실행한 것은 아니다.
 - Python 외부 더블 단위 4개 통과. PG 승인·거절·환불 멱등·실패·입력 경계, Slack 경로별 간격·Retry-After·입력을 확인한다.
-- 각각 별도 `go run .`을 loopback 18094/18095에 실행해 health와 실제 자기 DB 조회 5개를 확인했다. [host smoke 원본](results/2026-10-24-host-smoke/responses.json), [환경·소스 SHA](results/2026-10-24-host-smoke/environment.json). 임시 프로세스는 Ctrl-C로 종료했고 Docker의 18090/18091 서비스는 유지했다. 전체 21개를 host 모드로 반복한 것은 아니다.
+- 각각 별도 `go run .`을 loopback 18094/18095에 실행해 health와 실제 자기 DB 조회 5개를 확인했다. host smoke 원본 (로컬: `results/2026-10-24-host-smoke/responses.json`), 환경·소스 SHA (로컬: `results/2026-10-24-host-smoke/environment.json`). 임시 프로세스는 Ctrl-C로 종료했고 Docker의 18090/18091 서비스는 유지했다. 전체 21개를 host 모드로 반복한 것은 아니다.
 - Web: content:check(공개 글 0), lint·format:check·15개 test·typecheck·build 통과. 기존 UI·콘텐츠 소스는 수정하지 않았다. 첫 Go 글 draft:true 유지.
 - Legacy API: 1개 test·typecheck 통과. Node 26에서 실행했으며 CI Node 22는 이번에 검증하지 않았다. 원격 D1·Cloudflare 작업 없음.
 - 실행 후 수정은 문서·요약 계산기와 source snapshot에서 로컬 `.env`/`.env.*`를 제외하는 안전 보완이다. `.env.example`은 유지한다. 해당 경계의 assert 검사도 실행했다. 실행 당시 raw/소스 사본은 변경하지 않는다.
@@ -235,10 +236,10 @@ summary.json은 S-final의 원본 조회를 사용한다. 최종 로컬 예약 1
 
 ### 보존·실행 근거
 
-- 구조 변경 전 v3 raw/실행 소스 SHA를 확인했다. [v3 최종 상태 스냅샷](results/2026-10-24-v3-preserved/manifest.json)에 두 합성 DB 전체 SQL과 PG/Slack 상태·명령·SHA를 보존한 뒤 이 랩만 새 fixture로 초기화했다. 기존 원본·보류 초안·다른 랩은 변경하지 않았다.
+- 구조 변경 전 v3 raw/실행 소스 SHA를 확인했다. v3 최종 상태 스냅샷 (로컬: `results/2026-10-24-v3-preserved/manifest.json`)에 두 합성 DB 전체 SQL과 PG/Slack 상태·명령·SHA를 보존한 뒤 이 랩만 새 fixture로 초기화했다. 기존 원본·보류 초안·다른 랩은 변경하지 않았다.
 - 새 회귀 명령: `python3 scripts/verify.py --session 2026-10-24-02-structure`.
-- [원본 21개 판정](results/2026-10-24-02-structure/run.jsonl), [HTTP 기록](results/2026-10-24-02-structure/http.jsonl), [환경·실행 소스/바이너리 SHA](results/2026-10-24-02-structure/environment.json), [완료 상태·원본 SHA](results/2026-10-24-02-structure/status.json), [당시 소스](results/2026-10-24-02-structure/source/)를 보존했다. `status.json.state=valid`, 21/21이다.
-- `python3 scripts/summarize.py 2026-10-24-02-structure`로 [요약](results/2026-10-24-02-structure/summary.json)을 생성했다. 입력 raw·계산 스크립트 hash를 기록하고 기존 자료를 덮어쓰지 않았다.
+- 원본 21개 판정 (로컬: `results/2026-10-24-02-structure/run.jsonl`), HTTP 기록 (로컬: `results/2026-10-24-02-structure/http.jsonl`), 환경·실행 소스/바이너리 SHA (로컬: `results/2026-10-24-02-structure/environment.json`), 완료 상태·원본 SHA (로컬: `results/2026-10-24-02-structure/status.json`), 당시 소스 (로컬: `results/2026-10-24-02-structure/source/`)를 보존했다. `status.json.state=valid`, 21/21이다.
+- `python3 scripts/summarize.py 2026-10-24-02-structure`로 요약 (로컬: `results/2026-10-24-02-structure/summary.json`)을 생성했다. 입력 raw·계산 스크립트 hash를 기록하고 기존 자료를 덮어쓰지 않았다.
 - HTTP 경로·핵심 JSON/상태코드·중복 차감/환급·잠금 순서·상태 전이·외부 실패/보상 시나리오를 같은 21개 판정으로 확인했다. 새 성능 조건이나 복구 구현을 추가한 비교가 아니다.
 
 ### 관측·한계
@@ -252,7 +253,7 @@ summary.json은 S-final의 원본 조회를 사용한다. 최종 로컬 예약 1
 - 각 module `go test -count=1 ./...`, `go test -race -count=1 ./...`, `go vet ./...` 통과. 기존 Go 단위 8개를 새 책임 패키지로 옮겼고, 설정·오류 JSON·HTTP 응답/Body 정리·Context·PG 금액/상태·원격 성공/거절/미확정·callback 계약 검사를 추가했다. Go top-level 테스트 함수는 합계 19개(booking 10, schedule 9; 설정 subtest 별도)다. DB/돈/상태 경합은 mock DB 대신 실제 21개 통합 판정으로 확인했다.
 - 초기 테스트 이동 중 private `validate`를 export한 이름으로 맞추지 못해 컴파일 오류가 있었고 수정했다. 검증을 삭제하거나 비활성화하지 않았다. 최종 plain/race/vet는 두 module 모두 통과했다.
 - 새 `./cmd/server`를 Linux arm64로 각각 빌드하고 각 Docker 이미지로 기동했다. Docker의 21개 판정은 일반 빌드이며 Race 빌드로 분산 부하를 실행한 것은 아니다.
-- 각각 `go run ./cmd/server`를 임시 loopback 18094/18095에서 실행해 health·자체 DB 조회 5개를 확인했다. [host smoke](results/2026-10-24-structure-host-smoke/responses.json), [소스·실행 모드](results/2026-10-24-structure-host-smoke/environment.json). 확인 후 두 임시 프로세스만 종료했고 Docker 서비스는 유지했다.
+- 각각 `go run ./cmd/server`를 임시 loopback 18094/18095에서 실행해 health·자체 DB 조회 5개를 확인했다. host smoke (로컬: `results/2026-10-24-structure-host-smoke/responses.json`), 소스·실행 모드 (로컬: `results/2026-10-24-structure-host-smoke/environment.json`). 확인 후 두 임시 프로세스만 종료했고 Docker 서비스는 유지했다.
 - Python 더블 단위 4개, Web content:check/lint/format:check/15개 test/typecheck/build, Legacy API 1개 test/typecheck 통과. Node 26이며 API CI Node 22와 이번 브라우저 검증은 미실행이다. 공개 글 0·첫 글 draft:true 유지.
 - 최종 보존 검사에서 기존 파일 348개가 동일했고, 원본·소스 사본·스냅샷·요약 입력 등을 포함한 SHA 검사 749개가 일치했다. 현행 문서의 상대 파일 링크와 gofmt, 환경 예시/비밀 설정 ignore, 개인정보·로컬 절대 경로, 추가 dependency 여부를 확인했다. Git HEAD는 66657d1 그대로다. Docker 6개는 healthy이며 임시 18094/18095 listener는 종료됐다. 기존 v3 자료는 과거 근거이므로 당시 소스 사본의 경로나 실행 명령을 현재 기준으로 덮어쓰지 않았다.
 
@@ -277,7 +278,7 @@ summary.json은 S-final의 원본 조회를 사용한다. 최종 로컬 예약 1
 
 ### 실행·보존 근거
 
-구조 변경 전 v4 소스를 로컬 복구 사본으로 보존했다. v4 raw/실행 소스는 결과 폴더의 원본을 유지했다. [v4 최종 합성 상태](results/2026-10-24-v4-preserved/manifest.json)에 두 DB 전체 SQL과 PG/Slack 상태·명령·SHA를 보존한 뒤 이 Compose 프로젝트만 새 fixture로 기동했다. 다른 프로젝트 컨테이너나 실제 회사·운영 자원은 변경하지 않았다.
+구조 변경 전 v4 소스를 로컬 복구 사본으로 보존했다. v4 raw/실행 소스는 결과 폴더의 원본을 유지했다. v4 최종 합성 상태 (로컬: `results/2026-10-24-v4-preserved/manifest.json`)에 두 DB 전체 SQL과 PG/Slack 상태·명령·SHA를 보존한 뒤 이 Compose 프로젝트만 새 fixture로 기동했다. 다른 프로젝트 컨테이너나 실제 회사·운영 자원은 변경하지 않았다.
 
 코드 비교에서 Service의 기존 업무 메서드 본문은 Ready의 private 이름 변경을 제외하고 동일했다. SQL 문자열·schema/fixture·go.mod/go.sum·외부 client 소스와 모델 테스트 내용이 동일했다. 이 정적 비교와 별도로 실제 회귀를 수행했다.
 
@@ -299,14 +300,14 @@ python3 -m unittest discover -s stubs -p 'test_*.py'
 ```
 
 - Go top-level 단위 테스트 19개(booking 10·schedule 9; 설정 subtest 별도)를 삭제/비활성화하지 않고 유지했다. 두 module 모두 test/race/vet 통과. Linux arm64 바이너리와 Docker 이미지 빌드·기동 통과. 분산 통합 부하는 일반 바이너리이며 race 바이너리로 부하를 실행한 것은 아니다.
-- [21개 HTTP·독립 DB 판정](results/2026-10-24-03-idiomatic/run.jsonl) 전부 통과, [status](results/2026-10-24-03-idiomatic/status.json)의 state=valid, cases=passed=21이다. [HTTP 기록](results/2026-10-24-03-idiomatic/http.jsonl), [명령·실행 소스/바이너리/image 식별자](results/2026-10-24-03-idiomatic/environment.json), [실행 당시 소스](results/2026-10-24-03-idiomatic/source/)와 원본 SHA를 보존한다. case checkpoint인 progress와 전체 완료 판정인 status의 역할은 구분한다.
+- 21개 HTTP·독립 DB 판정 (로컬: `results/2026-10-24-03-idiomatic/run.jsonl`) 전부 통과, status (로컬: `results/2026-10-24-03-idiomatic/status.json`)의 state=valid, cases=passed=21이다. HTTP 기록 (로컬: `results/2026-10-24-03-idiomatic/http.jsonl`), 명령·실행 소스/바이너리/image 식별자 (로컬: `results/2026-10-24-03-idiomatic/environment.json`), 실행 당시 소스 (로컬: `results/2026-10-24-03-idiomatic/source/`)와 원본 SHA를 보존한다. case checkpoint인 progress와 전체 완료 판정인 status의 역할은 구분한다.
 - Python 외부 더블 단위 4개 통과. Web content:check(공개 글 0)·lint·format:check·15개 test·typecheck·build 통과. Legacy API 1개 test·typecheck 통과. API 첫 시도는 sandbox loopback listen EPERM으로 시작하지 못했고, 허용된 로컬 런타임 재실행에서 통과했다. Node 26.9.0이며 API CI Node 22는 미검증이다.
-- 두 서버를 각각 `go run ./cmd/server`로 임시 loopback 18094/18095에 실행해 health·자기 DB 조회 5개를 확인했다. [읽기 전용 응답](results/2026-10-24-idiomatic-host-smoke/responses.json)과 [명령·환경·소스 SHA](results/2026-10-24-idiomatic-host-smoke/environment.json)를 보존했다. 임시 프로세스와 listener는 종료했고 Docker 6개는 healthy 상태로 유지했다.
+- 두 서버를 각각 `go run ./cmd/server`로 임시 loopback 18094/18095에 실행해 health·자기 DB 조회 5개를 확인했다. 읽기 전용 응답 (로컬: `results/2026-10-24-idiomatic-host-smoke/responses.json`)과 명령·환경·소스 SHA (로컬: `results/2026-10-24-idiomatic-host-smoke/environment.json`)를 보존했다. 임시 프로세스와 listener는 종료했고 Docker 6개는 healthy 상태로 유지했다.
 - 최종 검사에서 기존 보존 목록 348개와 이번 작업 전 결과/소스 사본·root 변경·초안 목록 321개가 그대로였다(두 목록은 일부 겹친다). 원본·당시 소스·스냅샷·요약/현재 실행 코드 SHA 검사 484개가 일치했다. 현행 문서의 상대 파일 링크·ignore·개인 경로/비밀 정보 패턴·Git 대상의 바이너리/로컬 env 부재를 확인했다. 결과 합계는 약 2.87MiB다. 실행 뒤 변경은 비교 문서와 이 기록뿐이며 raw/당시 소스는 수정하지 않았다. HEAD 66657d1·브랜치·기존 root 미커밋 변경을 유지하고 첫 Go 글 draft:true를 보존했다.
 
 ### 관측과 종료 경계
 
-[요약](results/2026-10-24-03-idiomatic/summary.json)은 입력 raw와 기존 계산 스크립트 SHA를 기록한다. 동시 webhook 100건은 수락 1·429 99, 예약 실패 100건은 모두 422·원격 보상 취소·로컬 rollback, 해당 실패 알림은 수락 6·거절 94였다. 최종 로컬 예약 10행·일정 116행, 연결된 상태 불일치 2개·원격에만 활성 일정 1개가 남았다. 겹침·음수 잔액·완료 수 불일치는 0이다.
+요약 (로컬: `results/2026-10-24-03-idiomatic/summary.json`)은 입력 raw와 기존 계산 스크립트 SHA를 기록한다. 동시 webhook 100건은 수락 1·429 99, 예약 실패 100건은 모두 422·원격 보상 취소·로컬 rollback, 해당 실패 알림은 수락 6·거절 94였다. 최종 로컬 예약 10행·일정 116행, 연결된 상태 불일치 2개·원격에만 활성 일정 1개가 남았다. 겹침·음수 잔액·완료 수 불일치는 0이다.
 
 이는 기존 정상/예상 실패가 유지됐다는 관측이다. 같은 합계가 성능 동등성이나 병목 해결의 증거는 아니다. 보상 실패·역콜백 유실·Slack 429는 해결하지 않았으며 21 PASS를 자동 복구 완성으로 읽지 않는다.
 
@@ -329,7 +330,7 @@ python3 -m unittest discover -s stubs -p 'test_*.py'
 
 ### 보존과 검증
 
-[v5 최종 합성 상태 스냅샷](results/2026-10-24-v5-preserved/manifest.json)에 두 DB 전체 SQL·PG/Slack 상태·명령·SHA를 보존한 뒤 이 Compose 프로젝트만 새 fixture로 기동했다. 기존 실패/유효 원본·실행 당시 소스·다른 랩·보류 초안·root 미커밋 변경을 보존했다.
+v5 최종 합성 상태 스냅샷 (로컬: `results/2026-10-24-v5-preserved/manifest.json`)에 두 DB 전체 SQL·PG/Slack 상태·명령·SHA를 보존한 뒤 이 Compose 프로젝트만 새 fixture로 기동했다. 기존 실패/유효 원본·실행 당시 소스·다른 랩·보류 초안·root 미커밋 변경을 보존했다.
 
 실행 명령(labs/booking-compensation 기준):
 
@@ -349,11 +350,11 @@ python3 -m unittest discover -s stubs -p 'test_*.py'
 ```
 
 - Go 단위 19개(booking 10·schedule 9) 유지, 두 module test/race/vet 통과. Python 더블 4개 통과. Linux arm64 빌드와 Docker 기동 통과. 일정 API 이미지는 기존과 같으며 booking 이미지는 새 파일 배치를 반영한다.
-- [통합 원본](results/2026-10-24-04-workflows/run.jsonl), [HTTP 기록](results/2026-10-24-04-workflows/http.jsonl), [환경·소스/바이너리/image SHA](results/2026-10-24-04-workflows/environment.json), [실행 당시 소스](results/2026-10-24-04-workflows/source/), [완료 상태·원본 SHA](results/2026-10-24-04-workflows/status.json)를 보존했다. state=valid, 21/21 PASS다. checkpoint의 progress와 최종 status의 역할은 구분한다.
+- 통합 원본 (로컬: `results/2026-10-24-04-workflows/run.jsonl`), HTTP 기록 (로컬: `results/2026-10-24-04-workflows/http.jsonl`), 환경·소스/바이너리/image SHA (로컬: `results/2026-10-24-04-workflows/environment.json`), 실행 당시 소스 (로컬: `results/2026-10-24-04-workflows/source/`), 완료 상태·원본 SHA (로컬: `results/2026-10-24-04-workflows/status.json`)를 보존했다. state=valid, 21/21 PASS다. checkpoint의 progress와 최종 status의 역할은 구분한다.
 - Web content:check(공개 글 0)·lint·format:check·15개 test·typecheck·build, Legacy API 1개 test·typecheck 통과. Node 26.9.0이고 API CI Node 22는 미검증이다. 첫 Go 글 draft:true 유지. 배포·운영 접근 없음.
 - 이번에는 별도 host go run을 재실행하지 않았다. 실행 진입점·설정은 그대로이고 새 일반 바이너리를 Docker에서 실행했다. 기존 v5 host 실행 기록은 보존하지만 이번 실행의 증거로 대체하지 않는다. 분산 통합 부하에 race 바이너리를 사용한 것도 아니다.
 
-[계산 요약](results/2026-10-24-04-workflows/summary.json)은 입력 raw·기존 계산기 SHA를 기록한다. webhook 100건은 수락 1/429 99, 예약 실패 100건은 모두 422·원격 보상 취소·로컬 rollback, 실패 알림은 수락 6/거절 94였다. 최종 로컬 10행·일정 116행, 연결 상태 불일치 2개·원격에만 활성 일정 1개가 남고, 활성 겹침·음수 잔액·완료 수 불일치는 0이다.
+계산 요약 (로컬: `results/2026-10-24-04-workflows/summary.json`)은 입력 raw·기존 계산기 SHA를 기록한다. webhook 100건은 수락 1/429 99, 예약 실패 100건은 모두 422·원격 보상 취소·로컬 rollback, 실패 알림은 수락 6/거절 94였다. 최종 로컬 10행·일정 116행, 연결 상태 불일치 2개·원격에만 활성 일정 1개가 남고, 활성 겹침·음수 잔액·완료 수 불일치는 0이다.
 
 최종 보존 목록 348개와 이번 작업 전 목록 432개(일부 중복)가 동일했다. 원본·당시 소스·현재 실행 코드·요약·스냅샷 SHA 검사 539개가 일치했다. 문서 상대 파일 링크·ignore·Git 대상의 바이너리/로컬 env 부재·개인 경로/비밀 정보 패턴을 확인했다. 결과 폴더 합계는 약 3.65MiB이고 Docker 6개는 healthy다. HEAD 66657d1·브랜치·기존 root 변경을 유지했으며 실행 뒤에는 비교 문서와 이 기록만 갱신했다.
 
@@ -382,7 +383,7 @@ postgres_integration_test.go를 추가했다. BOOKING_TEST_DATABASE_URL이 없�
 
 기존 Go top-level 단위 19개를 유지했고 새 통합 parent 1개/하위 상황 3개를 추가했다. booking 11개·schedule 9개 parent 테스트다(기존 설정 subtest 별도). 두 module test/race/vet, 실제 DB 3상황 통과. 해당 3상황은 실제 PG/일정 서버 통합 검증을 대신하지 않는다.
 
-[첫 plain/race/vet 원본](results/2026-10-24-storage-tests/status.json), [당시 소스 SHA·명령](results/2026-10-24-storage-tests/environment.json)을 보존했다. API 21개 실행 이후 fixture helper가 setup 오류를 현재 subtest에 보고하도록 testing.T를 명시적으로 전달하는 보완만 했다. 이 변경은 테스트 파일뿐이며 서비스 코드는 동일하다. 그 뒤 [현재 소스의 plain/race/vet 재확인](results/2026-10-24-storage-tests-02/status.json)·[명령/소스 SHA](results/2026-10-24-storage-tests-02/environment.json)도 모두 통과했다. 첫 통과 자료를 덮어쓰거나 API 회귀를 불필요하게 반복하지 않았다.
+첫 plain/race/vet 원본 (로컬: `results/2026-10-24-storage-tests/status.json`), 당시 소스 SHA·명령 (로컬: `results/2026-10-24-storage-tests/environment.json`)을 보존했다. API 21개 실행 이후 fixture helper가 setup 오류를 현재 subtest에 보고하도록 testing.T를 명시적으로 전달하는 보완만 했다. 이 변경은 테스트 파일뿐이며 서비스 코드는 동일하다. 그 뒤 현재 소스의 plain/race/vet 재확인 (로컬: `results/2026-10-24-storage-tests-02/status.json`)·명령/소스 SHA (로컬: `results/2026-10-24-storage-tests-02/environment.json`)도 모두 통과했다. 첫 통과 자료를 덮어쓰거나 API 회귀를 불필요하게 반복하지 않았다.
 
 재현 명령(booking-api):
 
@@ -396,7 +397,7 @@ go vet ./...
 
 ### 기존 두 서버 회귀와 보존
 
-실제 DB 테스트의 임시 스키마가 남지 않았음을 확인하고 [v6 최종 상태](results/2026-10-24-v6-preserved/manifest.json)에 두 DB 전체 SQL·PG/Slack 상태·정리 조회/명령/SHA를 보존했다. 그 뒤 이 Compose 프로젝트만 새 fixture로 재구성했다.
+실제 DB 테스트의 임시 스키마가 남지 않았음을 확인하고 v6 최종 상태 (로컬: `results/2026-10-24-v6-preserved/manifest.json`)에 두 DB 전체 SQL·PG/Slack 상태·정리 조회/명령/SHA를 보존했다. 그 뒤 이 Compose 프로젝트만 새 fixture로 재구성했다.
 
 ```sh
 # labs/booking-compensation에서, 기존 합성 상태 보존 후
@@ -408,9 +409,9 @@ python3 scripts/summarize.py 2026-10-24-05-storage
 python3 -m unittest discover -s stubs -p 'test_*.py'
 ```
 
-- Linux arm64 빌드·Docker 기동, [HTTP/독립 DB 21개 판정](results/2026-10-24-05-storage/run.jsonl) 전부 통과. [완료 상태/원본 SHA](results/2026-10-24-05-storage/status.json)는 valid·21/21이고 [환경/실행 소스/바이너리/image SHA](results/2026-10-24-05-storage/environment.json), [당시 소스](results/2026-10-24-05-storage/source/), [HTTP 기록](results/2026-10-24-05-storage/http.jsonl)을 보존한다. 당시 소스의 테스트 helper는 첫 버전이며 현재 최종 테스트 파일은 위 두 번째 Go 검사에 연결된다. 실행 서비스 소스는 변하지 않았다.
+- Linux arm64 빌드·Docker 기동, HTTP/독립 DB 21개 판정 (로컬: `results/2026-10-24-05-storage/run.jsonl`) 전부 통과. 완료 상태/원본 SHA (로컬: `results/2026-10-24-05-storage/status.json`)는 valid·21/21이고 환경/실행 소스/바이너리/image SHA (로컬: `results/2026-10-24-05-storage/environment.json`), 당시 소스 (로컬: `results/2026-10-24-05-storage/source/`), HTTP 기록 (로컬: `results/2026-10-24-05-storage/http.jsonl`)을 보존한다. 당시 소스의 테스트 helper는 첫 버전이며 현재 최종 테스트 파일은 위 두 번째 Go 검사에 연결된다. 실행 서비스 소스는 변하지 않았다.
 - Python 외부 더블 4개 통과. Web content:check(공개 글 0)·lint·format:check·15개 test·typecheck·build, Legacy API 1개 test·typecheck 통과. Node 26.9.0이고 API CI Node 22·이번 브라우저·별도 host go run은 미검증이다. 첫 Go 글 draft:true 유지.
-- [계산 요약](results/2026-10-24-05-storage/summary.json)은 raw/기존 계산기 SHA를 포함한다. webhook 100건은 수락 1/429 99, 예약 실패 100건은 모두 422·원격 보상 취소·로컬 rollback, 실패 알림 수락 6/거절 94였다. 최종 로컬 예약 10행·일정 116행, 연결 상태 불일치 2개·원격에만 활성 일정 1개가 남았다. 활성 겹침·음수 잔액·완료 수 불일치는 0이다. 이는 기존 정상/예상 실패가 유지됐다는 관측이며 성능 향상·자동 복구 완성의 증거가 아니다.
+- 계산 요약 (로컬: `results/2026-10-24-05-storage/summary.json`)은 raw/기존 계산기 SHA를 포함한다. webhook 100건은 수락 1/429 99, 예약 실패 100건은 모두 422·원격 보상 취소·로컬 rollback, 실패 알림 수락 6/거절 94였다. 최종 로컬 예약 10행·일정 116행, 연결 상태 불일치 2개·원격에만 활성 일정 1개가 남았다. 활성 겹침·음수 잔액·완료 수 불일치는 0이다. 이는 기존 정상/예상 실패가 유지됐다는 관측이며 성능 향상·자동 복구 완성의 증거가 아니다.
 
 최종 검사에서 기존 보존 목록 348개와 이번 작업 전 목록 519개(일부 중복)가 동일했다. 원본·소스 사본·현재 서비스 코드·첫/재확인 Go 검사·요약·스냅샷 SHA 검사 695개가 일치했다. 최종 Go 검사 원본은 현재 테스트 소스와 연결되고 API 판정 원본은 당시 테스트 소스와 연결된다. 문서 상대 파일 링크·gofmt·ignore·개인 경로/비밀 정보 패턴과 Git 대상의 바이너리/로컬 env 부재를 확인했다. 결과 합계는 약 4.53MiB다. 추가 DB 검사 뒤 다시 조회한 임시 스키마 목록은 비었고 Docker 6개는 healthy다. HEAD 66657d1·브랜치·기존 root 변경과 보류 초안을 유지했다.
 
@@ -443,7 +444,7 @@ BOOKING_TEST_DATABASE_URL='postgres://lab@127.0.0.1:15490/bookings?sslmode=disab
 GOCACHE=/private/tmp/booking-compensation-go-cache go vet ./...
 ```
 
-두 module test/race/vet 모두 통과했다. booking의 실제 DB 3상황도 skip하지 않고 양쪽 모드에서 실행했다. 임시 스키마가 남지 않았음을 조회하고 [v7 최종 합성 상태](results/2026-10-24-v7-preserved/manifest.json)에 두 DB 전체 SQL·PG/Slack 상태·명령·SHA를 보존한 뒤 이 Compose 프로젝트만 새 fixture로 준비했다.
+두 module test/race/vet 모두 통과했다. booking의 실제 DB 3상황도 skip하지 않고 양쪽 모드에서 실행했다. 임시 스키마가 남지 않았음을 조회하고 v7 최종 합성 상태 (로컬: `results/2026-10-24-v7-preserved/manifest.json`)에 두 DB 전체 SQL·PG/Slack 상태·명령·SHA를 보존한 뒤 이 Compose 프로젝트만 새 fixture로 준비했다.
 
 ```sh
 # labs/booking-compensation에서; 기존 합성 상태 보존 후
@@ -455,11 +456,11 @@ python3 scripts/summarize.py 2026-10-24-06-schedule
 python3 -m unittest discover -s stubs -p 'test_*.py'
 ```
 
-Linux arm64 바이너리·Docker 빌드/기동과 [기존 21개 HTTP/독립 DB 판정](results/2026-10-24-06-schedule/run.jsonl) 모두 통과했다. [완료 상태·원본 SHA](results/2026-10-24-06-schedule/status.json)는 valid·21/21이고, [환경/명령/실행 소스/바이너리/image SHA](results/2026-10-24-06-schedule/environment.json), [당시 소스](results/2026-10-24-06-schedule/source/), [HTTP 기록](results/2026-10-24-06-schedule/http.jsonl)을 보존했다. booking 이미지는 이전과 같고 schedule 이미지만 새 배치를 반영했다. 통합 부하는 일반 바이너리이며 race 바이너리 부하는 아니다.
+Linux arm64 바이너리·Docker 빌드/기동과 기존 21개 HTTP/독립 DB 판정 (로컬: `results/2026-10-24-06-schedule/run.jsonl`) 모두 통과했다. 완료 상태·원본 SHA (로컬: `results/2026-10-24-06-schedule/status.json`)는 valid·21/21이고, 환경/명령/실행 소스/바이너리/image SHA (로컬: `results/2026-10-24-06-schedule/environment.json`), 당시 소스 (로컬: `results/2026-10-24-06-schedule/source/`), HTTP 기록 (로컬: `results/2026-10-24-06-schedule/http.jsonl`)을 보존했다. booking 이미지는 이전과 같고 schedule 이미지만 새 배치를 반영했다. 통합 부하는 일반 바이너리이며 race 바이너리 부하는 아니다.
 
 Python 더블 4개, Web content:check(공개 글 0)·lint·format:check·15개 test·typecheck·build, Legacy API 1개 test·typecheck도 통과했다. Node 26.9.0이며 API CI Node 22·이번 브라우저·별도 host go run은 미검증이다. 첫 Go 글 draft:true와 기존 공개/배포 경계를 유지한다.
 
-[요약](results/2026-10-24-06-schedule/summary.json)은 원본과 기존 계산기 SHA를 기록한다. webhook 100건은 수락 1/429 99, 예약 실패 100건은 모두 422·원격 보상 취소·로컬 rollback, 실패 알림 수락 6/거절 94였다. 최종 로컬 예약 10행·일정 116행, 연결 상태 불일치 2개·원격에만 활성 일정 1개가 남고 활성 겹침·음수 잔액·완료 수 불일치는 0이다. 기존 정상/예상 실패가 유지된 관측이며 성능 향상·자동 복구 완성을 뜻하지 않는다.
+요약 (로컬: `results/2026-10-24-06-schedule/summary.json`)은 원본과 기존 계산기 SHA를 기록한다. webhook 100건은 수락 1/429 99, 예약 실패 100건은 모두 422·원격 보상 취소·로컬 rollback, 실패 알림 수락 6/거절 94였다. 최종 로컬 예약 10행·일정 116행, 연결 상태 불일치 2개·원격에만 활성 일정 1개가 남고 활성 겹침·음수 잔액·완료 수 불일치는 0이다. 기존 정상/예상 실패가 유지된 관측이며 성능 향상·자동 복구 완성을 뜻하지 않는다.
 
 최종 보존 목록 348개와 이번 작업 전 목록 636개(일부 중복)가 동일했다. 후자는 booking-api 전체 소스도 포함한다. 원본·당시 소스·현재 실행 코드·요약·스냅샷 SHA 검사 755개가 일치했고 실행 후 변경은 비교 문서와 이 기록뿐이다. 문서 상대 파일 링크·gofmt·ignore·Git 대상의 바이너리/로컬 env 부재·개인 경로/비밀 정보 패턴을 확인했다. 결과 합계는 약 5.33MiB다. Docker 6개는 healthy이고 booking 검사 임시 스키마 목록은 비었다. HEAD 66657d1·브랜치·기존 root 변경과 보류 초안을 유지했다.
 

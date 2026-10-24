@@ -1,8 +1,9 @@
 # Research Record — concurrency-integrity
 
+> `results/`는 Git 추적에서 제외한 로컬 실행 증거다. 아래 경로는 기존 로컬 자료를 가리키며 새 clone에는 포함되지 않는다. 재실행 수치는 달라질 수 있어 원본은 보존한다. 과거 기록의 커밋 ID는 이력 정리 전 식별자다.
 - 계획: [PLAN.md](PLAN.md) v3. 2026-10-20 사용자가 계획 정리·로컬 커밋 후 P0 진행 승인.
 - 단계: Stage B/C의 P0 완료. P1 이후 미승인·미실행. 글 작성 요청 없음.
-- 코드·환경: [environment.json](results/2026-10-20-p0/environment.json)의 파일 hash·도구·명령·결과 상태 참조. 계획 커밋은 `013a356`, 실행 당시 P0 구현은 미커밋이었으며 해당 코드 상태는 파일 hash로 확인한다.
+- 코드·환경: environment.json (로컬: `results/2026-10-20-p0/environment.json`)의 파일 hash·도구·명령·결과 상태 참조. 계획 커밋은 `013a356`, 실행 당시 P0 구현은 미커밋이었으며 해당 코드 상태는 파일 hash로 확인한다.
 - 예산: 원래 3시간·2 CPU·1GiB·50MiB 상한 안에서 수행. 커밋 이후 기록까지의 경과 시간과 산출물 크기는 environment.json 참조. 순수 구현 시간은 별도 계측하지 않음.
 
 ## Research Brief — 핵심 이해
@@ -17,10 +18,10 @@
 
 | 단위 | 상태 | 원본 | 판정 |
 |---|---|---|---|
-| P0 통합 | 유효 완료 | [integration.jsonl](results/2026-10-20-p0/integration.jsonl) | 부모 포함 24 pass, 패키지 pass·종료 코드 0 |
-| P0 Race | 유효 완료 | [race.jsonl](results/2026-10-20-p0/race.jsonl) | 동일 사례 24 pass, Race 보고 없음·종료 코드 0 |
-| P0 vet | 유효 완료 | [환경·검사 상태](results/2026-10-20-p0/environment.json) | 종료 코드 0, stdout/stderr 비어 있음 |
-| P0 종료 전 DB | 유효 완료 | [cleanup.json](results/2026-10-20-p0/cleanup.json) | 자원·구간·테스트 세션 0, 식별 표식 복원 |
+| P0 통합 | 유효 완료 | integration.jsonl (로컬: `results/2026-10-20-p0/integration.jsonl`) | 부모 포함 24 pass, 패키지 pass·종료 코드 0 |
+| P0 Race | 유효 완료 | race.jsonl (로컬: `results/2026-10-20-p0/race.jsonl`) | 동일 사례 24 pass, Race 보고 없음·종료 코드 0 |
+| P0 vet | 유효 완료 | 환경·검사 상태 (로컬: `results/2026-10-20-p0/environment.json`) | 종료 코드 0, stdout/stderr 비어 있음 |
+| P0 종료 전 DB | 유효 완료 | cleanup.json (로컬: `results/2026-10-20-p0/cleanup.json`) | 자원·구간·테스트 세션 0, 식별 표식 복원 |
 | P1 / P2 | 미승인·미실행 | 없음 | 실패 재현·수정 전후 비교 없음 |
 
 기본 URL 단위 검사는 최초 구현 시 통과했다. gofmt와 테스트 보강 뒤 위 통합·Race 검사가 해당 단위 검사도 다시 포함했다. 최초 의존성 준비는 샌드박스의 Go 캐시 쓰기 제한 및 누락된 모듈로 중단됐고, 캐시 위치를 분리하고 필요한 의존성을 준비한 뒤 완료했다. 이를 재현 대상의 실패로 집계하지 않는다.
