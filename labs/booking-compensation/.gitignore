@@ -1,0 +1,6 @@
+/bin/
+__pycache__/
+.env
+.env.*
+!.env.example
+!/results/**/*.log
