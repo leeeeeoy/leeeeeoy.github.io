@@ -15,7 +15,9 @@ leeeeeoy/
 │   ├── lab/                 # 공개 기술 글(Markdown)
 │   └── writing/             # 공개 개인 글(Markdown)
 ├── labs/
-│   └── go-load-test/        # 독립 Go HTTP 실험·원본 결과·재현 문서
+│   ├── go-load-test/        # 독립 Go HTTP 실험·원본 결과·재현 문서
+│   ├── concurrency-integrity/ # 단일 DB 판정기 P0·증거
+│   └── booking-compensation/ # 독립 Go 예약/일정 API·각 DB·PG/Slack Docker 더블
 ├── docs/
 │   ├── README.md
 │   ├── guides/             # 현재 유효한 상세 설계·운영 기준
