@@ -113,3 +113,17 @@
 - main 병합/운영 배포는 아직 승인되지 않았다. Production secret 등록과
   최초 API Worker 준비가 필요한 상태이며 상세 릴리스/복구 경계는
   [API README](../../../apps/api/README.md)를 따른다.
+
+### Preview 실제 검증 결과
+
+- Web [CI 40154285924](https://github.com/leeeeeoy/leeeeeoy.github.io/actions/runs/40154285924): Node 26 QA·배포 성공.
+- API [CI 40154285927](https://github.com/leeeeeoy/leeeeeoy.github.io/actions/runs/40154285927): Node 22 QA 성공, Worker 업로드 후 Zone route 접근 권한 오류로 배포 실패. 권한을 확인한 로컬 Wrangler로 **Preview만** 배포 완료. CI 실패를 통과로 처리하지 않는다.
+- 인증 브라우저에서 실제 Preview의 320/390/1440px, 한·영·두 테마,
+  방문 합계 0·0, 경력 키보드 펼치기·새로고침, Lab/Writing/Notes,
+  기존 R2 이미지 3개 로딩 확인. 비인증 웹/API는 Access 차단 유지.
+- 운영 웹 버전 `e13bde78-3ace-43dc-a36b-e6f74e29ac77` 유지.
+  Preview와 운영 D1 모두 집계/식별 키 0건, 운영 쓰기 없음.
+- 현재 계정에서 운영 API Worker 조회는 10007(없음)이다. 운영 병합 전
+  API 토큰의 대상 Zone 접근·Workers Routes 편집 권한을 해결하고,
+  최초 운영 Worker와 `VISIT_HASH_SECRET`를 별도 승인 범위에서 준비해야 한다.
+  main은 변경하지 않았으며 운영 집계 실동작은 아직 미검증이다.
