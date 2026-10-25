@@ -94,8 +94,10 @@ Before approving a main merge, provision/verify the production Worker and stage 
 random `VISIT_HASH_SECRET` (32+ characters) securely, then verify it is attached to
 the deployed version. Never reuse the local test secret. Secret setup may publish
 a version and belongs to the separately approved production release. Verify the
-GitHub `CLOUDFLARE_API_TOKEN` can publish Workers and edit the exact zone route;
-`CLOUDFLARE_FRONTEND_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` remain unchanged.
+GitHub `CLOUDFLARE_FRONTEND_API_TOKEN` is shared by Web and API deployment and
+must publish both Workers and edit the exact zone route. Its existing Secret name
+and `CLOUDFLARE_ACCOUNT_ID` are retained; `CLOUDFLARE_API_TOKEN` is no longer
+referenced by these workflows.
 The production D1 counter schema is already applied; do not reset it or re-import
 Preview data. Deployment SQL is applied manually after backup, never implicitly
 by CI. A main merge triggers both workflows, so obtain release approval first.
