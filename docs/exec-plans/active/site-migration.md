@@ -127,3 +127,41 @@
   API 토큰의 대상 Zone 접근·Workers Routes 편집 권한을 해결하고,
   최초 운영 Worker와 `VISIT_HASH_SECRET`를 별도 승인 범위에서 준비해야 한다.
   main은 변경하지 않았으며 운영 집계 실동작은 아직 미검증이다.
+
+### 공용 토큰 Preview 검증 및 develop PR 준비
+
+- Web·API가 기존 `CLOUDFLARE_FRONTEND_API_TOKEN` 하나를 참조한다.
+  Secret 값/권한은 변경하지 않았다. 이전 API Zone route 권한 오류는
+  공용 토큰으로 실제 CI 배포에 성공해 해결을 확인했다.
+- 검증 커밋 `ee348ec`: [Web CI 40155988105](https://github.com/leeeeeoy/leeeeeoy.github.io/actions/runs/40155988105),
+  [API CI 40155988100](https://github.com/leeeeeoy/leeeeeoy.github.io/actions/runs/40155988100)
+  모두 QA·Preview 배포 성공. Web Node 26, API Node 22에서 검사했다.
+- 구조도에 R2 직접 요청과 방문 집계 Worker API → D1 경로를 나눠 표시했다.
+  배포 자산과 실제 구조도/방문 합계, 320px 가로 넘침 없음,
+  비인증 웹/API Access 차단을 확인했다.
+- develop을 변경하지 않고 작업 브랜치에 한정한 임시 Preview 트리거로
+  검증했으며, PR 최종 변경에서는 이 트리거를 제거한다.
+  main=Production / develop=Preview / PR=검사만 정책을 유지한다.
+- 운영 배포·main/develop 병합·`VISIT_HASH_SECRET` 등록은 수행하지 않았다.
+  운영 Secret은 사용자가 운영 배포 시 등록할 예정이며 운영 실동작은 미검증이다.
+
+### 선형 이력 유지와 운영 릴리스 승인
+
+- 2026-10-25 사용자 승인: PR #6을 develop에 squash merge한 뒤,
+  검증된 origin/develop을 main에 fast-forward하고 운영 배포한다.
+- 시작 시 main `0d549c8`, develop `44a09aa`는 22개 커밋 차이의 선형 관계다.
+  이미 공개된 develop을 main 위치로 되감지 않으며 기존 이력을 보존한다.
+  로컬·원격 main/develop은 최종 릴리스 커밋으로 일치시킨다.
+- Git 전체 bundle과 refs를 비공개 경로에 백업하고 복구 가능성을 확인했다.
+  D1 전체 export는 자동 승인 검토가 데이터 반출 목적지 승인 부족으로 거절해
+  실행하지 않았다. 이번 릴리스는 D1 스키마·기존 데이터 변경이 없으며
+  이전 비공개 백업은 보존한다.
+- 독립 worktree의 npm ci·웹 18개/API 13개 검사와 타입·빌드가 통과했다.
+  설치 audit에서 실제 CORS 경로에 관련된 Hono 취약점이 확인되어
+  동일 4.x 수정 버전 4.13.13으로 최소 업데이트했다. API 13개 검사와
+  typecheck 통과, Web/API 운영 의존성 audit는 0건이다. 개발 도구 의존성의
+  audit 경고(Web 6건, API 20건)는 별도 정리가 필요하며 이번에 일괄 업데이트하지 않았다.
+  [공식 CORS 보안 공지](https://github.com/honojs/hono/security/advisories/GHSA-8j4g-w8fx-2239).
+- 운영 VISIT_HASH_SECRET은 사용자가 배포 후 직접 등록할 예정이다.
+  별도 값을 임의 생성하거나 Preview/로컬 비밀키를 운영에 복사하지 않는다.
+  미등록 시 방문 등록은 503으로 거부하며 운영 검증 결과와 구분한다.

@@ -156,6 +156,11 @@ test('language links, metadata, and rendered pages work in both languages', asyn
       assert.ok(notes.includes(translations[language].ui.notesEmpty))
       assert.ok(missingNote.includes(translations[language].ui.noteMissing))
       assert.ok(footer.includes(translations[language].ui.architectureLegacy))
+      assert.ok(footer.includes(translations[language].ui.visitApi))
+      assert.ok(footer.includes(translations[language].ui.browserRequests))
+      assert.match(footer, /Cloudflare D1/)
+      assert.match(footer, /\/api\/visits/)
+      assert.ok(footer.includes(translations[language].ui.architectureAlt))
       assert.ok(
         header.includes(
           `href="/portfolio/${language === 'en' ? '?lang=en' : ''}"`,

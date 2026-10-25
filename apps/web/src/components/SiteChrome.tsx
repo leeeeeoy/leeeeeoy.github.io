@@ -255,11 +255,29 @@ export function SiteFooter({
             <span>{ui.staticContent}</span>
           </div>
           <span className="architecture-arrow" aria-hidden="true">
-            {ui.r2Reference}
+            {ui.browserRequests}
           </span>
-          <div className="architecture-node">
-            <strong>Cloudflare R2</strong>
-            <span>{ui.publicImages}</span>
+          <div className="architecture-branches">
+            <div className="architecture-branch">
+              <div className="architecture-node">
+                <strong>Cloudflare R2</strong>
+                <span>{ui.publicImages}</span>
+              </div>
+            </div>
+            <div className="architecture-branch">
+              <div className="architecture-node architecture-node--primary">
+                <strong>{ui.visitApi}</strong>
+                <span>Cloudflare Workers · Hono</span>
+                <span>/api/visits</span>
+              </div>
+              <span className="architecture-arrow" aria-hidden="true">
+                ↓
+              </span>
+              <div className="architecture-node">
+                <strong>Cloudflare D1</strong>
+                <span>{ui.storedVisits}</span>
+              </div>
+            </div>
           </div>
         </div>
         <div className="architecture-ci" aria-label={ui.deploymentFlow}>
