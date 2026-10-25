@@ -127,3 +127,20 @@
   API 토큰의 대상 Zone 접근·Workers Routes 편집 권한을 해결하고,
   최초 운영 Worker와 `VISIT_HASH_SECRET`를 별도 승인 범위에서 준비해야 한다.
   main은 변경하지 않았으며 운영 집계 실동작은 아직 미검증이다.
+
+### 공용 토큰 Preview 검증 및 develop PR 준비
+
+- Web·API가 기존 `CLOUDFLARE_FRONTEND_API_TOKEN` 하나를 참조한다.
+  Secret 값/권한은 변경하지 않았다. 이전 API Zone route 권한 오류는
+  공용 토큰으로 실제 CI 배포에 성공해 해결을 확인했다.
+- 검증 커밋 `ee348ec`: [Web CI 40155988105](https://github.com/leeeeeoy/leeeeeoy.github.io/actions/runs/40155988105),
+  [API CI 40155988100](https://github.com/leeeeeoy/leeeeeoy.github.io/actions/runs/40155988100)
+  모두 QA·Preview 배포 성공. Web Node 26, API Node 22에서 검사했다.
+- 구조도에 R2 직접 요청과 방문 집계 Worker API → D1 경로를 나눠 표시했다.
+  배포 자산과 실제 구조도/방문 합계, 320px 가로 넘침 없음,
+  비인증 웹/API Access 차단을 확인했다.
+- develop을 변경하지 않고 작업 브랜치에 한정한 임시 Preview 트리거로
+  검증했으며, PR 최종 변경에서는 이 트리거를 제거한다.
+  main=Production / develop=Preview / PR=검사만 정책을 유지한다.
+- 운영 배포·main/develop 병합·`VISIT_HASH_SECRET` 등록은 수행하지 않았다.
+  운영 Secret은 사용자가 운영 배포 시 등록할 예정이며 운영 실동작은 미검증이다.
