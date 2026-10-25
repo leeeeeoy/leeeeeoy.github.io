@@ -113,6 +113,11 @@ GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 - `main`: Production
 - `develop`: Web·API Preview (방문 합계는 격리 D1 읽기 전용)
 
+작업 브랜치는 `develop`에 squash merge하고, 검증된 `origin/develop`을 `main`에
+`git merge --ff-only`로 승격합니다. 작업 전 로컬 main/develop도 각 원격 브랜치로
+fast-forward 동기화하며, develop이 main보다 앞선 상태를 되돌리지는 않습니다.
+릴리스가 끝나면 로컬·원격 main/develop이 같은 커밋을 가리키도록 맞춥니다.
+
 필요한 GitHub Secrets:
 
 - `CLOUDFLARE_FRONTEND_API_TOKEN` (Web·API 공용: Workers Scripts Write, 해당 Zone의 Workers Routes Write·Zone Read; 기존 Secret 이름 유지)
