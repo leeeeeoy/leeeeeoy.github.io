@@ -10,7 +10,7 @@ Phase 3에서 Markdown 기반 Lab·Writing 목록/상세와 빌드 검증을 구
 ```text
 leeeeeoy/
 ├── apps/web/          # 기존 React + Vite 정적 SPA
-├── apps/legacy-api/   # 기존 Worker/Hono/D1/R2 보존
+├── apps/api/   # Hono 방문 집계 API · 기존 D1/R2 보존
 ├── content/lab/       # 공개 기술 글, Markdown 빌드 입력
 ├── content/writing/   # 공개 개인 글, Markdown 빌드 입력
 ├── labs/              # 독립 Go HTTP·DB 정합성·분산 결제 보상 실험
@@ -21,16 +21,16 @@ leeeeeoy/
 
 ## Frontend
 
-| 항목 | 내용 |
-|---|---|
-| UI | React 19 + TypeScript |
-| Build | Vite 7 |
-| 개발 환경 | Node.js 26.x (`apps/web/.nvmrc`) |
+| 항목           | 내용                                                |
+| -------------- | --------------------------------------------------- |
+| UI             | React 19 + TypeScript                               |
+| Build          | Vite 7                                              |
+| 개발 환경      | Node.js 26.x (`apps/web/.nvmrc`)                    |
 | 코드 검사·포맷 | ESLint + TypeScript/React Hooks 권장 규칙, Prettier |
-| 콘텐츠 | Portfolio/UI JSON + `content/` Markdown |
-| 스타일 | HTML/CSS 중심, 외부 UI·애니메이션 라이브러리 없음 |
-| 이미지 | Cloudflare R2 |
-| 배포 | Cloudflare Workers Static Assets |
+| 콘텐츠         | Portfolio/UI JSON + `content/` Markdown             |
+| 스타일         | HTML/CSS 중심, 외부 UI·애니메이션 라이브러리 없음   |
+| 이미지         | Cloudflare R2                                       |
+| 배포           | Cloudflare Workers Static Assets                    |
 
 ```bash
 cd apps/web
@@ -84,21 +84,21 @@ JavaScript 실행 전의 검색·공유 미리보기 HTML은 공통 한국어 �
 
 모든 `labs/**/results/`는 로컬 실행 자료로 보존하고 Git 추적에서 제외합니다. 코드·실행 절차·Research Record의 요약은 유지합니다. 새 clone에는 과거 측정 원본이 없으며, 재실행 결과는 환경과 동시성에 따라 달라질 수 있습니다.
 
-## Backend
+## API
 
 기존 Cloudflare Workers + Hono API와 D1/R2 바인딩을 보존합니다. Backend CI의 Node.js는 22이며 Frontend Node 26과 독립적으로 검사합니다.
-현재 Frontend는 공개 콘텐츠를 빌드에 포함하므로 API를 호출하지 않습니다.
+경력·글 콘텐츠는 빌드에 포함합니다. 방문 합계만 기존 Worker/D1의 `/api/visits`를 조회하고, 새 분석 동의가 있을 때 등록합니다. [방문 집계 개발·개인정보·릴리스 계약](apps/api/README.md)을 참고하세요.
 
-| 항목 | 내용 |
-|---|---|
-| Runtime | Cloudflare Workers |
-| Framework | Hono |
-| Database | Cloudflare D1 |
-| Storage | Cloudflare R2 |
-| Deploy | Wrangler |
+| 항목      | 내용               |
+| --------- | ------------------ |
+| Runtime   | Cloudflare Workers |
+| Framework | Hono               |
+| Database  | Cloudflare D1      |
+| Storage   | Cloudflare R2      |
+| Deploy    | Wrangler           |
 
 ```bash
-cd apps/legacy-api
+cd apps/api
 npm ci
 npm run typecheck
 npm test
@@ -109,14 +109,14 @@ npm test
 GitHub Actions는 변경된 영역만 검사하고 배포합니다.
 
 - `apps/web/**`, `content/lab/**`, `content/writing/**`: 웹 검사와 배포 대상. 콘텐츠 검증은 Vite build에서 수행합니다.
-- `apps/legacy-api/**`: test, typecheck 후 Workers 배포
+- `apps/api/**`: test, typecheck 후 Workers 배포
 - `main`: Production
-- `develop`: Frontend Preview
+- `develop`: Web·API Preview (방문 합계는 격리 D1 읽기 전용)
 
 필요한 GitHub Secrets:
 
 - `CLOUDFLARE_FRONTEND_API_TOKEN` (Frontend: Workers Scripts Write, 해당 Zone의 Workers Routes Write·Zone Read)
-- `CLOUDFLARE_API_TOKEN` (기존 Backend)
+- `CLOUDFLARE_API_TOKEN` (API Worker·route 배포)
 - `CLOUDFLARE_ACCOUNT_ID`
 
 ## Cloudflare
@@ -155,6 +155,6 @@ node scripts/check-deployment.mjs https://preview-portfolio.leeeeeoy.xyz --prote
 ## 로컬 이전과 배포 승인
 
 현재 브랜치는 `migration/phase1-monorepo`이며 기존 `main`/`develop`과 origin URL은 유지합니다. 이번 단계에서 push·배포·Cloudflare 변경은 하지 않습니다.
-문서·템플릿·Lab-only 변경은 앱 workflow를 실행하지 않습니다. PR은 검사만, main push는 Production, develop push는 웹 Preview라는 기존 정책을 유지합니다.
+문서·템플릿·Lab-only 변경은 앱 workflow를 실행하지 않습니다. PR은 검사만, main push는 Production, develop push는 웹·API Preview라는 기존 정책을 유지합니다.
 구조 이전 커밋에는 웹과 API 경로 및 두 workflow 변경이 모두 있으므로 향후 main에 반영하면 두 배포가 대상이 됩니다. API 동반 배포 승인 또는 별도 제한 방침 없이 main에 반영하지 않습니다.
 비공개 원본·로컬 설정은 공개 트리 밖에 백업하며 `resume/`, `.claude/`, `.wrangler/`, 비밀파일은 새 추적 목록에서 제외합니다.

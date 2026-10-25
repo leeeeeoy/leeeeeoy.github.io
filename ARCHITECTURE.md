@@ -10,7 +10,7 @@
 leeeeeoy/
 ├── apps/
 │   ├── web/                 # 기존 React 19 + Vite + TS
-│   └── legacy-api/          # 기존 Worker + Hono, 보존
+│   └── api/                 # Hono 방문 집계 API, 기존 Worker/D1 재사용
 ├── content/
 │   ├── lab/                 # 공개 기술 글(Markdown)
 │   └── writing/             # 공개 개인 글(Markdown)
@@ -33,22 +33,22 @@ leeeeeoy/
 ## 의존 관계
 
 - `apps/web`은 정적 경력/UI JSON과 빌드 시 검증한 Markdown으로 기본 페이지·글 상세·Notes 호환 화면을 제공한다. `content/lab`에는 첫 Go 실험 초안(draft:true)이 있고 공개 글은 0개라 목록은 비어 있다. Writing도 공개 글이 없다. Vite virtual module에는 공개 글만 포함하며 YAML 파서는 빌드 전용이다. 이는 초기 HTML 생성(SSG)을 뜻하지 않는다. **런타임 콘텐츠 API 추가 금지**.
-- `apps/web` → 기존 Cloudflare R2의 공개 이미지 URL 사용. 인증/백엔드 호출 불필요.
-- `apps/legacy-api` → **기존 사용처와 리소스가 확인될 때까지 보존**. 웹에서 신규 의존하지 않는다.
+- `apps/web` → 기존 Cloudflare R2의 공개 이미지 URL 사용. 경력·글은 정적 콘텐츠다. Footer 방문 합계만 같은 출처의 `/api/visits`를 사용한다. 집계는 새 분석 동의가 있을 때만 등록하며 Preview는 격리 D1의 합계만 읽고 방문을 등록하지 않는다.
+- `apps/api` → 기존 Worker/D1을 방문 집계에 재사용한다(2026-10-25 사용자 승인). 기존 경력 API·R2·표는 보존한다. [집계 계약 및 릴리스 경계](apps/api/README.md)를 따른다. 원격 스키마 적용과 Worker 배포는 별도 상태로 보고한다.
 - `labs/*` → 각 실험별 독립 실행. `apps/web`에서 Lab 코드를 import하지 않는다.
 - 실험 코드는 GitHub의 파일/커밋으로 참조한다. `labs/**/results/` 원본은 로컬에 보존하고 Git에서 제외하며, 공개 글의 표·그래프는 검토 후 별도로 선별한다. 웹 빌드에서 Go 실험을 실행하지 않는다.
 
 ## 현재 웹 라우트
 
-| 경로 | 역할 |
-|---|---|
-| `/` | 간단 소개와 세 영역으로 가는 링크. 경력·프로젝트 중복 표시 없음 |
-| `/portfolio/` | 기존 Portfolio 본문 전체와 경력/프로젝트/기술 섹션 메뉴 |
-| `/lab/` | 기술 학습·실험 공간의 소개와 공개 글 목록/빈 상태 |
-| `/writing/` | 일상·생각·회고 공간의 소개와 공개 글 목록/빈 상태 |
-| `/lab/:slug/`, `/writing/:slug/` | Markdown 상세·없는 글 안내와 목록 복귀 |
-| `/notes/`, `/notes/:slug/` | 기존 목록·상세/없는 글 화면 유지, Lab 안내 제공 |
-| 그 밖의 경로 | 페이지 없음 UI. SPA fallback이므로 HTTP 404 보장은 아님 |
+| 경로                             | 역할                                                            |
+| -------------------------------- | --------------------------------------------------------------- |
+| `/`                              | 간단 소개와 세 영역으로 가는 링크. 경력·프로젝트 중복 표시 없음 |
+| `/portfolio/`                    | 기존 Portfolio 본문 전체와 경력/프로젝트/기술 섹션 메뉴         |
+| `/lab/`                          | 기술 학습·실험 공간의 소개와 공개 글 목록/빈 상태               |
+| `/writing/`                      | 일상·생각·회고 공간의 소개와 공개 글 목록/빈 상태               |
+| `/lab/:slug/`, `/writing/:slug/` | Markdown 상세·없는 글 안내와 목록 복귀                          |
+| `/notes/`, `/notes/:slug/`       | 기존 목록·상세/없는 글 화면 유지, Lab 안내 제공                 |
+| 그 밖의 경로                     | 페이지 없음 UI. SPA fallback이므로 HTTP 404 보장은 아님         |
 
 일반 anchor와 pathname 분기로 이동하며 React Router는 추가하지 않았다. 끝의 slash가 없는 기본 경로도 지원한다. `?lang=en`과 테마·동의 저장을 유지한다. 옛 `/#experience`, `/#projects`, `/#skills`는 첫 진입과 같은 문서의 hashchange 모두 쿼리·해시를 보존해 브라우저에서 `/portfolio/`로 replace한다. 예전 저장된 섹션 이동도 이어받는다. 서버 301/DNS/Access 정책을 변경한 것은 아니다.
 

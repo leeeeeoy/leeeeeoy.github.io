@@ -17,16 +17,16 @@ npm run build
 
 Node 버전은 `apps/web/.nvmrc`(26)과 일치시킨다. 명령의 원본은 `apps/web/package.json`이다. root 통합 npm 명령은 없다.
 
-### Legacy API (`apps/legacy-api/`, CI Node 22)
+### API (`apps/api/`, CI Node 22)
 
 ```bash
-cd apps/legacy-api
+cd apps/api
 npm ci
 npm test
 npm run typecheck
 ```
 
-API는 웹의 Node 버전을 강제하지 않는다. 다른 Node에서 검사하면 해당 결과와 CI Node 22 미검증 여부를 분리해 보고한다. 현재 API 테스트 1개는 DB 경로·운영 D1/R2를 검증하지 않는다.
+API는 웹의 Node 버전을 강제하지 않는다. 다른 Node에서 검사하면 해당 결과와 CI Node 22 미검증 여부를 분리해 보고한다. API에는 기존 루트 테스트와 실제 로컬 D1의 방문 집계 테스트가 있다. 동시성·롤백·동의·IP/쿠키 중복·자정/시간 경계를 검사하지만 운영 Cloudflare 경로·헤더·R2를 검증한 결과는 아니다.
 
 ### Go Lab (독립 신규 실험; 해당 실험만)
 
@@ -44,7 +44,7 @@ go test -race ./...  # race 분석이 가능한 플랫폼/설정에서
 - 웹 라우트: `/`, `/portfolio/`, `/lab/`, `/writing/`, 글 상세 및 404/호환 route
 - Portfolio 기존 경력/프로젝트 자료 회귀 검사
 - 개인정보·토큰 커밋 방지(`.gitignore` + git diff 검토; 향후 필요 시 secret scan)
-- 변경 경로별 CI 트리거: `apps/web/**` + `content/lab/**` + `content/writing/**` → Web QA/배포, `apps/legacy-api/**` → Backend QA/배포. `labs/**`·docs/templates-only는 두 앱 workflow 대상이 아니다. Lab 전용 CI는 현재 없으므로 실험별 로컬 검사를 기록한다.
+- 변경 경로별 CI 트리거: `apps/web/**` + `content/lab/**` + `content/writing/**` → Web QA/배포, `apps/api/**` → Backend QA/배포. `labs/**`·docs/templates-only는 두 앱 workflow 대상이 아니다. Lab 전용 CI는 현재 없으므로 실험별 로컬 검사를 기록한다.
 - GitHub Actions에서는 PR에 배포하지 않는다. 기존 main=Production, develop=Preview 의미 유지.
 
 ## 수동 품질 점검

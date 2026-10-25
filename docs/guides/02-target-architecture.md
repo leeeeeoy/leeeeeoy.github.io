@@ -6,7 +6,7 @@
 
 ```text
 apps/web/                       # 기존 frontend/ 이전, React/Vite 정적 앱
-apps/legacy-api/                # 기존 backend/ 보존, 웹 신규 의존 X
+apps/api/                # 방문 집계 API · 경력/글 콘텐츠는 정적
 content/lab/*.md                # Lab 공개 기술 글
 content/writing/*.md            # Writing 공개 글
 labs/<experiment-name>/         # 언어·툴 무관 독립 실행 실험
@@ -59,7 +59,7 @@ draft: false
 Markdown / 정적 데이터 ──(web build)──> Workers Static Assets ──> 방문자
       Lab 결과 ──(링크)───────────────┘
 Go/Python 실험 ──(별도 실행)──> 로컬 결과 저장/분석
-Legacy Worker/D1/R2 ──(기존 용도 유지, 리소스 변경 없음)
+API Worker/D1 ──(동의 기반 방문 집계; 기존 콘텐츠 표/R2 보존)
 ```
 
 - 실험은 기본적으로 로컬에서 수행한다. 특정 주제 때문에 배포가 필요하면 **그 실험의 문서와 별도 승인**을 거친다.
@@ -76,3 +76,9 @@ Legacy Worker/D1/R2 ──(기존 용도 유지, 리소스 변경 없음)
 ## 후속 구현의 확인 항목
 
 Vite plugin이 build/dev에서 모든 파일을 검증하고 공개 글만 virtual module로 공급한다. 초안은 dist 번들에서도 제외하며 dev에서는 추가/수정/삭제를 감시한다. sitemap은 아직 네 기본 경로만 포함한다. 현재 SPA fallback의 없는 글 안내가 HTTP 404를 보장하지 않으며, build-time 콘텐츠 공급도 글별 초기 HTML/OG 생성을 보장하지 않는다.
+
+## 방문 집계 예외 (2026-10-25)
+
+사용자 승인으로 기존 Worker/D1을 `/api/visits`에 재사용한다. 경력·글 콘텐츠는 정적이며 방문 합계만 API로 읽고, 새 분석 동의가 있을 때만 등록한다. 이 예외는 CMS·인증·댓글 API 도입이 아니다. [집계 계약](../../apps/api/README.md)에 동시성·중복·개인정보·개발·배포 경계를 정리한다. 위 본문의 Backend 미사용 설명은 방문 집계를 제외한 콘텐츠 경계로 해석한다.
+
+2026-10-25 추가 승인: 앱 경로는 `apps/api`로 변경하며 Cloudflare 운영 리소스 이름은 유지한다. `develop` API Preview는 별도 D1을 사용하고 합계만 읽는다. 운영 SQL/migrations는 로컬 보존·Git 제외하며, 공개 CI의 합성 테스트 스키마와 분리한다. Lab 재현용 SQL은 유지한다.

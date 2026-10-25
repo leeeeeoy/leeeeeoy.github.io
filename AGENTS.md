@@ -27,14 +27,14 @@ Phase 4와 Engineering Lab Harness까지 로컬 구현했다. Home/Portfolio/Lab
 
 ## 영역별 책임
 
-| 영역 | 책임 | 상세 |
-|---|---|---|
-| `apps/web/` | React/Vite Home·Portfolio·Lab/Writing Markdown 목록·상세·Notes 호환 | [02-target-architecture.md](docs/guides/02-target-architecture.md) |
-| `apps/legacy-api/` | 이전 Worker/Hono/D1 자산: 보존 대상 | [04-migration-plan.md](docs/guides/04-migration-plan.md) |
-| `content/lab/` | 공개용 기술 글·실험 분석 | [03-content-and-writing.md](docs/guides/03-content-and-writing.md) |
-| `content/writing/` | 공개용 일상·회고·생각 | [03-content-and-writing.md](docs/guides/03-content-and-writing.md) |
-| `labs/` | 실행 가능한 독립 실험 코드와 증거 | [05-lab-practices.md](docs/guides/05-lab-practices.md) |
-| `docs/` | 설계 결정·작업 계획·운영 기준의 원본 | `docs/README.md` |
+| 영역               | 책임                                                                | 상세                                                               |
+| ------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `apps/web/`        | React/Vite Home·Portfolio·Lab/Writing Markdown 목록·상세·Notes 호환 | [02-target-architecture.md](docs/guides/02-target-architecture.md) |
+| `apps/api/`        | 기존 Worker/Hono/D1 및 동의 기반 방문 집계 API                      | [04-migration-plan.md](docs/guides/04-migration-plan.md)           |
+| `content/lab/`     | 공개용 기술 글·실험 분석                                            | [03-content-and-writing.md](docs/guides/03-content-and-writing.md) |
+| `content/writing/` | 공개용 일상·회고·생각                                               | [03-content-and-writing.md](docs/guides/03-content-and-writing.md) |
+| `labs/`            | 실행 가능한 독립 실험 코드와 증거                                   | [05-lab-practices.md](docs/guides/05-lab-practices.md)             |
+| `docs/`            | 설계 결정·작업 계획·운영 기준의 원본                                | `docs/README.md`                                                   |
 
 ## 작업 종료 조건
 
@@ -48,8 +48,9 @@ Phase 4와 Engineering Lab Harness까지 로컬 구현했다. Home/Portfolio/Lab
 - Web은 React/Vite/TypeScript, HTML/CSS와 기존 컴포넌트를 우선한다. 접근성·reduced motion·이미지 크기·R2 URL·동의 동작을 보존한다.
 - Portfolio 공개 데이터는 `apps/web/src/content.json`을 원본으로 유지한다. Lab/Writing은 content/의 Markdown을 빌드 시 검증한다. draft 기본값은 true이고 공개 글만 번들에 포함한다.
 - router·전역 상태관리·Axios·UI/애니메이션 프레임워크·범용 추상화는 실제 요구 전 추가하지 않는다. 앱과 실험은 서로 직접 참조하지 않는다.
-- Legacy API는 Worker/Hono, `/api/*` JSON, Web Standard API와 단순 SQL을 유지한다. ORM·불필요한 Domain/Service/Repository 계층을 추가하지 않는다.
-- Web Node 26 / API CI Node 22와 앱별 lockfile을 유지한다. PR은 배포하지 않고 main Production / develop 웹 Preview 정책을 유지한다.
+- 2026-10-25 사용자 승인으로 기존 D1에 방문 집계를 추가한다. 경력·글 API 의존은 추가하지 않는다. 집계·개인정보·개발·릴리스 계약은 [API README](apps/api/README.md)를 따른다.
+- API는 Worker/Hono, `/api/*` JSON, Web Standard API와 단순 SQL을 유지한다. ORM·불필요한 Domain/Service/Repository 계층을 추가하지 않는다.
+- Web Node 26 / API CI Node 22와 앱별 lockfile을 유지한다. PR은 배포하지 않고 main Production / develop 웹·API Preview 정책을 유지한다.
 - 기존 공개 연락처·경력 데이터는 기능 보존 범위에서 그대로 둔다. 개인정보를 새 문서에 복제하거나 새 공개 범위를 추가하지 않는다.
 - Entry는 루트 진입 파일과 docs 인덱스, 현행 Guides는 `docs/guides/`, 과거 작업·검증은 `docs/archive/`, 양식은 `templates/`에 둔다. Archive의 유효한 결정은 Guide에서 참조하되 과거 Pages·단일 페이지 제한·Backend 삭제 제안을 현재 지침으로 실행하지 않는다.
 
