@@ -32,7 +32,7 @@ fmt.Println("code fixture with a deliberately very long line to check horizontal
 
 ---
 
-[실험 코드](https://github.com/leeeeeoy/leeeeeoy.github.io)
+[실험 코드](https://github.com/leeeeeoy/personal-space)
 
 [Portfolio](/portfolio/)
 

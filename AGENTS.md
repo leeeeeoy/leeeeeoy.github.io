@@ -4,7 +4,7 @@
 
 추측하지 말고 객관적으로 답한다. 사용자 의견에 근거 없이 동의하지 않는다.
 
-Phase 4와 Engineering Lab Harness까지 로컬 구현했다. Home/Portfolio/Lab/Writing과 Notes 호환 경로, Markdown 목록·상세를 제공한다. 독립 Go 실험 결과와 첫 Lab 초안(draft:true)은 로컬에 보존하며 사용자 결정으로 커밋을 보류한다. 공개 글은 0개이며 운영에는 배포하지 않았다. [콘텐츠 계약](docs/guides/03-content-and-writing.md)을 따른다.
+Home/Portfolio/Lab/Writing과 Notes 호환 경로, Markdown 목록·상세를 운영에서 제공한다. Engineering Lab Harness와 독립 Go 실험을 관리하며, 실험 원본 결과와 첫 Lab 초안(draft:true)은 사용자 결정에 따라 로컬에 보존하고 커밋하지 않는다. 공개 글은 0개다. 저장소는 `leeeeeoy/personal-space`이며 배포는 Cloudflare Workers를 사용한다. [콘텐츠 계약](docs/guides/03-content-and-writing.md)을 따른다.
 
 ## 시작할 때 읽기
 

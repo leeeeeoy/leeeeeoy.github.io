@@ -60,8 +60,7 @@ The migration only adds `visit_days` and `visit_keys` (plus migration tracking);
 it does not delete legacy tables or data. Reapplying through migrations is safe.
 
 A production release is separate: verify the Cloudflare account, backup/migration,
-route and required `VISIT_HASH_SECRET` before publishing. The old Worker was not
-found in the current account during prior inspection. **Do not blindly merge the
+route and required `VISIT_HASH_SECRET` before publishing. The production Worker `leeeeeoy-portfolio-backend` is deployed. **Do not blindly merge the
 whole monorepo into main:** that triggers both app deployment workflows. Secret
 commands can themselves publish a Worker version, so they require release scope
 approval. No remote secret value is supplied by `.dev.vars` automatically.
@@ -74,7 +73,7 @@ References: [D1 batch transactions](https://developers.cloudflare.com/d1/worker-
 [Web Crypto](https://developers.cloudflare.com/workers/runtime-apis/web-crypto/),
 [CF-Connecting-IP](https://developers.cloudflare.com/fundamentals/reference/http-request-headers/#cf-connecting-ip).
 
-## Preview and merge readiness (2026-10-25)
+## Environments and release (2026-10-25)
 
 The app moved from `apps/legacy-api` to `apps/api`; the production Worker and D1
 resource names are unchanged. `develop` deploys web and API with `--env preview`;
@@ -90,12 +89,14 @@ production statistics. R2 is deliberately not bound: existing content APIs are
 not exposed by the Preview route. Cloudflare Access must continue protecting both
 the website and `/api/visits`. No Preview HMAC secret is required while read-only.
 
-Before approving a main merge, provision/verify the production Worker and stage a
-random `VISIT_HASH_SECRET` (32+ characters) securely, then verify it is attached to
-the deployed version. Never reuse the local test secret. Secret setup may publish
+The user-provided `VISIT_HASH_SECRET` is stored as an encrypted Worker Secret
+(`secret_text`), with the same value preserved from the initial dashboard setting.
+CI redeployment and production registration/deduplication have been verified.
+Never put this key in plaintext Wrangler vars or reuse the local test secret. Secret setup may publish
 a version and belongs to the separately approved production release. Verify the
 GitHub `CLOUDFLARE_FRONTEND_API_TOKEN` is shared by Web and API deployment and
-must publish both Workers and edit the exact zone route. Its existing Secret name
+must publish both Workers, edit the exact zone route, and read the existing R2
+bucket configuration (`Workers R2 Storage Read`). Its existing Secret name
 and `CLOUDFLARE_ACCOUNT_ID` are retained; `CLOUDFLARE_API_TOKEN` is no longer
 referenced by these workflows.
 The production D1 counter schema is already applied; do not reset it or re-import
@@ -108,3 +109,7 @@ retain D1 tables and backups. Worker rollback does not roll back D1 data. The
 frontend hides the counter on API errors, so portfolio content remains available.
 
 Environment configuration follows [Wrangler environments](https://developers.cloudflare.com/workers/wrangler/environments/).
+
+The repository is now `leeeeeoy/personal-space`. Legacy GitHub Pages and its
+`github-pages` environment are disabled; custom domains and Worker/D1/R2 resource
+names are unchanged. Historical archive URLs describe their original context.

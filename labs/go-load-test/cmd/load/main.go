@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/leeeeeoy/leeeeeoy.github.io/labs/go-load-test/internal/lab"
+	"github.com/leeeeeoy/personal-space/labs/go-load-test/internal/lab"
 	"os"
 	"os/signal"
 	"runtime/pprof"

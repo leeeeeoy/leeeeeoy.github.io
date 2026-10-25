@@ -1,5 +1,7 @@
 # Migration Plan — 기존 운영 환경을 보호하는 점진적 전환
 
+2026-10-25 후속 상태: 모노레포는 운영에 반영됐으며 저장소는 `leeeeeoy/personal-space`로 변경했다. 구형 GitHub Pages는 해제했다. 아래 Phase 0~4의 repo 이름 고정·로컬 작업 제한은 당시 승인 범위이며, 이후 운영·이름 변경·개인정보 이력 정리는 별도 사용자 승인을 받았다. 현재 릴리스 절차는 [프로젝트 README](../../README.md), 집계 계약은 [API README](../../apps/api/README.md)를 따른다.
+
 ## 전제
 
 - **원본:** `leeeeeoy/leeeeeoy.github.io` (React SPA + Workers Static Assets), 운영 도메인 `leeeeeoy.xyz`.

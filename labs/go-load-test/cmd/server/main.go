@@ -5,7 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/leeeeeoy/leeeeeoy.github.io/labs/go-load-test/internal/lab"
+	"github.com/leeeeeoy/personal-space/labs/go-load-test/internal/lab"
 	"net"
 	"net/http"
 	"os"

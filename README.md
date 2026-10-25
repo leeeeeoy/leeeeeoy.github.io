@@ -1,9 +1,11 @@
 # leeeeeoy — Personal Space
 
 개인의 경험·생각·기술적 호기심을 기록하는 웹사이트와 독립 실험을 관리합니다.
-Phase 3에서 Markdown 기반 Lab·Writing 목록/상세와 빌드 검증을 구현했습니다. Go HTTP 실험의 첫 Lab 초안은 draft:true이며 공개 글은 0개라 빈 목록을 표시합니다. 이번 변경은 미배포 상태이며 운영 사이트를 이번 단계에서 검증하지 않았습니다.
+Phase 3에서 Markdown 기반 Lab·Writing 목록/상세와 빌드 검증을 구현했습니다. Go HTTP 실험의 첫 Lab 초안은 draft:true이며 공개 글은 0개라 빈 목록을 표시합니다. Home/Portfolio/Lab/Writing은 Cloudflare Workers에서 운영합니다. 방문 집계는 별도 Worker와 기존 D1을 사용하며 동의한 경우에만 등록합니다.
 
 **URL:** https://leeeeeoy.xyz
+
+**Repository:** https://github.com/leeeeeoy/personal-space
 
 ## 구조
 
@@ -120,7 +122,7 @@ fast-forward 동기화하며, develop이 main보다 앞선 상태를 되돌리�
 
 필요한 GitHub Secrets:
 
-- `CLOUDFLARE_FRONTEND_API_TOKEN` (Web·API 공용: Workers Scripts Write, 해당 Zone의 Workers Routes Write·Zone Read; 기존 Secret 이름 유지)
+- `CLOUDFLARE_FRONTEND_API_TOKEN` (Web·API 공용: Workers Scripts Write, 기존 R2 바인딩 조회를 위한 Workers R2 Storage Read, 해당 Zone의 Workers Routes Write·Zone Read; 기존 Secret 이름 유지)
 - `CLOUDFLARE_ACCOUNT_ID`
 
 ## Cloudflare
@@ -156,9 +158,17 @@ node scripts/check-deployment.mjs https://preview-portfolio.leeeeeoy.xyz --prote
 
 이 검증은 운영 경로·헤더·배포 파일을 확인합니다. 미리보기에서는 익명 Access 응답을 확인하며, 소유자 로그인은 브라우저에서 별도로 확인합니다. GitHub 호스팅 러너는 기존 Cloudflare 보안 설정에 의해 Managed Challenge를 받을 수 있어 이 외부 접속 검증을 CI의 배포 성공 조건에는 넣지 않습니다.
 
-## 로컬 이전과 배포 승인
+## 운영과 로컬 자료의 경계
 
-현재 브랜치는 `migration/phase1-monorepo`이며 기존 `main`/`develop`과 origin URL은 유지합니다. 이번 단계에서 push·배포·Cloudflare 변경은 하지 않습니다.
-문서·템플릿·Lab-only 변경은 앱 workflow를 실행하지 않습니다. PR은 검사만, main push는 Production, develop push는 웹·API Preview라는 기존 정책을 유지합니다.
-구조 이전 커밋에는 웹과 API 경로 및 두 workflow 변경이 모두 있으므로 향후 main에 반영하면 두 배포가 대상이 됩니다. API 동반 배포 승인 또는 별도 제한 방침 없이 main에 반영하지 않습니다.
-비공개 원본·로컬 설정은 공개 트리 밖에 백업하며 `resume/`, `.claude/`, `.wrangler/`, 비밀파일은 새 추적 목록에서 제외합니다.
+`main`은 운영, `develop`은 Access로 보호한 Preview입니다. PR은 검사만 수행하고,
+배포 승격과 복구는 위의 squash/fast-forward 절차를 따릅니다. 구형 GitHub Pages는
+사용자 승인으로 해제했으며, 저장소 이름 변경과 별개로 운영 도메인은 유지합니다.
+
+운영 `VISIT_HASH_SECRET`은 일반 텍스트 변수가 아닌 Worker의 **Secret**으로 보관합니다.
+같은 값을 Secret으로 전환한 뒤 CI 재배포, 실제 방문 등록과 반복 접속의 중복 제외를
+확인했습니다. 자세한 집계·개인정보 계약은 [API README](apps/api/README.md)를 따릅니다.
+
+API migrations·운영 SQL, 비밀 설정, 개인정보 원본과 Lab 결과는 Git에서 제외합니다.
+합성 Lab 스키마/fixture SQL과 `.env.example`은 재현에 필요한 공개 예시입니다.
+과거 이력의 개인정보 정리 범위와 GitHub 캐시의 한계는
+[공개 전후 감사 기록](docs/archive/work-records/18-post-release-privacy-audit-2026-10-25.md)에 남겼습니다.

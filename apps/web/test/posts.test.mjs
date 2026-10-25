@@ -232,7 +232,7 @@ test('isolated Vite dev/build publishes only validated posts and renders safe Ma
       assert.match(article, /role="region" tabindex="0"/)
       assert.match(
         article,
-        /href="https:\/\/github.com\/leeeeeoy\/leeeeeoy.github.io" target="_blank" rel="noopener noreferrer"/,
+        /href="https:\/\/github.com\/leeeeeoy\/personal-space" target="_blank" rel="noopener noreferrer"/,
       )
       assert.match(article, /alt="정적 이미지 검증"/)
       assert.match(article, /loading="lazy" decoding="async"/)

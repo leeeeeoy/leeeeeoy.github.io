@@ -1,6 +1,8 @@
 # Source Repository — 확인된 상태와 과거 문서 구분
 
-확인 기준: 2026-10-15, Phase 2 HEAD `5fb158d`에서 Phase 3 콘텐츠 시스템과 Phase 4 독립 Go 실험·Lab 초안(draft:true)을 로컬 구현. repo·origin·main/develop 참조를 보존하며 배포하지 않는다. [Phase 0 감사](../archive/work-records/08-migration-audit-2026-10-14.md)는 이전 전 스냅샷, [Phase 1 기록](../archive/work-records/10-phase1-migration-record-2026-10-14.md)은 구조 이전 기록, [Phase 2 기록](../archive/work-records/11-phase2-pages-record-2026-10-14.md)은 페이지 전환 기록, [Phase 3 기록](../archive/work-records/12-phase3-content-record-2026-10-14.md)은 현재 콘텐츠 검사 근거다. Cloudflare 관리 상태·Secrets·배포 ID는 재조회하지 않았다.
+확인 기준: 2026-10-25. Home/Portfolio/Lab/Writing은 Cloudflare Workers에서 운영하며 Notes 호환 경로를 유지한다. 운영 API의 방문 등록·중복 제외와 Secret의 CI 재배포 후 보존을 확인했다. Lab 원본 결과와 첫 글 초안(draft:true)은 로컬에만 보존하며 공개 글은 0개다. 저장소 이름은 `leeeeeoy/personal-space`로 변경했고 구형 GitHub Pages는 해제했다.
+
+과거 구조 이전의 근거는 [Phase 0 감사](../archive/work-records/08-migration-audit-2026-10-14.md)부터 [Phase 3 기록](../archive/work-records/12-phase3-content-record-2026-10-14.md)까지 보존한다. 이번 공개 이력 정리와 미검증 범위는 [후속 감사](../archive/work-records/18-post-release-privacy-audit-2026-10-25.md)에 구분한다.
 
 ## 확인한 파일과 사실
 
@@ -37,6 +39,6 @@
 - legacy API의 외부 사용처, D1 데이터 백업 여부
 - 현재 사이트의 각 URL 및 모바일/데스크톱 스냅샷
 - 과거 Go Load Lab 원본은 미확보. 사용자 지시로 만든 새 실험의 소스/결과는 labs/go-load-test에 있으며 과거 결과와 동일하다고 주장하지 않음
-- 방식은 기존 GitHub repo·이력·origin 유지, 로컬 루트 `leeeeeoy/` 전환으로 사용자 승인되었다. 새 repo·rename·push는 실행하지 않는다.
+- 방식은 기존 GitHub repo·이력·origin 유지, 로컬 루트 `leeeeeoy/` 전환으로 사용자 승인되었다. 당시 로컬 이전에서는 새 repo·rename·push를 실행하지 않았다. 이후 운영 반영과 저장소 이름 변경은 별도 사용자 승인으로 진행했다.
 
 > 기존 실무 이력과 수치는 웹의 `content.json`을 보존하는 것이 이번 프로젝트의 기본이며, 개편 과정에서 임의로 새 경력 데이터를 생성하지 않는다.

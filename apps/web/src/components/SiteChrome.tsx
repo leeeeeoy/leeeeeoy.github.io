@@ -290,7 +290,7 @@ export function SiteFooter({
         <p className="architecture-dialog__legacy">{ui.architectureLegacy}</p>
         <a
           className="architecture-dialog__link"
-          href="https://github.com/leeeeeoy/leeeeeoy.github.io"
+          href="https://github.com/leeeeeoy/personal-space"
           {...externalLinkProps}
         >
           {ui.source} <Arrow />
