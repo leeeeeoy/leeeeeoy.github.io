@@ -1,4 +1,5 @@
-import { env, applyD1Migrations } from "cloudflare:test";
+import { applyD1Migrations } from "cloudflare:test";
+import { env } from "cloudflare:workers";
 import type { Bindings } from "../types";
 
 // Public synthetic test schema; deployment migrations remain local and untracked.

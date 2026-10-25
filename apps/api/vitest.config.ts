@@ -1,18 +1,19 @@
-import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config";
+import { cloudflareTest } from "@cloudflare/vitest-plugin";
+import { defineConfig } from "vitest/config";
 
-export default defineWorkersConfig({
-  test: {
-    setupFiles: ["./src/__tests__/setup.ts"],
-    poolOptions: {
-      workers: {
-        wrangler: { configPath: "./wrangler.toml" },
-        miniflare: {
-          bindings: {
-            VISIT_HASH_SECRET: "local-test-only-secret-at-least-32-characters",
-            ENVIRONMENT: "test",
-          },
+export default defineConfig({
+  plugins: [
+    cloudflareTest({
+      wrangler: { configPath: "./wrangler.toml" },
+      miniflare: {
+        bindings: {
+          VISIT_HASH_SECRET: "local-test-only-secret-at-least-32-characters",
+          ENVIRONMENT: "test",
         },
       },
-    },
+    }),
+  ],
+  test: {
+    setupFiles: ["./src/__tests__/setup.ts"],
   },
 });

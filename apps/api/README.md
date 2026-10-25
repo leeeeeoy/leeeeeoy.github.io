@@ -98,7 +98,8 @@ GitHub `CLOUDFLARE_FRONTEND_API_TOKEN` is shared by Web and API deployment and
 must publish both Workers, edit the exact zone route, and read the existing R2
 bucket configuration (`Workers R2 Storage Read`). Its existing Secret name
 and `CLOUDFLARE_ACCOUNT_ID` are retained; `CLOUDFLARE_API_TOKEN` is no longer
-referenced by these workflows.
+referenced by these workflows and has been removed from GitHub Secrets.
+The unused `SONAR_TOKEN` has also been removed; no active workflow references it.
 The production D1 counter schema is already applied; do not reset it or re-import
 Preview data. Deployment SQL is applied manually after backup, never implicitly
 by CI. A main merge triggers both workflows, so obtain release approval first.
@@ -113,3 +114,20 @@ Environment configuration follows [Wrangler environments](https://developers.clo
 The repository is now `leeeeeoy/personal-space`. Legacy GitHub Pages and its
 `github-pages` environment are disabled; custom domains and Worker/D1/R2 resource
 names are unchanged. Historical archive URLs describe their original context.
+
+## Test and dependency maintenance (2026-10-25)
+
+Workers tests use the official `@cloudflare/vitest-plugin` with Vitest 4.
+The plugin isolates D1 storage per test file; `beforeEach` explicitly clears the
+synthetic visit tables and failure trigger so each test starts independently.
+All 13 existing checks remain enabled, including concurrent requests and rollback.
+`type: module` is required to load the ESM-only plugin configuration.
+
+Both apps and CI use Wrangler 4.152.0. The package overrides select patched
+Undici 7.30.1 and Zod 4.6.6 only for affected version ranges; remove them once
+upstream dependencies resolve safe versions without overrides. They do not silence
+npm audit. Fresh installs currently report zero vulnerabilities. Workerd/esbuild
+install scripts are explicitly allowed; optional fsevents scripts remain disabled.
+
+See [Cloudflare's plugin migration](https://developers.cloudflare.com/workers/testing/vitest-integration/migration-guides/migrate-to-vitest-plugin/)
+and [storage isolation](https://developers.cloudflare.com/workers/testing/vitest-integration/isolation-and-concurrency/).

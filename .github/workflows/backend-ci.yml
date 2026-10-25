@@ -5,13 +5,11 @@ on:
     branches: [main, develop]
     paths:
       - 'apps/api/**'
-      - 'apps/legacy-api/**'
       - '.github/workflows/backend-ci.yml'
   pull_request:
     branches: [main, develop]
     paths:
       - 'apps/api/**'
-      - 'apps/legacy-api/**'
       - '.github/workflows/backend-ci.yml'
 
 permissions:
@@ -66,5 +64,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_FRONTEND_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: apps/api
-          wranglerVersion: '4.79.0'
+          wranglerVersion: '4.152.0'
           command: deploy --env="${{ github.ref_name == 'develop' && 'preview' || '' }}"

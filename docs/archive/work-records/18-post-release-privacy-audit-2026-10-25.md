@@ -44,3 +44,33 @@ API test(13)/typecheck가 통과했다. 저장소 주소를 바꾼 Go Load Lab�
 `go test ./...`, `go test -race ./...`, `go vet ./...`가 통과했다.
 측정 원본을 재실행하거나 수정하지 않았으며 공개 글은 0개다.
 문서의 로컬 상대 링크도 확인했다.
+
+## 같은 날 후속 정리
+
+사용자는 PR·캐시 및 불필요한 설정 정리를 요청했고, 과거 Actions 실행 기록
+94개도 로그 백업 후 삭제하도록 별도로 승인했다. 다운로드 가능한 로그는
+비공개에 보존한 뒤 실행 기록 94개를 삭제했다(64개 백업, 30개는 이미 HTTP 410으로
+만료). 현재 배포 검증 5개는 유지했고 CI 캐시 10개는 비웠다. 공개 Actions
+산출물은 없었다. 구형 SONAR_TOKEN과 사용하지 않는 CLOUDFLARE_API_TOKEN은
+GitHub Secrets에서 제거하고 현행 공용 토큰과 계정 ID는 유지했다.
+
+과거 PR 참조·캐시·서버 객체 제거는 GitHub Support에 접수했다.
+접수는 삭제 완료를 뜻하지 않으며 처리 결과를 기다린다. 상세 식별자·백업·
+티켓 증거는 Git에서 제외된 비공개 기록에만 둔다. Pages는 꺼져 있지만
+GitHub 자동 생성 workflow의 개별 disable 요청은 HTTP 422로 거부됐다.
+직접 관리하는 Pages 설정·environment·소스 workflow는 없다.
+
+의존성 정리는 별도 로컬 브랜치에서 진행한다. Web은 Vite 7 패치와 Wrangler,
+API는 공식 후속 Workers Vitest 플러그인·Vitest 4·타입 패키지를 갱신했다.
+일부 전이 의존성에는 같은 major의 보안 패치 override를 적용했다.
+실행 코드는 변경하지 않았고, 새 플러그인의 파일별 D1 격리에 맞춰 테스트별
+합성 테이블·실패 trigger 정리를 명시했다. 검증을 삭제하거나 비활성화하지 않았다.
+이 변경의 push·배포는 이번 정리에 포함하지 않는다.
+
+후속 검증에서는 양쪽 `npm ci`와 전체 `npm audit`가 경고 없이 통과했고
+취약점 집계는 각각 0개다. Web content/lint/format/18 tests/typecheck/build,
+API Node 26 및 비밀 설정 없는 독립 사본의 Node 22에서 13 tests/typecheck,
+양쪽 Wrangler 4.152.0 dry-run이 통과했다. 운영 앱 자산 hash는 변경 전과 같고
+운영 경로·보안 헤더·캐시와 Preview 웹/API Access 검사를 다시 통과했다.
+로컬에 보존한 원본 결과·초안·비밀 설정 1,017개 파일의 hash도 같았다.
+GitHub Support 처리 완료, 원격의 새 의존성 CI, 실제 기기 검증은 아직 아니다.

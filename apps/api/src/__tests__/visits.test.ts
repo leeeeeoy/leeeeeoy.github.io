@@ -1,5 +1,5 @@
 import { beforeEach, afterEach, describe, it, expect, vi } from "vitest";
-import { env } from "cloudflare:test";
+import { env } from "cloudflare:workers";
 import app from "../index";
 import type { Bindings } from "../types";
 
@@ -41,7 +41,13 @@ function cookie(response: Response) {
 }
 
 describe("visit counter on real local D1", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    // The current Workers plugin isolates storage per file, not per test.
+    await bindings.DB.exec("DROP TRIGGER IF EXISTS fail_keys");
+    await bindings.DB.batch([
+      bindings.DB.prepare("DELETE FROM visit_keys"),
+      bindings.DB.prepare("DELETE FROM visit_days"),
+    ]);
     vi.setSystemTime(new Date("2026-10-25T01:00:00Z"));
   });
   afterEach(() => {
