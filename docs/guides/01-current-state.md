@@ -4,23 +4,23 @@
 
 ## 확인한 파일과 사실
 
-| 위치 | 확인된 내용 | 이전 시 의미 |
-|---|---|---|
-| `apps/web/` | React 19, TypeScript, Vite 7, Node 26 (`.nvmrc`) | 현재 위치; 소스 내용 보존 |
-| `apps/web/src/content.json` | 한국어/영어 공개 프로필·경력·프로젝트 정적 데이터 | Portfolio의 원본으로 유지 |
-| `apps/web/src/App.tsx` | routes.ts의 명시적 pathname 분기, 기본 페이지·Markdown 목록/상세·Notes·없는 경로 UI, 테마·Clarity 동의 | 라우팅/동의 동작 회귀 주의 |
-| `apps/web/src/notes.ts` | `Engineering`, `Decision` 범주, `notes: Note[] = []` | Legacy 주소·데이터 보존; 새 Markdown 영역과 분리 |
-| `apps/web/src/pages/NotesPage.tsx` | 제목·요약·태그·문단 리스트 렌더링 | 기존 Notes 렌더러 유지; Markdown은 RecordPage |
-| `apps/web/test/content.test.mjs` | 경력·개인정보, `/notes/` 빈 목록, SPA 라우팅 등 문자열 기반 검증 | 경로 변경 시 검증 의도 유지하며 수정 |
-| `apps/web/wrangler.jsonc` | Workers Static Assets, SPA fallback, Production·Preview Custom Domain | 경로 이동 시 Wrangler working dir 확인 |
-| `apps/web/public/_headers` | 보안·캐시 응답 헤더 | 무단 변경 금지 |
-| `.github/workflows/frontend-ci.yml` | `apps/web/**`, `content/lab/**`, `content/writing/**` 변경 때 테스트·빌드·배포, main/develop 구분 | content 검증·빌드 입력 연결, 기존 branch/event/path 정책 유지 |
-| `labs/go-load-test/` | 새 표준 라이브러리 HTTP 실험, 본42회·보조검증·그래프·README | 과거 원본 복원이 아닌 독립 구현 |
-| `apps/legacy-api/`와 `apps/legacy-api/wrangler.toml` | Worker/Hono/D1/R2 구성 | 현 위치에서 binding·vars 보존, 삭제 금지 |
-| `.github/workflows/backend-ci.yml` | Backend 테스트, main 배포 | 경로만 변경, Node 22/main-only deploy 유지 |
-| `README.md`와 `AGENTS.md` | 현재 웹/백엔드·보호 규칙·개인정보 규칙 | 목표 구조에 맞게 재작성하되 원칙 계승 |
-| `docs/archive/portfolio-renewal/` | 2026년 이전 개편 당시 계획·의사결정 | 과거 판단의 기록으로 보존 |
-| `apps/web/public/sitemap.xml` | Home/Portfolio/Lab/Writing 네 URL | 새 공개 글/경로 추가 시 갱신 검토 |
+| 위치                                   | 확인된 내용                                                                                            | 이전 시 의미                                                  |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| `apps/web/`                            | React 19, TypeScript, Vite 7, Node 26 (`.nvmrc`)                                                       | 현재 위치; 소스 내용 보존                                     |
+| `apps/web/src/content.json`            | 한국어/영어 공개 프로필·경력·프로젝트 정적 데이터                                                      | Portfolio의 원본으로 유지                                     |
+| `apps/web/src/App.tsx`                 | routes.ts의 명시적 pathname 분기, 기본 페이지·Markdown 목록/상세·Notes·없는 경로 UI, 테마·Clarity 동의 | 라우팅/동의 동작 회귀 주의                                    |
+| `apps/web/src/notes.ts`                | `Engineering`, `Decision` 범주, `notes: Note[] = []`                                                   | Legacy 주소·데이터 보존; 새 Markdown 영역과 분리              |
+| `apps/web/src/pages/NotesPage.tsx`     | 제목·요약·태그·문단 리스트 렌더링                                                                      | 기존 Notes 렌더러 유지; Markdown은 RecordPage                 |
+| `apps/web/test/content.test.mjs`       | 경력·개인정보, `/notes/` 빈 목록, SPA 라우팅 등 문자열 기반 검증                                       | 경로 변경 시 검증 의도 유지하며 수정                          |
+| `apps/web/wrangler.jsonc`              | Workers Static Assets, SPA fallback, Production·Preview Custom Domain                                  | 경로 이동 시 Wrangler working dir 확인                        |
+| `apps/web/public/_headers`             | 보안·캐시 응답 헤더                                                                                    | 무단 변경 금지                                                |
+| `.github/workflows/frontend-ci.yml`    | `apps/web/**`, `content/lab/**`, `content/writing/**` 변경 때 테스트·빌드·배포, main/develop 구분      | content 검증·빌드 입력 연결, 기존 branch/event/path 정책 유지 |
+| `labs/go-load-test/`                   | 새 표준 라이브러리 HTTP 실험, 본42회·보조검증·그래프·README                                            | 과거 원본 복원이 아닌 독립 구현                               |
+| `apps/api/`와 `apps/api/wrangler.toml` | Worker/Hono/D1/R2 구성                                                                                 | 현 위치에서 binding·vars 보존, 삭제 금지                      |
+| `.github/workflows/backend-ci.yml`     | API 테스트, main 운영·develop Preview 배포                                                             | Node 22, Preview D1 격리·집계 읽기 전용                       |
+| `README.md`와 `AGENTS.md`              | 현재 웹/백엔드·보호 규칙·개인정보 규칙                                                                 | 목표 구조에 맞게 재작성하되 원칙 계승                         |
+| `docs/archive/portfolio-renewal/`      | 2026년 이전 개편 당시 계획·의사결정                                                                    | 과거 판단의 기록으로 보존                                     |
+| `apps/web/public/sitemap.xml`          | Home/Portfolio/Lab/Writing 네 URL                                                                      | 새 공개 글/경로 추가 시 갱신 검토                             |
 
 ## 서로 다른 시대의 문서가 공존한다
 

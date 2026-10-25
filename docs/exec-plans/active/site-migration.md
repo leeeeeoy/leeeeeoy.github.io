@@ -94,3 +94,22 @@
 - Web lint/format:check/test(12)/typecheck/build, local Chrome desktop/390px/320px·언어·테마·동의·키보드·history·Notes·Portfolio 상세/R2 검증.
 - 구현·검사 근거와 HTTP 404/초기 HTML·실기기·운영 미검증은 [Phase 2 기록](../../archive/work-records/11-phase2-pages-record-2026-10-14.md).
 - Phase 3 Markdown/실제 글/실험/배포 미실행. 이번 단계 종료 후 다음 지시 대기.
+
+## 2026-10-25 — API 재사용·Preview 및 운영 병합 준비
+
+- 사용자 승인: 기존 D1 방문 집계, API 이름 `apps/api`, 운영 SQL/migrations
+  로컬 보존·Git 제외, 프리뷰 적용. Lab SQL은 유지한다.
+- 기존 Phase 기록의 `apps/legacy-api`는 당시 경로이며 현재 실행 경로는
+  `apps/api`다. Worker·운영 D1 이름은 유지한다.
+- `develop`은 Web/API Preview, `main`은 Production, PR은 검사만 수행한다.
+  이전 경로 삭제도 CI에서 검사하도록 이전 API 경로 필터를 이행 기간 유지한다.
+- Preview D1은 별도 리소스이며 웹은 GET만 사용한다. Preview 서버는 POST를
+  거부한다. 운영 집계는 증가하지 않는다. Access 정책을 완화하지 않는다.
+- 공개 CI는 배포 SQL·로컬 secret·기존 D1 상태 없이 합성 스키마로 검사한다.
+  로컬 분리 사본에서 API 13개 검사 및 typecheck 통과. 웹 18개 검사,
+  content:check/lint/format:check/typecheck/build, 두 Preview dry-run 통과.
+- 브라우저 로컬 1440px·320px 한국어 다크, 390px 영어 라이트에서 하단
+  줄바꿈과 가로 넘침을 확인했다. 집계 날짜/중복 설명은 UI에서 제거한다.
+- main 병합/운영 배포는 아직 승인되지 않았다. Production secret 등록과
+  최초 API Worker 준비가 필요한 상태이며 상세 릴리스/복구 경계는
+  [API README](../../../apps/api/README.md)를 따른다.

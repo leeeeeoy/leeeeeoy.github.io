@@ -31,7 +31,7 @@
 ### Phase 1. 문서·디렉터리·CI 경로 준비
 
 - 목표 구조에 `AGENTS.md`, `CLAUDE.md`, docs 및 template 넣기.
-- `frontend/` → `apps/web/`, `backend/` → `apps/legacy-api/`는 **파일 위치만 우선** 변경.
+- `frontend/` → `apps/web/`, `backend/` → `apps/api/`는 **파일 위치만 우선** 변경.
 - npm scripts / lockfile / Node .nvmrc / Vitest / .gitignore / Wrangler workingDirectory / 경로 기반 Actions 업데이트.
 - 기존 정적 콘텐츠, 서드파티 동의, 접근성, 리다이렉션 설정을 변경하지 않는다.
 - **Gate:** 기존 테스트/타입 검사/빌드 및 CI 정적 검사 통과. Preview 배포·인증 사용자 확인은 금지 범위이므로 별도 승인된 릴리스 단계까지 미검증으로 남긴다.
@@ -63,7 +63,7 @@
 - main에 병합하기 전 Preview에서 도메인·Access·이미지·Clarity 동의·콘텐츠 검증.
 - 실제 운영 배포는 사용자 별도 승인 후 진행. 기존 URL의 동작과 301 리다이렉션 유지.
 - Sitemap/메타데이터/내부 링크 확인. 운영 결과 확인 후 이전 문서 상태 기록.
-- `apps/legacy-api`와 D1/R2는 삭제하지 않는다. 별도 사용처·백업·승인 프로젝트에서 정리한다.
+- `apps/api`와 D1/R2는 삭제하지 않는다. 별도 사용처·백업·승인 프로젝트에서 정리한다.
 
 ## 작업 중 중단 조건
 
