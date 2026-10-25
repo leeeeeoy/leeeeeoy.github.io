@@ -2,7 +2,7 @@ name: Frontend CI
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, migration/phase1-monorepo]
     paths:
       - 'apps/web/**'
       - 'content/lab/**'
@@ -81,4 +81,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: apps/web
           wranglerVersion: '4.147.0'
-          command: deploy --env="${{ github.ref_name == 'develop' && 'preview' || '' }}"
+          command: deploy --env="${{ github.ref_name != 'main' && 'preview' || '' }}"
