@@ -56,8 +56,9 @@ test('public portfolio content includes approved contact and excludes private da
   assert.equal(content.projects.length, 3)
   assert.equal(content.featuredImpacts.length, 4)
   assert.ok(
-    content.featuredImpacts.every(({ context, decision, outcome }) =>
-      [context, decision, outcome].every(Boolean),
+    content.featuredImpacts.every(
+      ({ paragraphs }) =>
+        paragraphs.length >= 2 && paragraphs.every((text) => text.trim()),
     ),
   )
   assert.doesNotMatch(
@@ -67,9 +68,9 @@ test('public portfolio content includes approved contact and excludes private da
   assert.equal(content.profile.eyebrow, 'SOFTWARE ENGINEER · SINCE 2022')
   assert.equal(content.profile.role, 'Software Engineer')
   assert.equal(content.profile.email, 'hoheho18@gmail.com')
-  assert.equal(
-    content.experiences[0].metrics[0].label,
-    '서비스 규모 · 등록 사용자',
+  assert.doesNotMatch(
+    JSON.stringify(content.experiences[0].metrics),
+    /5K\+|7K\+|등록 사용자|회원/,
   )
   assert.ok(
     content.experiences
@@ -91,8 +92,8 @@ test('public portfolio content includes approved contact and excludes private da
   )
   assert.ok(
     content.experiences.every(({ caseStudies }) =>
-      caseStudies.every(({ problem, analysis, action, result }) =>
-        [problem, analysis, action, result].every(Boolean),
+      caseStudies.every(({ problem, action, result }) =>
+        [problem, action, result].every(Boolean),
       ),
     ),
   )
@@ -102,10 +103,6 @@ test('public portfolio content includes approved contact and excludes private da
   assert.match(JSON.stringify(pleasantProject), /LCOV.*76\.5%/)
   assert.match(JSON.stringify(pleasantProject), /Codemagic/)
   assert.deepEqual(
-    pleasantProject.caseStudies[0].flow.map(({ steps }) => steps.length),
-    [5, 5],
-  )
-  assert.deepEqual(
     pleasantProject.caseStudies
       .find(({ title }) => title === 'Android·iOS 배포 자동화')
       .flow.map(({ steps }) => steps.length),
@@ -114,27 +111,113 @@ test('public portfolio content includes approved contact and excludes private da
   for (const [language, { experiences, featuredImpacts }] of Object.entries(
     translations,
   )) {
-    const [booking, connect, kiosk] = experiences[0].caseStudies
-    assert.match(booking.title, /예약|bookings/)
+    assert.match(translations[language].profile.intro, /Android.*iOS/)
+    assert.match(translations[language].profile.intro, /Flutter/)
+    assert.doesNotMatch(translations[language].profile.role, /full.?stack/i)
+    assert.deepEqual(
+      experiences[0].responsibilities.map(({ area }) => area),
+      ['Mobile', 'Web', 'Backend', 'Reliability'],
+    )
+    assert.doesNotMatch(
+      JSON.stringify(experiences[0].metrics),
+      /5K\+|7K\+|registered users|등록 사용자/,
+    )
+    const booking = experiences[0].caseStudies[0]
+    const connect = experiences[0].caseStudies.find(({ title }) =>
+      title.includes('Clify Connect'),
+    )
+    const kiosk = experiences[0].caseStudies.find(({ title }) =>
+      title.includes('FAV'),
+    )
+    const quality = experiences[0].caseStudies.find(({ title }) =>
+      /오류 주입|fault injection/.test(title),
+    )
+    const cms = experiences[0].caseStudies.find(({ title }) =>
+      /CMS 초기|Initial CMS/.test(title),
+    )
+    assert.match(cms.action, /초기 구축에 참여|contributed to the initial/)
+    assert.match(cms.action, /로그인.*예약.*결제|login.*booking.*payment/)
+    assert.match(
+      cms.result,
+      /기존 역할·권한 체계|existing role and authorization/,
+    )
+    assert.match(booking.title, /예약|booking/i)
+    assert.match(booking.action, /초기 예약 연동 API|initial integration APIs/)
+    assert.match(
+      booking.result,
+      /카드 결제.*콜백 유실|Card payments.*lost callbacks/,
+    )
+    assert.doesNotMatch(
+      JSON.stringify([booking, featuredImpacts[0]]),
+      /월 10|3~4개월|3–4 months/,
+    )
+    assert.match(quality.result, /19/)
+    assert.match(quality.result, /8.*17/)
+    assert.match(quality.result, /초기 구축 당시 LCOV|Initial LCOV/)
+    assert.match(quality.result, /실제 API 계약|real API-contract/)
+    const faultResult = featuredImpacts[2].paragraphs.at(-1)
+    assert.match(
+      faultResult,
+      /선택한 19개 오류 변형 중|19 selected fault variants/,
+    )
+    assert.match(faultResult, /8.*17/)
+    assert.match(
+      quality.result,
+      /앱 전체의 결함 검출률.*아닙니다|not an app-wide defect detection rate/,
+    )
+    assert.doesNotMatch(
+      JSON.stringify(featuredImpacts),
+      /AI는 초안 작성에만|AI only for drafts/,
+    )
+    assert.ok(
+      experiences.every(({ responsibilities }) =>
+        responsibilities.every(({ area, description }) => area && description),
+      ),
+    )
     assert.match(connect.title, /Clify Connect/)
     assert.match(connect.action, /React 19.*TypeScript.*Spring/)
-    assert.match(connect.action, /Connect 모듈.*개발|developed.*Connect module/)
+    assert.match(connect.action, /Connect 모듈|Connect module/)
     assert.match(connect.result, /AWS Amplify/)
     assert.match(kiosk.title, /FAV/)
     assert.match(kiosk.action, /React/)
-    assert.match(experiences[0].summary, /Clify Connect.*FAV/)
+    assert.match(
+      experiences[0].summary,
+      /모바일.*웹|mobile apps and web services/,
+    )
+    assert.match(
+      experiences[0].responsibilities.find(({ area }) => area === 'Web')
+        .description,
+      /Clify Connect.*FAV/,
+    )
     assert.doesNotMatch(experiences[0].highlights.join(' '), /Clify Connect/)
     const analytics = experiences[0].highlights.find((text) =>
       text.includes('BigQuery'),
     )
+    assert.match(analytics, /아직 검증하지 않았습니다|remain unverified/)
+    assert.match(featuredImpacts[3].paragraphs.at(-1), /Android OOM/)
+    const cmsSummary = featuredImpacts[1].paragraphs.join(' ')
+    assert.match(cmsSummary, /CMS 초기|initial CMS/)
+    assert.match(cmsSummary, /참여|contributed/)
+    assert.match(cmsSummary, /Spring Boot/)
+    assert.match(cmsSummary, /React/)
+    assert.match(cmsSummary, /AWS Amplify/)
     assert.match(
-      analytics,
-      /아직 입증되지 않았습니다|not yet been demonstrated/,
+      connect.result,
+      /외부 고객.*별도 검증|external-customer.*separate verification/,
     )
-    assert.match(featuredImpacts[3].outcome, /Android OOM/)
-    const unreleased = language === 'ko' ? /미출시/ : /before any store release/
-    assert.match(featuredImpacts[2].outcome, unreleased)
+    assert.match(
+      translations[language].skillGroups[0].description,
+      /주력|Primary focus/,
+    )
     assert.match(experiences[1].metrics[3].label, /미출시|unreleased/)
+    assert.match(
+      translations[language].projects[2].highlights.join(' '),
+      /8명.*5명|eight-person.*five people/,
+    )
+    assert.doesNotMatch(
+      JSON.stringify(translations[language]),
+      /\/Users\/|\/home\/|https:\/\/github\.com\/simpaticohq\/|cms_reservation_id/,
+    )
   }
   const seoulExchange = content.experiences.find(
     ({ company }) => company === '서울거래',
@@ -155,7 +238,10 @@ test('public portfolio content includes approved contact and excludes private da
   const dozn = content.experiences.find(({ company }) => company === '더즌')
   assert.match(dozn.summary, /기존 React Native 앱을 대체하는 Flutter 앱/)
   assert.match(dozn.caseStudies[0].result, /2022년 9월 Flutter 앱을 출시/)
-  assert.match(JSON.stringify(dozn.highlights), /비회원도 전자투표에 참여/)
+  assert.match(
+    JSON.stringify(dozn.highlights),
+    /앱을 설치하지 않은 사용자도 전자투표에 참여/,
+  )
   assert.doesNotMatch(dozn.summary, /모바일·웹 전반.*주도/)
   assert.match(portfolioSource, /className="company-link"/)
   assert.match(portfolioSource, /content\.featuredImpacts\.map/)
@@ -164,10 +250,7 @@ test('public portfolio content includes approved contact and excludes private da
   assert.match(siteChromeSource, /Built with/)
   assert.match(siteChromeSource, /built-with-cloudflare\.svg/)
   assert.match(siteChromeSource, /github-invertocat-white\.svg/)
-  assert.match(
-    content.ui.architectureLegacy,
-    /Frontend는 API를 호출하지 않습니다/,
-  )
+  assert.match(content.ui.architectureLegacy, /방문 합계.*API/)
   assert.deepEqual(
     content.profile.links.map(({ label }) => label),
     ['GitHub', 'Blog', 'LinkedIn'],

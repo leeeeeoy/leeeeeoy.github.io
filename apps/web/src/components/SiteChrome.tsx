@@ -1,4 +1,5 @@
 import { useRef, type MouseEvent } from 'react'
+import VisitCounter from './VisitCounter'
 import { content, language, ui, localizedHref } from '../content'
 import { getPage, type Page } from '../routes'
 
@@ -154,9 +155,11 @@ export function SiteHeader({
 
 export function SiteFooter({
   page,
+  consent = null,
   onOpenConsent,
 }: {
   page: Page
+  consent?: 'granted' | 'denied' | null
   onOpenConsent: () => void
 }) {
   const architectureDialog = useRef<HTMLDialogElement>(null)
@@ -202,6 +205,7 @@ export function SiteFooter({
             </a>
           ))}
         </div>
+        <VisitCounter consent={consent} />
         <div className="footer-privacy">
           <p>{ui.privacyNote}</p>
           <div className="footer-privacy-actions">

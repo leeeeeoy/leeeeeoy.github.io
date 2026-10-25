@@ -316,6 +316,12 @@ h1 span {
   display: block;
 }
 
+.portfolio-hero h1,
+.impact-section .section-heading h2 {
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
 .hero-intro {
   width: min(680px, 100%);
   margin: 0 auto 32px;
@@ -323,6 +329,7 @@ h1 span {
   font-size: 17px;
   line-height: 1.47;
   letter-spacing: -0.374px;
+  word-break: keep-all;
 }
 
 .hero-links {
@@ -427,6 +434,7 @@ button:active {
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.3px;
+  word-break: keep-all;
 }
 
 .impact-organization {
@@ -435,34 +443,22 @@ button:active {
   font-weight: 600;
 }
 
-.impact-grid dl {
+.impact-copy {
   display: grid;
   gap: 16px;
-  margin: 0;
 }
 
-.impact-grid dl div {
-  display: grid;
-  gap: 4px;
-}
-
-.impact-grid dt {
-  color: var(--blue-on-dark);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.impact-grid dd {
+.impact-copy p {
   margin: 0;
   color: #d2d2d7;
   font-size: 14px;
   line-height: 1.55;
   letter-spacing: -0.224px;
+  word-break: keep-all;
 }
 
-.impact-grid dl div:last-child dd {
+.impact-copy p:last-child {
   color: white;
-  font-weight: 600;
 }
 
 .section {
@@ -563,6 +559,30 @@ footer h2 {
   letter-spacing: -0.374px;
 }
 
+.responsibilities {
+  max-width: 760px;
+  margin: 24px 0;
+}
+
+.responsibilities > div {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+.responsibilities dt {
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.responsibilities dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
 .inline-metrics {
   display: flex;
   flex-wrap: wrap;
@@ -654,6 +674,7 @@ html[lang='en'] .disclosure[open] .disclosure-action::before {
   padding: 24px;
   border-radius: 18px;
   background: var(--paper);
+  word-break: keep-all;
 }
 
 .case-study h4 {
@@ -858,7 +879,6 @@ html[lang='en'] .disclosure[open] .disclosure-action::before {
 
 .home-hero .hero-intro {
   max-width: 600px;
-  word-break: keep-all;
 }
 
 .home-spaces,
@@ -1287,6 +1307,14 @@ html[lang='en'] .disclosure[open] .disclosure-action::before {
   border-right: 0;
 }
 
+.skill-grid article:first-child {
+  background: rgb(41 151 255 / 8%);
+}
+
+.skill-grid article:first-child > p {
+  color: var(--blue-on-dark);
+}
+
 .skill-grid article > p {
   min-height: 48px;
   color: #ccc;
@@ -1372,7 +1400,8 @@ footer .eyebrow {
 .footer-links,
 .footer-privacy-actions {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 12px 24px;
 }
 
 .footer-meta p {
@@ -1397,8 +1426,10 @@ footer .eyebrow {
   display: grid;
   justify-items: end;
   gap: 0.5rem;
-  max-width: 32ch;
+  max-width: 44ch;
   text-align: right;
+  word-break: keep-all;
+  text-wrap: pretty;
 }
 
 .footer-privacy button,
@@ -1634,6 +1665,11 @@ footer .eyebrow {
     grid-template-columns: 1fr;
   }
 
+  .case-study dl div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
   .section {
     padding: 64px 20px;
   }
@@ -1788,4 +1824,17 @@ footer .eyebrow {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.visit-counter {
+  margin: 20px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.visit-counter p {
+  margin-bottom: 4px;
+}
+.visit-counter strong {
+  color: var(--ink);
 }
