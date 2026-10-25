@@ -10,6 +10,24 @@ const contentRoot = fileURLToPath(
 const moduleId = '\0virtual:posts'
 
 export default defineConfig({
+  server: {
+    proxy: {
+      '/api/visits': {
+        target: 'http://127.0.0.1:8787',
+        changeOrigin: true,
+        headers: { 'CF-Connecting-IP': '127.0.0.1' },
+      },
+    },
+  },
+  preview: {
+    proxy: {
+      '/api/visits': {
+        target: 'http://127.0.0.1:8787',
+        changeOrigin: true,
+        headers: { 'CF-Connecting-IP': '127.0.0.1' },
+      },
+    },
+  },
   plugins: [
     react(),
     {

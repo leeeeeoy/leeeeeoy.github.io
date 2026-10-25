@@ -5,8 +5,8 @@
       "name": "Yoel Jang",
       "role": "Software Engineer",
       "email": "hoheho18@gmail.com",
-      "headline": "운영에서 발견한 문제를\n기술로 해결합니다.",
-      "intro": "Flutter를 중심으로 서비스를 개발하고 운영해 왔습니다. 예약 정합성과 성능 문제를 해결하며, 필요한 웹·백엔드 연동·운영 도구·배포 환경까지 구현했습니다. 앞으로는 제품 문제를 정의하고 결과를 검증하는 과정에도 더 깊이 참여하고 싶습니다.",
+      "headline": "서비스를 만들고,\n운영 중 생긴 문제를 해결해 왔습니다.",
+      "intro": "Flutter로 Android·iOS 앱을 주로 개발하고 운영해 왔습니다. React 예약 웹과 Spring Boot 서버 API도 구현하며 예약 데이터 정합성과 성능을 개선하고 테스트·배포를 자동화했습니다.",
       "links": [
         {
           "label": "GitHub",
@@ -25,31 +25,36 @@
     "featuredImpacts": [
       {
         "organization": "유쾌한프로젝트",
-        "title": "예약 기준을 하나로 정리했습니다.",
-        "context": "이미 고객사가 사용하는 두 예약 시스템에서 월 10–20건의 중복 예약과 취소 이중 확인이 발생했습니다. 개발 기간과 인력, 운영 영향을 함께 고려해야 했습니다.",
-        "decision": "운영 중인 두 시스템을 다시 만들지 않고 상담사 플랫폼을 일정의 기준으로 정해 결제·저장·예약 생성과 실패 보상을 하나의 흐름으로 연결했습니다.",
-        "outcome": "보상 처리 적용 후 3~4개월 동안 중복 예약이 발생하지 않았고 상담사의 일정 대조와 취소 이중 확인 절차도 사라졌습니다."
+        "title": "예약 연동과 동시 취소 문제 개선",
+        "paragraphs": [
+          "앱과 상담센터는 서로 다른 DB에서 예약을 관리했습니다. 두 시스템을 연결하는 초기 연동 API와 식별자 매핑을 구현했습니다.",
+          "이후 동시 취소가 중복 처리되지 않도록 수정하고 일정 변경과 취소가 경합하는 구간의 행 잠금 순서를 통일했습니다. 알림은 취소가 커밋된 뒤에 보내도록 바꿨습니다.",
+          "선택한 포인트 결제·취소 시나리오를 별도 테스트 환경에서 재현해 예약·포인트·환불 상태를 함께 확인했습니다."
+        ]
       },
       {
         "organization": "유쾌한프로젝트",
-        "title": "반복하던 검증을 테스트로 바꿨습니다.",
-        "context": "테스트 기반이 없어 핵심 사용자 흐름을 변경할 때마다 수동으로 반복 검증했습니다.",
-        "decision": "모든 코드를 한 번에 테스트하지 않고 로그인·상품 선택·포인트 결제부터 자동화했으며, AI는 초안 작성에만 활용하고 실제 동작과 정적 분석으로 검증했습니다.",
-        "outcome": "Unit·Widget·Patrol E2E와 GitHub Actions·SonarQube를 연결해 LCOV 라인 커버리지를 0%에서 76.5%로 높였습니다."
+        "title": "상담센터 운영 서버와 예약 웹 구축",
+        "paragraphs": [
+          "CMS 초기 구축에 참여해 Java·Spring Boot로 상담센터의 예약·상담일지·스케줄·결제 API를 구현했습니다.",
+          "React·TypeScript로 상품 탐색부터 예약·변경·취소까지 지원하는 웹을 개발했습니다. 센터별 데이터 범위와 내 예약 인증을 연결했습니다. 웹은 AWS Amplify에 배포했습니다."
+        ]
       },
       {
-        "organization": "서울거래",
-        "title": "운영을 이어가며 새 앱을 개발했습니다.",
-        "context": "인수인계 자료 없이 넘겨받은 앱의 전역 의존과 리소스 관리 문제가 있었지만, 2인 개발팀이 기존 서비스 운영도 이어가야 했습니다.",
-        "decision": "기존 앱은 꼭 필요한 문제만 고치면서, 신입 개발자와 2인으로 Bloc 기반의 새 앱을 개발했습니다. 저는 구조 설계와 작업 분담·리뷰를 맡았습니다.",
-        "outcome": "스토어 미출시 상태의 출시 직전 검증 단계에서 동일 Android 기기의 로그인 후 홈 화면 메모리를 600–630MB에서 470–490MB로 줄여 약 20% 절감했습니다."
+        "organization": "유쾌한프로젝트",
+        "title": "테스트가 놓친 오류를 찾아 보완",
+        "paragraphs": [
+          "커버리지만으로는 테스트가 실제 오류를 잡는지 알기 어려웠습니다. AI 코딩 도구로 선택한 로직에 오류를 주입하고 놓친 경계값과 실패 시나리오를 테스트에 추가했습니다.",
+          "선택한 19개 오류 변형 중 테스트가 검출한 수는 8개에서 17개로 늘었습니다."
+        ]
       },
       {
         "organization": "Celebridog",
-        "title": "데이터를 따라 OOM 원인을 찾았습니다.",
-        "context": "숏폼 이미지 처리 과정에서 메모리 사용량과 OOM이 반복적으로 증가했습니다.",
-        "decision": "Datadog RUM과 Flutter DevTools로 이미지 디코딩이 원인임을 확인하고 다운샘플링과 WebP 변환을 적용했습니다.",
-        "outcome": "동일 실기기 조건에서 메모리 사용량을 약 30%, Android OOM 발생을 약 90% 줄였습니다."
+        "title": "이미지 디코딩 개선으로 Android OOM 감소",
+        "paragraphs": [
+          "운영 중인 숏폼 앱에서 메모리 사용량과 Android OOM 발생이 늘었습니다. Datadog RUM과 Flutter DevTools로 이미지 디코딩을 추적하고 다운샘플링과 WebP 변환을 적용했습니다.",
+          "동일 실기기 조건에서 메모리 사용량을 약 30%, Android OOM 발생을 약 90% 줄였습니다."
+        ]
       }
     ],
     "experiences": [
@@ -58,15 +63,11 @@
         "website": "https://clify.co.kr/",
         "role": "Software Engineer",
         "period": "2025.04 — 현재",
-        "summary": "심리상담 예약·비대면 상담 Flutter 앱을 개발·배포·운영하며 두 예약 시스템의 정합성을 개선했습니다. Clify Connect 예약 웹은 React 구현부터 Spring Backend 기능 개발·연동·AWS Amplify 배포까지 맡았습니다. FAV 키오스크는 Flutter·React로 구현해 현장 업데이트 제약을 해결하고, 관리자 대시보드도 개발했습니다.",
+        "summary": "심리상담·검사 플랫폼의 모바일 앱과 웹 서비스를 개발하고 운영합니다. 상담센터 운영 서버의 초기 구축에 참여했으며 예약 연동과 데이터 정합성 개선, 테스트·배포 자동화를 담당했습니다.",
         "metrics": [
           {
-            "value": "5K+",
-            "label": "서비스 규모 · 등록 사용자"
-          },
-          {
             "value": "0→76.5%",
-            "label": "LCOV 라인 커버리지"
+            "label": "LCOV · 초기 구축 당시"
           },
           {
             "value": "20분+",
@@ -75,40 +76,18 @@
         ],
         "caseStudies": [
           {
-            "title": "두 예약 시스템의 중복 예약 해결",
-            "problem": "앱과 상담사 일정 관리 플랫폼이 서로 다른 DB에서 예약을 관리해 월 10–20건의 중복 예약이 발생하고, 취소도 양쪽에서 각각 처리해야 했습니다.",
-            "analysis": "두 시스템의 예약·서비스 구조가 달랐고 외부 플랫폼까지 하나의 DB 트랜잭션으로 묶을 수 없었습니다. 기존 고객사의 운영 영향과 개발 기간·인력을 고려해 전면 통합 대신 상담사 플랫폼을 일정의 기준으로 정하고 내부 API와 매핑 테이블로 연결했습니다.",
-            "action": "결제, 앱 서버 저장, 상담사 플랫폼 예약 생성을 순서대로 처리하고 양쪽 예약이 모두 생성된 경우에만 성공을 반환했습니다. 부분 실패 시 성공한 단계를 되돌리는 보상 처리를 적용하고 실패 지점을 Slack으로 알렸습니다. 신규 고객사의 양쪽 DB 초기 데이터와 매핑 생성은 계약 정보 기반 스크립트로 전환했습니다.",
-            "result": "적용 이후 3~4개월 동안 중복 예약이 발생하지 않았고, 상담사가 양쪽 일정을 대조하거나 취소 여부를 이중으로 확인하던 절차도 제거했습니다.",
-            "flow": [
-              {
-                "label": "정상 흐름",
-                "steps": [
-                  "본인인증",
-                  "PG 결제",
-                  "앱 Backend 예약 생성",
-                  "상담사 플랫폼 예약 생성",
-                  "성공"
-                ]
-              },
-              {
-                "label": "실패 보상",
-                "steps": [
-                  "PG 결제 성공",
-                  "앱 예약 생성 성공",
-                  "상담사 플랫폼 생성 실패",
-                  "보상 처리",
-                  "Slack 알림"
-                ]
-              }
-            ]
+            "title": "서로 다른 DB의 예약 연동과 동시 취소 처리",
+            "problem": "서로 다른 DB의 예약을 연결해야 했고, 이후 동시 취소와 일정 변경·취소 경합에서 중복 처리·교착·상태 불일치를 다뤄야 했습니다.",
+            "analysis": "두 시스템을 하나의 DB 트랜잭션으로 묶을 수 없어 연동 API·식별자 연결·상태 전파의 경계를 구분했습니다. 후속 취소 처리에서는 잠금 순서를 일관되게 유지하고, 취소가 커밋된 뒤에 알림을 보내도록 해야 했습니다.",
+            "action": "초기 예약 연동 API와 식별자 연결, 배치 가용성 조회·역검색, 검사 웹 예약 경로를 구현했습니다. AI 코딩 도구와 랩 재현을 활용해 취소 멱등 반환, 회원 → 예약의 잠금 순서, 커밋 후 취소 알림을 보완했습니다.",
+            "result": "선택한 포인트 결제·취소 경합을 랩에서 재현하고 예약·포인트·환불 상태를 재검증했습니다. 카드 결제, 콜백 유실과 보상 실패는 별도 검증 대상입니다."
           },
           {
-            "title": "Clify Connect · React 예약 웹과 Spring 연동·배포",
-            "problem": "모바일 앱 외에 B2C 예약 웹에서도 예약 전 과정을 제공해야 했습니다.",
-            "analysis": "예약 웹은 화면 구현뿐 아니라 기존 Spring Backend의 기능 개발·연동과 웹 배포 환경 구성이 함께 필요했습니다.",
-            "action": "React 19·TypeScript로 예약 전 과정을 구현하고 Spring Backend의 Connect 모듈과 V2 연동을 개발했습니다.",
-            "result": "AWS Amplify 배포와 커스텀 도메인 설정까지 맡아 Clify Connect 예약 웹을 구성했습니다."
+            "title": "AI 활용 테스트 기반 구축과 오류 주입 검증",
+            "problem": "핵심 사용자 흐름의 회귀 검증을 수동으로 반복했고, 자동화 이후에도 테스트가 놓치는 경계값과 실행 순서 의존성이 있었습니다.",
+            "analysis": "반복 검증이 필요한 유즈케이스와 외부 PG 의존 여부를 먼저 구분했습니다. 이후 커버리지와 결함 검출력은 다른 문제라고 보고, 선택한 로직에 오류를 넣어 테스트 반응을 확인했습니다.",
+            "action": "AI 코딩 도구로 Unit·Widget·Patrol E2E 테스트 기반을 만들고 GitHub Actions·SonarQube·LCOV를 연결했습니다. 경계값·포인트 결제·환불·재생 추적 로직에 수동으로 오류를 주입해 테스트가 검출하는지 확인했습니다. 날짜나 실행 순서에 영향을 받던 테스트 3건을 수정하고 CI에서 테스트를 무작위 순서로 실행하도록 했습니다.",
+            "result": "초기 구축 당시 LCOV 라인 커버리지는 0% → 76.5%였습니다. 이후 선택한 로직의 오류 변형 19건 중 검출 수가 8건 → 17건으로 늘었습니다. 앱 전체의 결함 검출률은 아닙니다. 나머지 2건은 불필요한 코드 제거 1건과 다른 가드가 보호하는 변형 1건입니다. 실제 API 계약 검증과 실제 객체를 연결한 통합 테스트는 추가 확인이 필요합니다."
           },
           {
             "title": "FAV 키오스크 · 현장 배포 제약을 고려한 업데이트",
@@ -118,18 +97,23 @@
             "result": "화면이나 사용자 흐름을 바꿀 때 APK를 다시 배포할 필요가 없어졌고, 측정 중인 사용자를 방해하지 않고 새 버전을 적용할 수 있게 됐습니다."
           },
           {
-            "title": "팀 규모에 맞춘 앱 구조 단순화",
-            "problem": "단일 Flutter 앱에 melos 모노레포와 다단계 Clean Architecture가 적용돼 있었고, 단순 CRUD 기능도 여러 레이어와 반복 코드를 거쳐야 했습니다.",
-            "analysis": "모델을 레이어 사이에서 그대로 재사용하고 Use Case가 Repository 호출을 전달하기만 하는 경우가 많아, 현재 팀과 제품 단계에서는 책임 분리의 이점보다 탐색과 변경 비용이 더 크다고 판단했습니다.",
-            "action": "먼저 melos를 제거해 단일 프로젝트로 전환한 뒤, 필요한 책임 분리는 유지하면서 역할이 없는 Use Case와 중복 레이어를 단계적으로 제거해 Repository와 Bloc 중심으로 정리했습니다.",
-            "result": "기능을 추가하거나 수정할 때 파악해야 하는 의존성과 변경 범위를 줄였습니다."
+            "title": "Clify Connect 예약 웹과 Spring API 개발",
+            "problem": "모바일 앱 외에 B2C 예약 웹에서도 예약 전 과정을 제공해야 했습니다.",
+            "action": "React 19·TypeScript로 상품 탐색·상담사 선택·예약·변경·취소 화면을 개발했습니다. Spring Connect 모듈·V2 연동과 센터·내 예약 인증을 구현하고, 분석 화면 마스킹과 동의 절차를 적용했습니다.",
+            "result": "AWS Amplify로 개발·운영 환경에 배포하고 커스텀 도메인을 설정했습니다. 모의 API를 사용하는 Playwright 테스트와 로직 테스트로 주요 화면과 요청을 확인했습니다. 실제 API 통합과 외부 고객의 예약·결제 성과는 별도 검증 대상입니다."
           },
           {
-            "title": "핵심 사용자 흐름 테스트 자동화",
-            "problem": "핵심 사용자 흐름의 회귀 검증을 수동으로 진행했고 프로젝트 전체 라인 커버리지는 0%였습니다.",
-            "analysis": "로그인·상품 선택·포인트 결제처럼 반복 검증이 필요한 흐름을 우선 자동화 대상으로 정하고, AI로 만든 테스트 시나리오와 코드 초안은 실제 서비스 요구사항과 동작을 기준으로 검증·보완했습니다.",
-            "action": "Unit·Widget Test와 Patrol E2E 테스트를 구축하고, GitHub Actions와 SonarQube를 연결해 테스트와 정적 분석 결과를 지속적으로 확인했습니다.",
-            "result": "LCOV 기준 프로젝트 전체 라인 커버리지를 0%에서 76.5%로 높이고 핵심 기능 변경 시 반복하던 수동 검증 범위를 줄였습니다."
+            "title": "리마인더 발송 경로와 중복 처리 보완",
+            "problem": "데이터 암호화 이후 기존 알림 작업이 읽는 값과 발송 경로가 맞지 않아 리마인더가 실패하는 경로를 확인했습니다.",
+            "analysis": "복호화 키를 다른 실행 환경으로 확산하기보다, 이미 필요한 데이터를 읽고 발송할 수 있는 기존 서버 경로를 재사용하기로 했습니다.",
+            "action": "기존 V2 아웃박스에 리마인더 이벤트를 연결하고 예약 변경·취소 재계획과 발송 직전 상태 재검증을 적용했습니다. 같은 시각의 서로 다른 예약 알림이 합쳐지지 않도록 SQS FIFO 중복 제거 키에 예약 식별자를 반영하고 회귀 테스트를 추가했습니다.",
+            "result": "예약 변경·취소에 맞춰 알림을 다시 계획하고, 큐 적재 실패가 성공으로 기록되지 않도록 했습니다. 큐 적재와 실제 수신은 구분하며, 이관 후 최종 전달 성공률은 아직 측정하지 않았습니다."
+          },
+          {
+            "title": "CMS 초기 API와 담당 데이터 검사",
+            "problem": "상담센터 운영에 로그인·예약·상담일지·스케줄·결제 기능이 필요했고, 외부 상담사에게는 담당 업무에 맞는 데이터 범위를 제공해야 했습니다.",
+            "action": "Java·Spring Boot CMS 초기 구축에 참여해 로그인·예약·상담일지·스케줄·결제 API와 센터별 데이터 구분을 구현했습니다.",
+            "result": "이후 기존 역할·권한 체계 안에서 담당 고객·본인 예약 확인이 환불 등 상태 변경보다 먼저 수행되도록 수정하고, 관련 회귀 테스트를 추가했습니다."
           },
           {
             "title": "Android·iOS 배포 자동화",
@@ -150,33 +134,46 @@
           }
         ],
         "highlights": [
-          "상담 고민과 증상 같은 민감 정보는 URL에 남기지 않고 세션 저장소에 보관했으며, 분석 화면 마스킹과 동의 절차도 적용했습니다.",
-          "Clify Insight에서 앱 이용 현황과 FAV·KOSS·PHQ-9·GAD-7 통계를 기간과 조직별로 확인할 수 있는 대시보드와 운영 기능을 개발했습니다.",
-          "일부 Android 기기에서 카메라 기능이 함께 동작하지 않는 원인을 찾고, 키오스크용 Web 측정 모듈을 앱의 WebView에 연결했습니다.",
-          "GA4·BigQuery 원본 이벤트와 운영 DB·오류 모니터링을 교차 분석해 이용 흐름의 이탈·반복 오류와 집계 기준의 한계를 확인하고, 이벤트·실패 사유 추적 항목을 정의해 일부 적용했습니다. 관측 체계 정비와 문제 구간 식별 단계이며, 전환율·매출 개선 효과는 아직 입증되지 않았습니다."
+          "검사 웹을 다종 검사·계약별 구성으로 확장하고 응답 저장·복원과 예약을 연결했습니다. R&D가 제공한 채점 기준을 코드로 옮기고 경계값 회귀 테스트를 작성했습니다.",
+          "Clify Insight 통계 화면과 집계 API에 기간별 사람당 최신 측정, 측정 당시 소속과 소수 표본 마스킹을 적용했습니다. 소속 정보가 없는 과거 데이터는 현재 소속을 사용하는 한계가 있습니다.",
+          "Android FAV에서 표시 화면과 프레임 버퍼의 좌표 차이를 추적했습니다. 크롭 좌표 변환을 수정해 0바이트 영상 오류를 처리하고 회귀 테스트를 추가했습니다.",
+          "단일 Flutter 앱에서 melos와 중복 계층, 역할 없는 Use Case를 제거했습니다. Repository·Bloc 중심으로 필요한 책임만 나눴습니다.",
+          "GitHub Actions와 AWS로 서버 빌드·패키징·이미지 업로드·배포·상태 확인을 자동화했습니다.",
+          "디자이너와 Git 기반 기획·디자인 자료, Figma MCP를 AI 코딩 도구에 연결했습니다. 요구사항 정리와 대안 비교, 통합·배포 및 주요 경로 확인을 맡았습니다.",
+          "GA4·BigQuery 이벤트와 운영 DB·오류 모니터링을 교차 분석해 이탈·반복 오류를 확인했습니다. 이벤트·실패 사유 추적을 정의하고 일부 적용했으며, 전환율·매출 개선 효과는 아직 검증하지 않았습니다."
         ],
         "skills": [
           "Flutter",
           "Dart",
-          "Bloc",
           "Kotlin",
           "Swift",
           "React",
           "TypeScript",
-          "Vite",
-          "Zustand",
-          "ECharts",
-          "TensorFlow.js",
-          "Spring",
+          "Java",
+          "Spring Boot",
+          "PostgreSQL",
+          "Playwright",
           "GitHub Actions",
           "Fastlane",
-          "Codemagic",
-          "Patrol",
-          "SonarQube",
-          "Vitest",
-          "Sentry",
-          "Microsoft Clarity",
-          "AWS Amplify"
+          "Sentry"
+        ],
+        "responsibilities": [
+          {
+            "area": "Mobile",
+            "description": "Flutter 앱 구조와 기능을 수정하고 Android·iOS 배포, 네이티브·WebView 연동과 촬영 오류를 처리했습니다."
+          },
+          {
+            "area": "Web",
+            "description": "Clify Connect 예약 웹, 검사 웹, FAV 키오스크와 Insight 통계 화면을 구현했습니다."
+          },
+          {
+            "area": "Backend",
+            "description": "CMS 초기 구축에서 업무 API와 예약 연동을 맡았습니다. 이후 기존 권한 체계 안에서 담당 데이터 범위 검사를 추가했습니다."
+          },
+          {
+            "area": "Reliability",
+            "description": "동시 취소 경합을 수정하고 리마인더 발송 경로, 테스트 검출력과 앱·서버 배포 자동화를 정비했습니다."
+          }
         ]
       },
       {
@@ -188,15 +185,15 @@
         "metrics": [
           {
             "value": "100K+",
-            "label": "서비스 규모 · 다운로드"
+            "label": "서비스 규모 · 재직 당시 다운로드"
           },
           {
             "value": "40K+",
-            "label": "서비스 규모 · 회원"
+            "label": "서비스 규모 · 재직 당시 회원"
           },
           {
             "value": "14–15K",
-            "label": "서비스 규모 · MAU"
+            "label": "서비스 규모 · 재직 당시 MAU"
           },
           {
             "value": "−20%",
@@ -226,6 +223,16 @@
           "MethodChannel",
           "Sentry",
           "Fastlane"
+        ],
+        "responsibilities": [
+          {
+            "area": "Mobile",
+            "description": "기존 앱 운영과 Bloc 기반 신규 앱 개발, Native SDK·WebView·실시간 시세 연동을 맡았습니다. 신규 앱은 스토어 미출시 상태로 검증했습니다."
+          },
+          {
+            "area": "Collaboration & Delivery",
+            "description": "2인 개발에서 기반 구조와 공통 기능을 구현하고 기능 분담·PR 리뷰·문서화·배포 자동화를 진행했습니다."
+          }
         ]
       },
       {
@@ -233,26 +240,25 @@
         "website": "https://www.dozn.co.kr/",
         "role": "Software Engineer",
         "period": "2022.01 — 2024.04",
-        "summary": "기존 React Native 앱을 대체하는 Flutter 앱을 시니어 개발자와 처음부터 개발해 출시했습니다. 이후 앱의 기능 개발과 배포·운영을 주로 담당했고, Flutter Web 백오피스의 초기 구조·기본 CRUD와 비회원용 전자투표 모바일 웹을 개발했습니다.",
+        "summary": "기존 React Native 앱을 대체하는 Flutter 앱을 시니어 개발자와 구축·출시하고, 이후 기능 개발·배포·운영을 담당했습니다. Flutter Web 백오피스 초기 구조·기본 CRUD와 앱 미설치 사용자의 전자투표 웹도 구현했습니다.",
         "metrics": [
           {
             "value": "6K+",
-            "label": "서비스 규모 · 앱 다운로드"
+            "label": "서비스 규모 · 재직 당시 앱 다운로드"
           },
           {
             "value": "3K+",
-            "label": "서비스 규모 · 인증 회원"
+            "label": "서비스 규모 · 재직 당시 인증 회원"
           },
           {
             "value": "900–1,000",
-            "label": "서비스 규모 · MAU"
+            "label": "서비스 규모 · 재직 당시 MAU"
           }
         ],
         "caseStudies": [
           {
             "title": "React Native 앱의 Flutter 재구축과 출시",
             "problem": "기존에 React Native로 개발 중이던 앱을 Flutter로 다시 개발하기로 결정해, 주요 사용자 흐름을 처음부터 구현하고 스토어 출시까지 연결해야 했습니다.",
-            "analysis": "초기 2인 개발에서 시니어 개발자가 공통 구조와 푸시 기능을 맡고, 저는 대부분의 CRUD와 사용자 흐름을 맡는 방식으로 범위를 나눴습니다.",
             "action": "거주지 등록·세대 인증·자동이체·전자투표를 비롯한 주요 기능을 구현하고, 출시 준비와 스토어 배포 이후 기능 개선·운영 이슈 대응을 이어갔습니다.",
             "result": "2022년 9월 Flutter 앱을 출시했고, 이후 시니어 개발자 퇴사 후에는 앱을 주로 담당하며 2024년 4월까지 기능 개발과 운영을 이어갔습니다."
           },
@@ -266,7 +272,7 @@
         ],
         "highlights": [
           "관리사무소 Flutter Web 백오피스의 초기 구조와 기본 CRUD를 구현하고, 이후 추가 기능 개발을 지원했습니다.",
-          "앱을 사용하지 않는 비회원도 전자투표에 참여할 수 있도록 앱의 기능과 UI를 Flutter 모바일 웹으로 구현해 출시했습니다.",
+          "앱을 설치하지 않은 사용자도 전자투표에 참여할 수 있도록 앱의 기능과 UI를 모바일 웹으로 구현해 출시했습니다.",
           "Firebase Analytics와 Crashlytics를 적용하고 오류 알림을 Slack에 연결해 운영 중 발생한 문제를 공유·분석하는 흐름을 만들었습니다.",
           "Fastlane으로 반복되는 앱 배포 과정을 자동화했습니다."
         ],
@@ -278,6 +284,16 @@
           "GraphQL",
           "Firebase",
           "Fastlane"
+        ],
+        "responsibilities": [
+          {
+            "area": "Mobile",
+            "description": "시니어 개발자와 앱을 구축·출시한 뒤 주요 기능 개발·스토어 배포·운영을 담당했습니다."
+          },
+          {
+            "area": "Web",
+            "description": "Flutter Web 백오피스 초기 구조·기본 CRUD와 앱 미설치 사용자를 위한 전자투표 웹을 구현했습니다."
+          }
         ]
       }
     ],
@@ -285,7 +301,7 @@
       {
         "title": "Celebridog",
         "subtitle": "반려견 숏폼 SNS",
-        "description": "Flutter와 Supabase로 출시해 약 1년간 운영한 반려견 숏폼 서비스입니다. Datadog과 DevTools로 OOM 원인을 찾고 모바일 영상 처리 방식을 개선했습니다.",
+        "description": "반려견 숏폼 SNS의 모바일 앱 구조·영상 편집·성능 개선을 맡아 약 1년간 운영했습니다. 인증·DB·Storage 구축은 다른 개발자가 담당했습니다.",
         "image": {
           "src": "https://assets.leeeeeoy.xyz/portfolio-v2/celdog.webp",
           "alt": "Celebridog 앱 피드 화면",
@@ -309,7 +325,7 @@
         "highlights": [
           "Datadog RUM과 Flutter DevTools로 과도한 이미지 디코딩이 OOM의 원인임을 확인했습니다.",
           "영상 편집 패키지를 수정해 다운샘플링과 WebP 변환을 적용했습니다.",
-          "모바일 영상 trim·인코딩으로 서버 처리 비용을 줄였습니다."
+          "영상 길이를 10초로 제한하고 모바일에서 구간 편집·인코딩한 결과물을 업로드하도록 해 서버의 원본 영상 처리 범위를 줄였습니다."
         ],
         "skills": ["Flutter", "Supabase", "Datadog", "Sentry", "FFmpeg"],
         "links": []
@@ -317,7 +333,7 @@
       {
         "title": "Tickie",
         "subtitle": "Dynamic Island 타이머",
-        "description": "기존 Flutter 패키지가 지원하지 않던 Live Activities 제어를 Swift 라이브러리와 MethodChannel로 연결한 2인 프로젝트입니다.",
+        "description": "기획·디자인 1명과 개발 1명의 프로젝트에서 Flutter 앱과 Swift·MethodChannel 연동을 구현해 스토어에 배포했습니다. 배포 이후 지속 운영은 진행하지 않았습니다.",
         "image": {
           "src": "https://assets.leeeeeoy.xyz/portfolio-v2/tickie.webp",
           "alt": "Tickie 타이머 앱 화면",
@@ -371,7 +387,7 @@
         "highlights": [
           "지도 이동과 실시간 위치 변화에 debounce를 적용해 불필요한 API 호출을 줄였습니다.",
           "GetX에서 Bloc으로 상태 흐름을 정리하고 이미지 캐싱을 적용했습니다.",
-          "8인 팀에서 앱 개발을 맡아 소셜 로그인, 지도 탐색, 리뷰 흐름을 구현했습니다."
+          "전체 팀 규모는 8명이며 실제 업무 협업 범위는 5명이었습니다. 앱 개발을 맡아 소셜 로그인·지도 탐색·리뷰 흐름을 구현했습니다."
         ],
         "skills": ["Flutter", "Bloc", "Map", "Firebase"],
         "links": [
@@ -384,38 +400,32 @@
     ],
     "skillGroups": [
       {
-        "title": "Core",
-        "description": "모바일 제품 설계와 운영",
-        "items": ["Flutter", "Dart", "Bloc", "Android", "iOS"]
+        "title": "Mobile",
+        "description": "주력 · Flutter 앱 개발·운영, Android·iOS 네이티브 연동",
+        "items": ["Flutter", "Dart", "Bloc", "Kotlin", "Swift", "MethodChannel"]
       },
       {
-        "title": "Platform",
-        "description": "네이티브와 웹 기능 연결",
-        "items": ["Kotlin", "Swift", "MethodChannel", "WebView", "WebSocket"]
+        "title": "Web",
+        "description": "실무 · 예약·검사·키오스크·관리자 화면 개발",
+        "items": ["React", "TypeScript", "Vite", "Zustand"]
       },
       {
-        "title": "Quality & Ops",
-        "description": "테스트와 배포 운영",
+        "title": "Server & Integration",
+        "description": "실무 · CMS 초기 API, 예약 연동과 취소 경합 처리",
+        "items": ["Java", "Spring Boot", "PostgreSQL"]
+      },
+      {
+        "title": "Quality & Delivery",
+        "description": "업무 적용 · 테스트, 오류 관측과 배포 자동화",
         "items": [
           "GitHub Actions",
-          "SonarQube",
-          "Patrol",
           "Fastlane",
           "Codemagic",
-          "Datadog",
-          "Sentry"
-        ]
-      },
-      {
-        "title": "Adjacent",
-        "description": "웹·백엔드 개발",
-        "items": [
-          "React",
-          "TypeScript",
-          "Spring",
-          "Node.js",
-          "GraphQL",
-          "Supabase"
+          "Patrol",
+          "Vitest",
+          "Playwright",
+          "Sentry",
+          "Datadog"
         ]
       }
     ],
@@ -426,14 +436,14 @@
       "darkTheme": "다크 테마로 전환",
       "lightTheme": "라이트 테마로 전환",
       "contactLinks": "연락 및 외부 링크",
-      "impactHeading": "문제와 판단, 실행,\n그리고 검증된 결과.",
-      "experienceHeading": "문제를 발견하고,\n운영 가능한 답을 만듭니다.",
-      "projectsHeading": "직접 만들고,\n출시하고, 운영했습니다.",
-      "skillsHeading": "기술보다\n사용한 맥락을 말합니다.",
+      "impactHeading": "주요 작업과 개선 사례",
+      "experienceHeading": "경력과 담당 업무",
+      "projectsHeading": "출시한 프로젝트",
+      "skillsHeading": "기술과 사용 경험",
       "context": "상황과 조건",
-      "decision": "판단과 실행",
-      "outcome": "검증된 결과",
-      "details": "문제 해결 사례와 구현 상세",
+      "decision": "구현",
+      "outcome": "결과",
+      "details": "주요 업무와 기술적 배경 보기",
       "problem": "문제",
       "analysis": "판단 근거",
       "action": "실행",
@@ -445,22 +455,22 @@
       "technologies": "사용 기술",
       "viewOn": "에서 보기",
       "footerHeading": "복잡한 문제를\n함께 단순하게.",
-      "privacyNote": "Microsoft Clarity는 동의한 경우에만 사용합니다.",
+      "privacyNote": "방문 집계와 Microsoft Clarity는 동의한 경우에만 사용합니다.",
       "analyticsSettings": "분석 설정",
-      "privacyPolicy": "개인정보 처리방침",
+      "privacyPolicy": "Microsoft 개인정보 처리방침",
       "close": "닫기",
       "architectureTitle": "작게 유지한\n웹사이트 구조",
-      "architectureIntro": "공개 콘텐츠는 빌드에 포함하고, 브라우저에서 API를 호출하지 않아 로딩과 실패 지점을 줄였습니다.",
+      "architectureIntro": "경력과 글은 정적 파일로 제공하고, 방문 합계만 별도 API로 조회합니다.",
       "architectureAlt": "사용자 브라우저가 Cloudflare Workers Static Assets의 React 정적 앱을 열고 앱이 R2의 공개 이미지를 불러오는 구조",
       "browser": "사용자 브라우저",
       "staticContent": "React · Vite · 정적 콘텐츠",
       "r2Reference": "↓ R2 URL 참조",
       "publicImages": "공개 프로젝트 이미지",
       "deploymentFlow": "배포 흐름",
-      "architectureLegacy": "현재 Frontend는 Workers Static Assets에서 제공합니다. 이전 API의 Worker·D1 설정은 별도로 남아 있으며, Frontend는 API를 호출하지 않습니다.",
+      "architectureLegacy": "경력·글 콘텐츠는 빌드에 포함합니다. 방문 합계만 기존 Worker·D1의 API로 조회하며, 동의한 방문만 등록합니다.",
       "source": "GitHub에서 소스 보기",
       "consentTitle": "사이트 사용성 분석",
-      "consentDescription": "Microsoft Clarity로 클릭·스크롤 등 사용 패턴을 분석합니다. 거부하면 불러오지 않습니다.",
+      "consentDescription": "방문 집계에는 하루 단위 IP 해시와 브라우저 식별 쿠키를 사용하고, Microsoft Clarity로 클릭·스크롤을 분석합니다. 거부하면 집계·분석하지 않습니다.",
       "decline": "거부",
       "allow": "허용",
       "noteMissing": "아직 작성되지 않은 기록입니다.",
@@ -472,7 +482,7 @@
       "notesEmpty": "아직 작성된 기록이 없습니다.",
       "engineeringDescription": "성능, 아키텍처, 플랫폼 제약과 외부 연동 문제를 분석하고 해결한 과정을 기록합니다.",
       "decisionsDescription": "우선순위와 기술 선택, 제품 실험에서 무엇을 근거로 결정했는지 기록합니다.",
-      "metaDescription": "Yoel Jang의 소프트웨어 엔지니어 포트폴리오입니다. Flutter 기반 제품 설계와 운영, 레거시 구조·메모리 개선, 웹·백엔드·배포 자동화 경험을 소개합니다.",
+      "metaDescription": "Android·iOS 앱을 주력으로 React 웹과 Java·Spring Boot API를 개발해 온 Software Engineer Yoel Jang의 포트폴리오입니다. 예약 연동, 성능, 테스트와 배포 경험을 소개합니다.",
       "imageAlt": "숲과 연못을 바라보는 소프트웨어 엔지니어 Yoel Jang",
       "navHome": "홈",
       "navPortfolio": "포트폴리오",
@@ -510,7 +520,11 @@
       "recordMissingDescription": "주소가 올바른지 확인하거나 목록에서 다른 글을 찾아보세요.",
       "recordUpdated": "수정",
       "recordCode": "코드 블록",
-      "recordTable": "표"
+      "recordTable": "표",
+      "roleScope": "담당 범위",
+      "visitStats": "사이트 방문 횟수",
+      "visitsToday": "오늘",
+      "visitsTotal": "누적"
     }
   },
   "en": {
@@ -519,8 +533,8 @@
       "name": "Yoel Jang",
       "role": "Software Engineer",
       "email": "hoheho18@gmail.com",
-      "headline": "I solve problems in live services\nthrough software.",
-      "intro": "I develop and maintain services primarily with Flutter. I have addressed booking consistency and performance issues, working across web development, backend integration, operational tools, and deployment as needed. I want to take a greater part in defining product problems and validating the results.",
+      "headline": "Building services.\nSolving problems in production.",
+      "intro": "Most of my experience is in building and maintaining Android and iOS apps with Flutter. I have also developed React booking websites and Spring Boot APIs, improved booking data consistency and performance, and automated tests and releases.",
       "links": [
         {
           "label": "GitHub",
@@ -539,31 +553,36 @@
     "featuredImpacts": [
       {
         "organization": "Simpatico Project",
-        "title": "One source of truth for bookings.",
-        "context": "Two booking systems already in use by clients produced 10–20 duplicate bookings a month and required cancellations to be checked twice. Any solution had to account for delivery timelines, team capacity, and ongoing operations.",
-        "decision": "Rather than rebuild both systems, I made the counselor platform the source of truth for availability and connected payment, storage, booking creation, and compensation for partial failures.",
-        "outcome": "No duplicate bookings were observed for 3–4 months after the change. Counselors no longer had to reconcile schedules or check cancellations in both systems."
+        "title": "Improving booking integration and concurrent cancellation",
+        "paragraphs": [
+          "The app and counseling platform managed bookings in separate databases. I built the initial integration APIs and ID mapping between them.",
+          "Later, I made cancellation idempotent and aligned row-lock ordering where schedule changes and cancellations competed. Notifications now follow the cancellation commit.",
+          "I reproduced selected point-payment and cancellation scenarios in a separate test environment, checking booking, point-balance, and refund state together."
+        ]
       },
       {
         "organization": "Simpatico Project",
-        "title": "From repeated manual checks to automated tests.",
-        "context": "Without a test foundation, changes to core user journeys required repeated manual verification.",
-        "decision": "I started with login, product selection, and payments using points rather than testing everything at once. I used AI to draft tests, then validated them against actual behavior and static analysis results.",
-        "outcome": "Unit, widget, and Patrol E2E tests, integrated with GitHub Actions and SonarQube, brought LCOV line coverage from 0% to 76.5%."
+        "title": "Building center operations APIs and a booking website",
+        "paragraphs": [
+          "I contributed to the initial CMS build, implementing counseling-center booking, counseling-note, schedule, and payment APIs in Java/Spring Boot.",
+          "With React/TypeScript, I developed a website covering product browsing, booking, rescheduling, and cancellation. I connected center-scoped data access and booking authentication, then deployed the website to AWS Amplify."
+        ]
       },
       {
-        "organization": "Seoul Exchange",
-        "title": "Rebuilding while keeping the service running.",
-        "context": "I inherited an app with no handover documentation, tightly coupled global dependencies, and resource lifecycle issues. Our two-person development team also had to maintain the live service.",
-        "decision": "We kept fixes to the existing app focused on essential issues while building a Bloc-based replacement. I handled the architecture, divided the work with a junior developer, and reviewed changes.",
-        "outcome": "In pre-release validation before any store release on the same Android device, home-screen memory use after login fell from 600–630 MB to 470–490 MB, a reduction of about 20%."
+        "organization": "Simpatico Project",
+        "title": "Finding faults the tests missed",
+        "paragraphs": [
+          "Coverage alone did not show whether the tests caught real faults. Using AI coding tools, I injected faults into selected logic and added tests for missed boundaries and failure scenarios.",
+          "Among 19 selected fault variants, the number detected by tests rose from 8 to 17."
+        ]
       },
       {
         "organization": "Celebridog",
-        "title": "Tracing out-of-memory errors to their source.",
-        "context": "Image processing for short videos repeatedly drove up memory use and caused out-of-memory (OOM) errors.",
-        "decision": "I used Datadog RUM and Flutter DevTools to identify image decoding as the cause, then applied downsampling and WebP conversion.",
-        "outcome": "Under the same physical-device conditions, memory use decreased by about 30%, and Android OOM occurrences by about 90%."
+        "title": "Reducing Android OOM through image decoding improvements",
+        "paragraphs": [
+          "Memory use and Android OOM occurrences increased in the live short-video app. I traced image decoding with Datadog RUM and Flutter DevTools, then applied downsampling and WebP conversion.",
+          "Under the same physical-device conditions, memory use decreased by about 30%, and Android OOM occurrences by about 90%."
+        ]
       }
     ],
     "experiences": [
@@ -572,15 +591,11 @@
         "website": "https://clify.co.kr/",
         "role": "Software Engineer",
         "period": "2025.04 — Present",
-        "summary": "I develop, release, and maintain a Flutter app for counseling bookings and remote sessions, and improved booking consistency across two systems. For Clify Connect, I built the React booking website, developed the Spring Connect module and V2 integration, and configured AWS Amplify deployment. I also built the FAV kiosk with Flutter and React to address on-site update constraints, along with an admin dashboard.",
+        "summary": "I develop and maintain mobile apps and web services for a counseling and assessment platform. I contributed to the initial counseling-center backend and handled booking integration, data consistency improvements, testing, and release automation.",
         "metrics": [
           {
-            "value": "5K+",
-            "label": "Service scale · registered users"
-          },
-          {
             "value": "0→76.5%",
-            "label": "LCOV line coverage"
+            "label": "LCOV · initial test foundation"
           },
           {
             "value": "20+ min",
@@ -589,40 +604,18 @@
         ],
         "caseStudies": [
           {
-            "title": "Resolving duplicate bookings across two systems",
-            "problem": "The app and counselor scheduling platform managed bookings in separate databases, producing 10–20 duplicate bookings a month. Cancellations also had to be handled in both systems.",
-            "analysis": "The systems had different booking models, and the external platform could not be included in a single database transaction. To account for existing clients, delivery timelines, and team capacity, I connected the systems through internal APIs and mapping tables, using the counselor platform as the source of truth for availability.",
-            "action": "I processed payment, saved the booking on the app server, and created the corresponding booking on the counselor platform in sequence, returning success only after both bookings existed. If a step failed, compensating actions reversed completed steps, and Slack alerts identified where the failure occurred. Scripts based on contract information replaced manual setup of initial data and mappings for new clients.",
-            "result": "No duplicate bookings were observed for 3–4 months after the change. Counselors no longer needed to reconcile schedules or verify cancellations twice.",
-            "flow": [
-              {
-                "label": "Successful booking",
-                "steps": [
-                  "Identity verification",
-                  "Payment",
-                  "App backend booking",
-                  "Counselor platform booking",
-                  "Success"
-                ]
-              },
-              {
-                "label": "Compensation on failure",
-                "steps": [
-                  "Payment succeeds",
-                  "App booking succeeds",
-                  "Platform booking fails",
-                  "Compensating actions",
-                  "Slack alert"
-                ]
-              }
-            ]
+            "title": "Cross-database booking integration and concurrent cancellation",
+            "problem": "Bookings in separate databases needed to be linked. Later, concurrent cancellation and schedule-change races exposed duplicate handling, deadlocks, and inconsistent states.",
+            "analysis": "The systems could not share one database transaction, so I separated integration APIs, ID mapping, and state propagation. Cancellation handling also needed consistent lock ordering and notifications sent only after the cancellation committed.",
+            "action": "I implemented the initial integration APIs and ID mapping, batch availability lookup, reverse search, and assessment-web booking path. Using AI coding tools and lab reproduction, I improved idempotent cancellation responses, member-before-booking lock ordering, and post-commit cancellation notifications.",
+            "result": "Reproduced selected point-payment and cancellation races in the lab and rechecked booking, point-balance, and refund state. Card payments, lost callbacks, and failed compensation require separate validation."
           },
           {
-            "title": "Clify Connect · React booking website, Spring integration, and deployment",
-            "problem": "The complete booking flow needed to be available through a B2C website as well as the mobile app.",
-            "analysis": "Delivering the booking website required feature development and integration within the existing Spring backend, along with a web deployment environment.",
-            "action": "I built the complete booking flow in React 19 and TypeScript and developed the Spring backend's Connect module and V2 integration.",
-            "result": "I also configured AWS Amplify deployment and the custom domain for the Clify Connect booking website."
+            "title": "AI-assisted testing and manual fault injection",
+            "problem": "Core user journeys needed repeated manual regression checks. Even after automation, boundary gaps and execution-order dependencies remained.",
+            "analysis": "I first scoped repeatable use cases and external payment dependencies. Later, I treated coverage and fault detection as different questions and checked how tests responded to injected faults in selected logic.",
+            "action": "Using AI coding tools, I built Unit, Widget, and Patrol E2E tests and connected GitHub Actions, SonarQube, and LCOV. I manually injected faults into boundary, point-payment, refund, and playback-tracking logic to check whether tests caught them. I fixed three tests affected by dates or execution order and randomized test order in CI.",
+            "result": "Initial LCOV line coverage rose from 0% to 76.5%. Later, detection increased from 8 to 17 of 19 fault variants in selected logic; this is not an app-wide defect detection rate. The other two involved one unnecessary code removal and one variant protected by another guard. Further checks are needed for real API-contract validation and integration tests using real components."
           },
           {
             "title": "FAV kiosk · Updating on-site devices without interrupting measurements",
@@ -632,18 +625,23 @@
             "result": "Changes to screens and user flows no longer required reinstalling the APK, and new versions could be applied without interrupting a measurement session."
           },
           {
-            "title": "Simplifying the app architecture for the team",
-            "problem": "A single Flutter app used a melos monorepo and multiple layers of Clean Architecture. Even basic CRUD changes required navigating several layers and repetitive code.",
-            "analysis": "Models were often reused unchanged across layers, and many use cases simply forwarded repository calls. For the team’s size and the product’s stage of development, those layers added more effort to understanding and changing the code than they saved.",
-            "action": "I first removed melos and moved to a single project, then gradually removed redundant layers and pass-through use cases. I retained useful separation of responsibilities around repositories and Bloc.",
-            "result": "Feature work required understanding fewer dependencies and changing fewer parts of the codebase."
+            "title": "Clify Connect booking website and Spring APIs",
+            "problem": "The complete booking flow needed to be available through a B2C website as well as the mobile app.",
+            "action": "I developed React 19/TypeScript interfaces for product browsing, counselor selection, booking, rescheduling, and cancellation. I also implemented the Spring Connect module, V2 integration, center and booking authentication, analytics masking, and consent.",
+            "result": "I configured AWS Amplify deployments for development and production environments and custom domains. I checked key screens and requests with Playwright tests using mock APIs and logic tests. Real API integration and external-customer booking/payment outcomes require separate verification."
           },
           {
-            "title": "Automating tests for core user journeys",
-            "problem": "Regression checks for core user journeys were manual, and project-wide line coverage was 0%.",
-            "analysis": "I prioritized user journeys that needed repeated checks: login, product selection, and payments using points. I reviewed and refined AI-generated test scenarios and drafts against service requirements and actual behavior.",
-            "action": "I added unit, widget, and Patrol E2E tests, then integrated GitHub Actions and SonarQube to track test and static analysis results.",
-            "result": "Project-wide LCOV line coverage rose from 0% to 76.5%, reducing the scope of repeated manual checks for changes to core features."
+            "title": "Reminder delivery paths and deduplication",
+            "problem": "After data encryption, the values read by the existing reminder job no longer matched what the delivery path needed.",
+            "analysis": "Rather than distribute decryption keys to another runtime, I reused an existing server path that could read the required data and send messages.",
+            "action": "I connected reminders to the existing V2 outbox, rescheduled changed/cancelled bookings, and rechecked state before sending. I included booking identity in the SQS FIFO deduplication key so separate reminders at the same time would not collapse, and added regression tests.",
+            "result": "Reminder plans follow booking changes and cancellations, and queue failures are no longer recorded as success. Queue acceptance and recipient delivery are distinct; post-migration final delivery rates have not been measured."
+          },
+          {
+            "title": "Initial CMS APIs and assigned-data checks",
+            "problem": "Center operations needed login, booking, counseling-note, schedule, and payment features, with appropriate assigned-data scope for external counselors.",
+            "action": "I contributed to the initial Java/Spring Boot CMS build, implementing login, booking, counseling-note, schedule, and payment APIs, plus center-level data separation.",
+            "result": "Later, within the existing role and authorization structure, I placed assigned-customer and own-booking checks before state-changing actions such as refunds and added regression tests."
           },
           {
             "title": "Automating Android and iOS releases",
@@ -664,33 +662,46 @@
           }
         ],
         "highlights": [
-          "Kept sensitive information, including counseling concerns and symptoms, out of URLs by using session storage. Added data masking in analytics and consent controls.",
-          "Built Clify Insight dashboards and operational features for app usage and FAV, KOSS, PHQ-9, and GAD-7 statistics by period and organization.",
-          "Investigated camera feature conflicts on certain Android devices and integrated the kiosk web measurement module into the app through a WebView.",
-          "Cross-analyzed raw GA4 and BigQuery events, operational database records, and error monitoring to identify drop-off points, recurring errors, and limits in metric definitions. I defined event and failure-reason tracking requirements and implemented some of them. This work has reached instrumentation improvements and problem identification; improvements in conversion or revenue have not yet been demonstrated."
+          "Extended assessment websites for multiple tests and contract-specific configurations, connecting response persistence and booking. Implemented R&D-provided scoring rules and boundary regression tests.",
+          "Implemented per-person latest measurements by period, affiliation at measurement time, and small-sample masking in Clify Insight reporting interfaces and APIs. Historical records without affiliation data still use current affiliation as a fallback.",
+          "Traced display-to-frame-buffer coordinate differences in Android FAV. Fixed crop-coordinate conversion and zero-byte video output, then added regression tests.",
+          "Removed melos, duplicate layers, and use cases without a distinct role from a single Flutter app, keeping necessary responsibilities around repositories and Bloc.",
+          "Automated server builds, packaging, image uploads, deployment, and health checks with GitHub Actions and AWS.",
+          "Worked with a designer to connect Git-based planning/design materials and Figma MCP to AI coding tools. I handled requirements, alternatives, integration, deployment, and key-flow checks.",
+          "Cross-analyzed GA4/BigQuery events, operational databases, and error monitoring to identify drop-offs and repeated errors. Defined and partly implemented event and failure-reason tracking; conversion and revenue effects remain unverified."
         ],
         "skills": [
           "Flutter",
           "Dart",
-          "Bloc",
           "Kotlin",
           "Swift",
           "React",
           "TypeScript",
-          "Vite",
-          "Zustand",
-          "ECharts",
-          "TensorFlow.js",
-          "Spring",
+          "Java",
+          "Spring Boot",
+          "PostgreSQL",
+          "Playwright",
           "GitHub Actions",
           "Fastlane",
-          "Codemagic",
-          "Patrol",
-          "SonarQube",
-          "Vitest",
-          "Sentry",
-          "Microsoft Clarity",
-          "AWS Amplify"
+          "Sentry"
+        ],
+        "responsibilities": [
+          {
+            "area": "Mobile",
+            "description": "Flutter app features and structure, Android/iOS releases, native and WebView integration, and capture-error fixes."
+          },
+          {
+            "area": "Web",
+            "description": "Clify Connect booking, assessment websites, the FAV kiosk, and Insight reporting interfaces."
+          },
+          {
+            "area": "Backend",
+            "description": "Business APIs and booking integration during the initial CMS build, followed by assigned-data checks within the existing authorization structure."
+          },
+          {
+            "area": "Reliability",
+            "description": "Concurrent cancellation fixes, reminder delivery paths, test fault detection, and app/server release automation."
+          }
         ]
       },
       {
@@ -702,15 +713,15 @@
         "metrics": [
           {
             "value": "100K+",
-            "label": "Service scale · downloads"
+            "label": "Service scale during tenure · downloads"
           },
           {
             "value": "40K+",
-            "label": "Service scale · members"
+            "label": "Service scale during tenure · members"
           },
           {
             "value": "14–15K",
-            "label": "Service scale · MAU"
+            "label": "Service scale during tenure · MAU"
           },
           {
             "value": "−20%",
@@ -740,6 +751,16 @@
           "MethodChannel",
           "Sentry",
           "Fastlane"
+        ],
+        "responsibilities": [
+          {
+            "area": "Mobile",
+            "description": "Maintained the existing app, developed the Bloc-based rebuild, and integrated native SDKs, WebViews, and live prices. The rebuild was validated before any store release."
+          },
+          {
+            "area": "Collaboration & Delivery",
+            "description": "In a two-developer effort, I built foundations/shared features and handled task division, PR review, documentation, and release automation."
+          }
         ]
       },
       {
@@ -747,26 +768,25 @@
         "website": "https://www.dozn.co.kr/",
         "role": "Software Engineer",
         "period": "2022.01 — 2024.04",
-        "summary": "I built and launched a Flutter replacement for a React Native app with a senior developer. I then took primary responsibility for app features, releases, and operations. I also built the initial structure and basic CRUD for a Flutter Web back office, plus a mobile voting website for non-members.",
+        "summary": "Built and launched the Flutter replacement for an existing React Native app with a senior developer, then handled features, releases, and operations. I also implemented the initial Flutter Web backoffice structure and basic CRUD features and a voting website for users without the app.",
         "metrics": [
           {
             "value": "6K+",
-            "label": "Service scale · app downloads"
+            "label": "Service scale during tenure · app downloads"
           },
           {
             "value": "3K+",
-            "label": "Service scale · verified members"
+            "label": "Service scale during tenure · verified members"
           },
           {
             "value": "900–1,000",
-            "label": "Service scale · MAU"
+            "label": "Service scale during tenure · MAU"
           }
         ],
         "caseStudies": [
           {
             "title": "Rebuilding and launching a React Native app in Flutter",
             "problem": "Once the team decided to replace the React Native app under development with Flutter, we needed to rebuild the main user journeys and prepare the app for release on the app stores.",
-            "analysis": "In our initial two-person development team, the senior developer handled the shared architecture and push notifications. I took on most CRUD features and user journeys.",
             "action": "I implemented address registration, household verification, direct debit, electronic voting, and other core features, then continued with launch preparation, store releases, feature improvements, and operational fixes.",
             "result": "We released the Flutter app in September 2022. After the senior developer left, I took primary responsibility for the app and continued development and operations through April 2024."
           },
@@ -780,7 +800,7 @@
         ],
         "highlights": [
           "Implemented the initial architecture and basic CRUD for the property-management Flutter Web back office, then supported additional feature development.",
-          "Built and launched a Flutter mobile website using the app’s voting features and UI so non-members who did not use the app could participate.",
+          "Built and launched a mobile-web version of the voting flow for users without the app.",
           "Added Firebase Analytics and Crashlytics and connected error alerts to Slack so operational issues could be shared and investigated.",
           "Automated repetitive app release tasks with Fastlane."
         ],
@@ -792,6 +812,16 @@
           "GraphQL",
           "Firebase",
           "Fastlane"
+        ],
+        "responsibilities": [
+          {
+            "area": "Mobile",
+            "description": "Built and launched the app with a senior developer, then handled core features, store releases, and operations."
+          },
+          {
+            "area": "Web",
+            "description": "Implemented the initial Flutter Web backoffice structure/basic CRUD and mobile voting web for users without the app."
+          }
         ]
       }
     ],
@@ -799,7 +829,7 @@
       {
         "title": "Celebridog",
         "subtitle": "A short-video community for dog owners",
-        "description": "A short-video service built with Flutter and Supabase that I helped launch and run for about a year. I traced OOM errors with Datadog and DevTools and improved on-device media processing.",
+        "description": "Worked on mobile architecture, video editing, and performance for a dog-video social app operated for about a year. Another developer owned authentication, database, and storage setup.",
         "image": {
           "src": "https://assets.leeeeeoy.xyz/portfolio-v2/celdog.webp",
           "alt": "Celebridog app feed",
@@ -823,7 +853,7 @@
         "highlights": [
           "Used Datadog RUM and Flutter DevTools to trace OOM errors to excessive image decoding.",
           "Modified the video editing package to add downsampling and WebP conversion.",
-          "Reduced server processing costs by trimming and encoding video on the device."
+          "Limited videos to 10 seconds and uploaded the mobile-trimmed/encoded result, reducing the server’s raw-video processing responsibilities."
         ],
         "skills": ["Flutter", "Supabase", "Datadog", "Sentry", "FFmpeg"],
         "links": []
@@ -831,7 +861,7 @@
       {
         "title": "Tickie",
         "subtitle": "Dynamic Island timer",
-        "description": "A two-person project in which I used a Swift library and MethodChannel to add Live Activities controls that existing Flutter packages did not support.",
+        "description": "As the sole developer working with a planner/designer, I built the Flutter app and Swift/MethodChannel integration and shipped it to the store. There was no ongoing post-release operation.",
         "image": {
           "src": "https://assets.leeeeeoy.xyz/portfolio-v2/tickie.webp",
           "alt": "Tickie timer app",
@@ -885,7 +915,7 @@
         "highlights": [
           "Debounced map movement and live location changes to reduce unnecessary API calls.",
           "Migrated state management from GetX to Bloc and added image caching.",
-          "Developed the app as part of an eight-person team, implementing social login, map browsing, and reviews."
+          "Worked on app development in an eight-person team, with day-to-day collaboration involving five people. I implemented social login, map exploration, and review flows."
         ],
         "skills": ["Flutter", "Bloc", "Map", "Firebase"],
         "links": [
@@ -898,38 +928,32 @@
     ],
     "skillGroups": [
       {
-        "title": "Core",
-        "description": "Mobile product development and operations",
-        "items": ["Flutter", "Dart", "Bloc", "Android", "iOS"]
+        "title": "Mobile",
+        "description": "Primary focus · Flutter products and Android/iOS native integration",
+        "items": ["Flutter", "Dart", "Bloc", "Kotlin", "Swift", "MethodChannel"]
       },
       {
-        "title": "Platform",
-        "description": "Connecting native and web capabilities",
-        "items": ["Kotlin", "Swift", "MethodChannel", "WebView", "WebSocket"]
+        "title": "Web",
+        "description": "Work experience · Booking, assessment, kiosk, and admin interfaces",
+        "items": ["React", "TypeScript", "Vite", "Zustand"]
       },
       {
-        "title": "Quality & Ops",
-        "description": "Testing, releases, and operations",
+        "title": "Server & Integration",
+        "description": "Work experience · Initial CMS APIs, booking integration, cancellation races",
+        "items": ["Java", "Spring Boot", "PostgreSQL"]
+      },
+      {
+        "title": "Quality & Delivery",
+        "description": "Applied in projects · Testing, error monitoring, and release automation",
         "items": [
           "GitHub Actions",
-          "SonarQube",
-          "Patrol",
           "Fastlane",
           "Codemagic",
-          "Datadog",
-          "Sentry"
-        ]
-      },
-      {
-        "title": "Adjacent",
-        "description": "Web and backend development",
-        "items": [
-          "React",
-          "TypeScript",
-          "Spring",
-          "Node.js",
-          "GraphQL",
-          "Supabase"
+          "Patrol",
+          "Vitest",
+          "Playwright",
+          "Sentry",
+          "Datadog"
         ]
       }
     ],
@@ -940,14 +964,14 @@
       "darkTheme": "Switch to dark theme",
       "lightTheme": "Switch to light theme",
       "contactLinks": "Contact and external links",
-      "impactHeading": "Problems, decisions, execution,\nand verified results.",
-      "experienceHeading": "Finding problems.\nBuilding solutions that work in practice.",
-      "projectsHeading": "Built, launched,\nand operated.",
-      "skillsHeading": "Skills,\nwith context.",
+      "impactHeading": "Selected work and improvements",
+      "experienceHeading": "Experience and responsibilities",
+      "projectsHeading": "Released projects",
+      "skillsHeading": "Technologies in practice",
       "context": "Context & constraints",
-      "decision": "Decision & action",
-      "outcome": "Verified result",
-      "details": "Problem-solving cases and implementation details",
+      "decision": "Implementation",
+      "outcome": "Result",
+      "details": "Explore the work and technical decisions",
       "problem": "Problem",
       "analysis": "Rationale",
       "action": "Action",
@@ -959,22 +983,22 @@
       "technologies": "technologies",
       "viewOn": "View on",
       "footerHeading": "Let’s make complex\nproblems simpler.",
-      "privacyNote": "Microsoft Clarity is used only with your consent.",
+      "privacyNote": "Visit counting and Microsoft Clarity run only with your consent.",
       "analyticsSettings": "Analytics settings",
-      "privacyPolicy": "Privacy statement",
+      "privacyPolicy": "Microsoft privacy statement",
       "close": "Close",
       "architectureTitle": "A small, straightforward\nwebsite architecture",
-      "architectureIntro": "Public content is bundled at build time. The browser does not fetch it from an API, reducing loading steps and points of failure.",
+      "architectureIntro": "Career and post content is served as static files; only visit totals are fetched from an API.",
       "architectureAlt": "The browser loads a static React app from Cloudflare Workers Static Assets, which loads public images from R2.",
       "browser": "Browser",
       "staticContent": "React · Vite · static content",
       "r2Reference": "↓ R2 image URLs",
       "publicImages": "Public project images",
       "deploymentFlow": "Deployment flow",
-      "architectureLegacy": "The frontend is served by Workers Static Assets and does not call an API. Configuration for the previous Worker API and D1 remains separate.",
+      "architectureLegacy": "Career and post content is bundled at build time. Only visit totals use the existing Worker/D1 API; visits are recorded with consent.",
       "source": "View source on GitHub",
       "consentTitle": "Site usage analytics",
-      "consentDescription": "Microsoft Clarity analyzes interactions such as clicks and scrolling. It will not load if you decline.",
+      "consentDescription": "Visit counting uses daily IP hashes and a browser identification cookie. Microsoft Clarity analyzes clicks and scrolling. Neither counting nor analytics runs if you decline.",
       "decline": "Decline",
       "allow": "Allow",
       "noteMissing": "This note is not available yet.",
@@ -986,7 +1010,7 @@
       "notesEmpty": "No notes published yet.",
       "engineeringDescription": "Investigations and solutions involving performance, architecture, platform constraints, and external integrations.",
       "decisionsDescription": "The reasoning behind priorities, technology choices, and product experiments.",
-      "metaDescription": "Yoel Jang’s software engineering portfolio: Flutter products, system integrations, performance improvements, and release automation, with the decisions behind the work.",
+      "metaDescription": "Software Engineer Yoel Jang: Android/iOS product development, React websites, and Java/Spring Boot APIs, with experience in booking integration, performance, testing, and delivery.",
       "imageAlt": "Software engineer Yoel Jang overlooking a forest and pond",
       "navHome": "Home",
       "navPortfolio": "Portfolio",
@@ -1024,7 +1048,11 @@
       "recordMissingDescription": "Check the address or return to the list to find another post.",
       "recordUpdated": "Updated",
       "recordCode": "Code block",
-      "recordTable": "Table"
+      "recordTable": "Table",
+      "roleScope": "Responsibilities",
+      "visitStats": "Site visits",
+      "visitsToday": "Today",
+      "visitsTotal": "Total"
     }
   }
 }

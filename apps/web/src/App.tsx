@@ -12,9 +12,10 @@ import RecordListPage from './pages/RecordListPage'
 import RecordPage from './pages/RecordPage'
 import NotFoundPage from './pages/NotFoundPage'
 import { getPage, portfolioSections } from './routes'
+import { loadVisitStats } from './visits'
 
 const CLARITY_PROJECT_ID = 'xti7rw64s1'
-const CLARITY_CONSENT_KEY = 'portfolio-clarity-consent'
+const CLARITY_CONSENT_KEY = 'portfolio-analytics-consent-v2'
 const THEME_KEY = 'portfolio-theme'
 const PRODUCTION_HOST = 'leeeeeoy.xyz'
 
@@ -139,7 +140,7 @@ export default function App() {
         ad_Storage: 'denied',
         analytics_Storage: 'denied',
       })
-      window.location.reload()
+      void loadVisitStats('denied').finally(() => window.location.reload())
       return
     }
 
@@ -185,7 +186,11 @@ export default function App() {
         {page === 'not-found' && <NotFoundPage />}
       </main>
 
-      <SiteFooter page={page} onOpenConsent={() => setShowConsent(true)} />
+      <SiteFooter
+        page={page}
+        consent={consent}
+        onOpenConsent={() => setShowConsent(true)}
+      />
 
       {showConsent && (
         <aside

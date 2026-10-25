@@ -101,6 +101,39 @@ test('language links, metadata, and rendered pages work in both languages', asyn
         '/src/components/SiteChrome.tsx',
       )
       const portfolio = renderToStaticMarkup(createElement(PortfolioPage))
+      const impactSection = portfolio
+        .split('class="impact-grid"')[1]
+        ?.split('</section>')[0]
+      assert.ok(impactSection)
+      assert.equal((impactSection.match(/<article/g) ?? []).length, 4)
+      assert.doesNotMatch(impactSection, /<dl|<dt|<dd/)
+      for (const impact of translations[language].featuredImpacts) {
+        for (const paragraph of impact.paragraphs)
+          assert.ok(
+            impactSection.includes(
+              renderToStaticMarkup(createElement('p', null, paragraph)),
+            ),
+          )
+      }
+      for (const experience of translations[language].experiences) {
+        for (const study of experience.caseStudies) {
+          const section = portfolio
+            .split(`<h4>${study.title}</h4>`)[1]
+            ?.split('</article>')[0]
+          assert.ok(section, study.title)
+          assert.equal(
+            section.includes(`<dt>${translations[language].ui.analysis}</dt>`),
+            Boolean(study.analysis),
+            'Only cases with an actual rationale render a rationale row',
+          )
+          for (const field of ['problem', 'action', 'result'])
+            assert.ok(
+              section.includes(
+                renderToStaticMarkup(createElement('dd', null, study[field])),
+              ),
+            )
+        }
+      }
       const notes = renderToStaticMarkup(createElement(NotesPage))
       const missingNote = renderToStaticMarkup(
         createElement(NotesPage, { slug: 'missing' }),
@@ -137,6 +170,22 @@ test('language links, metadata, and rendered pages work in both languages', asyn
         assert.doesNotMatch(portfolio + notes + missingNote + footer, /[가-힣]/)
 
       const { default: App } = await server.ssrLoadModule('/src/App.tsx')
+      // Previous Clarity-only consent must not silently authorize IP/cookie counting.
+      localStorage.getItem = (key) =>
+        key === 'portfolio-clarity-consent' ? 'granted' : null
+      assert.ok(
+        renderToStaticMarkup(createElement(App)).includes(
+          translations[language].ui.consentDescription,
+        ),
+      )
+      localStorage.getItem = (key) =>
+        key === 'portfolio-analytics-consent-v2' ? 'granted' : null
+      assert.ok(
+        !renderToStaticMarkup(createElement(App)).includes(
+          'class="consent-banner"',
+        ),
+      )
+      localStorage.getItem = () => null
       const routes = [
         ['/', translations[language].ui.homeHeading, 'home'],
         ['/portfolio/', translations[language].profile.headline, 'portfolio'],
@@ -207,6 +256,21 @@ test('language links, metadata, and rendered pages work in both languages', asyn
               `aria-label="${translations[language].ui.portfolioNavigation}"`,
             ),
           )
+          for (const experience of translations[language].experiences) {
+            for (const { area, description } of experience.responsibilities) {
+              assert.ok(
+                rendered.includes(
+                  renderToStaticMarkup(createElement('dt', null, area)),
+                ),
+                'Responsibilities must render in the current language',
+              )
+              assert.ok(
+                rendered.includes(
+                  renderToStaticMarkup(createElement('dd', null, description)),
+                ),
+              )
+            }
+          }
         } else {
           assert.doesNotMatch(
             rendered,

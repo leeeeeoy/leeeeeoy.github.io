@@ -37,7 +37,7 @@ function LinkIcon({ label }: { label: string }) {
 export default function PortfolioPage() {
   return (
     <>
-      <section className="hero" id="top">
+      <section className="hero portfolio-hero" id="top">
         <div className="hero-copy">
           <p className="eyebrow">{content.profile.eyebrow}</p>
           <h1>
@@ -64,7 +64,7 @@ export default function PortfolioPage() {
         aria-labelledby="impact-title"
       >
         <div className="section-heading" data-reveal>
-          <p className="eyebrow">01 · SELECTED IMPACT</p>
+          <p className="eyebrow">01 · SELECTED WORK</p>
           <h2 id="impact-title">{ui.impactHeading}</h2>
         </div>
         <div className="impact-grid">
@@ -72,20 +72,11 @@ export default function PortfolioPage() {
             <article key={impact.title} data-reveal>
               <p className="impact-organization">{impact.organization}</p>
               <h3>{impact.title}</h3>
-              <dl>
-                <div>
-                  <dt>{ui.context}</dt>
-                  <dd>{impact.context}</dd>
-                </div>
-                <div>
-                  <dt>{ui.decision}</dt>
-                  <dd>{impact.decision}</dd>
-                </div>
-                <div>
-                  <dt>{ui.outcome}</dt>
-                  <dd>{impact.outcome}</dd>
-                </div>
-              </dl>
+              <div className="impact-copy">
+                {impact.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
             </article>
           ))}
         </div>
@@ -124,6 +115,14 @@ export default function PortfolioPage() {
                   <time>{experience.period}</time>
                 </div>
                 <p className="summary">{experience.summary}</p>
+                <dl className="responsibilities" aria-label={ui.roleScope}>
+                  {experience.responsibilities.map((responsibility) => (
+                    <div key={responsibility.area}>
+                      <dt>{responsibility.area}</dt>
+                      <dd>{responsibility.description}</dd>
+                    </div>
+                  ))}
+                </dl>
                 <div className="inline-metrics">
                   {experience.metrics.map((metric) => (
                     <span key={metric.label}>
@@ -146,10 +145,12 @@ export default function PortfolioPage() {
                               <dt>{ui.problem}</dt>
                               <dd>{caseStudy.problem}</dd>
                             </div>
-                            <div>
-                              <dt>{ui.analysis}</dt>
-                              <dd>{caseStudy.analysis}</dd>
-                            </div>
+                            {'analysis' in caseStudy && (
+                              <div>
+                                <dt>{ui.analysis}</dt>
+                                <dd>{caseStudy.analysis}</dd>
+                              </div>
+                            )}
                             <div>
                               <dt>{ui.action}</dt>
                               <dd>{caseStudy.action}</dd>

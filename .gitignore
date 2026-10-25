@@ -33,3 +33,7 @@ docs/**/raw/
 
 # Generated Lab evidence stays local; publish reviewed summaries separately.
 /labs/**/results/
+
+# Deployment schema/data stay local; test fixtures live in test code.
+/apps/api/migrations/
+/apps/api/**/*.sql

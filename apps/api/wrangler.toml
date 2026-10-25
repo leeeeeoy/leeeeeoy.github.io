@@ -1,0 +1,45 @@
+name = "leeeeeoy-portfolio-backend"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = false
+preview_urls = false
+
+[[d1_databases]]
+binding = "DB"
+database_name = "leeeeeoy-portfolio"
+database_id = "36b2bc88-3d60-438d-8f98-f5d48c5682aa"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "leeeeeoy-portfolio-assets"
+# binding name in Worker code: BUCKET
+
+[vars]
+ENVIRONMENT = "production"
+ASSETS_BASE_URL = "https://assets.leeeeeoy.xyz"
+
+# Same-origin counter route; publishing this route requires a separate deployment.
+[[routes]]
+pattern = "leeeeeoy.xyz/api/visits"
+zone_name = "leeeeeoy.xyz"
+
+# Persistent Preview: isolated database, read-only visitor statistics.
+[env.preview]
+name = "leeeeeoy-portfolio-backend-preview"
+workers_dev = false
+preview_urls = false
+r2_buckets = []
+
+[env.preview.vars]
+ENVIRONMENT = "preview"
+ASSETS_BASE_URL = "https://assets.leeeeeoy.xyz"
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "leeeeeoy-portfolio-preview"
+database_id = "a28888a2-9bcc-4d90-9bae-498576ddf772"
+
+[[env.preview.routes]]
+pattern = "preview-portfolio.leeeeeoy.xyz/api/visits"
+zone_name = "leeeeeoy.xyz"
