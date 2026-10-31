@@ -67,6 +67,10 @@ go test -race ./...  # race 분석이 가능한 플랫폼/설정에서
 
 `npm audit --package-lock-only --ignore-scripts` 결과는 조회 시점의 공개 권고 정보이며 취약점 부재를 보장하지 않는다. API와 Web lockfile을 각각 조회한다. 기존 Undici/Zod override도 같은 원칙으로 유지한다.
 
+세 workflow의 외부 Actions는 2026-10-31 공식 저장소 major ref를 조회한 40자리 commit SHA로 고정했다. 주석의 major는 갱신 참고용이다. 갱신할 때 공식 ref/commit과 변경 내용을 검토한 뒤 SHA를 함께 바꾼다. checkout은 `persist-credentials: false`, workflow 권한은 `contents: read`를 유지하며 배포 Secret은 push 전용 deploy job에서만 사용한다. 서명 메타데이터 확인이나 SHA 고정은 Action 소스 전체 감사·호스팅 CI 실행을 대신하지 않는다.
+
+Web/API의 공유 `CLOUDFLARE_FRONTEND_API_TOKEN`은 기존 통합 결정을 유지한다. 실제 권한은 로컬 Wrangler OAuth와 다른 인증이므로 로컬 `whoami` 결과로 최소 권한을 주장하지 않는다. 다음 승인된 릴리스 전 배포 토큰의 정확한 account/zone 제한, Workers 배포·route 편집·기존 R2 설정 읽기 외 불필요한 권한, GitHub required checks/Secret 접근 범위를 확인한다. 토큰 재발급·Secret 교체·원격 보호 규칙 변경은 별도 승인 범위다.
+
 ## 수동 품질 점검
 
 - 모바일/데스크톱, 라이트/다크, reduced motion, keyboard 접근성과 heading 순서
