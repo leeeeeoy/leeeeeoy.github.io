@@ -41,6 +41,7 @@ Guides는 현재 규칙의 원본입니다. 현재 구현 사실은 실제 소�
 - [18 운영 후 공개 이력·설정 감사](archive/work-records/18-post-release-privacy-audit-2026-10-25.md) — 개인정보 정리·Pages 해제·저장소 이름 변경과 잔여 한계
 - [19 문서·하네스와 보안 소스 점검](archive/work-records/19-harness-security-review-2026-10-31.md) — 변경 범위별 검증·문서 CI·부분 보안 감사와 후속 개선
 - [20 보안 개선과 검증](archive/work-records/20-security-improvements-2026-10-31.md) — API 자원 제한·의존성·CI/CSP·Lab 로컬 경계와 릴리스 전 잔여 검증
+- [21 보안 개선 릴리스](archive/work-records/21-security-release-2026-10-31.md) — 운영/Preview 버전·CI·HTTP 확인·롤백 기준과 잔여 검증
 - [기존 포트폴리오 개편 문서](archive/portfolio-renewal/README.md) — 과거 Pages·단일 페이지 제안 포함
 - [최초 모노레포 제안 진입 문서](archive/migration-proposal/00-READ-ME-FIRST.md)
 
