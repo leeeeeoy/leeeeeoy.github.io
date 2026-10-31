@@ -29,7 +29,8 @@ func run(ctx context.Context) error {
 	if err != nil {
 		return errors.New("DB unavailable")
 	}
-	httpClient := &http.Client{Timeout: 3 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}
+	httpClient := localHTTPClient(3 * time.Second)
+	defer httpClient.CloseIdleConnections()
 	service := booking.NewService(
 		db,
 		client.NewScheduler(cfg.peer, httpClient),
@@ -55,4 +56,10 @@ func run(ctx context.Context) error {
 		}
 		return err
 	}
+}
+
+func localHTTPClient(timeout time.Duration) *http.Client {
+	transport := http.DefaultTransport.(*http.Transport).Clone()
+	transport.Proxy = nil
+	return &http.Client{Transport: transport, Timeout: timeout, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}
 }

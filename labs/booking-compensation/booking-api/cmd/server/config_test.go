@@ -25,15 +25,28 @@ func TestStartupConfiguration(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if c.database.MaxConns != 20 || c.address != ":8080" || c.database.ConnConfig.RuntimeParams["lock_timeout"] != "4000" {
+	if c.database.MaxConns != 20 || c.address != "127.0.0.1:8080" || c.database.ConnConfig.RuntimeParams["lock_timeout"] != "4000" {
 		t.Fatal("startup defaults changed")
 	}
-	for _, tc := range []struct{ key, value string }{{"DATABASE_URL", ""}, {"DATABASE_URL", "postgres://lab@remote.invalid:5432/bookings"}, {"DATABASE_URL", "postgres://lab@booking-db:5432/other"}, {"DB_POOL_SIZE", "0"}, {"DB_POOL_SIZE", "101"}, {"DB_POOL_SIZE", "x"}, {"SCHEDULE_URL", "https://remote.invalid"}} {
+	for _, tc := range []struct{ key, value string }{{"LISTEN_ADDR", ":8080"}, {"LISTEN_ADDR", "192.0.2.1:8080"}, {"LISTEN_ADDR", "localhost:8080"}, {"LISTEN_ADDR", "127.0.0.1:0"}, {"LISTEN_ADDR", "127.0.0.1:65536"}, {"DATABASE_URL", ""}, {"DATABASE_URL", "postgres://lab@remote.invalid:5432/bookings"}, {"DATABASE_URL", "postgres://lab@booking-db:5432/other"}, {"DB_POOL_SIZE", "0"}, {"DB_POOL_SIZE", "101"}, {"DB_POOL_SIZE", "x"}, {"SCHEDULE_URL", "https://remote.invalid"}} {
 		t.Run(tc.key+tc.value, func(t *testing.T) {
 			t.Setenv(tc.key, tc.value)
 			if _, err := loadConfig(); err == nil {
 				t.Fatal("invalid startup configuration accepted")
 			}
 		})
+	}
+}
+
+func TestExplicitListenAddresses(t *testing.T) {
+	for key, value := range map[string]string{"DATABASE_URL": "postgres://lab@booking-db:5432/bookings?sslmode=disable", "SCHEDULE_URL": "http://127.0.0.1:8080", "PG_URL": "http://127.0.0.1:8080", "SLACK_URL": "http://127.0.0.1:8080", "DB_POOL_SIZE": ""} {
+		t.Setenv(key, value)
+	}
+	for _, address := range []string{"127.0.0.1:18090", "[::1]:18090", "0.0.0.0:8080"} {
+		t.Setenv("LISTEN_ADDR", address)
+		c, err := loadConfig()
+		if err != nil || c.address != address {
+			t.Fatal(address, err)
+		}
 	}
 }

@@ -28,10 +28,11 @@ x-double: &double
   user: "65532:65532"
   environment:
     PYTHONDONTWRITEBYTECODE: "1"
+    LISTEN_ADDR: "0.0.0.0:8080"
   volumes:
     - ./stubs:/stubs:ro
   healthcheck:
-    test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=1).read()"]
+    test: [CMD, python, -c, "import urllib.request; urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:8080/health', timeout=1).read()"]
     interval: 1s
     timeout: 2s
     retries: 30
@@ -77,6 +78,7 @@ services:
       PG_URL: http://pg:8080
       SLACK_URL: http://slack:8080/hooks/bookings
       DB_POOL_SIZE: "20"
+      LISTEN_ADDR: "0.0.0.0:8080"
     depends_on:
       booking-db: {condition: service_healthy}
       pg: {condition: service_healthy}
@@ -92,6 +94,7 @@ services:
       BOOKING_URL: http://booking-api:8080
       SLACK_URL: http://slack:8080/hooks/schedules
       DB_POOL_SIZE: "20"
+      LISTEN_ADDR: "0.0.0.0:8080"
     depends_on:
       schedule-db: {condition: service_healthy}
       slack: {condition: service_healthy}

@@ -1,10 +1,23 @@
+import os
 import unittest
 from unittest.mock import patch
+from http_server import listen_address
 from pg import Payments
 from slack import Webhooks
 
 
 class Dependencies(unittest.TestCase):
+    def test_loopback_default_and_explicit_container_bind(self):
+        with patch.dict(os.environ, {}, clear=True):
+            self.assertEqual(listen_address(), ("127.0.0.1", 8080))
+        for value in ("127.0.0.1:18092", "0.0.0.0:8080"):
+            with patch.dict(os.environ, {"LISTEN_ADDR": value}):
+                self.assertEqual(listen_address(), (value.split(":")[0], int(value.split(":")[1])))
+        for value in (":8080", "localhost:8080", "192.0.2.1:8080", "127.0.0.1:0", "127.0.0.1:65536", "127.0.0.1:no"):
+            with patch.dict(os.environ, {"LISTEN_ADDR": value}):
+                with self.assertRaises(ValueError):
+                    listen_address()
+
     def test_payment_approval_failure_and_refund_once(self):
         pg = Payments()
         self.assertEqual(pg.request("POST", "/payments/a/success", {"amount": 60})[:3:2], (201, 1))

@@ -1,7 +1,17 @@
 """Bounded local HTTP plumbing shared by the two external doubles."""
+import ipaddress
+import os
 import json
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+
+def listen_address():
+    host, port = os.environ.get("LISTEN_ADDR", "127.0.0.1:8080").rsplit(":", 1)
+    ip = ipaddress.IPv4Address(host)
+    if not 1 <= int(port) <= 65535 or (not ip.is_loopback and host != "0.0.0.0"):
+        raise ValueError("loopback or explicit container wildcard required")
+    return host, int(port)
 
 
 def serve(state):
@@ -39,4 +49,4 @@ def serve(state):
         request_queue_size = 256
         daemon_threads = True
 
-    Server(("0.0.0.0", 8080), Handler).serve_forever()
+    Server(listen_address(), Handler).serve_forever()

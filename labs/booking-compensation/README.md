@@ -134,6 +134,12 @@ go run ./cmd/server
 
 각 프로젝트의 `.env.example`은 합성 로컬 주소만 포함한다. 두 서버 모두 종료한 뒤 `docker compose start schedule-api booking-api`로 Docker 실행에 복귀한다.
 
+## 로컬 실행의 네트워크 경계
+
+Go 서버와 PG/Slack 더블의 기본 listen 주소는 `127.0.0.1:8080`이다. 직접 실행할 때는 `.env.example`의 loopback 포트를 사용한다. Docker Compose만 컨테이너 내부 통신을 위해 `LISTEN_ADDR=0.0.0.0:8080`을 명시하며 호스트 publish는 기존 `127.0.0.1`을 유지한다. wildcard 주소를 호스트에서 쓰면 LAN에 노출되므로 복사하지 않는다. 인증 없는 실험용 API를 공개 서버로 재사용하지 않는다.
+
+Go의 의존성·health HTTP client와 더블 health probe는 환경 프록시를 우회한다. 의존성 client는 redirect도 따르지 않는다. 허용된 내부 서비스 호스트의 DNS·Docker 네트워크를 신뢰하는 로컬 실험이며, 이것이 공개 서비스의 인증·SSRF 방어 전체를 대신하지는 않는다. `go-load-test`는 기존 numeric loopback 제한과 proxy 차단이 있어 이번에 변경하지 않았다.
+
 ## 직접 API 따라가기
 
 깨끗한 합성 fixture 또는 아직 사용하지 않은 `demo` ID에서 실행한다. 사용자 200·자원 200은 자동 검증의 burst와 겹치지 않는다.

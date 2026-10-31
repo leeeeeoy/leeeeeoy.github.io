@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"net"
 	"net/url"
 	"os"
 	"strconv"
@@ -43,7 +44,14 @@ func loadConfig() (config, error) {
 	c.database = cfg
 	c.address = os.Getenv("LISTEN_ADDR")
 	if c.address == "" {
-		c.address = ":8080"
+		c.address = "127.0.0.1:8080"
+	}
+	host, port, err := net.SplitHostPort(c.address)
+	ip := net.ParseIP(host)
+	number, portErr := strconv.Atoi(port)
+	// Containers explicitly opt in to IPv4 wildcard; standalone defaults to loopback.
+	if err != nil || portErr != nil || number < 1 || number > 65535 || ip == nil || (!ip.IsLoopback() && host != "0.0.0.0") {
+		return c, errors.New("numeric loopback or explicit container wildcard listen address required")
 	}
 	if c.peer, err = localURL(os.Getenv("BOOKING_URL")); err != nil {
 		return c, err
