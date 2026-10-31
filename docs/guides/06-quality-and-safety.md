@@ -81,6 +81,12 @@ Web/API의 공유 `CLOUDFLARE_FRONTEND_API_TOKEN`은 기존 통합 결정을 유
 - Clarity 동의(동의 전 미로딩), R2 이미지, 리다이렉션/SEO 경로
 - `apps/web/scripts/check-deployment.mjs` 사용 시 경로와 검사 주소를 실제 구성에 맞게 확인
 
+## 브라우저 보안 헤더
+
+Static Assets의 `_headers`는 frame/object 차단과 함께 `base-uri 'none'`, `form-action 'none'`, `script-src-attr 'none'`를 적용한다. 현재 UI는 네트워크 form 제출·HTML inline event 속성·base 태그가 필요 없다. 구조 안내의 `form method="dialog"`는 문서 이동 없이 대화상자만 닫는다. 배포 검증 스크립트도 세 directive를 확인한다.
+
+이것은 전체 script allowlist가 아니다. 초기 테마 inline script와 동의 후 Clarity script는 기존대로 허용된다. `script-src`를 더 제한하려면 테마 bootstrap 및 실제 Clarity 하위 요청을 별도 Preview에서 검사하고 hash/허용 출처를 결정한다. 로컬 헤더 검사를 운영 CSP 또는 실제 Clarity 수집 검증으로 보고하지 않는다.
+
 ## 콘텐츠 보안/개인정보
 
 - [기존 공개 승인 원칙](../archive/portfolio-renewal/05-privacy-and-content-policy.md)을 계승한다. 역사 문서의 이메일 전면 금지와 달리 이번 기능 보존 범위는 기존 공개 연락처를 그대로 유지한다. 새 주소 공개·원본 이력서 수입은 승인하지 않는다.

@@ -82,6 +82,15 @@ for (const path of [
     /frame-ancestors 'none'/,
     path,
   )
+  for (const directive of ['base-uri', 'form-action', 'script-src-attr']) {
+    assert.ok(
+      response.headers
+        .get('content-security-policy')
+        .split(';')
+        .some((value) => value.trim() === `${directive} 'none'`),
+      `${path}: ${directive}`,
+    )
+  }
   assert.match(response.headers.get('cache-control'), /max-age=0/, path)
   const body = await response.text()
   assert.ok(
