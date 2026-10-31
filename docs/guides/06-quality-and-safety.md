@@ -61,6 +61,12 @@ go test -race ./...  # race 분석이 가능한 플랫폼/설정에서
 - 변경 경로별 CI 트리거: `apps/web/**` + `content/lab/**` + `content/writing/**` → Web QA/배포, `apps/api/**` → Backend QA/배포. Entry·Guide·하네스 검사 변경 → Harness QA만 실행한다. `labs/**`·docs/templates-only는 두 앱 workflow 대상이 아니다. Lab 전용 CI는 현재 없으므로 실험별 로컬 검사를 기록한다.
 - GitHub Actions에서는 PR에 배포하지 않는다. 기존 main=Production, develop=Preview 의미 유지.
 
+## 의존성과 CI 유지
+
+2026-10-31 Web lockfile의 개발 도구 경로에서 [minimatch GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249)가 확인되어 `<11.0.1`에만 정확한 `11.0.1` override를 적용했다. 브라우저 런타임 취약점이나 실제 공격 가능성을 확인했다는 뜻은 아니다. 상위 ESLint/TypeScript ESLint의 `^10.2.x` 범위를 넘으므로 lint·전체 Web 검사로 호환성을 확인하고, 상위가 패치 범위를 수용하면 override를 제거한다. `npm audit fix --force`의 구버전 downgrade 제안은 적용하지 않는다.
+
+`npm audit --package-lock-only --ignore-scripts` 결과는 조회 시점의 공개 권고 정보이며 취약점 부재를 보장하지 않는다. API와 Web lockfile을 각각 조회한다. 기존 Undici/Zod override도 같은 원칙으로 유지한다.
+
 ## 수동 품질 점검
 
 - 모바일/데스크톱, 라이트/다크, reduced motion, keyboard 접근성과 heading 순서
