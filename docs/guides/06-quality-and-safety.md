@@ -2,6 +2,20 @@
 
 ## 기본 검증 범위
 
+변경한 영역과 실제 파급 범위에 맞춰 아래 검사를 선택한다. 문서 전용 변경 때문에 앱 전체 빌드나 원격 접속을 자동으로 시작하지 않는다. 의존성 설치는 일반 개발의 준비 단계이며, 보안 감사 중에는 스킬의 실행 격리·오프라인 조건을 먼저 따른다.
+
+### 문서·에이전트 하네스만 변경
+
+저장소 루트에서 실행한다. 추가 패키지는 필요 없다.
+
+```bash
+python3 scripts/check_docs.py
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s scripts -p 'test_*.py'
+git diff --check
+```
+
+링크 검사는 현재 Entry·Guide의 인라인 Markdown 링크에 대해 로컬 파일 존재와 저장소 내부 경계를 확인한다. 외부 URL·앵커·코드 예시·reference형 링크·Archive 내부의 역사적 링크는 검사하지 않는다. 앱의 실제 동작이나 비밀정보 부재를 증명하는 검사는 아니다. `.github/workflows/harness-ci.yml`이 링크 검사와 하네스 테스트를 실행하며 배포 job은 없다. `git diff --check`는 로컬 변경을 마무리할 때 실행한다.
+
 ### Web (`apps/web/`)
 
 ```bash
@@ -44,7 +58,7 @@ go test -race ./...  # race 분석이 가능한 플랫폼/설정에서
 - 웹 라우트: `/`, `/portfolio/`, `/lab/`, `/writing/`, 글 상세 및 404/호환 route
 - Portfolio 기존 경력/프로젝트 자료 회귀 검사
 - 개인정보·토큰 커밋 방지(`.gitignore` + git diff 검토; 향후 필요 시 secret scan)
-- 변경 경로별 CI 트리거: `apps/web/**` + `content/lab/**` + `content/writing/**` → Web QA/배포, `apps/api/**` → Backend QA/배포. `labs/**`·docs/templates-only는 두 앱 workflow 대상이 아니다. Lab 전용 CI는 현재 없으므로 실험별 로컬 검사를 기록한다.
+- 변경 경로별 CI 트리거: `apps/web/**` + `content/lab/**` + `content/writing/**` → Web QA/배포, `apps/api/**` → Backend QA/배포. Entry·Guide·하네스 검사 변경 → Harness QA만 실행한다. `labs/**`·docs/templates-only는 두 앱 workflow 대상이 아니다. Lab 전용 CI는 현재 없으므로 실험별 로컬 검사를 기록한다.
 - GitHub Actions에서는 PR에 배포하지 않는다. 기존 main=Production, develop=Preview 의미 유지.
 
 ## 수동 품질 점검
@@ -80,8 +94,8 @@ go test -race ./...  # race 분석이 가능한 플랫폼/설정에서
 
 검증 실패 시 성공이라고 요약하지 않고 원인과 복구 방법을 먼저 제시한다. CI 또는 문서 검증이 반복적으로 깨지는 규칙만 실행 가능한 검사로 승격한다.
 
-## 로컬 단계의 배포 경계
+## 현재 작업과 과거 이전 단계의 배포 경계
 
-Phase 1 구조 이전·Phase 2 페이지·Phase 3 콘텐츠·Phase 4 실험과 초안은 로컬 작업·검증만 승인되었다. migration branch는 main/develop workflow push 대상이 아니고 PR은 배포하지 않는다. docs/templates/labs-only 변경은 앱 workflow 대상이 아니다. 구조 이전 전체를 main에 반영하면 두 앱과 두 workflow가 바뀌어 웹·API deploy가 모두 대상이 되므로, 실제 main 반영 전에 별도 배포 승인을 받는다. 배포 조건을 임의로 바꾸거나 테스트를 비활성화하지 않는다.
+Phase 1~4의 로컬 작업 제한은 당시 승인 범위다. 이후 모노레포가 운영에 반영된 상태는 [이전 기록의 후속 상태](04-migration-plan.md)에 구분했다. 현재 작업은 사용자 요청과 AGENTS를 따르며 과거의 일회성 배포 승인을 재사용하지 않는다. PR에는 배포하지 않고, docs/templates/labs-only 변경은 앱 workflow 대상이 아니다. Web/API 변경을 main/develop에 push하면 해당 배포 workflow가 실행될 수 있으므로 push·배포 승인과 영향을 함께 확인한다. 배포 조건을 임의로 바꾸거나 테스트를 비활성화하지 않는다.
 
 Phase 2에서 기본 경로·Notes·없는 경로 UI와 양언어 App 렌더링 검사를 구현했다. 실제 Chrome 검증과 Phase 1에서 이어지는 미검증 범위는 [Phase 2 기록](../archive/work-records/11-phase2-pages-record-2026-10-14.md)에 구분했다. Phase 3에서 Markdown 계약·글 상세·초안 dist 제외·실패 빌드 검사를 추가했다. [Phase 3 기록](../archive/work-records/12-phase3-content-record-2026-10-14.md)에 로컬 검사와 잔여 위험을 구분한다.

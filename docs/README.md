@@ -24,6 +24,7 @@
 | Lab 운영·실험 신뢰성                             | [05 Lab 운영 기준](guides/05-lab-practices.md)                                                                         |
 | 테스트·CI·보안·개인정보                          | [06 품질과 안전](guides/06-quality-and-safety.md)                                                                      |
 | 향후 기능 검토                                   | [07 향후 고려사항](guides/07-future-considerations.md) — 현재 구현 승인이 아님                                         |
+| 문서·하네스 수정, 진단·리뷰·보안 점검 절차 선택 | [08 에이전트 작업과 검증](guides/08-agent-workflow.md) |
 | 새 연구 계획·승인·실행·분석·Brief·이해 대화·재개 | [14 Understanding-First Lab Workflow](guides/14-engineering-lab-workflow.md)                                           |
 
 Guides는 현재 규칙의 원본입니다. 현재 구현 사실은 실제 소스·설정을 기준으로 판단합니다. 운영 상태는 배포 시점에 별도로 확인하며 로컬 검사를 운영 검증으로 대체하지 않습니다.
@@ -38,6 +39,7 @@ Guides는 현재 규칙의 원본입니다. 현재 구현 사실은 실제 소�
 - [15 Harness 적용 검토](archive/work-records/15-engineering-lab-harness-review-2026-10-15.md), [16 공개·커밋 준비 점검](archive/work-records/16-precommit-review-2026-10-15.md)
 - [17 Git 이력·산출물 감사](archive/work-records/17-git-artifact-audit-2026-10-24.md) — 결과 로컬 보존·브랜치 이력 정리 범위와 한계
 - [18 운영 후 공개 이력·설정 감사](archive/work-records/18-post-release-privacy-audit-2026-10-25.md) — 개인정보 정리·Pages 해제·저장소 이름 변경과 잔여 한계
+- [19 문서·하네스와 보안 소스 점검](archive/work-records/19-harness-security-review-2026-10-31.md) — 변경 범위별 검증·문서 CI·부분 보안 감사와 후속 개선
 - [기존 포트폴리오 개편 문서](archive/portfolio-renewal/README.md) — 과거 Pages·단일 페이지 제안 포함
 - [최초 모노레포 제안 진입 문서](archive/migration-proposal/00-READ-ME-FIRST.md)
 

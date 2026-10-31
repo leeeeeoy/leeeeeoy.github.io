@@ -13,6 +13,7 @@ Home/Portfolio/Lab/Writing과 Notes 호환 경로, Markdown 목록·상세를 �
 3. 해당 변경 범위의 문서 및 실제 소스 코드만 읽는다. **모든 문서를 매번 읽지 않는다.**
 4. 모노레포 이전 작업이면 [active plan](docs/exec-plans/active/site-migration.md)의 현재 단계만 진행한다.
 5. 새 기술 질문을 탐구할 때는 [Lab Workflow](docs/guides/14-engineering-lab-workflow.md)를 따른다. 기본은 계획 후 승인 대기이며 승인된 범위는 다시 묻지 않는다. 결과는 핵심 답→원리→근거로 전달하고 이해 대화는 선택 사항이다. 후속 연구·초안·공개 승인은 구분한다.
+6. 진단·리뷰·문서·보안 점검은 [작업별 검증 안내](docs/guides/08-agent-workflow.md)에서 해당 절차만 선택한다. 설치된 모든 스킬이나 전체 작업 모드를 중첩하지 않는다.
 
 ## 절대 지킬 규칙
 
@@ -38,8 +39,8 @@ Home/Portfolio/Lab/Writing과 Notes 호환 경로, Markdown 목록·상세를 �
 
 ## 작업 종료 조건
 
-1. [품질 문서](docs/guides/06-quality-and-safety.md)의 실제 명령 실행: 웹 lint/format:check/test/typecheck/build, API test/typecheck, 실제 Go 실험이 있을 때 go test/race
-2. 경로·콘텐츠·링크·프리뷰 접근 제어 회귀 확인
+1. [품질 문서](docs/guides/06-quality-and-safety.md)의 변경 범위별 검사 실행: 문서·하네스만 바꾸면 링크 검사와 하네스 자체 테스트, Web/API/Go 변경은 해당 영역의 검사. 실행 불가 원인과 미검증을 기록한다.
+2. 변경이 영향을 주는 경로·콘텐츠·링크·접근 제어 회귀를 확인한다. 로컬 검사를 운영·실제 장비 검증으로 보고하지 않는다.
 3. 결과 보고에 **변경 파일 / 실행한 검사 / 미검증 항목 / 다음 단계** 포함
 4. 문서와 코드가 불일치하면 같이 수정하거나 차이를 명시
 

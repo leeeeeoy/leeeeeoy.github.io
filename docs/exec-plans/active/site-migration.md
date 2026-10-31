@@ -1,5 +1,7 @@
 # Execution Plan — Personal Space Migration
 
+> 이 계획의 Phase별 체크박스와 아래 상태는 당시 실행 기록이다. 2026-10-25 모노레포 운영 반영·저장소 이름 변경의 후속 상태는 [이전 지침](../../guides/04-migration-plan.md)에 구분돼 있다. 현재 구조·작업 권한은 [AGENTS](../../../AGENTS.md)와 현재 사용자 요청을 따른다. 과거의 미검증·공개 보류 기록을 소급해 완료 처리하지 않는다.
+
 - **상태:** Phase 4 완료(로컬·초안) / 릴리스 승인 대기 / push·PR·배포 금지
 - **범위:** 기존 포트폴리오 + Lab + Writing 모노레포 정리
 - **소스:** `leeeeeoy/leeeeeoy.github.io` main (실작업 시작 시 최신 커밋 확인)

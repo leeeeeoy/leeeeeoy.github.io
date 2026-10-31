@@ -1,0 +1,41 @@
+name: Harness CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - 'README.md'
+      - 'ARCHITECTURE.md'
+      - 'docs/**'
+      - 'templates/**'
+      - 'scripts/**'
+      - '.github/workflows/harness-ci.yml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - 'README.md'
+      - 'ARCHITECTURE.md'
+      - 'docs/**'
+      - 'templates/**'
+      - 'scripts/**'
+      - '.github/workflows/harness-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check maintained documentation links
+        run: python3 scripts/check_docs.py
+      - name: Test the documentation checker
+        run: python3 -B -m unittest discover -s scripts -p 'test_*.py'

@@ -2,13 +2,13 @@
 
 2026-10-25 후속 상태: 모노레포는 운영에 반영됐으며 저장소는 `leeeeeoy/personal-space`로 변경했다. 구형 GitHub Pages는 해제했다. 아래 Phase 0~4의 repo 이름 고정·로컬 작업 제한은 당시 승인 범위이며, 이후 운영·이름 변경·개인정보 이력 정리는 별도 사용자 승인을 받았다. 현재 릴리스 절차는 [프로젝트 README](../../README.md), 집계 계약은 [API README](../../apps/api/README.md)를 따른다.
 
-## 전제
+## 당시 이전 작업의 전제
 
 - **원본:** `leeeeeoy/leeeeeoy.github.io` (React SPA + Workers Static Assets), 운영 도메인 `leeeeeoy.xyz`.
 - **확정:** 기존 GitHub repo·origin·이력을 유지하고 로컬 루트를 `leeeeeoy/`로 전환. `migration/phase1-monorepo` 브랜치에서 수행하며 main/develop은 변경하지 않는다.
-- **현재 승인 범위:** Phase 4·Harness 구현 이후 문서 정리·공개 위험 점검·검증·로컬 커밋. 실험 결과와 첫 초안은 사용자 결정으로 커밋을 보류한다. Phase 1 구조와 기존 경력 데이터·Portfolio 인터랙션·Notes 주소를 보존한다. push·PR·main/develop 병합·배포·원격 이름/URL·리소스 변경은 금지.
+- **당시 승인 범위:** Phase 4·Harness 구현 이후 문서 정리·공개 위험 점검·검증·로컬 커밋. 실험 결과와 첫 초안은 사용자 결정으로 커밋을 보류했다. 아래의 migration branch·이름 고정·로컬 작업 제한은 당시 실행 기록이며, 현재 작업의 권한은 사용자 요청과 [AGENTS](../../AGENTS.md)를 따른다. 결과·초안의 공개 보류는 별도 승인 전까지 유지한다.
 
-## 합의한 Git 이전 전략
+## 당시 합의한 Git 이전 전략
 
 기존 모든 refs의 bundle과 작업 트리·비공개 자산/상위 문서 백업을 저장소 밖 소유자 전용 경로에 만든다. bundle 복원 작업본에서 refs·fsck·파일 hash를 검증한 뒤 새 migration branch에 경로 이전을 기록한다. 검증한 작업본을 최종 루트에 적용하고 원본 중첩 저장소는 비공개 backup 위치에 보존한다. 원본 `.git`만 승격하거나 상위 `git init` 후 중첩 repo를 add하지 않는다.
 

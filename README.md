@@ -130,10 +130,13 @@ fast-forward 동기화하며, develop이 main보다 앞선 상태를 되돌리�
 ```text
 사용자 ──▶ Workers Static Assets (React SPA) ──▶ R2 (공개 이미지)
                     │
-                    └─ 이전 API Worker·D1 설정 (Frontend는 호출하지 않음)
+                    └─ /api/visits ──▶ API Worker ──▶ 기존 D1
 ```
 
+방문 합계는 읽기 전용으로 조회하며, 등록은 새 분석 동의가 있을 때만 수행합니다. Preview는 격리 D1 합계만 읽습니다. 경력·글은 API에서 가져오지 않습니다.
+
 현재 지침은 [AGENTS](AGENTS.md), 경계는 [ARCHITECTURE](ARCHITECTURE.md), 상세 문서는 [docs 인덱스](docs/README.md)를 참고합니다.
+작업별 진단·리뷰·보안 점검과 문서 전용 검사는 [에이전트 작업 안내](docs/guides/08-agent-workflow.md)를 따릅니다.
 이전 판단은 [역사 문서](docs/archive/portfolio-renewal/README.md), 실행 근거는 [Phase 1 기록](docs/archive/work-records/10-phase1-migration-record-2026-10-14.md)에 보존합니다.
 
 ## Workers 운영
