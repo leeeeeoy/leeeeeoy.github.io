@@ -22,7 +22,8 @@ is limited to `leeeeeoy.xyz/api/visits`; Workers.dev and version URLs are disabl
   fingerprinting is used.
 - A daily HttpOnly/SameSite=Lax cookie helps deduplicate after an IP change.
   Secure is enabled in production. The cookie expires at KST midnight.
-- Expired key rows are deleted on the next registration; with no traffic, deletion
+- Each accepted registration deletes at most 128 expired key rows using the expiry
+  index; remaining rows are cleaned on later registrations. With no traffic, deletion
   is delayed. Daily aggregate rows remain for cumulative totals.
 - Shared IPs can undercount; simultaneous IP+cookie changes can overcount.
   Obvious bot User-Agents are excluded, but spoofed automation is not prevented.
@@ -32,6 +33,27 @@ is limited to `leeeeeoy.xyz/api/visits`; Workers.dev and version URLs are disabl
 - Frontend totals are snapshots on load/consent changes, not a real-time dashboard.
   It does not record on Preview. Failed/malformed API responses hide the counter,
   never replace statistics with invented zeros. The first genuine empty DB is 0.
+
+## Resource admission
+
+GET and POST share a native Worker rate-limit binding: an initial **600 requests
+per 60 seconds per Cloudflare location**, using a single `visits` key without IPs
+or other identifiers. Denied requests return 429 with `Retry-After: 60` before
+D1/crypto/cookie work; a missing or failed binding returns 503. DELETE remains
+available for consent withdrawal. This shared budget can also reject legitimate
+visitors during abuse; the frontend hides unavailable statistics.
+
+This is approximate, eventually consistent admission, **not a global billing cap**.
+GET still aggregates daily rows, and accepted writes can create two daily keys.
+The threshold is a conservative initial setting, not a measured traffic limit.
+Before release, verify both namespace IDs are unused by other Workers in the
+account; production and Preview must use separate namespaces. Review D1
+`rows_read`/`rows_written`, storage and rejection rate after an approved release.
+If traffic or abuse exceeds this boundary, first add a scoped edge rule and
+reassess the budget/aggregate strategy. No hard quota or scheduled deletion is
+claimed by this change.
+
+See [Workers Rate Limiting](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/).
 
 ## Local development
 
@@ -120,7 +142,8 @@ names are unchanged. Historical archive URLs describe their original context.
 Workers tests use the official `@cloudflare/vitest-plugin` with Vitest 4.
 The plugin isolates D1 storage per test file; `beforeEach` explicitly clears the
 synthetic visit tables and failure trigger so each test starts independently.
-All 13 existing checks remain enabled, including concurrent requests and rollback.
+Existing concurrency and rollback checks remain enabled, alongside admission,
+bounded cleanup and independent HMAC fixture checks.
 `type: module` is required to load the ESM-only plugin configuration.
 
 Both apps and CI use Wrangler 4.152.0. The package overrides select patched

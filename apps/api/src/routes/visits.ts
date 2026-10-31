@@ -31,19 +31,12 @@ function allowedOrigin(origin: string | undefined, environment: string) {
 }
 
 async function fingerprint(
-  secret: string,
+  key: CryptoKey,
   day: string,
   kind: string,
   value: string,
 ) {
   const encoder = new TextEncoder();
-  const key = await crypto.subtle.importKey(
-    "raw",
-    encoder.encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"],
-  );
   const signature = await crypto.subtle.sign(
     "HMAC",
     key,
@@ -57,6 +50,18 @@ async function fingerprint(
 router.use("*", async (c, next) => {
   c.header("Cache-Control", "no-store");
   c.header("X-Content-Type-Options", "nosniff");
+  if (["GET", "POST"].includes(c.req.method)) {
+    try {
+      // shortcut: per-location admission is approximate; add edge/global controls if needed.
+      const { success } = await c.env.VISIT_REQUEST_LIMITER.limit({ key: "visits" });
+      if (!success) {
+        c.header("Retry-After", "60");
+        return c.json({ error: "Visit request limit reached" }, 429);
+      }
+    } catch {
+      return c.json({ error: "Visit counter unavailable" }, 503);
+    }
+  }
   await next();
 });
 
@@ -87,21 +92,29 @@ router.post("/", async (c) => {
   const day = koreaDay(now);
   const saved = getCookie(c, cookieName);
   const browser = saved && uuid.test(saved) ? saved : crypto.randomUUID();
-  const [ipHash, browserHash] = await Promise.all([
-    fingerprint(c.env.VISIT_HASH_SECRET, day, "ip", ip),
-    fingerprint(c.env.VISIT_HASH_SECRET, day, "browser", browser),
-  ]);
   const expiry = Date.parse(`${day}T00:00:00+09:00`) + 24 * 60 * 60 * 1000;
   try {
+    const key = await crypto.subtle.importKey(
+      "raw",
+      new TextEncoder().encode(c.env.VISIT_HASH_SECRET),
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["sign"],
+    );
+    const [ipHash, browserHash] = await Promise.all([
+      fingerprint(key, day, "ip", ip),
+      fingerprint(key, day, "browser", browser),
+    ]);
     // One D1 transaction: decide, increment, then refresh both dedup keys.
     const result = await c.env.DB.batch<{
       today: number;
       total: number;
       since: string | null;
     }>([
-      c.env.DB.prepare("DELETE FROM visit_keys WHERE expires_at <= ?").bind(
-        now,
-      ),
+      c.env.DB.prepare(
+        `DELETE FROM visit_keys WHERE key_hash IN
+          (SELECT key_hash FROM visit_keys WHERE expires_at <= ? LIMIT 128)`,
+      ).bind(now),
       c.env.DB.prepare(
         "INSERT OR IGNORE INTO visit_days(day, visits) VALUES (?, 0)",
       ).bind(day),

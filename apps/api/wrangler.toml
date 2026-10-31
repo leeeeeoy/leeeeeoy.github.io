@@ -15,6 +15,12 @@ binding = "BUCKET"
 bucket_name = "leeeeeoy-portfolio-assets"
 # binding name in Worker code: BUCKET
 
+# Approximate per-location budget, shared by GET/POST. Verify namespace uniqueness before release.
+[[ratelimits]]
+name = "VISIT_REQUEST_LIMITER"
+namespace_id = "2026103101"
+simple = { limit = 600, period = 60 }
+
 [vars]
 ENVIRONMENT = "production"
 ASSETS_BASE_URL = "https://assets.leeeeeoy.xyz"
@@ -43,3 +49,8 @@ database_id = "a28888a2-9bcc-4d90-9bae-498576ddf772"
 [[env.preview.routes]]
 pattern = "preview-portfolio.leeeeeoy.xyz/api/visits"
 zone_name = "leeeeeoy.xyz"
+
+[[env.preview.ratelimits]]
+name = "VISIT_REQUEST_LIMITER"
+namespace_id = "2026103102"
+simple = { limit = 600, period = 60 }

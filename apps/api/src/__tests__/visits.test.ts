@@ -52,6 +52,7 @@ describe("visit counter on real local D1", () => {
   });
   afterEach(() => {
     vi.useRealTimers();
+    vi.restoreAllMocks();
   });
   it("GET does not record or create identifiers; initial zero is real", async () => {
     const r = await app.fetch(new Request(`${origin}/api/visits`), bindings);
@@ -201,5 +202,72 @@ describe("visit counter on real local D1", () => {
     expect(response.status).toBe(204);
     expect(response.headers.get("Set-Cookie")).toMatch(/Max-Age=0/);
     expect(await stats()).toMatchObject({ total: 1 });
+  });
+  it("rejects excess reads and writes before D1 work or cookie creation", async () => {
+    const prepare = vi.spyOn(bindings.DB, "prepare");
+    const limiter = { limit: vi.fn(async () => ({ success: false })) };
+    const limited = { ...bindings, VISIT_REQUEST_LIMITER: limiter };
+    const read = await app.fetch(new Request(`${origin}/api/visits`), limited);
+    const write = await visit("192.0.2.1", "", {}, limited);
+    for (const response of [read, write]) {
+      expect(response.status).toBe(429);
+      expect(response.headers.get("Retry-After")).toBe("60");
+      expect(response.headers.get("Set-Cookie")).toBeNull();
+    }
+    expect(prepare).not.toHaveBeenCalled();
+    expect(limiter.limit).toHaveBeenNthCalledWith(1, { key: "visits" });
+    expect(limiter.limit).toHaveBeenNthCalledWith(2, { key: "visits" });
+    expect(await stats()).toMatchObject({ total: 0 });
+  });
+  it("fails closed on admission errors but still permits consent withdrawal", async () => {
+    const prepare = vi.spyOn(bindings.DB, "prepare");
+    const limiter = {
+      limit: vi.fn(async () => {
+        throw new Error("forced admission failure");
+      }),
+    };
+    const unavailable = { ...bindings, VISIT_REQUEST_LIMITER: limiter };
+    expect((await visit("192.0.2.1", "", {}, unavailable)).status).toBe(503);
+    expect(prepare).not.toHaveBeenCalled();
+    limiter.limit.mockClear();
+    const withdrawal = await app.fetch(
+      new Request(`${origin}/api/visits`, {
+        method: "DELETE",
+        headers: { Origin: origin },
+      }),
+      unavailable,
+    );
+    expect(withdrawal.status).toBe(204);
+    expect(withdrawal.headers.get("Set-Cookie")).toMatch(/Max-Age=0/);
+    expect(limiter.limit).not.toHaveBeenCalled();
+  });
+  it("imports one request-scoped HMAC key and preserves known fingerprints", async () => {
+    const imports = vi.spyOn(crypto.subtle, "importKey");
+    await visit(
+      "192.0.2.123",
+      "leeeeeoy_visit=11111111-1111-4111-8111-111111111111",
+    );
+    expect(imports).toHaveBeenCalledTimes(1);
+    const rows = await bindings.DB.prepare("SELECT key_hash FROM visit_keys").all();
+    expect(rows.results.map((row) => row.key_hash).sort()).toEqual([
+      "95792b9a92434abdd42e4939e8de41d6c55e934f2e3593d183ebff48a59f3ccc",
+      "a98a2490bc12ead79a1bd9422b5592988ed9cd1f5ddeb4087f3e5ae9b2549099",
+    ]);
+  });
+  it("bounds expired-key cleanup without changing current-day counts", async () => {
+    await bindings.DB.batch(
+      Array.from({ length: 300 }, (_, n) =>
+        bindings.DB.prepare(
+          "INSERT INTO visit_keys VALUES (?, 0, ?)",
+        ).bind(`expired-${n}`, Date.now() - 1),
+      ),
+    );
+    expect((await visit()).status).toBe(200);
+    expect(
+      (await bindings.DB.prepare(
+        "SELECT COUNT(*) n FROM visit_keys WHERE expires_at <= ?",
+      ).bind(Date.now()).first())!.n,
+    ).toBe(172);
+    expect(await stats()).toMatchObject({ total: 1, today: 1 });
   });
 });
